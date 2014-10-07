@@ -1,3 +1,4 @@
+alias starwars='telnet towel.blinkenlights.nl'
 alias stat='git status'
 alias add='git add .'
 alias commit='git commit -m'
