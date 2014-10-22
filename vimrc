@@ -17,7 +17,6 @@ Plugin 'scrooloose/syntastic'          " Syntax help in the sidebar and statusli
 Plugin 'mileszs/ack.vim'               " Ack functionality in vim
 Plugin 'zhaocai/GoldenView.Vim'        " Window manager
 Plugin 'mikewest/vimroom'              " Distraction free writing
-Plugin 'ervandew/supertab'             " Code tab completion
 
 
 call vundle#end()
@@ -33,6 +32,7 @@ nmap <silent> ,/ :nohlsearch<CR>
 nnoremap <leader>a :Ack                
 "nnoremap <leader>mb :call Processdoc()<CR>
 nnoremap <C-b> :call Processdoc()<CR>
+map <F5> <ESC>:! pdflatex %<CR>
 
 " Easy window navigation
 map <C-h> <C-w>h                       " Move to window left
@@ -96,7 +96,7 @@ set gdefault                           " Globally substitutes as default
 " Colorscheme
 """""""""""""""""""""""""""
 set background=dark
-colorscheme hybrid
+colorscheme jellybeans
 
 
 """""""""""""""""""""""""""
@@ -125,7 +125,7 @@ if has("gui_running")
     set lines=999 columns=999
     let g:airline_theme = 'understated'
     set background=light
-    colorscheme github
+    colorscheme solarized
 else
     " settings for Terminal
     let g:airline_left_sep          = '⮀'
