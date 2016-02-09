@@ -96,7 +96,7 @@ set gdefault                           " Globally substitutes as default
 " Colorscheme
 """""""""""""""""""""""""""
 set background=dark
-colorscheme jellybeans
+colorscheme hybrid
 
 
 """""""""""""""""""""""""""
