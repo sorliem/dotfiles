@@ -1,6 +1,7 @@
 # dotfiles
 
-Repository of all my dotfiles. Uses [GNU Stow](https://www.gnu.org/software/stow/) to manage symlinks.
+Uses [GNU Stow](https://www.gnu.org/software/stow/) to manage symlinking to the
+correct place on the file system.
 
 ## Fresh install
 
@@ -16,3 +17,14 @@ fresh install of all scripts:
 ```bash
 ./clean-env
 ```
+
+## Individual stow/unstow
+
+Sometimes it is useful to stow and unstow individual folders
+
+```bash
+cd $DOTFILES
+stow -D nvim # delete the symlinks
+stow nvim    # make the symlinks
+```
+
