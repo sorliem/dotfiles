@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+# From https://github.com/ThePrimeagen/.dotfiles/blob/e2a01c86e98c54992ca75e8e8d56083df35b0578/install
+pushd $DOTFILES
+for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
+do
+    stow -D $folder
+    stow $folder
+done
+popd
