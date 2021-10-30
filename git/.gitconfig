@@ -2,7 +2,12 @@
     email = deckm@protonmail.com
     name = Miles Sorlie
     signingkey = 19A4133CACE34689
+
 [pager]
     branch = false
+
 [commit]
     gpgsign = true
+
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
