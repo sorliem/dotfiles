@@ -164,7 +164,8 @@ nnoremap : ;
 nnoremap Y y$
 
 " Ctrl-P to open fuzzy file finder
-nnoremap <C-P> :GFiles<CR>
+" nnoremap <C-P> :GFiles<CR>
+nnoremap <C-P> :lua require("telescope.builtin").git_files()<CR>
 
 " use tabs to move through buffers
 nnoremap <TAB> :bnext<CR>
