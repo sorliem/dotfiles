@@ -1,13 +1,18 @@
+local actions = require('telescope.actions')
+
 require('telescope').setup{
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
+    file_sorter = require("telescope.sorters").get_fzf_sorter,
+    prompt_prefix = " >>",
+    color_devicons = true,
     mappings = {
       i = {
         -- map actions.which_key to <C-h> (default: <C-/>)
         -- actions.which_key shows the mappings for your picker,
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<C-h>"] = "which_key"
+        ["<esc>"] = actions.close
       }
     }
   },
@@ -26,6 +31,12 @@ require('telescope').setup{
     --   extension_config_key = value,
     -- }
     -- please take a look at the readme of the extension you want to configure
+    fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+    }
   }
 }
 
