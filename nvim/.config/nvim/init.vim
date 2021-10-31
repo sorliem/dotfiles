@@ -1,12 +1,6 @@
-" source ~/.vimrc
-
 """""""""""""""""""""""""""""""""""""""
 " VIM-PLUG
 """""""""""""""""""""""""""""""""""""""
-
-set nocompatible
-filetype off
-
 let g:plug_url_format='git@github.com:%s.git'
 
 call plug#begin()
@@ -30,7 +24,6 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
-" Plug 'morhetz/gruvbox'
 Plug 'gruvbox-community/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
@@ -299,22 +292,12 @@ nnoremap <leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
 """""""""""""""""""""""""""""""""""""""
 " ABBREVIATIONS
 """""""""""""""""""""""""""""""""""""""
-iabbrev ins IO.inspect(, label: "")
-iabbrev gmem OnXGPS.Account.Membership.for_account(account, app: app)
 iabbrev gnow DateTime.utc_now()
 iabbrev gshift DateTime.utc_now() \|> Timex.shift()
-iabbrev teh the
-
-" type out commit message for daily/staging
-" imap dplds update daily & staging to <esc>"+po<cr>deploy to daily & staging<esc>4bi
-
-" type out commit message for production deploy
-" imap dplp update prod to <esc>"+po<cr>deploy to production<esc>2bi
 
 """""""""""""""""""""""""""""""""""""""
 " SNIPPETS
 """""""""""""""""""""""""""""""""""""""
-" print IO.inspect(, label: "")
 nnoremap \ins :-1read $HOME/.vim/.snippets/io-inspect.snippet<CR>V=^4ei
 inoremap \ins <esc><CR>:-1read $HOME/.vim/.snippets/io-inspect.snippet<CR>V=^4ei
 
