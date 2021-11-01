@@ -2,11 +2,12 @@ local actions = require('telescope.actions')
 
 require('telescope').setup{
   defaults = {
-    -- Default configuration for telescope goes here:
-    -- config_key = value,
     file_sorter = require("telescope.sorters").get_fzf_sorter,
     prompt_prefix = " > ",
     color_devicons = true,
+    preview = {
+        filesize_limit = 10
+    },
     file_ignore_patterns = {
         ".git"
     },
@@ -15,7 +16,9 @@ require('telescope').setup{
         -- map actions.which_key to <C-h> (default: <C-/>)
         -- actions.which_key shows the mappings for your picker,
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
+        ["<C-Down>"] = require('telescope.actions').cycle_history_next,
+        ["<C-Up>"] = require('telescope.actions').cycle_history_prev
       }
     }
   },
