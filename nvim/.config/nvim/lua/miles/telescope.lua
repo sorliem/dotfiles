@@ -5,8 +5,11 @@ require('telescope').setup{
     -- Default configuration for telescope goes here:
     -- config_key = value,
     file_sorter = require("telescope.sorters").get_fzf_sorter,
-    prompt_prefix = " >>",
+    prompt_prefix = " > ",
     color_devicons = true,
+    file_ignore_patterns = {
+        ".git"
+    },
     mappings = {
       i = {
         -- map actions.which_key to <C-h> (default: <C-/>)
