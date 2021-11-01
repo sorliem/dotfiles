@@ -157,10 +157,6 @@ nnoremap : ;
 " make Y behave like other captial letters
 nnoremap Y y$
 
-" Ctrl-P to open fuzzy file finder
-" nnoremap <C-P> :GFiles<CR>
-" nnoremap <C-P> :lua require("telescope.builtin").git_files()<CR>
-
 " use tabs to move through buffers
 nnoremap <TAB> :bnext<CR>
 nnoremap <S-TAB> :bprevious<CR>
@@ -189,12 +185,6 @@ vnoremap > >gv
 " without overwriting the default register with what was
 " just erased
 vnoremap <leader>p "_dP
-
-" use hjkl to resize windows (not working?)
-nnoremap <M-j>   :resize -2<CR>
-nnoremap <M-k>   :resize +2<CR>
-nnoremap <M-h>   :vertical resize -2<CR>
-nnoremap <M-l>   :vertical resize +2<CR>
 
 " shortcut to edit init.vim
 nnoremap <leader>ev :edit $MYVIMRC<CR>
@@ -387,9 +377,6 @@ let &packpath = &runtimepath
 " load lua files
 lua require("miles")
 
-" get rid of weird characters...
-let &t_TI = ""
-let &t_TE = ""
 
 function! TrimWhitespace()
     let l:save = winsaveview()
