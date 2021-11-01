@@ -1,4 +1,3 @@
-lua print("hello from plugin/harpoon.vim")
 lua require("miles")
 
 nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
