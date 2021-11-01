@@ -165,7 +165,7 @@ nnoremap Y y$
 
 " Ctrl-P to open fuzzy file finder
 " nnoremap <C-P> :GFiles<CR>
-nnoremap <C-P> :lua require("telescope.builtin").git_files()<CR>
+" nnoremap <C-P> :lua require("telescope.builtin").git_files()<CR>
 
 " use tabs to move through buffers
 nnoremap <TAB> :bnext<CR>
@@ -235,14 +235,8 @@ nnoremap <leader>br :bufdo e!<CR>
 " search for strings in all buffers
 nnoremap <leader>l :Lines<CR>
 
-" search for strings in all current buffer
-nnoremap <leader>bl :BLines<CR>
-
-" show buffers in floating menu
-nnoremap <leader>B :Buffers<CR>
-
-" show buffers in floating menu
-nnoremap <leader><leader> :Buffers<CR>
+" " search for strings in all current buffer
+" nnoremap <leader>bl :BLines<CR>
 
 " Fugitive status
 nnoremap <silent> <Leader>gs :Git<CR>
@@ -266,7 +260,7 @@ nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 nnoremap <leader>hh :noh<CR>
 
 " bring up BLines window
-nnoremap // :BLines<CR>
+" nnoremap // :BLines<CR>
 
 " search for word under cursor with, sublime text 2 style
 nmap     <C-F>f <Plug>CtrlSFPrompt
@@ -279,16 +273,14 @@ nnoremap <C-F>t :CtrlSFToggle<CR>
 
 cnoremap :fmtjson :%!python -m json.tool
 
-cmap :Gcommit :Git commit
-
 " Harpoon
-nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
-nnoremap <leader>he :lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <leader>hy :lua require("harpoon.cmd-ui").toggle_quick_menu()<CR>
-nnoremap <leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
+" nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
+" nnoremap <leader>he :lua require("harpoon.ui").toggle_quick_menu()<CR>
+" nnoremap <leader>hy :lua require("harpoon.cmd-ui").toggle_quick_menu()<CR>
+" nnoremap <leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
+" nnoremap <leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
+" nnoremap <leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
+" nnoremap <leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
 
 """""""""""""""""""""""""""""""""""""""
 " ABBREVIATIONS
@@ -424,6 +416,7 @@ endfunction
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 
+" load lua files
 lua require("miles")
 
 let g:netrw_browse_split = 2
