@@ -85,7 +85,7 @@ set nowrap
 set smartcase
 set nobackup
 set list
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↵
 set relativenumber
 set ruler
 set hidden               " hide the buffer if not saved instead of unloading it
