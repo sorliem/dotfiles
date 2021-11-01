@@ -424,6 +424,8 @@ endfunction
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 
+lua require("miles")
+
 let g:netrw_browse_split = 2
 
 let g:netrw_banner=0        " disable annoying banner
