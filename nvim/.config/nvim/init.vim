@@ -107,14 +107,19 @@ set scrolloff=0
 set cursorline
 set cursorcolumn
 set colorcolumn=80
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
 
 highlight ColorColumn ctermbg=0 guibg=darkgrey
 highlight CursorLine ctermbg=Black
 
 if exists('+termguicolors')
+    " https://github.com/vim/vim/issues/993#issuecomment-255651605
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+    set termguicolors
 endif
+
 let g:gruvbox_invert_selection='0'
 
 " colorscheme PaperColor
@@ -134,10 +139,6 @@ let g:gruvbox_contrast_dark = 'soft'
 " colorscheme solarized
 " let g:solarized_termcolors=256
 
-" make gruvbox light look correct
-if (has("termguicolors"))
-  set termguicolors
-endif
 """""""""""""""""""""""""""""""""""""""
 " MAPPINGS
 """""""""""""""""""""""""""""""""""""""
@@ -327,17 +328,8 @@ endfunction
 " VARIABLES
 """""""""""""""""""""""""""""""""""""""
 
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-
 " load lua files
 lua require("miles")
-
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
 
 let g:startify_lists = [
         \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
@@ -354,6 +346,12 @@ let g:startify_change_to_dir = 0
 """""""""""""""""""""""""""""""""""""""
 " AUTOCMD
 """""""""""""""""""""""""""""""""""""""
+
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
 
 " only have cursorline set on active window
 autocmd WinLeave * set nocursorline
