@@ -12,13 +12,7 @@ Plug 'junegunn/fzf.vim'
 
   let $FZF_DEFAULT_COMMAND="rg --files --hidden --color=ansi"
 
-Plug 'junegunn/goyo.vim'
-  let g:goyo_width=120
-
 Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vim-github-dashboard'
-  let g:github_dashboard = { 'username': 'sorliem' }
-
 Plug 'elixir-editors/vim-elixir'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'jremmen/vim-ripgrep'
@@ -244,12 +238,6 @@ nnoremap <silent> <Leader>gs :Git<CR>
 " Fugitive blame
 nnoremap <silent> <Leader>gb :Git blame<CR>
 
-" Fugitive checkout
-nnoremap <silent> <Leader>gc :GCheckout<CR>
-
-" search files
-"nnoremap <silent> <Leader>sf :call Fzf_dev()<CR>
-
 " toggle NERDTree
 nnoremap <Leader>nt :NERDTreeToggle<Enter>
 
@@ -259,9 +247,6 @@ nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 " get rid of highlighting
 nnoremap <leader>hh :noh<CR>
 
-" bring up BLines window
-" nnoremap // :BLines<CR>
-
 " search for word under cursor with, sublime text 2 style
 nmap     <C-F>f <Plug>CtrlSFPrompt
 
@@ -270,23 +255,6 @@ nmap     <C-F>w <Plug>CtrlSFCwordPath<CR>
 
 " toggle the CtrlSF search results window
 nnoremap <C-F>t :CtrlSFToggle<CR>
-
-cnoremap :fmtjson :%!python -m json.tool
-
-" Harpoon
-" nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
-" nnoremap <leader>he :lua require("harpoon.ui").toggle_quick_menu()<CR>
-" nnoremap <leader>hy :lua require("harpoon.cmd-ui").toggle_quick_menu()<CR>
-" nnoremap <leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
-" nnoremap <leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
-" nnoremap <leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
-" nnoremap <leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
-
-"""""""""""""""""""""""""""""""""""""""
-" ABBREVIATIONS
-"""""""""""""""""""""""""""""""""""""""
-iabbrev gnow DateTime.utc_now()
-iabbrev gshift DateTime.utc_now() \|> Timex.shift()
 
 """""""""""""""""""""""""""""""""""""""
 " SNIPPETS
@@ -418,14 +386,6 @@ let &packpath = &runtimepath
 
 " load lua files
 lua require("miles")
-
-let g:netrw_browse_split = 2
-
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
-let g:netrw_altv=1          " open splits to the right
-" let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
 
 " get rid of weird characters...
 let &t_TI = ""
