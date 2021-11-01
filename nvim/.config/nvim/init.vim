@@ -60,17 +60,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 
-  " Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
-
-filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""
 " BASIC CONFIGURATION
@@ -99,9 +96,7 @@ set t_Co=256             " 256 terminal colors
 set showcmd              " show command in status bar
 set wildmenu             " graphical menu for tab completion
 set showmatch
-set ttyfast
 set ttimeoutlen=50
-"set paste                " paste properly
 set nofoldenable         " dont fold code blocks
 set splitright
 set splitbelow
@@ -193,7 +188,7 @@ nnoremap <leader>ev :edit $MYVIMRC<CR>
 nnoremap <leader>rv :so $MYVIMRC<CR>
 
 " shortcut to edit .alacritty.yml
-nnoremap <leader>ea :edit ~/.config/alacritty/alacritty.yml<CR>
+nnoremap <leader>ea :edit $HOME/.config/alacritty/alacritty.yml<CR>
 
 " delete buffer
 nnoremap <leader>d :bd<CR>
@@ -215,12 +210,6 @@ vnoremap <leader>c "+y<CR>
 
 " reload all buffers from disk
 nnoremap <leader>br :bufdo e!<CR>
-
-" search for strings in all buffers
-nnoremap <leader>l :Lines<CR>
-
-" " search for strings in all current buffer
-" nnoremap <leader>bl :BLines<CR>
 
 " Fugitive status
 nnoremap <silent> <Leader>gs :Git<CR>
@@ -320,39 +309,6 @@ if executable('rg')
 endif
 
 
-" Files + devicons
-function! Fzf_dev()
-  let l:fzf_files_options = '--preview "bat --theme="ansi-dark" --style=numbers,changes,header,grid --color always {2..-1} | head -'.&lines.'"'
-
-  function! s:files()
-    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
-    return s:prepend_icon(l:files)
-  endfunction
-
-  function! s:prepend_icon(candidates)
-    let l:result = []
-    for l:candidate in a:candidates
-      let l:filename = fnamemodify(l:candidate, ':p:t')
-      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
-      call add(l:result, printf('%s %s', l:icon, l:candidate))
-    endfor
-
-    return l:result
-  endfunction
-
-  function! s:edit_file(item)
-    let l:pos = stridx(a:item, ' ')
-    let l:file_path = a:item[pos+1:-1]
-    execute 'silent e' l:file_path
-  endfunction
-
-  call fzf#run({
-        \ 'source': <sid>files(),
-        \ 'sink':   function('s:edit_file'),
-        \ 'options': '-m ' . l:fzf_files_options,
-        \ 'down':    '40%' })
-endfunction
-
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
@@ -376,7 +332,6 @@ let &packpath = &runtimepath
 
 " load lua files
 lua require("miles")
-
 
 function! TrimWhitespace()
     let l:save = winsaveview()
