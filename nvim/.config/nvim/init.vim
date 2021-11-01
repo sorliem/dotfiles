@@ -5,11 +5,9 @@ let g:plug_url_format='git@github.com:%s.git'
 
 call plug#begin()
 
-" junegunn
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
   let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
-
   let $FZF_DEFAULT_COMMAND="rg --files --hidden --color=ansi"
 
 Plug 'junegunn/vim-peekaboo'
