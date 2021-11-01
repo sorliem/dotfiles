@@ -19,6 +19,8 @@ Plug 'mbbill/undotree'
 Plug 'gruvbox-community/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
+  let NERDTreeShowHidden=1
+
 Plug 'jlanzarotta/bufexplorer'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
