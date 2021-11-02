@@ -227,6 +227,9 @@ nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 " get rid of highlighting
 nnoremap <leader>hh :noh<CR>
 
+" search over lines in buffer
+nnoremap // :BLines<CR>
+
 " search for word under cursor with, sublime text 2 style
 nmap     <C-F>f <Plug>CtrlSFPrompt
 
