@@ -22,6 +22,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
   let NERDTreeShowHidden=1
+  let g:NERDTreeHijackNetrw=0
 
 Plug 'jlanzarotta/bufexplorer'
 Plug 'airblade/vim-gitgutter'
