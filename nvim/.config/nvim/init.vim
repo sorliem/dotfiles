@@ -27,6 +27,7 @@ Plug 'vim-airline/vim-airline'
   " to truncate all path sections but the last one, e.g. a branch
   " 'foo/bar/baz' becomes 'f/b/baz', use
   let g:airline#extensions#branch#format = 2
+  let g:airline_theme = 'minimalist'
 
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
