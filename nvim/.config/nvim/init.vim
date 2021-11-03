@@ -1,6 +1,8 @@
 """""""""""""""""""""""""""""""""""""""
 " VIM-PLUG
 """""""""""""""""""""""""""""""""""""""
+set path+=**
+
 let g:plug_url_format='git@github.com:%s.git'
 
 call plug#begin()
