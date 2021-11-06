@@ -70,6 +70,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
+Plug 'simrat39/symbols-outline.nvim'
 
 call plug#end()
 
