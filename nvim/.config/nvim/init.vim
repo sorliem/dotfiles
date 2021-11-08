@@ -64,6 +64,9 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
@@ -71,6 +74,13 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
 Plug 'simrat39/symbols-outline.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
 
 call plug#end()
 
@@ -113,6 +123,7 @@ set cursorline
 set cursorcolumn
 set colorcolumn=80
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
+set completeopt=menu,menuone,noselect
 
 highlight ColorColumn ctermbg=0 guibg=darkgrey
 highlight CursorLine ctermbg=Black
