@@ -255,6 +255,8 @@ nmap     <C-F>w <Plug>CtrlSFCwordPath<CR>
 " toggle the CtrlSF search results window
 nnoremap <C-F>t :CtrlSFToggle<CR>
 
+nnoremap <leader>gt :GoTest<CR>
+
 """""""""""""""""""""""""""""""""""""""
 " SNIPPETS
 """""""""""""""""""""""""""""""""""""""
