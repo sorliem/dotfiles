@@ -4,6 +4,7 @@
 set path+=**
 
 let g:plug_url_format='git@github.com:%s.git'
+let g:polyglot_disabled = ['elixir']
 
 call plug#begin()
 
@@ -12,6 +13,7 @@ Plug 'junegunn/fzf.vim'
   let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
   let $FZF_DEFAULT_COMMAND="rg --files --hidden --color=ansi"
 
+Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'elixir-editors/vim-elixir'
 Plug 'stsewd/fzf-checkout.vim'
