@@ -287,6 +287,8 @@ setw -g automatic-rename off   # rename window to reflect current program
 set -g mouse on
 set -g mouse-select-pane on
 
+bind-key -r i run-shell "tmux neww tmux-cht.sh"
+
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
