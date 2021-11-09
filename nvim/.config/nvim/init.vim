@@ -124,6 +124,7 @@ set cursorcolumn
 set colorcolumn=80
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set completeopt=menu,menuone,noselect
+set guicursor=i:block
 
 highlight ColorColumn ctermbg=0 guibg=darkgrey
 highlight CursorLine ctermbg=Black
