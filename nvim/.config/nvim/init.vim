@@ -22,6 +22,9 @@ Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'gruvbox-community/gruvbox'
 Plug 'ervandew/supertab'
+Plug 'vuciv/vim-bujo'
+  let g:bujo#window_width = 40
+
 Plug 'scrooloose/nerdtree'
   let NERDTreeShowHidden=1
   let g:NERDTreeHijackNetrw=0
@@ -260,6 +263,13 @@ nmap     <C-F>w <Plug>CtrlSFCwordPath<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 
 nnoremap <leader>gt :GoTest<CR>
+
+" vim-bujo mappings
+nmap <C-S> <Plug>BujoAddnormal
+imap <C-S> <Plug>BujoAddinsert
+
+nmap <C-Q> <Plug>BujoChecknormal
+imap <C-Q> <Plug>BujoCheckinsert
 
 """""""""""""""""""""""""""""""""""""""
 " SNIPPETS
