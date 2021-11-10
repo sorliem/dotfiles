@@ -15,6 +15,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/goyo.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'jremmen/vim-ripgrep'
