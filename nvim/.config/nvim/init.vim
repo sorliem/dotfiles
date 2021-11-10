@@ -33,6 +33,7 @@ Plug 'vim-airline/vim-airline'
   " 'foo/bar/baz' becomes 'f/b/baz', use
   let g:airline#extensions#branch#format = 2
   let g:airline_theme = 'minimalist'
+  let g:airline_disable_statusline = 1
 
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
