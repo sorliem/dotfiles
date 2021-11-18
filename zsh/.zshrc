@@ -192,3 +192,6 @@ if [[ -f "$HOME/Documents/scripts/z.sh" ]]; then
 fi
 
 # export LS_COLORS=$LS_COLORS:'di=0;35:'
+
+# don't auto-cd into a dir by typing its name
+unsetopt AUTO_CD
