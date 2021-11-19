@@ -75,6 +75,7 @@ alias vi='nvim'
 alias j='jobs'
 alias f='pushd'
 alias b='popd'
+alias lua='lua5.3'
 
 #################################
 #             GIT               #
