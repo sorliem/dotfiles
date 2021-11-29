@@ -243,6 +243,8 @@ nnoremap <silent> <Leader>gs :Git<CR>
 " Fugitive blame
 nnoremap <silent> <Leader>gb :Git blame<CR>
 
+nnoremap <Leader>gl1 :read !git log -n 1<CR>ggd4j
+
 " toggle NERDTree
 nnoremap <Leader>nt :NERDTreeToggle<Enter>
 
