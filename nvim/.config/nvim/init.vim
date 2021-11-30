@@ -150,13 +150,13 @@ let g:gruvbox_invert_selection='0'
 " colorscheme PaperColor
 " set background=light
 
+let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 set background=dark
-let g:gruvbox_contrast_dark = 'soft'
 
-" colorscheme gruvbox
 " set background=light
 " let g:gruvbox_contrast_light="hard"
+" colorscheme gruvbox
 
 
 " syntax enable
