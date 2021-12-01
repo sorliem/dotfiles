@@ -53,7 +53,7 @@ Plug 'jpalardy/vim-slime', { 'branch': 'main' }
   endif
 
 Plug 'vimwiki/vimwiki'
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'machakann/vim-highlightedyank'
   let g:highlightedyank_highlight_duration = 500
