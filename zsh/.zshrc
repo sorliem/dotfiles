@@ -182,6 +182,8 @@ export DB_HOSTNAME=localhost
 export PATH="$HOME/bin:$PATH"
 export DOTFILES=$HOME/dotfiles
 
+export PATH="$HOME/.tools/lua-language-server/bin/Linux:$PATH"
+
 # command line copy/paste
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
