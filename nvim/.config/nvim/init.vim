@@ -33,14 +33,6 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'jlanzarotta/bufexplorer'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-  " to truncate all path sections but the last one, e.g. a branch
-  " 'foo/bar/baz' becomes 'f/b/baz', use
-  let g:airline#extensions#branch#format = 2
-  let g:airline_theme = 'minimalist'
-  let g:airline_disable_statusline = 1
-
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
   let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -74,6 +66,9 @@ Plug 'tpope/vim-unimpaired'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
