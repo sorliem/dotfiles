@@ -77,13 +77,16 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
 Plug 'simrat39/symbols-outline.nvim'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
+
+" completion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 call plug#end()
 
