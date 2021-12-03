@@ -18,12 +18,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/goyo.vim'
 Plug 'elixir-editors/vim-elixir'
-Plug 'stsewd/fzf-checkout.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'gruvbox-community/gruvbox'
-Plug 'ervandew/supertab'
 Plug 'vuciv/vim-bujo'
   let g:bujo#window_width = 40
 
@@ -33,7 +31,6 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'jlanzarotta/bufexplorer'
 Plug 'airblade/vim-gitgutter'
-Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
   let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
@@ -69,11 +66,12 @@ Plug 'nvim-treesitter/playground'
 
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ThePrimeagen/harpoon'
 
+" LSP stuff
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
-Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
 Plug 'simrat39/symbols-outline.nvim'
