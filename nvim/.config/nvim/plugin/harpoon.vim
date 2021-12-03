@@ -7,3 +7,8 @@ nnoremap <leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
 nnoremap <leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
 nnoremap <leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
 nnoremap <leader>4 :lua require("harpoon.ui").nav_file(4)<CR>
+
+nnoremap <M-h> :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <M-j> :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <M-k> :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <M-l> :lua require("harpoon.ui").nav_file(4)<CR>
