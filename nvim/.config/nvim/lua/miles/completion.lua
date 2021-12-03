@@ -3,24 +3,18 @@ local cmp = require('cmp')
 local lspkind = require("lspkind")
 
 local source_mapping = {
-    buffer = "[Buffer]",
+    buffer = "[buf]",
     nvim_lsp = "[LSP]",
-    nvim_lua = "[Lua]",
+    nvim_lua = "[api]",
+    luasnip = "[snip]",
     cmp_tabnine = "[TN]",
-    path = "[Path]",
+    path = "[path]",
 }
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            -- For `vsnip` user.
-            -- vim.fn["vsnip#anonymous"](args.body)
-
-            -- For `luasnip` user.
             require("luasnip").lsp_expand(args.body)
-
-            -- For `ultisnips` user.
-            -- vim.fn["UltiSnips#Anon"](args.body)
         end,
     },
     mapping = {
@@ -55,10 +49,16 @@ cmp.setup({
 
     sources = {
         { name = "nvim_lsp" },
+        { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "cmp_tabnine" },
-        { name = "buffer" },
+        { name = "buffer", keyword_length = 5 },
     },
+
+    experimental = {
+        native_menu = false,
+        ghost_text = false
+    }
 })
 
 local tabnine = require('cmp_tabnine.config')
@@ -68,6 +68,9 @@ tabnine:setup({
     sort = true,
     run_on_every_keystroke = true,
     snippet_placeholder = '..',
+    ignored_file_types = {
+        terraform = true
+    }
 })
 local symbols_outline_opts = {
     -- whether to highlight the currently hovered symbol
