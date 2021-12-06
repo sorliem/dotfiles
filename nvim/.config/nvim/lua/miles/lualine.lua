@@ -1,16 +1,15 @@
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'OceanicNext',
+    theme = 'gruvbox',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
     always_divide_middle = true,
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp'}}},
+    lualine_a = {},
+    lualine_b = {},
     lualine_c = {
         {
             'filename',
@@ -18,8 +17,9 @@ require('lualine').setup {
         }
     },
     lualine_x = {'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_y = {'branch', 'diff',
+                  {'diagnostics', sources={'nvim_lsp'}}},
+    lualine_z = {'progress'}
   },
   inactive_sections = {
     lualine_a = {},
