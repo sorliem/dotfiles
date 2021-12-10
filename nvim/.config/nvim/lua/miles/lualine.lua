@@ -18,7 +18,7 @@ require('lualine').setup {
     },
     lualine_x = {'filetype'},
     lualine_y = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp'}}},
+                  {'diagnostics', sources={'nvim_diagnostic'}}},
     lualine_z = {'progress'}
   },
   inactive_sections = {
