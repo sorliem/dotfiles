@@ -68,6 +68,9 @@ require('telescope').setup{
                 ["<cr>"] = custom_actions.fzf_multi_select,
                 ["<C-Down>"] = require('telescope.actions').cycle_history_next,
                 ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+                ["<C-w>"] = function()
+                    vim.cmd [[normal! bcw]]
+                end,
             },
             n = {
                 ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
