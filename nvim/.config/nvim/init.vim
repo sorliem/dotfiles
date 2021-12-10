@@ -134,14 +134,6 @@ set backupdir=~/.vim/backups
 highlight ColorColumn ctermbg=0 guibg=darkgrey
 highlight CursorLine ctermbg=Black
 
-if exists('+termguicolors')
-    " https://github.com/vim/vim/issues/993#issuecomment-255651605
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-    set termguicolors
-endif
-
 let g:gruvbox_invert_selection='0'
 
 " colorscheme PaperColor
