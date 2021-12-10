@@ -44,8 +44,6 @@ Plug 'jpalardy/vim-slime', { 'branch': 'main' }
 Plug 'vimwiki/vimwiki'
 " Plug 'mhinz/vim-startify'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'machakann/vim-highlightedyank'
-  let g:highlightedyank_highlight_duration = 500
 
 Plug 'dyng/ctrlsf.vim'
 Plug 'cespare/vim-toml'
@@ -351,11 +349,15 @@ function! s:gitUntracked()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""
-" VARIABLES
+" LUA
 """""""""""""""""""""""""""""""""""""""
 
 " load lua files
 lua require("miles")
+
+"""""""""""""""""""""""""""""""""""""""
+" VARIABLES
+"""""""""""""""""""""""""""""""""""""""
 
 let g:startify_lists = [
         \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
@@ -387,5 +389,5 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 augroup highlight_yank
     autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 30)
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=250}
 augroup END
