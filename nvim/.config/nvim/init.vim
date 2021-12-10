@@ -136,22 +136,20 @@ highlight CursorLine ctermbg=Black
 
 let g:gruvbox_invert_selection='0'
 
-" colorscheme PaperColor
 " set background=light
+" colorscheme PaperColor
 
 let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
 
-" set background=light
 " let g:gruvbox_contrast_light="hard"
+" set background=light
 " colorscheme gruvbox
 
-
-" syntax enable
+" let g:solarized_termcolors=256
 " set background=dark
 " colorscheme solarized
-" let g:solarized_termcolors=256
 
 """""""""""""""""""""""""""""""""""""""
 " MAPPINGS
