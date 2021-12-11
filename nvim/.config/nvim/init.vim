@@ -241,6 +241,7 @@ nnoremap <leader>hh :noh<CR>
 
 " search over lines in buffer
 nnoremap // :BLines<CR>
+" nnoremap // :lua require('telescope.builtin').current_buffer_fuzzy_find{}<CR>
 
 " search for word under cursor with, sublime text 2 style
 nmap     <C-F>f <Plug>CtrlSFPrompt
