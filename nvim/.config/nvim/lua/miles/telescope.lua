@@ -1,4 +1,5 @@
 local actions = require('telescope.actions')
+local action_layout = require('telescope.actions.layout')
 
 require('telescope').setup{
     defaults = {
@@ -50,6 +51,7 @@ require('telescope').setup{
                 ["<s-tab>"] = actions.toggle_selection + actions.move_selection_next,
                 ["<C-Down>"] = require('telescope.actions').cycle_history_next,
                 ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+                ["<M-p>"] = action_layout.toggle_preview,
                 ["<C-w>"] = function()
                     vim.cmd [[normal! bcw]]
                 end,
@@ -57,6 +59,7 @@ require('telescope').setup{
             n = {
                 ["<tab>"] = actions.toggle_selection + actions.move_selection_previous,
                 ["<s-tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<M-p>"] = action_layout.toggle_preview,
             }
         }
     },
