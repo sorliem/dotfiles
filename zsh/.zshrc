@@ -67,6 +67,7 @@ source $ZSH/oh-my-zsh.sh
 #       GENERAL ALIASES         #
 #################################
 alias vim='nvim'
+alias ivm='nvim'
 alias ll='lsd -la --color=never'
 alias ls='lsd --color=never'
 alias sl='ls'
