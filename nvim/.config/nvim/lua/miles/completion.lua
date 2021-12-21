@@ -72,16 +72,8 @@ tabnine:setup({
         terraform = true
     }
 })
-local symbols_outline_opts = {
-    -- whether to highlight the currently hovered symbol
-    -- disable if your cpu usage is higher than you want it
-    -- or you just hate the highlight
-    -- default: true
-    highlight_hovered_item = true,
 
-    -- whether to show outline guides
-    -- default: true
-    show_guides = true,
+vim.g.symbols_outline = {
+    highlight_hovered_item = false,
+    width = 50,
 }
-
-require("symbols-outline").setup(symbols_outline_opts)
