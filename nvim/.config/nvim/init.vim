@@ -388,13 +388,6 @@ autocmd WinEnter * set cursorline
 
 autocmd BufWritePre * :call TrimWhitespace()
 
-" Checks if there is a file open after Vim starts up,
-" and if not, open the current working directory in Netrw.
-augroup InitNetrw
-  autocmd!
-  autocmd VimEnter * if expand("%") == "" | edit . | endif
-augroup END
-
 augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=250}
