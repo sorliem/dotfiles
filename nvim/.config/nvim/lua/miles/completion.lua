@@ -51,7 +51,7 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
-        { name = "cmp_tabnine" },
+        -- { name = "cmp_tabnine" },
         { name = "buffer", keyword_length = 5 },
     },
 
