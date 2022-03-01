@@ -1,7 +1,7 @@
 -- most config stolen from https://github.com/ThePrimeagen/.dotfiles/blob/master/nvim/.config/nvim/lua/theprimeagen/lsp.lua
 
 require('lspkind').init({
-    with_text = true,
+    mode = 'symbol_text',
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
