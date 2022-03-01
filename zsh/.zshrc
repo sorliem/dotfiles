@@ -128,7 +128,7 @@ export PATH="$HOME/.mix/escripts:$PATH"
 
 export PATH="$PATH:protoc-gen-elixir"
 
-export PATH="$PATH:/usr/lib/elixir/1.10.4/bin"
+export PATH="$PATH:/usr/lib/elixir/1.11.4/bin"
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
