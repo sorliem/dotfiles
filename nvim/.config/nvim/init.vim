@@ -231,6 +231,9 @@ nnoremap <silent> <Leader>gs :Git<CR>
 " Fugitive blame
 nnoremap <silent> <Leader>gb :Git blame<CR>
 
+" Fugitive diff master
+nnoremap <silent> <Leader>gd :Git diff master..HEAD<CR>:only<CR>
+
 nnoremap <Leader>gl1 :read !git log -n 1<CR>?commit<CR>d3j
 
 " toggle NERDTree
