@@ -186,6 +186,9 @@ nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 vnoremap < <gv
 vnoremap > >gv
 
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " greatest remap ever (per the primagen)
 " in visual mode, paste what is in the default register
 " without overwriting the default register with what was
