@@ -1,16 +1,6 @@
--- require("luasnip.loaders.from_snipmate").load({ paths = {"./snippets"}})
-
 if vim.g.snippets ~= "luasnip" then
-  print "NOT SETTING UP LUASNIPS"
   return
 end
-
-local function write_to_file(content)
-    local file = io.open("/tmp/snipoutput", "a")
-    file:write(content .. "\n")
-    file:close()
-end
-
 
 local ls = require("luasnip")
 local snippet = ls.s
@@ -68,12 +58,8 @@ ls.add_snippets("go", go_snippets)
 -- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
-    write_to_file("\n=========================")
-    -- print("IN EXPAND FUNCTION")
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()
-    -- else
-        -- print("NOT JUMPABLE")
     end
 end, { silent = true })
 
