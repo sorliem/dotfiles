@@ -398,3 +398,6 @@ augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=250}
 augroup END
+
+autocmd BufNewFile,BufRead *.ex,*.exs set syntax=elixir
+autocmd BufNewFile,BufRead *.eex set syntax=eelixir
