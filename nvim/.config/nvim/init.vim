@@ -148,6 +148,8 @@ colorscheme gruvbox
 " let g:solarized_termcolors=256
 " set background=dark
 " colorscheme solarized
+"
+let g:rustfmt_autosave = 1
 
 """""""""""""""""""""""""""""""""""""""
 " MAPPINGS
