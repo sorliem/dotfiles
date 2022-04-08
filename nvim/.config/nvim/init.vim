@@ -101,6 +101,7 @@ set nobackup
 set list
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↵
 set relativenumber
+" set termguicolors
 set ruler
 set hidden               " hide the buffer if not saved instead of unloading it
 set laststatus=2         " always show the status bar
@@ -137,6 +138,7 @@ let g:gruvbox_invert_selection='0'
 " set background=light
 " colorscheme PaperColor
 
+let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
 set background=dark
 colorscheme gruvbox
