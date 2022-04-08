@@ -75,6 +75,8 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main
 " Plug 'simrat39/symbols-outline.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'L3MON4D3/LuaSnip'
+  let g:snippets = "luasnip"
+
 Plug 'rafamadriz/friendly-snippets'
 
 " completion

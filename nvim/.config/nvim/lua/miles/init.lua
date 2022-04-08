@@ -2,6 +2,7 @@ require("miles.telescope")
 require("miles.lsp")
 require("miles.lualine")
 require("miles.completion")
+require("miles.snippets")
 
 P = function(v)
   print(vim.inspect(v))
