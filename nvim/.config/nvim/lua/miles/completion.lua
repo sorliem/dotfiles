@@ -1,15 +1,7 @@
 -- setup nvim-cmp
 local cmp = require('cmp')
 local lspkind = require("lspkind")
-
-local source_mapping = {
-    buffer = "[buf]",
-    nvim_lsp = "[LSP]",
-    nvim_lua = "[api]",
-    luasnip = "[snip]",
-    cmp_tabnine = "[TN]",
-    path = "[path]",
-}
+lspkind.init()
 
 cmp.setup({
     snippet = {
@@ -33,18 +25,17 @@ cmp.setup({
     },
 
     formatting = {
-        format = function(entry, vim_item)
-            vim_item.kind = lspkind.presets.default[vim_item.kind]
-            local menu = source_mapping[entry.source.name]
-            if entry.source.name == 'cmp_tabnine' then
-                if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-                    menu = entry.completion_item.data.detail .. ' ' .. menu
-                end
-                vim_item.kind = ''
-            end
-            vim_item.menu = menu
-            return vim_item
-        end
+        format = lspkind.cmp_format {
+            with_text = true,
+            menu = {
+                buffer = "[buf]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[api]",
+                luasnip = "[snip]",
+                cmp_tabnine = "[TN]",
+                path = "[path]",
+            }
+        }
     },
 
     sources = {
@@ -60,6 +51,7 @@ cmp.setup({
         ghost_text = false,
     }
 })
+
 
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
@@ -77,3 +69,14 @@ vim.g.symbols_outline = {
     highlight_hovered_item = false,
     width = 50,
 }
+
+-- nvim-cmp highlight groups.
+-- local Group = require("colorbuddy.group").Group
+-- local g = require("colorbuddy.group").groups
+-- local s = require("colorbuddy.style").styles
+
+-- Group.new("CmpItemAbbr", g.Comment)
+-- Group.new("CmpItemAbbrDeprecated", g.Error)
+-- Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
+-- Group.new("CmpItemKind", g.Special)
+-- Group.new("CmpItemMenu", g.NonText)
