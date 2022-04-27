@@ -289,6 +289,8 @@ set -g mouse on
 
 bind-key -r i run-shell "tmux neww tmux-cht.sh"
 
+set-option -sa terminal-overrides ',screen-256color:RGB'
+
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
@@ -338,3 +340,5 @@ bind-key -n M-9 select-window -t 9
 # move windows left/right
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
+
+bind-key -r f run-shell "tmux neww ~/.local/bin/tmux-sessionizer"
