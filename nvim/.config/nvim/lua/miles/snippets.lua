@@ -39,7 +39,7 @@ local lua_snippets = {
 }
 
 local elixir_snippets = {
-    snippet("ins", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })),
+    snippet("ins", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), rep(1) })),
     snippet("pins", fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
     snippet("mdoc", fmt('@moduledoc """\n{}\n"""', { i(1) })),
     snippet("test", fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
@@ -47,7 +47,7 @@ local elixir_snippets = {
 }
 
 local go_snippets = {
-
+    snippet("fmt", fmt('fmt.Printf("{}", {})', { i(1, "str"), i(2, "replacements") }))
 }
 
 ls.add_snippets("all", all_snippets)
@@ -78,6 +78,29 @@ vim.keymap.set("i", "<c-j>", function()
         ls.change_choice()
     end
 end)
+
+local snippets_paths = function()
+	local plugins = { "friendly-snippets" }
+	local paths = {}
+	local path
+	local root_path = vim.env.HOME .. "/.vim/plugged/"
+	for _, plug in ipairs(plugins) do
+		path = root_path .. plug
+		if vim.fn.isdirectory(path) ~= 0 then
+			table.insert(paths, path)
+		end
+	end
+	return paths
+end
+
+require("luasnip.loaders.from_vscode").lazy_load({
+	paths = snippets_paths(),
+	include = nil, -- Load all languages
+	exclude = {},
+})
+
+-- add html snips to elixir templates
+require("luasnip").filetype_extend("eelixir", {"html"})
 
 -- reload snippets easy
 vim.keymap.set("n", "<leader>rs", "<cmd>source ~/.config/nvim/lua/miles/snippets.lua<CR>")
