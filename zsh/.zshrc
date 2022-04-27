@@ -117,6 +117,7 @@ alias chkfmt='docker-compose run --rm xgps mix format --check-formatted'
 alias fmt='docker-compose run --rm xgps mix format'
 alias riex='docker-compose run --rm iex'
 alias dtest='docker-compose run --rm test'
+alias xshort='(cd ~/gitroot/onxmaps/xgps && git rev-parse --short=7 master)'
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export ERL_COMPILER_OPTIONS=bin_opt_info
@@ -194,6 +195,8 @@ export EDITOR="/usr/bin/nvim"
 if [[ -f "$HOME/Documents/scripts/z.sh" ]]; then
     source $HOME/Documents/scripts/z.sh
 fi
+
+bindkey -s ^f "tmux-sessionizer\n"
 
 # export LS_COLORS=$LS_COLORS:'di=0;35:'
 
