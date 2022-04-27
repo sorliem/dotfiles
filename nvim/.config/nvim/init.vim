@@ -4,7 +4,7 @@
 set path+=**
 
 let g:plug_url_format='git@github.com:%s.git'
-let g:polyglot_disabled = ['elixir']
+" let g:polyglot_disabled = ['elixir']
 
 call plug#begin()
 
@@ -77,7 +77,6 @@ Plug 'onsails/lspkind-nvim'
 Plug 'L3MON4D3/LuaSnip'
   let g:snippets = "luasnip"
 
-Plug 'rafamadriz/friendly-snippets'
 
 " completion
 Plug 'hrsh7th/nvim-cmp'
@@ -85,6 +84,10 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'rafamadriz/friendly-snippets'
+
+Plug 'tjdevries/colorbuddy.vim'
 
 call plug#end()
 
@@ -103,7 +106,7 @@ set nobackup
 set list
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↵
 set relativenumber
-" set termguicolors
+set termguicolors
 set ruler
 set hidden               " hide the buffer if not saved instead of unloading it
 set laststatus=2         " always show the status bar
@@ -152,8 +155,12 @@ colorscheme gruvbox
 " let g:solarized_termcolors=256
 " set background=dark
 " colorscheme solarized
+
+" let g:solarized_termcolors=256
+" set background=light
+" colorscheme solarized
 "
-let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 1
 
 """""""""""""""""""""""""""""""""""""""
 " MAPPINGS
