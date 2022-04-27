@@ -96,6 +96,14 @@ require('lspconfig').vuels.setup(config({
     },
 }))
 
+require("lspconfig").tsserver.setup(config({
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150
+    },
+}))
+
+
 require("lspconfig").gopls.setup(config({
     cmd = { "gopls", "serve" },
     on_attach = on_attach,
