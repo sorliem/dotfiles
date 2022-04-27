@@ -248,6 +248,8 @@ nnoremap <Leader>nt :NERDTreeToggle<Enter>
 " find current file in tree
 nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 
+nnoremap <Leader>x :call miles#save_and_exec()<CR>
+
 " get rid of highlighting
 nnoremap <leader>hh :noh<CR>
 
