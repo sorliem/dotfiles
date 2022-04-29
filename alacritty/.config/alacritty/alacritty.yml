@@ -163,22 +163,25 @@ font:
     # family: "Hack Nerd Font"
     # family: "Inconsolata Nerd Font"
     # family: "Ubuntu Nerd Font"
-    # family: "JetBrainsMono NF"
+    family: "JetBrainsMono NF"
     # family: "Mononoki Nerd Font"
-    family: "UbuntuMono Nerd Font"
-    style: Regular
+    # family: "UbuntuMono Nerd Font"
+    style: Bold
   bold:
-    family: "UbuntuMono Nerd Font"
+    # family: "UbuntuMono Nerd Font"
+    family: "JetBrainsMono NF"
     style: Bold
   italic:
-    family: "UbuntuMono Nerd Font"
+    family: "JetBrainsMono NF"
+    # family: "UbuntuMono Nerd Font"
     style: Italic
   bold_italic:
-    family: "UbuntuMono Nerd Font"
+    family: "JetBrainsMono NF"
+    # family: "UbuntuMono Nerd Font"
     style: Bold Italic
 
   # Point size
-  size: 16.0
+  size: 13.0
 
   offset:
     x: 0
