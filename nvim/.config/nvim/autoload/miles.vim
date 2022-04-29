@@ -62,13 +62,6 @@ function! miles#update_production()
     call substitute(latest_log, '\([[:alnum:]]\{7}\)[[:alnum:]]\{2}', '\=add(matches, submatch(1))', 'g')
     let @z = matches[0] " pr number
     let @c = matches[1] " git shortsha
-    let @t = 'update production to ,
-                \
-                \ Deploy PR to production
-                \ -
-                \
-                \ Raw diff
-                \ - https://github.com/onXmaps/xgps/compare/,..,'
 
     execute ":edit variables_production.tf"
     norm! 66jvi""cp
