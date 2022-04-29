@@ -162,6 +162,8 @@ colorscheme gruvbox
 "
 " let g:rustfmt_autosave = 1
 
+highlight Normal guibg=NONE ctermbg=NONE
+
 """""""""""""""""""""""""""""""""""""""
 " MAPPINGS
 """""""""""""""""""""""""""""""""""""""
