@@ -138,6 +138,7 @@ set backupdir=~/.vim/backups
 highlight ColorColumn ctermbg=0 guibg=darkgrey
 highlight CursorLine ctermbg=Black
 
+
 let g:gruvbox_invert_selection='0'
 
 " set background=light
@@ -283,24 +284,6 @@ imap <C-S> <Plug>BujoAddinsert
 
 nmap <C-Q> <Plug>BujoChecknormal
 imap <C-Q> <Plug>BujoCheckinsert
-
-"""""""""""""""""""""""""""""""""""""""
-" SNIPPETS
-"""""""""""""""""""""""""""""""""""""""
-nnoremap \ins :-1read $HOME/.vim/.snippets/io-inspect.snippet<CR>V=^4ei
-inoremap \ins <esc><CR>:-1read $HOME/.vim/.snippets/io-inspect.snippet<CR>V=^4ei
-
-" print IO.puts("")
-nnoremap \iop :-1read $HOME/.vim/.snippets/io-puts.snippet<CR>^f"a
-
-" module definition
-nnoremap \mod :-1read $HOME/.vim/.snippets/defmodule.snippet<CR>^whi
-
-" function definition
-nnoremap \def :-1read $HOME/.vim/.snippets/def.snippet<CR>^whi
-
-" generic GenServer module
-nnoremap \genserver :-1read $HOME/.vim/.snippets/genserver.snippet<CR>^whi
 
 """""""""""""""""""""""""""""""""""""""
 " FUNCTIONS
