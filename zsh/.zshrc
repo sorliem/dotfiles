@@ -203,4 +203,4 @@ bindkey -s ^f "tmux-sessionizer\n"
 # don't auto-cd into a dir by typing its name
 unsetopt AUTO_CD
 
-source .work_zshrc
+source ~/.work_zshrc
