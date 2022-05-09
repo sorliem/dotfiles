@@ -44,7 +44,6 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
-        -- { name = "cmp_tabnine" },
         { name = "buffer", keyword_length = 5 },
     },
 
@@ -54,31 +53,7 @@ cmp.setup({
     }
 })
 
-
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-    max_lines = 1000,
-    max_num_results = 20,
-    sort = true,
-    run_on_every_keystroke = true,
-    snippet_placeholder = '..',
-    ignored_file_types = {
-        terraform = true
-    }
-})
-
-vim.g.symbols_outline = {
-    highlight_hovered_item = false,
-    width = 50,
-}
-
--- nvim-cmp highlight groups.
--- local Group = require("colorbuddy.group").Group
--- local g = require("colorbuddy.group").groups
--- local s = require("colorbuddy.style").styles
-
--- Group.new("CmpItemAbbr", g.Comment)
--- Group.new("CmpItemAbbrDeprecated", g.Error)
--- Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
--- Group.new("CmpItemKind", g.Special)
--- Group.new("CmpItemMenu", g.NonText)
+-- vim.g.symbols_outline = {
+--     highlight_hovered_item = false,
+--     width = 50,
+-- }
