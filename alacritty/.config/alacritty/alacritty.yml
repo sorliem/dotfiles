@@ -155,7 +155,7 @@ colors:
 #     cyan:    '0x93a1a1'
 #     white:   '0xfdf6e3'
 
-background_opacity: 0.94
+background_opacity: 0.95
 
 font:
   normal:
@@ -163,20 +163,24 @@ font:
     # family: "Hack Nerd Font"
     # family: "Inconsolata Nerd Font"
     # family: "Ubuntu Nerd Font"
-    family: "JetBrainsMono NF"
+    # family: "JetBrainsMono NF"
+    family: "JetBrains Mono"
     # family: "Mononoki Nerd Font"
     # family: "UbuntuMono Nerd Font"
     style: Bold
   bold:
     # family: "UbuntuMono Nerd Font"
-    family: "JetBrainsMono NF"
-    style: Bold
+    # family: "JetBrainsMono NF"
+    family: "JetBrains Mono"
+    style: Extra Bold
   italic:
-    family: "JetBrainsMono NF"
+    # family: "JetBrainsMono NF"
+    family: "JetBrains Mono"
     # family: "UbuntuMono Nerd Font"
     style: Italic
   bold_italic:
-    family: "JetBrainsMono NF"
+    family: "JetBrains Mono"
+    # family: "JetBrainsMono NF"
     # family: "UbuntuMono Nerd Font"
     style: Bold Italic
 
