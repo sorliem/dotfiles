@@ -7,7 +7,7 @@ require('telescope').setup{
         prompt_prefix = " > ",
         color_devicons = true,
         selection_strategy = "reset",
-        sorting_strategy = "descending",
+        sorting_strategy = "ascending",
         scroll_strategy = "cycle",
         preview = {
             filesize_limit = 10
@@ -19,7 +19,7 @@ require('telescope').setup{
             width = 0.95,
             height = 0.85,
             -- preview_cutoff = 120,
-            prompt_position = "bottom",
+            prompt_position = "top",
 
             horizontal = {
                 preview_width = function(_, cols, _)
