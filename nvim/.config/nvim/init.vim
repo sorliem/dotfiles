@@ -106,7 +106,6 @@ set nobackup
 set list
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↵
 set relativenumber
-set termguicolors
 set ruler
 set hidden               " hide the buffer if not saved instead of unloading it
 set laststatus=2         " always show the status bar
@@ -258,7 +257,14 @@ nnoremap <Leader>nt :NERDTreeToggle<Enter>
 " find current file in tree
 nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 
+" save and exec file
 nnoremap <Leader>x :call miles#save_and_exec()<CR>
+
+" update daily/staging
+nnoremap <Leader>cd :call miles#update_daily()<CR>
+
+" update production
+nnoremap <Leader>cp :call miles#update_production()<CR>
 
 " get rid of highlighting
 nnoremap <leader>hh :noh<CR>
