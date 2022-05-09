@@ -106,6 +106,11 @@ alias stripe_listen_webhook='stripe listen --events=invoice.upcoming,invoice.pay
 # docker stuff
 alias dc='docker-compose'
 
+#################################
+#           TERRAFORM           #
+#################################
+alias tf='terraform'
+
 # fixes issue when doing docker-compose build
 # Follow link in https://github.com/google-github-actions/setup-gcloud/issues/128#issuecomment-663215962
 export LD_LIBRARY_PATH=/usr/local/lib
@@ -185,6 +190,8 @@ export PATH="$HOME/bin:$PATH"
 export DOTFILES=$HOME/dotfiles
 
 export PATH="$HOME/.tools/lua-language-server/bin/Linux:$PATH"
+
+export PATH="$HOME/.tfenv/bin:$PATH"
 
 # command line copy/paste
 alias pbcopy='xclip -selection clipboard'
