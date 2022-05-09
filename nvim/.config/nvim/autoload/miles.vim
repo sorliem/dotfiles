@@ -22,12 +22,12 @@ function! miles#update_daily()
 
     execute ":edit variables_daily.tf"
     " update container_tag line with @c register contents
-    norm! 74jvi""cp
+    norm! 85jvi""cp
     execute ":write"
 
     execute ":edit variables_staging.tf"
     " update container_tag line with @c register contents
-    norm! 66jvi""cp
+    norm! 75jvi""cp
     execute ":write"
 
     execute ":Git"
@@ -64,7 +64,7 @@ function! miles#update_production()
     let @c = matches[1] " git shortsha
 
     execute ":edit variables_production.tf"
-    norm! 66jvi""cp
+    norm! 75jvi""cp
     execute ":write"
 
     execute ":Git"
