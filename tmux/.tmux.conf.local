@@ -343,3 +343,4 @@ bind-key -n C-S-Right swap-window -t +1
 
 bind-key -r f run-shell "tmux neww ~/.local/bin/tmux-sessionizer"
 bind-key -r C-j run-shell "tmux neww ~/.local/bin/tmux-switch-session"
+bind-key -r Space run-shell "tmux neww ~/.local/bin/tmux-switch-session"

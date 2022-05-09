@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-selected=$(tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf)
+selected=$(tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --height=75%)
 
 tmux switch-client -t $selected
