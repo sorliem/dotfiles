@@ -52,8 +52,3 @@ cmp.setup({
         ghost_text = false,
     }
 })
-
--- vim.g.symbols_outline = {
---     highlight_hovered_item = false,
---     width = 50,
--- }
