@@ -264,6 +264,9 @@ nnoremap <Leader>cd :call miles#update_daily()<CR>
 " update production
 nnoremap <Leader>cp :call miles#update_production()<CR>
 
+" run test file
+nnoremap <Leader>rt :call RunElixirTest()<CR>
+
 " get rid of highlighting
 nnoremap <leader>hh :noh<CR>
 
@@ -330,13 +333,32 @@ else
   map <C-l> <C-w>l
 endif
 
+if exists('$TMUX')
+    function! RunElixirTest()
+        let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest " . expand('%:') . "' C-m"
+        echo "Running test " . expand('%:')
+        call system(cmd)
+    endfunction
+endif
+
+nnoremap <Leader>rt :call RunElixirTest()<CR>
+
 if has("persistent_undo")
     " set undodir=$HOME."/.undodir"
     let &undodir=$HOME."/.undodir"
     set undofile
 endif
 
-" ripgrep
+if exists('$TMUX')
+    function! RunElixirTest()
+        let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest " . expand('%:') . "' C-m"
+        echo "Running test " . expand('%:')
+        call system(cmd)
+    endfunction
+endif
+
+nnoremap <Leader>rt :call RunElixirTest()<CR>
+
 if executable('rg')
    command! -bang -nargs=* R
      \ call fzf#vim#grep(
