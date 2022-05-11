@@ -1,7 +1,7 @@
 [user]
-    email = deckm@protonmail.com
+    email = msorlie@protonmail.com
     name = Miles Sorlie
-    signingkey = 19A4133CACE34689
+    signingkey = EADE6928C2DC6DF4
 
 [pager]
     branch = false
