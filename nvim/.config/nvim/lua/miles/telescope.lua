@@ -47,8 +47,8 @@ require('telescope').setup{
             i = {
                 -- close on escape
                 -- ["<esc>"] = actions.close,
-                ["<tab>"] = actions.toggle_selection + actions.move_selection_previous,
-                ["<s-tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
                 ["<C-Down>"] = require('telescope.actions').cycle_history_next,
                 ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
                 ["<M-p>"] = action_layout.toggle_preview,
@@ -57,8 +57,8 @@ require('telescope').setup{
                 end,
             },
             n = {
-                ["<tab>"] = actions.toggle_selection + actions.move_selection_previous,
-                ["<s-tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
+                ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
                 ["<M-p>"] = action_layout.toggle_preview,
             }
         }
