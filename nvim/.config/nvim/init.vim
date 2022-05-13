@@ -250,10 +250,15 @@ nnoremap <silent> <Leader>gd :Git diff master..HEAD<CR>:only<CR>
 nnoremap <Leader>gl1 :read !git log -n 1<CR>?commit<CR>d3j
 
 " toggle NERDTree
-nnoremap <Leader>nt :NERDTreeToggle<Enter>
+" nnoremap <Leader>nt :NERDTreeToggle<Enter>
+nnoremap <Leader>nt :Ex<Enter>
+nnoremap <Leader>e :Ex<Enter>
+
 
 " find current file in tree
-nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
+" nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
+" command! ExploreFind let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
+nnoremap <Leader>nf :let @/=expand("%:t") <Bar> execute 'Hexplore!' expand("%:h") <Bar> normal n<CR>
 
 " save and exec file
 nnoremap <Leader>x :call miles#save_and_exec()<CR>
