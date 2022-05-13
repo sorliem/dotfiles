@@ -208,14 +208,8 @@ vnoremap K :m '<-2<CR>gv=gv
 " just erased
 vnoremap <leader>p "_dP
 
-" shortcut to edit init.vim
-nnoremap <leader>ev :edit $MYVIMRC<CR>
-
 " reload init.vim
 nnoremap <leader>rv :so $MYVIMRC<CR>
-
-" shortcut to edit .alacritty.yml
-nnoremap <leader>ea :edit $HOME/.config/alacritty/alacritty.yml<CR>
 
 " delete buffer
 nnoremap <leader>d :bd<CR>
