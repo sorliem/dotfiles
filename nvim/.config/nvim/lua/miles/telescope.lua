@@ -46,7 +46,7 @@ require('telescope').setup{
         mappings = {
             i = {
                 -- close on escape
-                -- ["<esc>"] = actions.close,
+                ["<esc>"] = actions.close,
                 ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
                 ["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
                 ["<C-Down>"] = require('telescope.actions').cycle_history_next,
