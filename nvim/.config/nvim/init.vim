@@ -112,7 +112,7 @@ set hlsearch             " highlight search results
 set ignorecase
 set undolevels=500       " a lot of undos
 set noswapfile           " no .swp file
-set t_Co=256             " 256 terminal colors
+" set t_Co=256             " 256 terminal colors
 set showcmd              " show command in status bar
 set wildmenu             " graphical menu for tab completion
 set showmatch
@@ -131,6 +131,12 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set completeopt=menu,menuone,noselect
 set guicursor=i:block
 set backupdir=~/.vim/backups
+
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 
 highlight ColorColumn ctermbg=0 guibg=darkgrey
 highlight CursorLine ctermbg=Black
