@@ -272,6 +272,9 @@ nnoremap <Leader>cp :call miles#update_production()<CR>
 " run test file
 nnoremap <Leader>rt :call RunElixirTest()<CR>
 
+" run formatting
+nnoremap <Leader>rf :call miles#run_formatter()<CR>
+
 " get rid of highlighting
 nnoremap <leader>hh :noh<CR>
 
