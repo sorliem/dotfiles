@@ -182,10 +182,6 @@ nnoremap : ;
 " make Y behave like other captial letters
 nnoremap Y y$
 
-" use tabs to move through buffers
-nnoremap <TAB> :bnext<CR>
-nnoremap <S-TAB> :bprevious<CR>
-
 " keeping it centered when jumping around, joining lines
 nnoremap n nzzzv
 nnoremap N Nzzzv
