@@ -6,7 +6,7 @@ local ls = require("luasnip")
 local snippet = ls.s
 local i = ls.insert_node
 local t = ls.text_node
-local f = ls.function_node
+-- local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
 
@@ -17,11 +17,11 @@ ls.config.set_config {
 
 local all_snippets = {
     snippet("simple", t("wow, you were right!")),
-    snippet("date", {
-      f(function()
-        return string.format(string.gsub(vim.bo.commentstring, "%%s", " %%s"), os.date())
-      end, {}),
-    }),
+    -- snippet("date", {
+    --   f(function()
+    --     return string.format(string.gsub(vim.bo.commentstring, "%%s", " %%s"), os.date())
+    --   end, {}),
+    -- }),
 }
 
 local lua_snippets = {
@@ -50,10 +50,48 @@ local go_snippets = {
     snippet("fmt", fmt('fmt.Printf("{}", {})', { i(1, "str"), i(2, "replacements") }))
 }
 
+local git_snippets = {
+    snippet("daily", fmt(
+            [[
+            update daily & staging to {}
+
+            Deploy PR to daily & staging
+            - https://github.com/onXmaps/xgps/pull/{}
+
+            Raw diff
+            - https://github.com/onXmaps/xgps/compare/xxxxxxx..{}
+            ]],
+            {
+                i(1, "shortsha"),
+                i(2, "pr_number"),
+                rep(1),
+            }
+        )
+    ),
+    snippet("prod", fmt(
+            [[
+            update production to {}
+
+            Deploy PR to production
+            - https://github.com/onXmaps/xgps/pull/{}
+
+            Raw diff
+            - https://github.com/onXmaps/xgps/compare/xxxxxxx..{}
+            ]],
+            {
+                i(1, "shortsha"),
+                i(2, "pr_number"),
+                rep(1),
+            }
+        )
+    )
+}
+
 ls.add_snippets("all", all_snippets)
 ls.add_snippets("lua", lua_snippets)
 ls.add_snippets("elixir", elixir_snippets)
 ls.add_snippets("go", go_snippets)
+ls.add_snippets("gitcommit", git_snippets)
 
 -- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
