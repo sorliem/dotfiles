@@ -12,6 +12,14 @@ if !exists('*miles#save_and_exec')
   endfunction
 endif
 
+if !exists('*miles#run_formatter')
+    function! miles#run_formatter()
+        let cmd = "docker-compose run --rm xgps mix format"
+        echo "Running project wide formatter for xgps"
+        call system(cmd)
+    endfunction
+endif
+
 function! miles#update_daily()
     let latest_log = system("cd ~/gitroot/onxmaps/xgps && git log master -n 1 --oneline")
     let matches = []
