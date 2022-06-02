@@ -39,7 +39,7 @@ local lua_snippets = {
 }
 
 local elixir_snippets = {
-    snippet("ins", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), rep(1) })),
+    snippet("ins", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })),
     snippet("pins", fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
     snippet("mdoc", fmt('@moduledoc """\n{}\n"""', { i(1) })),
     snippet("test", fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
@@ -47,7 +47,7 @@ local elixir_snippets = {
 }
 
 local go_snippets = {
-    snippet("fmt", fmt('fmt.Printf("{}", {})', { i(1, "str"), i(2, "replacements") }))
+    snippet("fmt", fmt('fmt.Printf("{}\n", {})', { i(1, "str"), i(2, "replacements") }))
 }
 
 local git_snippets = {
