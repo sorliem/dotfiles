@@ -103,6 +103,12 @@ require("lspconfig").tsserver.setup(config({
     },
 }))
 
+require("lspconfig").terraformls.setup(config({
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 150
+    },
+}))
 
 require("lspconfig").gopls.setup(config({
     cmd = { "gopls", "serve" },
