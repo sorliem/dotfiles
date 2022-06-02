@@ -247,8 +247,8 @@ nnoremap <Leader>gl1 :read !git log -n 1<CR>?commit<CR>d3j
 
 " toggle NERDTree
 " nnoremap <Leader>nt :NERDTreeToggle<Enter>
-nnoremap <Leader>nt :Ex<Enter>
-nnoremap <Leader>e :Ex<Enter>
+nnoremap <Leader>nt :Hexplore!<Enter>
+nnoremap <Leader>e :Hexplore!<Enter>
 
 
 " find current file in tree
