@@ -125,3 +125,13 @@ require("lspconfig").gopls.setup(config({
         debounce_text_changes = 150
     },
 }))
+
+require("fidget").setup {
+	text = {
+		spinner = "dots",
+	},
+	window = {
+		relative = "win",
+		blend = 0,
+	},
+}

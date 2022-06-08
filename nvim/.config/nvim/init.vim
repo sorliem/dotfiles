@@ -50,6 +50,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'szw/vim-maximizer'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'flazz/vim-colorschemes'
+Plug 'tjdevries/colorbuddy.vim'
 
 " Tim Pope
 Plug 'tpope/vim-fugitive'
@@ -58,12 +59,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
 
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ThePrimeagen/harpoon'
+
+" Tree sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " LSP stuff
 Plug 'neovim/nvim-lspconfig'
@@ -73,19 +76,19 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
 " Plug 'simrat39/symbols-outline.nvim'
 Plug 'onsails/lspkind-nvim'
+Plug 'j-hui/fidget.nvim'
+
+" Snippets
 Plug 'L3MON4D3/LuaSnip'
   let g:snippets = "luasnip"
-
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'rafamadriz/friendly-snippets'
 
 " completion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'rafamadriz/friendly-snippets'
-
-Plug 'tjdevries/colorbuddy.vim'
 
 call plug#end()
 
