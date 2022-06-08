@@ -431,3 +431,15 @@ augroup END
 
 autocmd BufNewFile,BufRead *.ex,*.exs set syntax=elixir
 autocmd BufNewFile,BufRead *.eex set syntax=eelixir
+
+augroup _git
+  autocmd!
+  autocmd FileType gitcommit setlocal wrap
+  autocmd FileType gitcommit setlocal spell
+augroup END
+
+augroup _markdown
+  autocmd!
+  autocmd FileType markdown setlocal wrap
+  autocmd FileType markdown setlocal spell
+augroup END
