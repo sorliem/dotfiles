@@ -424,21 +424,24 @@ autocmd WinEnter * set cursorline
 
 autocmd BufWritePre * :call TrimWhitespace()
 
-augroup highlight_yank
+augroup miles_highlight_yank
     autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=250}
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=250}
 augroup END
 
-autocmd BufNewFile,BufRead *.ex,*.exs set syntax=elixir
-autocmd BufNewFile,BufRead *.eex set syntax=eelixir
+augroup miles_elixir
+    autocmd!
+    autocmd BufNewFile,BufRead *.ex,*.exs set syntax=elixir
+    autocmd BufNewFile,BufRead *.eex set syntax=eelixir
+augroup END
 
-augroup _git
+augroup miles_git
   autocmd!
   autocmd FileType gitcommit setlocal wrap
   autocmd FileType gitcommit setlocal spell
 augroup END
 
-augroup _markdown
+augroup miles_markdown
   autocmd!
   autocmd FileType markdown setlocal wrap
   autocmd FileType markdown setlocal spell
