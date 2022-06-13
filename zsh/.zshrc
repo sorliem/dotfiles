@@ -121,7 +121,7 @@ export LD_LIBRARY_PATH=/usr/local/lib
 alias chkfmt='docker-compose run --rm xgps mix format --check-formatted'
 alias fmt='docker-compose run --rm xgps mix format'
 alias riex='docker-compose run --rm iex'
-alias dtest='docker-compose run --rm test'
+# alias dtest='docker-compose run --rm test'
 alias xshort='(cd ~/gitroot/onxmaps/xgps && git rev-parse --short=7 master)'
 
 export ERL_AFLAGS="-kernel shell_history enabled"

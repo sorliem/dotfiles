@@ -273,6 +273,9 @@ nnoremap <Leader>cp :call miles#update_production()<CR>
 " run test file
 nnoremap <Leader>rt :call RunElixirTest()<CR>
 
+" run all tests
+nnoremap <Leader>tt :call RunAllTests()<CR>
+
 " run formatting
 nnoremap <Leader>rf :call miles#run_formatter()<CR>
 
@@ -346,6 +349,12 @@ if exists('$TMUX')
     function! RunElixirTest()
         let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest " . expand('%:') . "' C-m"
         echo "Running test " . expand('%:')
+        call system(cmd)
+    endfunction
+
+    function! RunAllTests()
+        let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest' C-m"
+        echo "Running all tests"
         call system(cmd)
     endfunction
 endif
@@ -423,11 +432,11 @@ function! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
+autocmd BufWritePre * :call TrimWhitespace()
+
 " only have cursorline set on active window
 autocmd WinLeave * set nocursorline
 autocmd WinEnter * set cursorline
-
-autocmd BufWritePre * :call TrimWhitespace()
 
 augroup miles_highlight_yank
     autocmd!
