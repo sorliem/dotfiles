@@ -74,6 +74,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make', 'branch': 'main' }
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 " Plug 'simrat39/symbols-outline.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'j-hui/fidget.nvim'
@@ -223,7 +224,8 @@ nnoremap <leader>d :bd<CR>
 nnoremap <silent> <leader>F :FZF ~<cr>
 
 " rg in current dir
-nnoremap <leader>f :R<CR>
+" nnoremap <leader>f :R<CR>
+nnoremap <leader>f :lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>
 
 " toggle undotree
 nnoremap <leader>u :UndotreeToggle<CR>
