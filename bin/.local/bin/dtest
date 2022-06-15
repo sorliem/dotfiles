@@ -2,18 +2,10 @@
 
 # run tests in docker-compose and show a notification if it succeeded
 
-if [[ $# -eq 1 ]]; then
-    docker-compose run --rm test $1
-    if [[ $? == 0 ]]; then
-        notify-send --icon=checkbox 'TESTS SUCCEEDED'
-        exit 0
-    fi
-else
-    docker-compose run --rm test
-    if [[ $? == 0 ]]; then
-        notify-send --icon=checkbox 'TESTS SUCCEEDED'
-        exit 0
-    fi
+docker-compose run --rm test $1
+if [[ $? == 0 ]]; then
+    notify-send --icon=checkbox 'TESTS SUCCEEDED'
+    exit 0
 fi
 
 notify-send --icon=error 'TESTS FAILED'
