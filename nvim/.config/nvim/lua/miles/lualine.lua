@@ -14,7 +14,7 @@ require('lualine').setup {
     lualine_c = {
         {
             'filename',
-            path = 1
+            path = 3
         }
     },
     lualine_x = {'filetype'},
@@ -28,12 +28,13 @@ require('lualine').setup {
     lualine_c = {
         {
             'filename',
-            path = 1
+            path = 3
         }
     },
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
+    lualine_x = {'filetype'},
+    lualine_y = {'branch', 'diff',
+                  {'diagnostics', sources={'nvim_diagnostic'}}},
+    lualine_z = {'progress'}
   },
   tabline = {},
   extensions = {}
