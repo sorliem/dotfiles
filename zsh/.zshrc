@@ -68,8 +68,8 @@ source $ZSH/oh-my-zsh.sh
 #################################
 alias vim='nvim'
 alias ivm='nvim'
-alias ll='lsd -la --color=never'
-alias ls='lsd --color=never'
+# alias ll='lsd -la --color=never'
+# alias ls='lsd --color=never'
 alias sl='ls'
 alias c='clear'
 alias vi='nvim'
