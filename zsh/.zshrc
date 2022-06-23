@@ -96,6 +96,7 @@ alias glog='git log --pretty=oneline'
 alias glogp='git log --graph --abbrev-commit --decorate --date=relative --all'
 alias gl='git log --decorate --oneline --all --graph --stat'
 alias l1='git log -n 1'
+alias gw='git worktree'
 
 # stripe development
 alias stripe_listen_webhook='stripe listen --events=invoice.upcoming,invoice.payment_succeeded,customer.source.updated,charge.refunded,customer.subscription.deleted --forward-to=localhost:4000/v1/hooks/stripe'
