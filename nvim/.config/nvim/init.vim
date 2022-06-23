@@ -363,23 +363,11 @@ if exists('$TMUX')
     endfunction
 endif
 
-nnoremap <Leader>rt :call RunElixirTest()<CR>
-
 if has("persistent_undo")
     " set undodir=$HOME."/.undodir"
     let &undodir=$HOME."/.undodir"
     set undofile
 endif
-
-if exists('$TMUX')
-    function! RunElixirTest()
-        let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest " . expand('%:') . "' C-m"
-        echo "Running test " . expand('%:')
-        call system(cmd)
-    endfunction
-endif
-
-nnoremap <Leader>rt :call RunElixirTest()<CR>
 
 if executable('rg')
    command! -bang -nargs=* R
