@@ -42,7 +42,7 @@ Plug 'jpalardy/vim-slime', { 'branch': 'main' }
 
 Plug 'vimwiki/vimwiki'
 " Plug 'mhinz/vim-startify'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'dyng/ctrlsf.vim'
 Plug 'cespare/vim-toml'
