@@ -16,7 +16,7 @@ require('telescope').setup{
             ".git"
         },
         layout_config = {
-            width = 0.95,
+            width = 0.75,
             height = 0.85,
             -- preview_cutoff = 120,
             prompt_position = "top",
@@ -32,8 +32,8 @@ require('telescope').setup{
             },
 
             vertical = {
-                width = 0.9,
-                height = 0.95,
+                width = 0.7,
+                height = 0.85,
                 preview_height = 0.5,
             },
 
