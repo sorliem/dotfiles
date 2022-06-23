@@ -63,6 +63,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ThePrimeagen/harpoon'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 " Tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -238,6 +239,9 @@ vnoremap <leader>c "+y<CR>
 
 " reload all buffers from disk
 nnoremap <leader>br :bufdo e!<CR>
+
+" load worktree list
+nnoremap <leader>gw :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
 
 " Fugitive status
 nnoremap <silent> <Leader>gs :Git<CR>
