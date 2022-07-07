@@ -19,11 +19,8 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/goyo.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'jremmen/vim-ripgrep'
-Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'gruvbox-community/gruvbox'
-Plug 'vuciv/vim-bujo'
-  let g:bujo#window_width = 40
 
 Plug 'scrooloose/nerdtree'
   let NERDTreeShowHidden=1
