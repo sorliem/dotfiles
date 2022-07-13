@@ -175,8 +175,8 @@ highlight Normal guibg=NONE ctermbg=NONE
 " MAPPINGS
 """""""""""""""""""""""""""""""""""""""
 
-" set mapleader to comma
-let mapleader = ","
+" set mapleader to space
+let mapleader = " "
 
 " swap colon and semicolon
 nnoremap ; :
