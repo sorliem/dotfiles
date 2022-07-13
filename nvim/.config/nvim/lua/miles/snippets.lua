@@ -4,11 +4,28 @@ end
 
 local ls = require("luasnip")
 local snippet = ls.s
+local snippet_from_nodes = ls.sn
 local i = ls.insert_node
 local t = ls.text_node
+local d = ls.dynamic_node
+local c = ls.choice_node
 -- local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
+
+local require_var = function(args, _)
+  local text = args[1][1] or ""
+  local split = vim.split(text, ".", { plain = true })
+
+  local options = {}
+  for len = 0, #split - 1 do
+    table.insert(options, t(table.concat(vim.list_slice(split, #split - len, #split), "_")))
+  end
+
+  return snippet_from_nodes(nil, {
+    c(1, options),
+  })
+end
 
 ls.config.set_config {
     history = true,
@@ -16,16 +33,10 @@ ls.config.set_config {
 }
 
 local all_snippets = {
-    snippet("simple", t("wow, you were right!")),
-    -- snippet("date", {
-    --   f(function()
-    --     return string.format(string.gsub(vim.bo.commentstring, "%%s", " %%s"), os.date())
-    --   end, {}),
-    -- }),
+    snippet("simple", t("wow, so simple"))
 }
 
 local lua_snippets = {
-    snippet("req", fmt("local {} = require('{}')", { i(1, "default"), rep(1)})),
     snippet("for", {
             t "for ",
             i(1, "k, v"),
@@ -36,6 +47,10 @@ local lua_snippets = {
             t { "", "" },
             t "end",
         }),
+    snippet("req", fmt([[local {} = require("{}")]], {
+        d(2, require_var, { 1 }),
+        i(1),
+    }))
 }
 
 local elixir_snippets = {
@@ -59,11 +74,12 @@ local git_snippets = {
             - https://github.com/onXmaps/xgps/pull/{}
 
             Raw diff
-            - https://github.com/onXmaps/xgps/compare/xxxxxxx..{}
+            - https://github.com/onXmaps/xgps/compare/{}..{}
             ]],
             {
                 i(1, "shortsha"),
                 i(2, "pr_number"),
+                i(0, "prev_shortsha"),
                 rep(1),
             }
         )
@@ -76,11 +92,12 @@ local git_snippets = {
             - https://github.com/onXmaps/xgps/pull/{}
 
             Raw diff
-            - https://github.com/onXmaps/xgps/compare/xxxxxxx..{}
+            - https://github.com/onXmaps/xgps/compare/{}..{}
             ]],
             {
                 i(1, "shortsha"),
                 i(2, "pr_number"),
+                i(0, "prev_shortsha"),
                 rep(1),
             }
         )
