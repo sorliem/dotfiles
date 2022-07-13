@@ -349,13 +349,13 @@ endif
 
 if exists('$TMUX')
     function! RunElixirTest()
-        let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest " . expand('%:') . "' C-m"
+        let cmd = "tmux send-keys -t xgps:xgps-3.1 'dtest " . expand('%:') . "' C-m"
         echo "Running test " . expand('%:')
         call system(cmd)
     endfunction
 
     function! RunAllTests()
-        let cmd = "tmux send-keys -t xgps:xgps-2.3 'dtest' C-m"
+        let cmd = "tmux send-keys -t xgps:xgps-3.1 'dtest' C-m"
         echo "Running all tests"
         call system(cmd)
     endfunction
