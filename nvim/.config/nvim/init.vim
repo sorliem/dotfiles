@@ -223,7 +223,7 @@ nnoremap <leader>d :bd<CR>
 nnoremap <silent> <leader>F :FZF ~<cr>
 
 " rg in current dir
-nnoremap <leader>f :R<CR>
+nnoremap <leader>ps :R<CR>
 " nnoremap <leader>f :lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>
 
 " toggle undotree
