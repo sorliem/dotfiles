@@ -1,8 +1,10 @@
+require("miles.mapping_helpers")
 require("miles.telescope")
 require("miles.lsp")
 require("miles.lualine")
 require("miles.completion")
 require("miles.snippets")
+require("miles.treesitter")
 
 P = function(v)
   print(vim.inspect(v))
