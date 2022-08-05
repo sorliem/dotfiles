@@ -151,10 +151,10 @@ let g:gruvbox_invert_selection='0'
 " set background=light
 " colorscheme PaperColor
 
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark='hard'
-set background=dark
-colorscheme gruvbox
+" let g:gruvbox_italic=1
+" let g:gruvbox_contrast_dark='hard'
+" set background=dark
+" colorscheme gruvbox
 
 " let g:gruvbox_contrast_light="hard"
 " set background=light
@@ -168,6 +168,11 @@ colorscheme gruvbox
 " set background=light
 " colorscheme solarized
 "
+let g:tokyonight_italic_functions = 1
+let g:tokyonight_italic_comments = 1
+let g:tokyonight_style = 'night'
+colorscheme tokyonight
+
 " let g:rustfmt_autosave = 1
 
 highlight Normal guibg=NONE ctermbg=NONE
