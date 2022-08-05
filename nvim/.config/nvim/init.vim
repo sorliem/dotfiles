@@ -48,6 +48,7 @@ Plug 'szw/vim-maximizer'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'flazz/vim-colorschemes'
 Plug 'tjdevries/colorbuddy.vim'
+Plug 'folke/tokyonight.nvim'
 
 " Tim Pope
 Plug 'tpope/vim-fugitive'
