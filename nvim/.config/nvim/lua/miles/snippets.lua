@@ -37,7 +37,7 @@ local all_snippets = {
 }
 
 local lua_snippets = {
-    snippet("for", {
+    snippet({trig = "for", dscr = "for loop in lua"}, {
             t "for ",
             i(1, "k, v"),
             t " in ",
@@ -56,9 +56,70 @@ local lua_snippets = {
 local elixir_snippets = {
     snippet("ins", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })),
     snippet("pins", fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
+    snippet("iop", fmt('IO.puts("{}")', { i(1) })),
     snippet("mdoc", fmt('@moduledoc """\n{}\n"""', { i(1) })),
     snippet("test", fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
     snippet("itest", fmt('it "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
+    snippet({trig = "mod", dscr = "Define an elixir module"}, fmt(
+            [[
+            defmodule {} do
+              @moduledoc """
+              """
+
+              {}
+            end
+            ]],
+            { i(1, "mod_name"), i(0) }
+        )
+    ),
+    snippet({trig = "tmodeu", dscr = "Define a test module with ExUnit.Case loaded"}, fmt(
+            [[
+            defmodule {}Test do
+              use ExUnit.Case
+
+              setup do
+
+              end
+
+              test "{}" do
+              end
+            end
+            ]],
+            { i(1, "mod_under_test"), i(0, "first_test_name") }
+        )
+    ),
+    snippet({trig = "tmodes", dscr = "Define a test module with ExSpec loaded"}, fmt(
+            [[
+            defmodule {}Test do
+              use ExSpec
+
+              setup do
+
+              end
+
+              it "should {}" do
+                {}
+              end
+            end
+            ]],
+            { i(1, "mod_under_test"), i(2, "first_test_name"), i(0) }
+        )
+    ),
+    snippet({trig = "expect", dscr = "Mox expect function"}, fmt(
+            [[
+            expect({}, {}, {}, fn {} ->
+              {}
+            end)
+            ]],
+            {
+                i(1, "mod"),
+                i(2, "fun"),
+                i(3, "num_calls"),
+                i(4, "fun_args"),
+                i(0, "return_val")
+            }
+        )
+    )
 }
 
 local go_snippets = {
@@ -76,12 +137,7 @@ local git_snippets = {
             Raw diff
             - https://github.com/onXmaps/xgps/compare/{}..{}
             ]],
-            {
-                i(1, "shortsha"),
-                i(2, "pr_number"),
-                i(0, "prev_shortsha"),
-                rep(1),
-            }
+            { i(1, "shortsha"), i(2, "pr_number"), i(0, "prev_shortsha"), rep(1) }
         )
     ),
     snippet("prod", fmt(
@@ -94,12 +150,7 @@ local git_snippets = {
             Raw diff
             - https://github.com/onXmaps/xgps/compare/{}..{}
             ]],
-            {
-                i(1, "shortsha"),
-                i(2, "pr_number"),
-                i(0, "prev_shortsha"),
-                rep(1),
-            }
+            { i(1, "shortsha"), i(2, "pr_number"), i(0, "prev_shortsha"), rep(1) }
         )
     )
 }
