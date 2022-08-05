@@ -256,7 +256,13 @@ nnoremap <silent> <Leader>gb :Git blame<CR>
 " Fugitive diff master
 nnoremap <silent> <Leader>gd :Git diff master..HEAD<CR>:only<CR>
 
-nnoremap <Leader>gl1 :read !git log -n 1<CR>?commit<CR>d3j
+nnoremap <leader>gl1 :read !git log -n 1<CR>?commit<CR>d3j
+
+" Grab current line as _permanent_ github link
+nnoremap <leader>ghl :0GBrowse!<CR>
+
+" Grab current selection as _permanent_ github link
+vnoremap <leader>ghl :GBrowse!<CR>
 
 " toggle NERDTree
 " nnoremap <Leader>nt :NERDTreeToggle<Enter>
