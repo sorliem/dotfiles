@@ -325,14 +325,6 @@ if executable('rg')
 	let g:rg_derive_root='true'
 endif
 
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
-
 " vim & tmux navigation
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -401,6 +393,17 @@ function! s:gitUntracked()
     return map(files, "{'line': v:val, 'path': v:val}")
 endfunction
 
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+function! CapitalizeFirstCharacter()
+    normal gg0vgU
+endfun
+
+
 """""""""""""""""""""""""""""""""""""""
 " LUA
 """""""""""""""""""""""""""""""""""""""
@@ -409,30 +412,8 @@ endfunction
 lua require("miles")
 
 """""""""""""""""""""""""""""""""""""""
-" VARIABLES
-"""""""""""""""""""""""""""""""""""""""
-
-let g:startify_lists = [
-        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
-
-let g:startify_change_to_dir = 0
-
-"""""""""""""""""""""""""""""""""""""""
 " AUTOCMD
 """""""""""""""""""""""""""""""""""""""
-
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
 
 autocmd BufWritePre * :call TrimWhitespace()
 
@@ -455,6 +436,7 @@ augroup miles_git
   autocmd!
   autocmd FileType gitcommit setlocal wrap
   autocmd FileType gitcommit setlocal spell
+  autocmd BufWritePre gitcommit :call CapitalizeFirstCharacter()
 augroup END
 
 augroup miles_markdown
