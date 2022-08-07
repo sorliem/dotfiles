@@ -70,13 +70,13 @@ nnoremap("<leader>br", ":bufdo e!<CR>")
 nnoremap("<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
 
 -- Fugitive status
-nnoremap("<silent>", "<Leader>gs :Git<CR>")
+nnoremap("<Leader>gs", ":Git<CR>", {noremap = true, silent = true})
 
 -- Fugitive blame
-nnoremap("<silent>", "<Leader>gb :Git blame<CR>")
+nnoremap("<Leader>gb", ":Git blame<CR>", {noremap = true, silent = true})
 
 -- Fugitive diff master
-nnoremap("<silent>", "<Leader>gd :Git diff master..HEAD<CR>:only<CR>")
+nnoremap("<Leader>gd", ":Git diff master..HEAD<CR>:only<CR>", {noremap = true, silent = true})
 
 -- Grab last commit messge
 nnoremap("<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j")
