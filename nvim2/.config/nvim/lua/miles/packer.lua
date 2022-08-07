@@ -1,8 +1,26 @@
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  print("packer_bootstrap? " .. packer_bootstrap)
+  vim.cmd [[packadd packer.nvim]]
+end
+
 return require("packer").startup(function()
-  use("junegunn/fzf"), { 'do': { -> fzf#install() } }
-  use("junegunn/fzf.vim")
-  -- let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
-  -- let $FZF_DEFAULT_COMMAND="rg --files --hidden --color=ansi"
+  use({
+        "junegunn/fzf"
+        -- config = function()
+        --   vim.cmd [[call fzf#install()]]
+        -- end
+  })
+
+  use({
+      "junegunn/fzf.vim",
+      config = function()
+          vim.cmd [[ let $FZF_DEFAULT_COMMAND="rg --files --hidden --color=ansi"]]
+          vim.g.fzf_layout = {up ='~90%', window = { width = 0.8, height = 0.8, yoffset = 0.5, xoffset = 0.5, highlight = 'Todo', border = 'sharp' } }
+      end
+  })
 
   use("christoomey/vim-tmux-navigator")
   use("sheerun/vim-polyglot")
@@ -21,12 +39,24 @@ return require("packer").startup(function()
   use("editorconfig/editorconfig-vim")
   -- let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-  use("jpalardy/vim-slime"), { 'branch': 'main' }
-  -- if exists('$TMUX')
-  --     let g:slime_target = "tmux"
-  --     let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": "3"}
-  --     let g:slime_dont_ask_default = 1
-  -- endif
+  use({
+      "jpalardy/vim-slime",
+      branch = "main",
+      config = function()
+          if os.getenv("$TMUX") then
+              local tmux = os.getenv("$TMUX")
+              local t={}
+              local sep = ","
+              for str in string.gmatch(tmux, "([^"..sep.."]+)") do
+                  table.insert(t, str)
+              end
+
+              vim.g.slime_target = "tmux"
+              vim.g.slime_default_config = {socket_name = sep[1], target_pane = "3"}
+              vim.g.slime_dont_ask_default = 1
+          end
+      end
+  })
 
   use("vimwiki/vimwiki")
 
@@ -53,16 +83,23 @@ return require("packer").startup(function()
   use("ThePrimeagen/harpoon")
   use("ThePrimeagen/git-worktree.nvim")
 
-" Tree sitter
-  use("nvim-treesitter/nvim-treesitter"), {'do': ':TSUpdate'}
+    -- " Tree sitter
+  use({
+      "nvim-treesitter/nvim-treesitter"
+      -- config = function()
+      --   vim.cmd(":TSUpdate")
+      -- end
+  })
+
   use("nvim-treesitter/playground")
 
-" LSP stuff
+    -- " LSP stuff
   use("neovim/nvim-lspconfig")
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
   use("nvim-telescope/telescope.nvim")
-  use("nvim-telescope/telescope-fzf-native.nvim"), { 'do': 'make', 'branch': 'main' }
+  -- use("nvim-telescope/telescope-fzf-native.nvim"), { 'do': 'make', 'branch': 'main' }
+  use({"nvim-telescope/telescope-fzf-native.nvim", branch = "main"})
   use("nvim-telescope/telescope-live-grep-args.nvim")
   -- use("simrat39/symbols-outline.nvim")
   use("onsails/lspkind-nvim")
@@ -79,4 +116,10 @@ return require("packer").startup(function()
   use("hrsh7th/cmp-buffer")
   use("hrsh7th/cmp-nvim-lua")
   use("hrsh7th/cmp-nvim-lsp")
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  -- if packer_bootstrap then
+  --   require('packer').sync()
+  -- end
 end)
