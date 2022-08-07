@@ -1,19 +1,16 @@
 local HOME = os.getenv("HOME")
 
--- vim.opt.noerrorbells = true
 vim.cmd [[set path+=**]]
-vim.cmd [[set noerrorbells]]
+vim.opt.errorbells = false
 vim.opt.tabstop=4
 vim.opt.softtabstop=4
 vim.opt.shiftwidth=4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.number = true
--- vim.opt.nowrap = true
 vim.opt.wrap = true
 vim.opt.smartcase = true
--- vim.opt.nobackup = true
-vim.cmd [[set nobackup]]
+vim.opt.backup = false
 vim.opt.list = true
 vim.opt.listchars = "tab:»\\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:↵"
 vim.opt.relativenumber = true
@@ -24,15 +21,13 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.undolevels = 500
--- vim.opt.noswapfile = true
-vim.cmd [[set noswapfile]]
--- set t_Co=256             " 256 terminal colors
+vim.opt.swapfile = false
+-- vim.opt.t_Co = 256             -- 256 terminal colors
 vim.opt.showcmd = true
 vim.opt.wildmenu = true
 vim.opt.showmatch = true
 vim.opt.ttimeoutlen=50
--- vim.opt.nofoldenable = true
-vim.cmd [[set nofoldenable]]
+vim.opt.foldenable = false
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.mouse=a

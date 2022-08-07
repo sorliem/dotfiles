@@ -99,7 +99,12 @@ return require("packer").startup(function()
   use("nvim-lua/popup.nvim")
   use("nvim-telescope/telescope.nvim")
   -- use("nvim-telescope/telescope-fzf-native.nvim"), { 'do': 'make', 'branch': 'main' }
-  use({"nvim-telescope/telescope-fzf-native.nvim", branch = "main"})
+  -- use({"nvim-telescope/telescope-fzf-native.nvim", branch = "main"})
+  use({
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+  })
+
   use("nvim-telescope/telescope-live-grep-args.nvim")
   -- use("simrat39/symbols-outline.nvim")
   use("onsails/lspkind-nvim")
@@ -119,7 +124,7 @@ return require("packer").startup(function()
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
-  -- if packer_bootstrap then
-  --   require('packer').sync()
-  -- end
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)

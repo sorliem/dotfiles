@@ -2,8 +2,8 @@ local Remap = require("miles.keymap")
 local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local inoremap = Remap.inoremap
-local xnoremap = Remap.xnoremap
 local nmap = Remap.nmap
+local imap = Remap.imap
 
 -- swap colon and semicolon
 nnoremap(";", ":")
@@ -124,10 +124,10 @@ nnoremap("//", ":BLines<CR>")
 -- nnoremap // :lua require('telescope.builtin').current_buffer_fuzzy_find{}<CR>
 
 -- search for word under cursor with, sublime text 2 style
-nmap("", "   <C-F>f <Plug>CtrlSFPrompt")
+nmap("<C-F>f", "<Plug>CtrlSFPrompt")
 
 -- search for word under cursor with, sublime text 2 style
-nmap("", "   <C-F>w <Plug>CtrlSFCwordPath<CR>")
+nmap("<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
 
 -- toggle the CtrlSF search results window
 nnoremap("<C-F>t", ":CtrlSFToggle<CR>")
