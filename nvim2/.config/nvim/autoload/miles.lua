@@ -1,3 +1,4 @@
+vim.cmd [[
 if !exists('*miles#save_and_exec')
   function! miles#save_and_exec() abort
     if &filetype == 'vim'
@@ -19,3 +20,4 @@ if !exists('*miles#run_formatter')
         call system(cmd)
     endfunction
 endif
+]]

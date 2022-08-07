@@ -7,6 +7,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require("packer").startup(function()
+  -- Packer can manage itself
+  use('wbthomason/packer.nvim')
   use({
         "junegunn/fzf"
         -- config = function()
@@ -30,10 +32,6 @@ return require("packer").startup(function()
   use("jremmen/vim-ripgrep")
   use("mbbill/undotree")
   use("gruvbox-community/gruvbox")
-
-  use("scrooloose/nerdtree")
-  -- let NERDTreeShowHidden=1
-  -- let g:NERDTreeHijackNetrw=0
 
   use("airblade/vim-gitgutter")
   use("editorconfig/editorconfig-vim")
@@ -85,10 +83,8 @@ return require("packer").startup(function()
 
     -- " Tree sitter
   use({
-      "nvim-treesitter/nvim-treesitter"
-      -- config = function()
-      --   vim.cmd(":TSUpdate")
-      -- end
+      "nvim-treesitter/nvim-treesitter",
+      run = ':TSUpdate'
   })
 
   use("nvim-treesitter/playground")
@@ -102,7 +98,7 @@ return require("packer").startup(function()
   -- use({"nvim-telescope/telescope-fzf-native.nvim", branch = "main"})
   use({
       'nvim-telescope/telescope-fzf-native.nvim',
-      run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      run = 'make'
   })
 
   use("nvim-telescope/telescope-live-grep-args.nvim")

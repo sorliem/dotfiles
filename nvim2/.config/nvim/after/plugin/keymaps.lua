@@ -92,7 +92,6 @@ vnoremap("<leader>ghl", ":GBrowse!<CR>")
 nnoremap("<Leader>nt", ":Hexplore!<Enter>")
 nnoremap("<Leader>e", ":Hexplore!<Enter>")
 
-
 -- find current file in tree
 -- nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 -- command! ExploreFind let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
