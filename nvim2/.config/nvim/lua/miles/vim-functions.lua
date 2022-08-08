@@ -1,4 +1,3 @@
-print("in vim-functions.lua")
 -- someday i'll convert these to lua
 
 vim.cmd [[
@@ -69,9 +68,23 @@ endif
 ]]
 
 vim.cmd [[
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-endfun
+function! SaveAndExec()
+  if &filetype == 'vim'
+    :silent! write
+    :source %
+  elseif &filetype == 'lua'
+    :silent! write
+    :luafile %
+  endif
+
+  return
+endfunction
+]]
+
+vim.cmd [[
+function! RunFormatter()
+    let cmd = "docker-compose run --rm xgps mix format"
+    echo "Running project wide formatter for xgps"
+    call system(cmd)
+endfunction
 ]]
