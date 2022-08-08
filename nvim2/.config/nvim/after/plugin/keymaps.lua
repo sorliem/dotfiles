@@ -98,7 +98,7 @@ nnoremap("<Leader>e", ":Hexplore!<Enter>")
 nnoremap("<Leader>nf", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
 
 -- save and exec file
-nnoremap("<Leader>x", ":call miles#save_and_exec()<CR>")
+nnoremap("<Leader>x", ":call SaveAndExec()<CR>")
 
 -- update daily/staging
 nnoremap("<Leader>cd", ":call miles#update_daily()<CR>")
@@ -113,7 +113,7 @@ nnoremap("<Leader>rt", ":call RunElixirTest()<CR>")
 nnoremap("<Leader>tt", ":call RunAllTests()<CR>")
 
 -- run formatting
-nnoremap("<Leader>rf", ":call miles#run_formatter()<CR>")
+nnoremap("<Leader>rf", ":call RunFormatter()<CR>")
 
 -- get rid of highlighting
 nnoremap("<leader>hh", ":noh<CR>")
@@ -132,10 +132,3 @@ nmap("<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
 nnoremap("<C-F>t", ":CtrlSFToggle<CR>")
 
 nnoremap("<leader>gt", ":GoTest<CR>")
-
--- vim-bujo mappings
-nmap("<C-S>", "<Plug>BujoAddnormal")
-imap("<C-S>", "<Plug>BujoAddinsert")
-
-nmap("<C-Q>", "<Plug>BujoChecknormal")
-imap("<C-Q>", "<Plug>BujoCheckinsert")
