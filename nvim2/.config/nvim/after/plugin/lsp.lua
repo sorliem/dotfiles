@@ -1,5 +1,3 @@
--- print("hello from after lsp.lua")
-
 -- most config stolen from https://github.com/ThePrimeagen/.dotfiles/blob/master/nvim/.config/nvim/lua/theprimeagen/lsp.lua
 
 require('lspkind').init({
@@ -129,9 +127,9 @@ require("lspconfig").gopls.setup(config({
 }))
 
 require("fidget").setup {
-	text = {
-		spinner = "dots",
-	},
+    text = {
+      spinner = "dots",
+    },
 	window = {
 		relative = "win",
 		blend = 0,

@@ -10,29 +10,25 @@ return require("packer").startup(function()
   -- Packer can manage itself
   use('wbthomason/packer.nvim')
   use({
-        "junegunn/fzf"
-        -- config = function()
-        --   vim.cmd [[call fzf#install()]]
-        -- end
+        "junegunn/fzf",
+        run = ':call fzf#install()'
   })
 
   use({
       "junegunn/fzf.vim",
       config = function()
-          vim.cmd [[ let $FZF_DEFAULT_COMMAND="rg --files --hidden --color=ansi"]]
+          vim.env.FZF_DEFAULT_COMMAND = "rg --files --hidden"
           vim.g.fzf_layout = {up ='~90%', window = { width = 0.8, height = 0.8, yoffset = 0.5, xoffset = 0.5, highlight = 'Todo', border = 'sharp' } }
       end
   })
 
-  use("christoomey/vim-tmux-navigator")
-  use("sheerun/vim-polyglot")
-  use("junegunn/vim-peekaboo")
   use("junegunn/goyo.vim")
-  use("elixir-editors/vim-elixir")
+  use("junegunn/vim-peekaboo")
+
+  use("christoomey/vim-tmux-navigator")
+  use("dyng/ctrlsf.vim")
   use("jremmen/vim-ripgrep")
   use("mbbill/undotree")
-  use("gruvbox-community/gruvbox")
-
   use("airblade/vim-gitgutter")
   use("editorconfig/editorconfig-vim")
   -- let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -57,17 +53,21 @@ return require("packer").startup(function()
   })
 
   use("vimwiki/vimwiki")
-
-  use("dyng/ctrlsf.vim")
   use("cespare/vim-toml")
+  use("elixir-editors/vim-elixir")
   use("udalov/kotlin-vim")
+  use("sheerun/vim-polyglot")
+
   use("szw/vim-maximizer")
+
+  -- colorschemes
+  use("gruvbox-community/gruvbox")
   use("NLKNguyen/papercolor-theme")
   use("flazz/vim-colorschemes")
   use("tjdevries/colorbuddy.vim")
   use("folke/tokyonight.nvim")
 
-    -- " Tim Pope
+    -- Tim Pope
   use("tpope/vim-fugitive")
   use("tpope/vim-rhubarb")
   use("tpope/vim-surround")
@@ -94,11 +94,11 @@ return require("packer").startup(function()
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
   use("nvim-telescope/telescope.nvim")
-  -- use("nvim-telescope/telescope-fzf-native.nvim"), { 'do': 'make', 'branch': 'main' }
-  -- use({"nvim-telescope/telescope-fzf-native.nvim", branch = "main"})
+
   use({
       'nvim-telescope/telescope-fzf-native.nvim',
-      run = 'make'
+      run = 'make',
+      branch = 'main'
   })
 
   use("nvim-telescope/telescope-live-grep-args.nvim")
@@ -107,8 +107,12 @@ return require("packer").startup(function()
   use("j-hui/fidget.nvim")
 
 -- " Snippets
-  use("L3MON4D3/LuaSnip")
-  -- let g:snippets = "luasnip"
+  use({
+    "L3MON4D3/LuaSnip",
+    config = function()
+      vim.g.snippets = "luasnip"
+    end
+  })
   use("saadparwaiz1/cmp_luasnip")
   use("rafamadriz/friendly-snippets")
 

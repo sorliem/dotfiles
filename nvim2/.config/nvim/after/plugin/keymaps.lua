@@ -48,7 +48,7 @@ nnoremap("<leader>rv", ":so $MYVIMRC<CR>")
 nnoremap("<leader>d", ":bd<CR>")
 
 -- fzf starting at home dir
-nnoremap("<silent>", "<leader>F :FZF ~<cr>")
+nnoremap("<leader>F", ":FZF ~<CR>")
 
 -- rg in current dir
 nnoremap("<leader>ps", ":R<CR>")
@@ -100,12 +100,6 @@ nnoremap("<Leader>nf", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expan
 -- save and exec file
 nnoremap("<Leader>x", ":call SaveAndExec()<CR>")
 
--- update daily/staging
-nnoremap("<Leader>cd", ":call miles#update_daily()<CR>")
-
--- update production
-nnoremap("<Leader>cp", ":call miles#update_production()<CR>")
-
 -- run test file
 nnoremap("<Leader>rt", ":call RunElixirTest()<CR>")
 
@@ -130,5 +124,3 @@ nmap("<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
 
 -- toggle the CtrlSF search results window
 nnoremap("<C-F>t", ":CtrlSFToggle<CR>")
-
-nnoremap("<leader>gt", ":GoTest<CR>")
