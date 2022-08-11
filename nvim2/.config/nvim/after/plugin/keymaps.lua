@@ -3,7 +3,6 @@ local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local inoremap = Remap.inoremap
 local nmap = Remap.nmap
-local imap = Remap.imap
 
 -- swap colon and semicolon
 nnoremap(";", ":")

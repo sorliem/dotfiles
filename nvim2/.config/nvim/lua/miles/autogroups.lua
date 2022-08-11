@@ -3,6 +3,7 @@ local autocmd = vim.api.nvim_create_autocmd
 MilesDevGroup = augroup('Miles', {})
 YankGroup = augroup('YankGroup', {})
 WhiteSpaceGroup = augroup('WhiteSpaceGroup', {})
+PackerGroup = augroup('PackerGroup', {})
 
 autocmd('BufWritePre', {
     group = WhiteSpaceGroup,
@@ -47,4 +48,10 @@ autocmd('FileType', {
       vim.opt_local.spell = true
       vim.opt_local.wrap = true
     end
+})
+
+autocmd('BufWritePost', {
+    group = PackerGroup,
+    pattern = 'packer.lua',
+    command = 'source <afile> | PackerCompile'
 })

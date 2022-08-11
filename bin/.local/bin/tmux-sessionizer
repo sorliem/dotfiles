@@ -21,10 +21,10 @@ fi
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected -n $selected_name
     if [[ $selected_name == "xgps" ]]; then
-        tmux new-window -ad -n xgps-2 -c $selected -t $selected_name
-        tmux new-window -ad -n xgps-3 -c $selected -t $selected_name
-        tmux new-window -ad -n atlantis-xgps -c ~/gitroot/onxmaps/atlantis-xgps -t $selected_name
         tmux new-window -ad -n scratch -c $selected -t $selected_name
+        tmux new-window -ad -n atlantis-xgps -c ~/gitroot/onxmaps/atlantis-xgps -t $selected_name
+        tmux new-window -ad -n xgps-3 -c $selected -t $selected_name
+        tmux new-window -ad -n xgps-2 -c $selected -t $selected_name
     fi
 
     # add extra scratch windows on each new session
