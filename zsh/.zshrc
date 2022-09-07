@@ -64,6 +64,19 @@ DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
 #################################
+#       FUNCTIONS               #
+#################################
+#
+gch() {
+    branch=$(git branch | fzf | tr -d '[:space:]')
+    if [[ -z "$branch" ]]; then
+        return
+    fi
+
+    git checkout $branch
+}
+
+#################################
 #       GENERAL ALIASES         #
 #################################
 alias vim='nvim'
@@ -84,6 +97,7 @@ alias lua='lua5.3'
 #################################
 alias gdiff='git diff'
 alias gdif='git diff'
+alias gdm='git diff master..HEAD'
 alias ga='git add'
 alias gc='git commit -m'
 alias gpu='git push --set-upstream origin HEAD'
@@ -97,7 +111,7 @@ alias gb='git branch --verbose --sort=-committerdate'
 alias glog='git log --pretty=oneline'
 alias glogp='git log --graph --abbrev-commit --decorate --date=relative --all'
 alias gl='git log --decorate --oneline --all --graph --stat'
-alias l1='git log -n 1'
+alias gl1='git log -n 1'
 alias gw='git worktree'
 
 # stripe development
