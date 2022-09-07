@@ -22,9 +22,6 @@ return require('packer').startup(function()
       end
   })
 
-  use('junegunn/goyo.vim')
-  use('junegunn/vim-peekaboo')
-
   use('christoomey/vim-tmux-navigator')
   use('dyng/ctrlsf.vim')
   use('jremmen/vim-ripgrep')
