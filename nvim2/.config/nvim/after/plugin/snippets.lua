@@ -54,7 +54,8 @@ local lua_snippets = {
 }
 
 local elixir_snippets = {
-    snippet("ins", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })),
+    snippet("ins", fmt('IO.inspect({}, label: "{}{}")', { i(1, "var"), rep(1), i(0) })),
+    snippet("ins2", fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })),
     snippet("pins", fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
     snippet("iop", fmt('IO.puts("{}")', { i(1) })),
     snippet("mdoc", fmt('@moduledoc """\n{}\n"""', { i(1) })),
