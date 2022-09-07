@@ -34,6 +34,12 @@ vnoremap(">", ">gv")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
+-- do search and replace using the word under cursor
+nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+-- nnoremap("<C-d>", "<C-d>zz")
+-- nnoremap("<C-u>", "<C-u>zz")
+
 -- greatest remap ever (per the primagen)
 -- in visual mode, paste what is in the default register
 -- without overwriting the default register with what was
