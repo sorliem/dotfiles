@@ -15,6 +15,9 @@ tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     tmux new-session -s $selected_name -c $selected -n $selected_name
+    # add extra scratch windows on each new session
+    tmux new-window -ad -n scratch1 -c $selected -t $selected_name
+    tmux new-window -ad -n scratch2 -c $selected -t $selected_name
     exit 0
 fi
 
