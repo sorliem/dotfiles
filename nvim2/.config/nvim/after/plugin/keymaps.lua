@@ -2,6 +2,7 @@ local Remap = require("miles.keymap")
 local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local inoremap = Remap.inoremap
+local xnoremap = Remap.xnoremap
 local nmap = Remap.nmap
 
 -- swap colon and semicolon
@@ -45,6 +46,15 @@ nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 -- without overwriting the default register with what was
 -- just erased
 vnoremap("<leader>p", "\"_dP")
+xnoremap("<leader>p", "\"_dP")
+
+-- next greatest remap ever : asbjornHaland
+nnoremap("<leader>y", "\"+y")
+vnoremap("<leader>y", "\"+y")
+nmap("<leader>Y", "\"+Y")
+
+nnoremap("<leader>d", "\"_d")
+vnoremap("<leader>d", "\"_d")
 
 -- reload init.vim
 nnoremap("<leader>rv", ":so $MYVIMRC<CR>")
@@ -71,8 +81,9 @@ vnoremap("<leader>c", "\"+y<CR>")
 -- reload all buffers from disk
 nnoremap("<leader>br", ":bufdo e!<CR>")
 
--- load worktree list
+-- git worktrees
 nnoremap("<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
+nnoremap("<leader>gaw", ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
 
 -- Fugitive status
 nnoremap("<Leader>gs", ":Git<CR>", {noremap = true, silent = true})
@@ -92,9 +103,9 @@ nnoremap("<leader>ghl", ":0GBrowse!<CR>")
 -- Grab current selection as _permanent_ github link
 vnoremap("<leader>ghl", ":GBrowse!<CR>")
 
--- toggle NERDTree
--- nnoremap <Leader>nt :NERDTreeToggle<Enter>
+-- toggle netrw
 nnoremap("<Leader>nt", ":Hexplore!<Enter>")
+nnoremap("<Leader>pv", ":Hexplore!<Enter>")
 nnoremap("<Leader>e", ":Hexplore!<Enter>")
 
 -- find current file in tree
