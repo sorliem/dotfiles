@@ -55,7 +55,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git gitfast)
 
 # diable weird copy/paste bug
 # from https://github.com/ohmyzsh/ohmyzsh/issues/5569
@@ -122,6 +122,7 @@ alias stripe_listen_webhook='stripe listen --events=invoice.upcoming,invoice.pay
 #################################
 # docker stuff
 alias dc='docker-compose'
+alias dstop='docker ps  | cut -d ' ' -f 1 | awk "NR>1" | xargs docker stop'
 
 #################################
 #           TERRAFORM           #
