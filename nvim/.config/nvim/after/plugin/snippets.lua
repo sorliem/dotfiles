@@ -36,6 +36,10 @@ local all_snippets = {
     snippet("simple", t("wow, so simple"))
 }
 
+local javascript_snippets = {
+    snippet("log", fmt("console.log('{}')", { i(1, "log") })),
+}
+
 local lua_snippets = {
     snippet({trig = "for", dscr = "for loop in lua"}, {
             t "for ",
@@ -161,6 +165,7 @@ ls.add_snippets("lua", lua_snippets)
 ls.add_snippets("elixir", elixir_snippets)
 ls.add_snippets("go", go_snippets)
 ls.add_snippets("gitcommit", git_snippets)
+ls.add_snippets("javascript", javascript_snippets)
 
 -- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
