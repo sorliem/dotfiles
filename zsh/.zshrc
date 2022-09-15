@@ -122,7 +122,7 @@ alias stripe_listen_webhook='stripe listen --events=invoice.upcoming,invoice.pay
 #################################
 # docker stuff
 alias dc='docker-compose'
-alias dstop='docker ps  | cut -d ' ' -f 1 | awk "NR>1" | xargs docker stop'
+alias dstop='docker ps  | cut -d " " -f 1 | awk "NR>1" | xargs docker stop'
 
 #################################
 #           TERRAFORM           #
