@@ -15,3 +15,9 @@ nnoremap("<M-k>", ":lua require('harpoon.ui').nav_file(2)<CR>")
 nnoremap("<M-l>", ":lua require('harpoon.ui').nav_file(3)<CR>")
 nnoremap("<M-;>", ":lua require('harpoon.ui').nav_file(4)<CR>")
 nnoremap("<M-'>", ":lua require('harpoon.ui').nav_file(5)<CR>")
+
+require("harpoon").setup({
+    global_settings = {
+        mark_branch = true
+    }
+})
