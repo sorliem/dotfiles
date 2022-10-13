@@ -19,8 +19,6 @@ vim.g.gruvbox_contrast_dark = 'hard'
 vim.cmd [[set background=dark]]
 vim.cmd [[colorscheme gruvbox]]
 
-vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
-
 -- vim.g.gruvbox_contrast_light = 'hard'
 -- vim.cmd [[set background=light]]
 -- vim.cmd [[colorscheme gruvbox]]
@@ -32,10 +30,12 @@ vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
 ---- vim.g.solarized_termcolors = 256
 ---- vim.cmd [[set background=light]]
 ---- vim.cmd [[colorscheme solarized]]
-----
---vim.opt.background = 'dark'
---vim.g.tokyonight_italic_functions = 1
---vim.g.tokyonight_italic_comments = 1
---vim.g.tokyonight_style = 'night'
---vim.g.tokyonight_transparent = true
---vim.cmd [[colorscheme tokyonight]]
+
+-- vim.opt.background = 'dark'
+-- vim.g.tokyonight_italic_functions = 1
+-- vim.g.tokyonight_italic_comments = 1
+-- vim.g.tokyonight_style = 'night'
+-- vim.g.tokyonight_transparent = true
+-- vim.cmd [[colorscheme tokyonight]]
+
+vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
