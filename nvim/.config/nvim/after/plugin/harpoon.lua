@@ -16,8 +16,12 @@ nnoremap("<M-l>", ":lua require('harpoon.ui').nav_file(3)<CR>")
 nnoremap("<M-;>", ":lua require('harpoon.ui').nav_file(4)<CR>")
 nnoremap("<M-'>", ":lua require('harpoon.ui').nav_file(5)<CR>")
 
-require("harpoon").setup({
-    global_settings = {
-        mark_branch = true
-    }
-})
+-- vim.g.harpoon_log_level = 'debug'
+
+-- if not string.find(vim.loop.cwd(), "atlantis") then
+--     require("harpoon").setup({
+--         global_settings = {
+--             mark_branch = true
+--         }
+--     })
+-- end
