@@ -46,7 +46,7 @@ endif
 vim.cmd [[
 if exists('$TMUX')
     function! RunElixirTest()
-        let cmd = "tmux send-keys -t xgps:xgps-3.1 'dtest " . expand('%:') . "' C-m"
+        let cmd = "tmux send-keys -t xgps:xgps-test.1 'dtest " . expand('%:') . "' C-m"
         echo "Running test " . expand('%:')
         call system(cmd)
     endfunction
