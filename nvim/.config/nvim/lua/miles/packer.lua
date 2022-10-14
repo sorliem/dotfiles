@@ -77,6 +77,7 @@ return require('packer').startup(function()
   use('kyazdani42/nvim-web-devicons')
   use('ThePrimeagen/harpoon')
   use('ThePrimeagen/git-worktree.nvim')
+  use('ThePrimeagen/vim-be-good')
 
     -- ' Tree sitter
   use({
@@ -91,6 +92,7 @@ return require('packer').startup(function()
   use('nvim-lua/plenary.nvim')
   use('nvim-lua/popup.nvim')
   use('nvim-telescope/telescope.nvim')
+  use('nvim-telescope/telescope-github.nvim')
 
   use({
       'nvim-telescope/telescope-fzf-native.nvim',
