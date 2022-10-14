@@ -28,17 +28,16 @@ require('telescope').setup{
             ".git"
         },
         layout_config = {
-            width = 0.75,
+            width = 0.85,
             height = 0.85,
-            -- preview_cutoff = 120,
+            preview_cutoff = 160,
             prompt_position = "top",
-
             horizontal = {
                 preview_width = function(_, cols, _)
                     if cols > 200 then
-                        return math.floor(cols * 0.4)
+                        return math.floor(cols * 0.5)
                     else
-                        return math.floor(cols * 0.6)
+                        return math.floor(cols * 0.5)
                     end
                 end,
             },
@@ -102,3 +101,4 @@ require('telescope').setup{
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("git_worktree")
+require('telescope').load_extension('gh')
