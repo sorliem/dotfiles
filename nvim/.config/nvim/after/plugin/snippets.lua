@@ -9,9 +9,9 @@ local i = ls.insert_node
 local t = ls.text_node
 local d = ls.dynamic_node
 local c = ls.choice_node
--- local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
+local types = require("luasnip.util.types")
 
 local require_var = function(args, _)
   local text = args[1][1] or ""
@@ -28,12 +28,23 @@ local require_var = function(args, _)
 end
 
 ls.config.set_config {
-    history = true,
+    history = false,
     updateevents = "TextChanged,TextChangedI",
+    ext_opts = {
+    [types.choiceNode] = {
+      active = {
+        virt_text = { { " « CHOICE " } },
+        hl_group = "GruvboxBlue"
+      },
+      unvisited = {
+        hl_group = "GruvboxGreen"
+      }
+    },
+  },
 }
 
 local all_snippets = {
-    snippet("simple", t("wow, so simple"))
+    snippet("simple", t("wow, so simple")),
 }
 
 local javascript_snippets = {
@@ -63,8 +74,11 @@ local elixir_snippets = {
     snippet("pins", fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
     snippet("iop", fmt('IO.puts("{}")', { i(1) })),
     snippet("mdoc", fmt('@moduledoc """\n{}\n"""', { i(1) })),
+    snippet("fdoc", fmt('@doc """\n{}\n"""', { i(1) })),
     snippet("test", fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
     snippet("itest", fmt('it "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
+    snippet("assert", fmt('assert {} == {}', {i(1, "left"), i(2, "right")})),
+    snippet("assert_recv", fmt('assert_receive {}', { i(1) })),
     snippet({trig = "mod", dscr = "Define an elixir module"}, fmt(
             [[
             defmodule {} do
@@ -131,40 +145,10 @@ local go_snippets = {
     snippet("fmt", fmt('fmt.Printf("{}\n", {})', { i(1, "str"), i(2, "replacements") }))
 }
 
-local git_snippets = {
-    snippet("daily", fmt(
-            [[
-            update daily & staging to {}
-
-            Deploy PR to daily & staging
-            - https://github.com/onXmaps/xgps/pull/{}
-
-            Raw diff
-            - https://github.com/onXmaps/xgps/compare/{}..{}
-            ]],
-            { i(1, "shortsha"), i(2, "pr_number"), i(0, "prev_shortsha"), rep(1) }
-        )
-    ),
-    snippet("prod", fmt(
-            [[
-            update production to {}
-
-            Deploy PR to production
-            - https://github.com/onXmaps/xgps/pull/{}
-
-            Raw diff
-            - https://github.com/onXmaps/xgps/compare/{}..{}
-            ]],
-            { i(1, "shortsha"), i(2, "pr_number"), i(0, "prev_shortsha"), rep(1) }
-        )
-    )
-}
-
 ls.add_snippets("all", all_snippets)
 ls.add_snippets("lua", lua_snippets)
 ls.add_snippets("elixir", elixir_snippets)
 ls.add_snippets("go", go_snippets)
-ls.add_snippets("gitcommit", git_snippets)
 ls.add_snippets("javascript", javascript_snippets)
 
 -- <c-k> is my expansion key
@@ -191,10 +175,5 @@ vim.keymap.set("i", "<c-j>", function()
     end
 end)
 
--- require("luasnip.loaders.from_vscode").lazy_load()
-
 -- add html snips to elixir templates
 require("luasnip").filetype_extend("eelixir", {"html"})
-
--- reload snippets easy
-vim.keymap.set("n", "<leader>rs", "<cmd>source ~/.config/nvim/lua/miles/snippets.lua<CR>")
