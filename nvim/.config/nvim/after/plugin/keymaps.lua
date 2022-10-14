@@ -3,6 +3,7 @@ local nnoremap = Remap.nnoremap
 local vnoremap = Remap.vnoremap
 local inoremap = Remap.inoremap
 local xnoremap = Remap.xnoremap
+local snoremap = Remap.snoremap
 local nmap = Remap.nmap
 
 -- swap colon and semicolon
@@ -130,10 +131,10 @@ nnoremap('<Leader>qr', ':lua require("miles.telescope").reload()<CR>', { noremap
 nnoremap("<leader>rs", "<cmd>lua require('miles.snippets').reload_snippets()<CR>")
 
 -- set keybinds for both INSERT and VISUAL.
-vim.api.nvim_set_keymap("i", "<C-n>", "<Plug>luasnip-next-choice", {})
-vim.api.nvim_set_keymap("s", "<C-n>", "<Plug>luasnip-next-choice", {})
-vim.api.nvim_set_keymap("i", "<C-p>", "<Plug>luasnip-prev-choice", {})
-vim.api.nvim_set_keymap("s", "<C-p>", "<Plug>luasnip-prev-choice", {})
+inoremap("<C-n>", "<Plug>luasnip-next-choice")
+snoremap("<C-n>", "<Plug>luasnip-next-choice")
+inoremap("<C-p>", "<Plug>luasnip-prev-choice")
+snoremap("<C-p>", "<Plug>luasnip-prev-choice")
 
 -- get rid of highlighting
 nnoremap("<leader>hh", ":noh<CR>")
