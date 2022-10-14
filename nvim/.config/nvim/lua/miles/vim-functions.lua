@@ -44,22 +44,6 @@ endif
 ]]
 
 vim.cmd [[
-if exists('$TMUX')
-    function! RunElixirTest()
-        let cmd = "tmux send-keys -t xgps:xgps-test.1 'dtest " . expand('%:') . "' C-m"
-        echo "Running test " . expand('%:')
-        call system(cmd)
-    endfunction
-
-    function! RunAllTests()
-        let cmd = "tmux send-keys -t xgps:xgps-3.1 'dtest' C-m"
-        echo "Running all tests"
-        call system(cmd)
-    endfunction
-endif
-]]
-
-vim.cmd [[
 if has("persistent_undo")
     " set undodir=$HOME."/.undodir"
     let &undodir=$HOME."/.undodir"
@@ -78,13 +62,5 @@ function! SaveAndExec()
   endif
 
   return
-endfunction
-]]
-
-vim.cmd [[
-function! RunFormatter()
-    let cmd = "docker-compose run --rm xgps mix format"
-    echo "Running project wide formatter for xgps"
-    call system(cmd)
 endfunction
 ]]
