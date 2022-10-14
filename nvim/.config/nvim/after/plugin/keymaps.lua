@@ -125,6 +125,16 @@ nnoremap("<Leader>tt", ":call RunAllTests()<CR>")
 -- run formatting
 nnoremap("<Leader>rf", ":call RunFormatter()<CR>")
 
+nnoremap('<Leader>qr', ':lua require("miles.telescope").reload()<CR>', { noremap = true })
+
+nnoremap("<leader>rs", "<cmd>lua require('miles.snippets').reload_snippets()<CR>")
+
+-- set keybinds for both INSERT and VISUAL.
+vim.api.nvim_set_keymap("i", "<C-n>", "<Plug>luasnip-next-choice", {})
+vim.api.nvim_set_keymap("s", "<C-n>", "<Plug>luasnip-next-choice", {})
+vim.api.nvim_set_keymap("i", "<C-p>", "<Plug>luasnip-prev-choice", {})
+vim.api.nvim_set_keymap("s", "<C-p>", "<Plug>luasnip-prev-choice", {})
+
 -- get rid of highlighting
 nnoremap("<leader>hh", ":noh<CR>")
 
