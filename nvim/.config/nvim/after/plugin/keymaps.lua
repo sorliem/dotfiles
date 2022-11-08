@@ -149,5 +149,7 @@ nmap("<C-F>f", "<Plug>CtrlSFPrompt")
 -- search for word under cursor with, sublime text 2 style
 nmap("<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
 
+nnoremap("<leader>fw", ":lua require('telescope.builtin').grep_string{}<CR>")
+
 -- toggle the CtrlSF search results window
 nnoremap("<C-F>t", ":CtrlSFToggle<CR>")
