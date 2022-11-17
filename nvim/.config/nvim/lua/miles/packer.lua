@@ -22,6 +22,8 @@ return require('packer').startup(function()
       end
   })
 
+use({ "williamboman/mason.nvim" })
+
   use('christoomey/vim-tmux-navigator')
   use('dyng/ctrlsf.vim')
   use('jremmen/vim-ripgrep')
