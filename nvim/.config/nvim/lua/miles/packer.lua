@@ -23,7 +23,6 @@ return require('packer').startup(function()
   })
 
 
-  use('lukas-reineke/indent-blankline.nvim')
   use('christoomey/vim-tmux-navigator')
   use('dyng/ctrlsf.vim')
   use('jremmen/vim-ripgrep')
