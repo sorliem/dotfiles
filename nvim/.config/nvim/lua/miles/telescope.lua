@@ -7,6 +7,14 @@ M.search_dotfiles = function()
         })
 end
 
+M.search_wiki = function()
+    require("telescope.builtin").find_files({
+            prompt_title = "< Personal VimWiki >",
+            cwd = "~/vimwiki",
+            hidden = true,
+        })
+end
+
 -- search git files and if not successful do a regular find files
 M.project_files = function()
     local opts = {} -- define here if you want to define something

@@ -4,13 +4,23 @@ local nnoremap = Remap.nnoremap
 local actions = require('telescope.actions')
 local action_layout = require('telescope.actions.layout')
 
+
 nnoremap("<C-P>", ":lua require('miles.telescope').project_files()<CR>")
 -- nnoremap <leader>o :lua require('telescope.builtin').oldfiles()<CR>
 nnoremap("<leader>vrc", ":lua require('miles.telescope').search_dotfiles()<CR>")
+nnoremap("<leader>ws", ":lua require('miles.telescope').search_wiki()<CR>")
 nnoremap("<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
 nnoremap("<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
 nnoremap("<leader>gc", ":lua require('telescope.builtin').git_branches()<CR>")
+
+-- nnoremap("<leader>gm", function()
+--     -- local git_commits_command = {'git','log','--format="%C(yellow)%h %C(blue)%ar %C(white)%s"'}
+--     local git_commits_command = {'git','log','--pretty=format:"%C(yellow)%h %C(blue)%ad %C(white)%s %d [%an]"','--date=short'}
+--     -- require('telescope.builtin').git_commits({git_command = {'git','log','--format="%C(yellow)%h %C(blue)%ar %C(white)%s"'}})
+--     require('telescope.builtin').git_commits({git_command = git_commits_command})
+-- end)
 nnoremap("<leader>gm", ":lua require('telescope.builtin').git_commits()<CR>")
+
 nnoremap("<leader>gf", ":lua require('telescope.builtin').git_status()<CR>")
 
 require('telescope').setup{
