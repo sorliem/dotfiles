@@ -22,8 +22,8 @@ return require('packer').startup(function()
       end
   })
 
-use({ "williamboman/mason.nvim" })
 
+  use('lukas-reineke/indent-blankline.nvim')
   use('christoomey/vim-tmux-navigator')
   use('dyng/ctrlsf.vim')
   use('jremmen/vim-ripgrep')
@@ -46,6 +46,7 @@ use({ "williamboman/mason.nvim" })
 
               vim.g.slime_target = 'tmux'
               vim.g.slime_default_config = {socket_name = sep[1], target_pane = '3'}
+
               vim.g.slime_dont_ask_default = 1
           end
       end
