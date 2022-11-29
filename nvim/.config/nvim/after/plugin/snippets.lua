@@ -138,6 +138,16 @@ local elixir_snippets = {
                 i(0, "return_val")
             }
         )
+    ),
+    s("cap", t("import ExUnit.CaptureLog")),
+    s("acap", fmt(
+        [[
+        assert capture_log(fn ->
+          {}
+        end) =~ "{}"
+        ]],
+        { i(1, "assertion"), i(0, "log contents") }
+      )
     )
 }
 
@@ -150,6 +160,7 @@ ls.add_snippets("lua", lua_snippets)
 ls.add_snippets("elixir", elixir_snippets)
 ls.add_snippets("go", go_snippets)
 ls.add_snippets("javascript", javascript_snippets)
+ls.add_snippets("vue", javascript_snippets)
 
 -- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
