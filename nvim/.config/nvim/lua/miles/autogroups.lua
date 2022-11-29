@@ -50,6 +50,15 @@ autocmd('FileType', {
     end
 })
 
+autocmd('FileType', {
+    group = MilesDevGroup,
+    pattern = {'vimwiki'},
+    callback = function()
+      vim.opt_local.spell = true
+      vim.opt.listchars:remove('eol')
+    end
+})
+
 autocmd('BufWritePost', {
     group = PackerGroup,
     pattern = 'packer.lua',
