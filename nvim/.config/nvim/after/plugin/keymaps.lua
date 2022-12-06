@@ -36,6 +36,19 @@ vnoremap(">", ">gv")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
+
+-- keep center of screen when scrolling
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
+
+-- keep center of screen when iterating through search results
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
+
+-- keep center of screen when iterating through quickfix
+nnoremap("<C-j>", "<cmd>cnext<CR>zz")
+nnoremap("<C-k>", "<cmd>cprev<CR>zz")
+
 -- do search and replace using the word under cursor
 nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
