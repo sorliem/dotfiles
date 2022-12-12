@@ -124,21 +124,6 @@ local elixir_snippets = {
             { i(1, "mod_under_test"), i(2, "first_test_name"), i(0) }
         )
     ),
-    s({trig = "expect", dscr = "Mox expect function"}, fmt(
-            [[
-            expect({}, {}, {}, fn {} ->
-              {}
-            end)
-            ]],
-            {
-                i(1, "mod"),
-                i(2, "fun"),
-                i(3, "num_calls"),
-                i(4, "fun_args"),
-                i(0, "return_val")
-            }
-        )
-    ),
     s("cap", t("import ExUnit.CaptureLog")),
     s("acap", fmt(
         [[
