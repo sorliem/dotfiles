@@ -22,12 +22,13 @@ return require('packer').startup(function()
       end
   })
 
+  use({'lewis6991/gitsigns.nvim'})
 
   use('christoomey/vim-tmux-navigator')
   use('dyng/ctrlsf.vim')
   use('jremmen/vim-ripgrep')
   use('mbbill/undotree')
-  use('airblade/vim-gitgutter')
+  -- use('airblade/vim-gitgutter')
   use('editorconfig/editorconfig-vim')
   -- let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
