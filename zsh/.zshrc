@@ -114,15 +114,7 @@ alias gl='git log --decorate --oneline --all --graph --stat'
 alias gl1='git log -n 1'
 alias gw='git worktree'
 
-# stripe development
-alias stripe_listen_webhook='stripe listen --events=invoice.upcoming,invoice.payment_succeeded,customer.source.updated,charge.refunded,customer.subscription.deleted --forward-to=localhost:4000/v1/hooks/stripe'
 
-#################################
-#           DOCKER              #
-#################################
-# docker stuff
-alias dc='docker-compose'
-alias dstop='docker ps  | cut -d " " -f 1 | awk "NR>1" | xargs docker stop'
 
 #################################
 #           TERRAFORM           #
@@ -133,14 +125,6 @@ alias tf='terraform'
 # Follow link in https://github.com/google-github-actions/setup-gcloud/issues/128#issuecomment-663215962
 export LD_LIBRARY_PATH=/usr/local/lib
 
-#################################
-# ELIXIR / ERLANG / KERL / ASDF #
-#################################
-alias chkfmt='docker-compose run --rm xgps mix format --check-formatted'
-alias fmt='docker-compose run --rm xgps mix format'
-alias riex='docker-compose run --rm iex'
-# alias dtest='docker-compose run --rm test'
-alias xshort='(cd ~/gitroot/onxmaps/xgps && git rev-parse --short=7 master)'
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export ERL_COMPILER_OPTIONS=bin_opt_info
@@ -172,7 +156,8 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --multi'
 #################################
 #           BAT                 #
 #################################
-export BAT_THEME="Solarized (light)"
+# export BAT_THEME="Solarized (light)"
+export BAT_THEME="1337"
 
 #################################
 #           GOLANG              #
