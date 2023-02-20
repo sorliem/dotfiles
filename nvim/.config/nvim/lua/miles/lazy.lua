@@ -12,4 +12,5 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+-- load all modules in plugins dir
 require('lazy').setup('plugins')

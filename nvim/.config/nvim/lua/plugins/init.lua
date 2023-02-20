@@ -1,25 +1,15 @@
+-- see other files in this dir for plugin setups with larger configs
 return {
-		{
-			'dstein64/vim-startuptime',
-			cmd = 'StartupTime'
-		},
-		'dyng/ctrlsf.vim',
-		{'christoomey/vim-tmux-navigator', lazy = true},
 		{'mbbill/undotree', lazy = true},
+		{'christoomey/vim-tmux-navigator', lazy = true},
+		'dyng/ctrlsf.vim',
+		{'dstein64/vim-startuptime', cmd = 'StartupTime'},
 		{'editorconfig/editorconfig-vim', lazy = true},
-		{'jpalardy/vim-slime', branch = 'main'},
-		{
-			'iamcco/markdown-preview.nvim',
-			build = 'cd app && npm install',
-			init = function()
-				vim.g.mkdp_filetypes = { 'markdown' }
-			end,
-			ft = { 'markdown' },
-		},
 		{'vimwiki/vimwiki', lazy = true},
 		{'cespare/vim-toml', ft = 'toml'},
 		{'elixir-editors/vim-elixir', ft = { 'elixir', 'eelixir' }},
 		{'udalov/kotlin-vim', ft = 'kotlin'},
+		{'jparise/vim-graphql', ft = 'graphql'},
 
 		-- Tim Pope
 		'tpope/vim-fugitive',
