@@ -11,14 +11,30 @@ autocmd('BufWritePre', {
     command = '%s/\\s\\+$//e'
 })
 
+-- autocmd('WinLeave', {
+--     pattern = '*',
+--     command = 'set nocursorline'
+-- })
+
+-- autocmd('WinEnter', {
+--     pattern = '*',
+--     command = 'set cursorline'
+-- })
+
 autocmd('WinLeave', {
     pattern = '*',
-    command = 'set nocursorline'
+    callback = function()
+        vim.opt.cursorline = false
+        vim.opt.cursorcolumn = false
+    end
 })
 
 autocmd('WinEnter', {
     pattern = '*',
-    command = 'set cursorline'
+    callback = function()
+        vim.opt.cursorline = true
+        vim.opt.cursorcolumn = true
+    end
 })
 
 autocmd('TextYankPost', {
