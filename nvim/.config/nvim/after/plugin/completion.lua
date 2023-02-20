@@ -47,7 +47,21 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "luasnip" },
-        { name = "buffer", keyword_length = 3, max_item_count = 7 },
+        {
+            name = "buffer",
+            keyword_length = 2,
+            max_item_count = 7,
+            option = {
+                -- allow completion of words in visible windows, not just current buffer
+                get_bufnrs = function()
+                    local bufs = {}
+                    for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        bufs[vim.api.nvim_win_get_buf(win)] = true
+                    end
+                    return vim.tbl_keys(bufs)
+                end
+            }
+        },
     },
 
     experimental = {
