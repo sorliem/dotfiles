@@ -158,7 +158,7 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --multi'
 #           BAT                 #
 #################################
 # export BAT_THEME="Solarized (light)"
-export BAT_THEME="1337"
+export BAT_THEME="Nord"
 
 #################################
 #           GOLANG              #
