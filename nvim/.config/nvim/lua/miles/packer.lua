@@ -44,17 +44,19 @@ return require('packer').startup(function()
   use('elixir-editors/vim-elixir')
   use('udalov/kotlin-vim')
   use('sheerun/vim-polyglot')
-
-  -- use('szw/vim-maximizer')
+  use('nvim-lualine/lualine.nvim')
+  use('kyazdani42/nvim-web-devicons')
 
   -- colorschemes
-  use('gruvbox-community/gruvbox')
+  use('ellisonleao/gruvbox.nvim')
+  use('fenetikm/falcon')
   use('NLKNguyen/papercolor-theme')
   use('flazz/vim-colorschemes')
   use('tjdevries/colorbuddy.vim')
   use('folke/tokyonight.nvim')
+  use('ishan9299/nvim-solarized-lua')
 
-    -- Tim Pope
+  -- Tim Pope
   use('tpope/vim-fugitive')
   use('tpope/vim-rhubarb')
   use('tpope/vim-surround')
@@ -63,39 +65,32 @@ return require('packer').startup(function()
   use('tpope/vim-unimpaired')
 
 
-  use('nvim-lualine/lualine.nvim')
-  use('kyazdani42/nvim-web-devicons')
   use('ThePrimeagen/harpoon')
   use('ThePrimeagen/git-worktree.nvim')
   use('ThePrimeagen/vim-be-good')
 
-    -- ' Tree sitter
-  use({
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
-  })
-
+  -- Tree sitter
+  use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
   use('nvim-treesitter/playground')
 
-    -- ' LSP stuff
+  -- ' LSP stuff
   use('neovim/nvim-lspconfig')
   use('nvim-lua/plenary.nvim')
   use('nvim-lua/popup.nvim')
+  use('onsails/lspkind-nvim')
+  use('j-hui/fidget.nvim')
+
+  -- Telecope
   use('nvim-telescope/telescope.nvim')
   use('nvim-telescope/telescope-github.nvim')
-
   use({
       'nvim-telescope/telescope-fzf-native.nvim',
       run = 'make',
       branch = 'main'
   })
-
   use('nvim-telescope/telescope-live-grep-args.nvim')
-  -- use('simrat39/symbols-outline.nvim')
-  use('onsails/lspkind-nvim')
-  use('j-hui/fidget.nvim')
 
--- ' Snippets
+  -- Snippets
   use({
     'L3MON4D3/LuaSnip',
     config = function()
@@ -105,7 +100,7 @@ return require('packer').startup(function()
   use('saadparwaiz1/cmp_luasnip')
   use('rafamadriz/friendly-snippets')
 
--- ' completion
+  -- completion
   use('hrsh7th/nvim-cmp')
   use('hrsh7th/cmp-buffer')
   use('hrsh7th/cmp-nvim-lua')
