@@ -212,7 +212,7 @@ colors:
 #     cyan:    '0x93a1a1'
 #     white:   '0xfdf6e3'
 
-background_opacity: 0.95
+background_opacity: 1.0
 
 font:
   normal:
