@@ -71,7 +71,7 @@ autocmd('FileType', {
     pattern = {'vimwiki'},
     callback = function()
       vim.opt_local.spell = true
-      vim.opt.listchars:remove('eol')
+      -- vim.opt.listchars:remove('eol')
     end
 })
 
