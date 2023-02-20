@@ -13,7 +13,7 @@ vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.backup = false
 vim.opt.list = true
-vim.opt.listchars = 'tab:»·,lead:·,trail:·,eol:↵,extends:›,precedes:‹'
+vim.opt.listchars = 'tab:→·,lead:·,trail:·,eol:↵,extends:›,precedes:‹'
 vim.opt.ruler = true
 vim.opt.hidden = true
 vim.opt.laststatus = 2
@@ -52,6 +52,12 @@ if exists('+termguicolors')
     set termguicolors
 endif
 ]]
+
+vim.g.netrw_browse_split = 2
+vim.g.netrw_banner=0        -- disable annoying banner
+vim.g.netrw_browse_split=4  -- open in prior window
+vim.g.netrw_altv=1          -- open splits to the right
+vim.cmd [[let g:netrw_list_hide=netrw_gitignore#Hide()]]
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
