@@ -76,6 +76,7 @@ local elixir_snippets = {
     s({trig = "mdoc", dscr = "create moduledoc"}, fmt('@moduledoc """\n{}\n"""', { i(1) })),
     s({trig = "fdoc", dscr = "create function doc"}, fmt('@doc """\n{}\n"""', { i(1) })),
     s({trig = "test", dscr = "create simple test"}, fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
+    s({trig = "exu", dscr = "import ExUnit.Case"}, t('use ExUnit.Case')),
     s({trig = "itest", dscr = "create simple exunit test"}, fmt('it "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
     s({trig = "assert", dscr = "assert var"}, fmt('assert {} == {}', {i(1, "left"), i(2, "right")})),
     s({trig = "assert_recv", dscr = "assert receive"}, fmt('assert_receive {}', { i(1) })),
