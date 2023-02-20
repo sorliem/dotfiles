@@ -36,6 +36,8 @@ vnoremap(">", ">gv")
 vnoremap("J", ":m '>+1<CR>gv=gv")
 vnoremap("K", ":m '<-2<CR>gv=gv")
 
+-- higlight your pasted region
+nnoremap("gV", "`[v`]")
 
 -- keep center of screen when scrolling
 nnoremap("<C-d>", "<C-d>zz")
@@ -122,10 +124,13 @@ nnoremap("<Leader>nt", ":Hexplore!<Enter>")
 nnoremap("<Leader>pv", ":Hexplore!<Enter>")
 nnoremap("<Leader>e", ":Hexplore!<Enter>")
 
+nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
 -- find current file in tree
 -- nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 -- command! ExploreFind let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
 nnoremap("<Leader>nf", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
+nnoremap("-", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
 
 -- save and exec file
 nnoremap("<Leader>x", ":call SaveAndExec()<CR>")
