@@ -35,6 +35,10 @@ require('lazy').setup({
 			end
 		},
 		'lewis6991/gitsigns.nvim',
+		{
+			'dstein64/vim-startuptime',
+			cmd = 'StartupTime'
+		},
 		{'christoomey/vim-tmux-navigator', lazy = true},
 		{'dyng/ctrlsf.vim', lazy = true},
 		{'jremmen/vim-ripgrep', lazy = true},
@@ -73,7 +77,7 @@ require('lazy').setup({
 		'tpope/vim-surround',
 		'tpope/vim-repeat',
 		'tpope/vim-commentary',
-		'tpope/vim-unimpaired',
+		{'tpope/vim-unimpaired', lazy = true},
 
 		'ThePrimeagen/harpoon',
 		'ThePrimeagen/git-worktree.nvim',
