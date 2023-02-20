@@ -55,6 +55,39 @@ colors:
 #     magenta: '0x8f3f71'
 #     cyan:    '0x427b58'
 #     white:   '0x3c3836'
+#
+
+# # falcon colorscheme for alacritty
+# # by fenetikm, https://github.com/fenetikm/falcon
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x020221'
+#     foreground: '0xb4b4b9'
+#   # Colors the cursor will use if `custom_cursor_colors` is true
+#   cursor:
+#     text: '0x020221'
+#     cursor: '0xffe8c0'
+#   # Normal colors
+#   normal:
+#     black:   '0x000004'
+#     red:     '0xff3600'
+#     green:   '0x859933'
+#     yellow:  '0xffc552'
+#     blue:    '0x635196'
+#     magenta: '0xff761a'
+#     cyan:    '0x34bfa4'
+#     white:   '0xb4b4b9'
+#   # Bright colors
+#   bright:
+#     black:   '0x020221'
+#     red:     '0xff8e78'
+#     green:   '0xb2bc55'
+#     yellow:  '0xffd392'
+#     blue:    '0x99a4bc'
+#     magenta: '0xffb07b'
+#     cyan:    '0x8bccbf'
+#     white:   '0xf8f8ff'
 
 # # TokyoNight Dark Alacritty Colors
 # colors:
@@ -125,12 +158,10 @@ colors:
 #   primary:
 #     background: '0xeeeeee'
 #     foreground: '0x4d4d4c'
-
 #   # Colors the cursor will use if `custom_cursor_colors` is true
 #   cursor:
 #     text: '0xf3f3f3'
 #     cursor: '0x4d4d4c'
-
 #   # Normal colors
 #   normal:
 #     black:   '0xededed'
@@ -141,7 +172,6 @@ colors:
 #     magenta: '0x8959a8'
 #     cyan:    '0x3e999f'
 #     white:   '0x4d4d4c'
-
 #   # Bright colors
 #   bright:
 #     black:   '0x949494'
@@ -189,7 +219,6 @@ colors:
 #   primary:
 #     background: '0x002b36'
 #     foreground: '0x839496'
-
 #   # Normal colors
 #   normal:
 #     black:   '0x073642'
@@ -200,7 +229,6 @@ colors:
 #     magenta: '0xd33682'
 #     cyan:    '0x2aa198'
 #     white:   '0xeee8d5'
-
 #   # Bright colors
 #   bright:
 #     black:   '0x002b36'
