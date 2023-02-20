@@ -18,11 +18,12 @@ vim.opt.ruler = true
 vim.opt.hidden = true
 vim.opt.laststatus = 2
 vim.opt.incsearch = true
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.undolevels = 500
 vim.opt.swapfile = false
 -- vim.opt.t_Co = 256             -- 256 terminal colors
+vim.opt.termguicolors = true
 vim.opt.showcmd = true
 vim.opt.wildmenu = true
 vim.opt.showmatch = true
@@ -36,10 +37,20 @@ vim.opt.spelllang='en_us'
 vim.opt.scrolloff=0
 vim.opt.cmdheight = 1
 vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
-vim.opt.colorcolumn = '80'
+-- vim.opt.cursorcolumn = true
+-- vim.opt.colorcolumn = '80'
 vim.opt.completeopt='menu,menuone,noselect'
-vim.opt.guicursor='i:block'
+vim.opt.guicursor = 'i:block'
+vim.opt.updatetime = 50
 vim.opt.backupdir= HOME ..'/.vim/backups'
+vim.opt.conceallevel = 0
+
+vim.cmd [[
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+]]
 
 vim.g.mapleader = ' '
