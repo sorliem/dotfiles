@@ -23,33 +23,20 @@ return require('packer').startup(function()
   })
 
   use({'lewis6991/gitsigns.nvim'})
-
   use('christoomey/vim-tmux-navigator')
   use('dyng/ctrlsf.vim')
   use('jremmen/vim-ripgrep')
   use('mbbill/undotree')
-  -- use('airblade/vim-gitgutter')
   use('editorconfig/editorconfig-vim')
-  -- let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+  use({'jpalardy/vim-slime', branch = 'main'})
 
   use({
-      'jpalardy/vim-slime',
-      branch = 'main',
-      config = function()
-          if os.getenv('$TMUX') then
-              local tmux = os.getenv('$TMUX')
-              local t={}
-              local sep = ','
-              for str in string.gmatch(tmux, '([^'..sep..']+)') do
-                  table.insert(t, str)
-              end
-
-              vim.g.slime_target = 'tmux'
-              vim.g.slime_default_config = {socket_name = sep[1], target_pane = '3'}
-
-              vim.g.slime_dont_ask_default = 1
-          end
-      end
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    setup = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
   })
 
   use('vimwiki/vimwiki')
