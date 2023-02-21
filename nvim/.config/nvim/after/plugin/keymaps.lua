@@ -1,58 +1,50 @@
-local Remap = require("miles.keymap")
-local nnoremap = Remap.nnoremap
-local vnoremap = Remap.vnoremap
-local inoremap = Remap.inoremap
-local xnoremap = Remap.xnoremap
-local snoremap = Remap.snoremap
-local nmap = Remap.nmap
-
 -- swap colon and semicolon
-nnoremap(";", ":")
-nnoremap(":", ";")
+vim.keymap.set("n", ";", ":")
+vim.keymap.set("n", ":", ";")
 
 -- make Y behave like other captial letters
-nnoremap("Y", "y$")
+vim.keymap.set("n", "Y", "y$")
 
 -- keeping it centered when jumping around, joining lines
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
-nnoremap("J", "mzJ'z")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "J", "mzJ'z")
 
 -- better undo break points
-inoremap(",", ",<c-g>u")
-inoremap(".", ".<c-g>u")
-inoremap("!", "!<c-g>u")
-inoremap("?", "?<c-g>u")
+vim.keymap.set("i", ",", ",<c-g>u")
+vim.keymap.set("i", ".", ".<c-g>u")
+vim.keymap.set("i", "!", "!<c-g>u")
+vim.keymap.set("i", "?", "?<c-g>u")
 
 -- jumplist muations. Add to jumplist when jumping more than 5 lines
 -- not sure if this <expr> is in right place
-nnoremap("<expr> k", "(v:count > 5 ? \"m'\" . v:count : \"\") . 'k'")
-nnoremap("<expr> j", "(v:count > 5 ? \"m'\" . v:count : \"\") . 'j'")
+vim.keymap.set("n", "<expr> k", "(v:count > 5 ? \"m'\" . v:count : \"\") . 'k'")
+vim.keymap.set("n", "<expr> j", "(v:count > 5 ? \"m'\" . v:count : \"\") . 'j'")
 
 -- better indentation, keeps block highlighted
-vnoremap("<", "<gv")
-vnoremap(">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
-vnoremap("J", ":m '>+1<CR>gv=gv")
-vnoremap("K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- higlight your pasted region
-nnoremap("gV", "`[v`]")
+vim.keymap.set("n", "gV", "`[v`]")
 
 -- keep center of screen when scrolling
-nnoremap("<C-d>", "<C-d>zz")
-nnoremap("<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- keep center of screen when iterating through search results
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- keep center of screen when iterating through quickfix
-nnoremap("<C-j>", "<cmd>cnext<CR>zz")
-nnoremap("<C-k>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
 -- do search and replace using the word under cursor
-nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 -- nnoremap("<C-d>", "<C-d>zz")
 -- nnoremap("<C-u>", "<C-u>zz")
@@ -61,113 +53,113 @@ nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 -- in visual mode, paste what is in the default register
 -- without overwriting the default register with what was
 -- just erased
-vnoremap("<leader>p", "\"_dP")
-xnoremap("<leader>p", "\"_dP")
+vim.keymap.set("v", "<leader>p", "\"_dP")
+vim.keymap.set("x", "<leader>p", "\"_dP")
 
 -- next greatest remap ever : asbjornHaland
-nnoremap("<leader>y", "\"+y")
-vnoremap("<leader>y", "\"+y")
-nmap("<leader>Y", "\"+Y")
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
 
-nnoremap("<leader>d", "\"_d")
-vnoremap("<leader>d", "\"_d")
+vim.keymap.set("n", "<leader>d", "\"_d")
+vim.keymap.set("v", "<leader>d", "\"_d")
 
 -- reload init.vim
-nnoremap("<leader>rv", ":so $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader>rv", ":so $MYVIMRC<CR>")
 
 -- delete buffer
-nnoremap("<leader>d", ":bd<CR>")
+vim.keymap.set("n", "<leader>d", ":bd<CR>")
 
 -- fzf starting at home dir
-nnoremap("<leader>F", ":FZF ~<CR>")
+vim.keymap.set("n", "<leader>F", ":FZF ~<CR>")
 
 -- rg in current dir
-nnoremap("<leader>ps", ":R<CR>")
+vim.keymap.set("n", "<leader>ps", ":R<CR>")
 -- nnoremap <leader>f :lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>
 
 -- toggle undotree
-nnoremap("<leader>u", ":UndotreeToggle<CR>")
+vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
 
 -- paste from clipboard
-nnoremap("<leader>P", "\"+p<CR>")
+vim.keymap.set("n", "<leader>P", "\"+p<CR>")
 
 -- copy to clipboard
-vnoremap("<leader>c", "\"+y<CR>")
+vim.keymap.set("v", "<leader>c", "\"+y<CR>")
 
 -- reload all buffers from disk
-nnoremap("<leader>br", ":bufdo e!<CR>")
+vim.keymap.set("n", "<leader>br", ":bufdo e!<CR>")
 
 -- git worktrees
-nnoremap("<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
-nnoremap("<leader>gaw", ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
+vim.keymap.set("n", "<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
+vim.keymap.set("n", "<leader>gaw", ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
 
 -- Fugitive status
-nnoremap("<Leader>gs", ":Git<CR>", {noremap = true, silent = true})
+vim.keymap.set("n", "<Leader>gs", ":Git<CR>", {noremap = true, silent = true})
 
 -- Fugitive blame
-nnoremap("<Leader>gb", ":Git blame<CR>", {noremap = true, silent = true})
+vim.keymap.set("n", "<Leader>gb", ":Git blame<CR>", {noremap = true, silent = true})
 
 -- Fugitive diff master
-nnoremap("<Leader>gd", ":Git diff master..HEAD<CR>:only<CR>", {noremap = true, silent = true})
+vim.keymap.set("n", "<Leader>gd", ":Git diff master..HEAD<CR>:only<CR>", {noremap = true, silent = true})
 
 -- Grab last commit messge
-nnoremap("<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j")
+vim.keymap.set("n", "<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j")
 
 -- Grab current line as _permanent_ github link
-nnoremap("<leader>ghl", ":0GBrowse!<CR>")
+vim.keymap.set("n", "<leader>ghl", ":0GBrowse!<CR>")
 
 -- Grab current selection as _permanent_ github link
-vnoremap("<leader>ghl", ":GBrowse!<CR>")
+vim.keymap.set("v", "<leader>ghl", ":GBrowse!<CR>")
 
 -- toggle netrw
-nnoremap("<Leader>nt", ":Hexplore!<Enter>")
-nnoremap("<Leader>pv", ":Hexplore!<Enter>")
-nnoremap("<Leader>e", ":Hexplore!<Enter>")
+vim.keymap.set("n", "<Leader>nt", ":Hexplore!<Enter>")
+vim.keymap.set("n", "<Leader>pv", ":Hexplore!<Enter>")
+vim.keymap.set("n", "<Leader>e", ":Hexplore!<Enter>")
 
-nnoremap("<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- find current file in tree
 -- nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
 -- command! ExploreFind let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
-nnoremap("<Leader>nf", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
-nnoremap("-", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
+vim.keymap.set("n", "<Leader>nf", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
+vim.keymap.set("n", "-", ":let @/=expand(\"%:\t\") <Bar> execute 'Hexplore!' expand(\"%:h\") <Bar> normal n<CR>")
 
 -- save and exec file
-nnoremap("<Leader>x", ":call SaveAndExec()<CR>")
+vim.keymap.set("n", "<Leader>x", ":call SaveAndExec()<CR>")
 
 -- run test file
-nnoremap("<Leader>rt", ":call RunElixirTest()<CR>")
+vim.keymap.set("n", "<Leader>rt", ":call RunElixirTest()<CR>")
 
 -- run all tests
-nnoremap("<Leader>tt", ":call RunAllTests()<CR>")
+vim.keymap.set("n", "<Leader>tt", ":call RunAllTests()<CR>")
 
 -- run formatting
-nnoremap("<Leader>rf", ":call RunFormatter()<CR>")
+vim.keymap.set("n", "<Leader>rf", ":call RunFormatter()<CR>")
 
-nnoremap('<Leader>qr', ':lua require("miles.telescope").reload()<CR>', { noremap = true })
+vim.keymap.set("n", '<Leader>qr', ':lua require("miles.telescope").reload()<CR>', { noremap = true })
 
-nnoremap("<leader>rs", "<cmd>lua require('miles.snippets').reload_snippets()<CR>")
+vim.keymap.set("n", "<leader>rs", "<cmd>lua require('miles.snippets').reload_snippets()<CR>")
 
 -- set keybinds for both INSERT and VISUAL.
-inoremap("<C-n>", "<Plug>luasnip-next-choice")
-snoremap("<C-n>", "<Plug>luasnip-next-choice")
-inoremap("<C-p>", "<Plug>luasnip-prev-choice")
-snoremap("<C-p>", "<Plug>luasnip-prev-choice")
+vim.keymap.set("i", "<C-n>", "<Plug>luasnip-next-choice")
+vim.keymap.set("s", "<C-n>", "<Plug>luasnip-next-choice")
+vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice")
+vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice")
 
 -- get rid of highlighting
-nnoremap("<leader>hh", ":noh<CR>")
+vim.keymap.set("n", "<leader>hh", ":noh<CR>")
 
 -- search over lines in buffer
-nnoremap("//", ":BLines<CR>")
+vim.keymap.set("n", "//", ":BLines<CR>")
 -- nnoremap // :lua require('telescope.builtin').current_buffer_fuzzy_find{}<CR>
 
 -- search for word under cursor with, sublime text 2 style
-nmap("<C-F>f", "<Plug>CtrlSFPrompt")
+vim.keymap.set("n", "<C-F>f", "<Plug>CtrlSFPrompt")
 
 -- search for word under cursor with, sublime text 2 style
-nmap("<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
+vim.keymap.set("n", "<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
 
-nnoremap("<leader>fw", ":lua require('telescope.builtin').grep_string{}<CR>")
+vim.keymap.set("n", "<leader>fw", ":lua require('telescope.builtin').grep_string{}<CR>")
 
 -- toggle the CtrlSF search results window
-nnoremap("<C-F>t", ":CtrlSFToggle<CR>")
+vim.keymap.set("n", "<C-F>t", ":CtrlSFToggle<CR>")
