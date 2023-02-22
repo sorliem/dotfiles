@@ -1,11 +1,11 @@
 -- see other files in this dir for plugin setups with larger configs
 return {
-		{'mbbill/undotree', lazy = true},
-		{'christoomey/vim-tmux-navigator', lazy = true},
+		'mbbill/undotree',
+		'christoomey/vim-tmux-navigator',
+		'editorconfig/editorconfig-vim',
+		'vimwiki/vimwiki',
 		'dyng/ctrlsf.vim',
 		{'dstein64/vim-startuptime', cmd = 'StartupTime'},
-		{'editorconfig/editorconfig-vim', lazy = true},
-		{'vimwiki/vimwiki'},
 		{'cespare/vim-toml', ft = 'toml'},
 		{'elixir-editors/vim-elixir', ft = { 'elixir', 'eelixir' }},
 		{'udalov/kotlin-vim', ft = 'kotlin'},
