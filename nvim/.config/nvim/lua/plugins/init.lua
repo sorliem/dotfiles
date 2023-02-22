@@ -5,7 +5,7 @@ return {
 		'dyng/ctrlsf.vim',
 		{'dstein64/vim-startuptime', cmd = 'StartupTime'},
 		{'editorconfig/editorconfig-vim', lazy = true},
-		{'vimwiki/vimwiki', lazy = true},
+		{'vimwiki/vimwiki'},
 		{'cespare/vim-toml', ft = 'toml'},
 		{'elixir-editors/vim-elixir', ft = { 'elixir', 'eelixir' }},
 		{'udalov/kotlin-vim', ft = 'kotlin'},
