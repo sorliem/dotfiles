@@ -12,5 +12,12 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+local opts = {
+	change_detection = {
+		-- don't auto reload modules when changes are detected. it just freezes nvim.
+		enabled = false
+	}
+}
+
 -- load all modules in plugins dir
-require('lazy').setup('plugins')
+require('lazy').setup('plugins', opts)
