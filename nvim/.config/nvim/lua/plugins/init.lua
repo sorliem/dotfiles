@@ -5,6 +5,7 @@ return {
 		'editorconfig/editorconfig-vim',
 		'vimwiki/vimwiki',
 		'dyng/ctrlsf.vim',
+		{'hashivim/vim-terraform', ft = 'terraform'},
 		{'dstein64/vim-startuptime', cmd = 'StartupTime'},
 		{'cespare/vim-toml', ft = 'toml'},
 		{'elixir-editors/vim-elixir', ft = { 'elixir', 'eelixir' }},
