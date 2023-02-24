@@ -29,8 +29,10 @@ return {
 				vim.g.gruvbox_invert_selection='0'
 				vim.g.gruvbox_italic = 1
 				vim.g.gruvbox_contrast_dark = 'hard'
+
 				vim.cmd [[set background=dark]]
 				vim.cmd [[colorscheme gruvbox]]
+
 				-- vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
 				-- vim.cmd [[highlight ColorColumn ctermbg=0 guibg=darkgrey]]
 				-- vim.cmd [[highlight CursorLine ctermbg=0 guibg=#262626]]
@@ -38,17 +40,44 @@ return {
 			end
 		},
 		{
-			'fenetikm/falcon',
-			lazy = true,
+			'yeddaif/neovim-purple',
 			config = function()
-				-- vim.g.falcon_background = false
-				-- vim.g.falcon_inactive = true
+				-- vim.cmd [[colorscheme neovim_purple]]
+			end
+		},
+		{
+			'projekt0n/github-nvim-theme',
+			config = function()
+				-- require('github-theme').setup({
+				--  theme_style = 'light_colorblind'
+				-- })
+			end
+		},
+		{
+			'drewtempelmeyer/palenight.vim',
+			config = function()
+				vim.cmd [[
+				if (has("nvim"))
+					"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+					let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+				endif
+				]]
+
+				-- vim.cmd [[set background=dark]]
+				-- vim.cmd [[colorscheme palenight]]
+			end
+		},
+		{
+			'fenetikm/falcon',
+			-- lazy = true,
+			config = function()
+			-- 	vim.g.falcon_background = true
+				-- vim.g.falcon_inactive = false
 				-- vim.cmd [[colorscheme falcon]]
 			end
 		},
 		{
 			'NLKNguyen/papercolor-theme',
-			lazy = true,
 			config = function()
 				-- vim.cmd [[set background=light]]
 				-- vim.cmd [[colorscheme PaperColor]]
@@ -56,7 +85,6 @@ return {
 		},
 		{
 			'ishan9299/nvim-solarized-lua',
-			lazy = true,
 			config = function()
 				-- vim.g.solarized_termcolors = 256
 				-- vim.cmd [[set background=dark]]
@@ -69,7 +97,6 @@ return {
 		},
 		{
 			'folke/tokyonight.nvim',
-			lazy = true,
 			config = function()
 				-- vim.opt.background = 'dark'
 				-- vim.g.tokyonight_italic_functions = 1
