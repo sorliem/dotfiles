@@ -5,6 +5,7 @@ return {
 		'editorconfig/editorconfig-vim',
 		'vimwiki/vimwiki',
 		'dyng/ctrlsf.vim',
+		'folke/lsp-colors.nvim',
 		{'hashivim/vim-terraform', ft = 'terraform'},
 		{'dstein64/vim-startuptime', cmd = 'StartupTime'},
 		{'cespare/vim-toml', ft = 'toml'},
