@@ -1,16 +1,16 @@
 return {
 	{
-		'L3MON4D3/LuaSnip',
+		"L3MON4D3/LuaSnip",
 		dependencies = {
-			'hrsh7th/nvim-cmp',
-			'saadparwaiz1/cmp_luasnip',
-			'rafamadriz/friendly-snippets',
+			"hrsh7th/nvim-cmp",
+			"saadparwaiz1/cmp_luasnip",
+			"rafamadriz/friendly-snippets",
 		},
 		config = function()
-			vim.g.snippets = 'luasnip'
+			vim.g.snippets = "luasnip"
 
 			if vim.g.snippets ~= "luasnip" then
-					return
+				return
 			end
 
 			local ls = require("luasnip")
@@ -25,131 +25,152 @@ return {
 			local types = require("luasnip.util.types")
 
 			local require_var = function(args, _)
-					local text = args[1][1] or ""
-					local split = vim.split(text, ".", { plain = true })
+				local text = args[1][1] or ""
+				local split = vim.split(text, ".", { plain = true })
 
-					local options = {}
-					for len = 0, #split - 1 do
-							table.insert(options, t(table.concat(vim.list_slice(split, #split - len, #split), "_")))
-					end
+				local options = {}
+				for len = 0, #split - 1 do
+					table.insert(options, t(table.concat(vim.list_slice(split, #split - len, #split), "_")))
+				end
 
-					return snippet_from_nodes(nil, {
-							c(1, options),
-					})
+				return snippet_from_nodes(nil, {
+					c(1, options),
+				})
 			end
 
-			ls.config.set_config {
-							history = false,
-							updateevents = "TextChanged,TextChangedI",
-							ext_opts = {
-							[types.choiceNode] = {
-									active = {
-											virt_text = { { " « CHOICE " } },
-											hl_group = "GruvboxBlue"
-									},
-									unvisited = {
-											hl_group = "GruvboxGreen"
-									}
-							},
+			ls.config.set_config({
+				history = false,
+				updateevents = "TextChanged,TextChangedI",
+				ext_opts = {
+					[types.choiceNode] = {
+						active = {
+							virt_text = { { " « CHOICE " } },
+							hl_group = "GruvboxBlue",
+						},
+						unvisited = {
+							hl_group = "GruvboxGreen",
+						},
 					},
-			}
+				},
+			})
 
-			local all_snippets = {
-							s("simple", t("wow, so simple")),
-			}
+			local all_snippets = {}
 
 			local javascript_snippets = {
-							s("log", fmt("console.log('{}')", { i(1, "log") })),
+				s("log", fmt("console.log('{}')", { i(1, "log") })),
 			}
 
 			local lua_snippets = {
-							s({trig = "for", dscr = "for loop in lua"}, {
-															t "for ",
-															i(1, "k, v"),
-															t " in ",
-															i(2, "ipairs()"),
-															t { " do", "  " },
-															i(0),
-															t { "", "" },
-															t "end",
-											}),
-							s("req", fmt([[local {} = require("{}")]], {
-											d(2, require_var, { 1 }),
-											i(1),
-							}))
+				s({ trig = "for", dscr = "for loop in lua" }, {
+					t("for "),
+					i(1, "k, v"),
+					t(" in "),
+					i(2, "ipairs()"),
+					t({ " do", "  " }),
+					i(0),
+					t({ "", "" }),
+					t("end"),
+				}),
+				s(
+					"req",
+					fmt([[local {} = require("{}")]], {
+						d(2, require_var, { 1 }),
+						i(1),
+					})
+				),
 			}
 
 			local elixir_snippets = {
-							s({trig = "ins", dscr = "inspect term"}, fmt('IO.inspect({}, label: "{}{}")', { i(1, "var"), rep(1), i(0) })),
-							s({trig = "ins2", dscr = "inspect term without auto-label"}, fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })),
-							s({trig = "pins", dscr = "pipe into inspect"}, fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
-							s({trig = "iop", dscr = "io puts"}, fmt('IO.puts("{}")', { i(1) })),
-							s({trig = "mdoc", dscr = "create moduledoc"}, fmt('@moduledoc """\n{}\n"""', { i(1) })),
-							s({trig = "fdoc", dscr = "create function doc"}, fmt('@doc """\n{}\n"""', { i(1) })),
-							s({trig = "test", dscr = "create simple test"}, fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
-							s({trig = "exu", dscr = "import ExUnit.Case"}, t('use ExUnit.Case')),
-							s({trig = "itest", dscr = "create simple exunit test"}, fmt('it "{}" do \n{}\nend', { i(1, "test_name"), i(2) })),
-							s({trig = "assert", dscr = "assert var"}, fmt('assert {} == {}', {i(1, "left"), i(2, "right")})),
-							s({trig = "assert_recv", dscr = "assert receive"}, fmt('assert_receive {}', { i(1) })),
-							s({trig = "mod", dscr = "Define an elixir module"}, fmt(
-															[[
-															defmodule {} do
-																	@moduledoc """
-																	"""
+				s(
+					{ trig = "ins", dscr = "inspect term" },
+					fmt('IO.inspect({}, label: "{}{}")', { i(1, "var"), rep(1), i(0) })
+				),
+				s(
+					{ trig = "ins2", dscr = "inspect term without auto-label" },
+					fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })
+				),
+				s({ trig = "pins", dscr = "pipe into inspect" }, fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
+				s({ trig = "iop", dscr = "io puts" }, fmt('IO.puts("{}")', { i(1) })),
+				s({ trig = "mdoc", dscr = "create moduledoc" }, fmt('@moduledoc """\n{}\n"""', { i(1) })),
+				s({ trig = "fdoc", dscr = "create function doc" }, fmt('@doc """\n{}\n"""', { i(1) })),
+				s(
+					{ trig = "test", dscr = "create simple test" },
+					fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })
+				),
+				s({ trig = "exu", dscr = "import ExUnit.Case" }, t("use ExUnit.Case")),
+				s(
+					{ trig = "itest", dscr = "create simple exunit test" },
+					fmt('it "{}" do \n{}\nend', { i(1, "test_name"), i(2) })
+				),
+				s({ trig = "assert", dscr = "assert var" }, fmt("assert {} == {}", { i(1, "left"), i(2, "right") })),
+				s({ trig = "assert_recv", dscr = "assert receive" }, fmt("assert_receive {}", { i(1) })),
+				s(
+					{ trig = "mod", dscr = "Define an elixir module" },
+					fmt(
+						[[
+						defmodule {} do
+								@moduledoc """
+								"""
 
-																	{}
-															end
-															]],
-															{ i(1, "mod_name"), i(0) }
-											)
-							),
-							s({trig = "tmodeu", dscr = "Define a test module with ExUnit.Case loaded"}, fmt(
-															[[
-															defmodule {}Test do
-																	use ExUnit.Case
+								{}
+						end
+						]],
+						{ i(1, "mod_name"), i(0) }
+					)
+				),
+				s(
+					{ trig = "tmodeu", dscr = "Define a test module with ExUnit.Case loaded" },
+					fmt(
+						[[
+						defmodule {}Test do
+								use ExUnit.Case
 
-																	setup do
+								setup do
 
-																	end
+								end
 
-																	test "{}" do
-																	end
-															end
-															]],
-															{ i(1, "mod_under_test"), i(0, "first_test_name") }
-											)
-							),
-							s({trig = "tmodes", dscr = "Define a test module with ExSpec loaded"}, fmt(
-															[[
-															defmodule {}Test do
-																	use ExSpec
+								test "{}" do
+								end
+						end
+						]],
+						{ i(1, "mod_under_test"), i(0, "first_test_name") }
+					)
+				),
+				s(
+					{ trig = "tmodes", dscr = "Define a test module with ExSpec loaded" },
+					fmt(
+						[[
+						defmodule {}Test do
+								use ExSpec
 
-																	setup do
+								setup do
 
-																	end
+								end
 
-																	it "should {}" do
-																			{}
-																	end
-															end
-															]],
-															{ i(1, "mod_under_test"), i(2, "first_test_name"), i(0) }
-											)
-							),
-							s("cap", t("import ExUnit.CaptureLog")),
-							s("acap", fmt(
-											[[
-											assert capture_log(fn ->
-													{}
-											end) =~ "{}"
-											]],
-											{ i(1, "assertion"), i(0, "log contents") }
-									)
-							)
+								it "should {}" do
+										{}
+								end
+						end
+						]],
+						{ i(1, "mod_under_test"), i(2, "first_test_name"), i(0) }
+					)
+				),
+				s("cap", t("import ExUnit.CaptureLog")),
+				s(
+					"acap",
+					fmt(
+						[[
+						assert capture_log(fn ->
+								{}
+						end) =~ "{}"
+						]],
+						{ i(1, "assertion"), i(0, "log contents") }
+					)
+				),
 			}
 
 			local go_snippets = {
-							s("fmt", fmt('fmt.Printf("{}\n", {})', { i(1, "str"), i(2, "replacements") }))
+				s("fmt", fmt('fmt.Printf("{}\\n", {})', { i(1, "str"), i(2, "replacements") })),
 			}
 
 			ls.add_snippets("all", all_snippets)
@@ -162,29 +183,29 @@ return {
 			-- <c-k> is my expansion key
 			-- this will expand the current item or jump to the next item within the snippet.
 			vim.keymap.set({ "i", "s" }, "<c-k>", function()
-							if ls.expand_or_jumpable() then
-											ls.expand_or_jump()
-							end
+				if ls.expand_or_jumpable() then
+					ls.expand_or_jump()
+				end
 			end, { silent = true })
 
 			-- <c-j> is my jump backwards key
 			-- this always moves to the previous item within the snippet
 			vim.keymap.set({ "i", "s" }, "<c-j>", function()
-							if ls.jumpable(-1) then
-											ls.jump(-1)
-							end
+				if ls.jumpable(-1) then
+					ls.jump(-1)
+				end
 			end, { silent = true })
 
 			-- <c-l> is selecting within a list of options.
 			-- This is useful for choice nodes
 			vim.keymap.set("i", "<c-j>", function()
-							if ls.choice_active() then
-											ls.change_choice()
-							end
+				if ls.choice_active() then
+					ls.change_choice()
+				end
 			end)
 
 			-- add html snips to elixir templates
-			require("luasnip").filetype_extend("eelixir", {"html"})
-		end
-	}
+			require("luasnip").filetype_extend("eelixir", { "html" })
+		end,
+	},
 }
