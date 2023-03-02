@@ -206,6 +206,13 @@ return {
 
 			-- add html snips to elixir templates
 			require("luasnip").filetype_extend("eelixir", { "html" })
+
+			vim.keymap.set("n", "<Leader>rs", function()
+				ls.cleanup()
+				vim.cmd("source ~/.config/nvim/after/plugin/snippets.lua")
+				vim.cmd("source ~/.config/nvim/after/plugin/work-snippets.lua")
+				print("dumped and reloaded snippets")
+			end, { desc = "[R]eload [S]nippets", noremap = true, silent = true })
 		end,
 	},
 }

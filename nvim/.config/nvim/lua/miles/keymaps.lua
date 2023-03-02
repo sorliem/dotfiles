@@ -158,8 +158,6 @@ map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
 
 map("n", "<Leader>qr", ':lua require("miles.telescope").reload()<CR>')
 
-map("n", "<leader>rs", "<cmd>lua require('miles.snippets').reload_snippets()<CR>", "[R]eload [S]nippets")
-
 -- set keybinds for both INSERT and VISUAL.
 map("i", "<C-n>", "<Plug>luasnip-next-choice")
 map("s", "<C-n>", "<Plug>luasnip-next-choice")
