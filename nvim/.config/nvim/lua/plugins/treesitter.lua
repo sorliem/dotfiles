@@ -6,7 +6,7 @@ return {
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "elixir", "go", "lua", "rust", "kotlin", "terraform" },
 				highlight = {
-					enable = true,
+					enable = true, -- critical for getting TS-enabled colorschemes to work
 				},
 				incremental_selection = {
 					enable = true,
