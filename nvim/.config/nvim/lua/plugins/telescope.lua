@@ -2,6 +2,7 @@ return {
 	"nvim-telescope/telescope.nvim",
 	keys = {
 		{ "<C-p>" },
+		{ "<Leader>ht" },
 	},
 	config = function()
 		local actions = require("telescope.actions")
