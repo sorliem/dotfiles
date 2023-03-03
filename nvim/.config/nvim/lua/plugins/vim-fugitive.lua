@@ -1,6 +1,9 @@
 return {
 	{
 		"tpope/vim-fugitive",
+		keys = {
+			{ "<Leader>gs" },
+		},
 		config = function()
 			-- Fugitive status
 			vim.keymap.set("n", "<Leader>gs", ":Git<CR>", { desc = "[G]it [S]tatus" })
