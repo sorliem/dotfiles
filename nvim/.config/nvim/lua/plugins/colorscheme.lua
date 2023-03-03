@@ -3,11 +3,6 @@ return {
 		{
 			"ellisonleao/gruvbox.nvim",
 			config = function()
-				-- vim.cmd [[highlight ColorColumn ctermbg=0 guibg=darkgrey]]
-				-- vim.cmd [[highlight CursorLine ctermbg=Black]]
-				-- vim.cmd [[highlight ColorColumn ctermbg=0 guibg=darkgrey]]
-				-- vim.cmd [[highlight CursorLine ctermbg=0 guibg=#262626]]
-
 				require("gruvbox").setup({
 					undercurl = true,
 					underline = true,
@@ -26,17 +21,13 @@ return {
 					transparent_mode = false,
 				})
 
-				vim.g.gruvbox_invert_selection = "0"
-				vim.g.gruvbox_italic = 1
-				vim.g.gruvbox_contrast_dark = "hard"
-
 				vim.cmd([[set background=dark]])
 				vim.cmd([[colorscheme gruvbox]])
 
-				-- vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
-				-- vim.cmd [[highlight ColorColumn ctermbg=0 guibg=darkgrey]]
-				-- vim.cmd [[highlight CursorLine ctermbg=0 guibg=#262626]]
-				-- vim.cmd [[highlight CursorLine ctermbg=0 guibg=#555555]]
+				vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
+				vim.cmd([[highlight ColorColumn ctermbg=0 guibg=darkgrey]])
+				vim.cmd([[highlight CursorLine ctermbg=0 guibg=#262626]])
+				vim.cmd([[highlight CursorLine ctermbg=0 guibg=#555555]])
 			end,
 		},
 		{
@@ -50,9 +41,9 @@ return {
 			"projekt0n/github-nvim-theme",
 			cond = false,
 			config = function()
-				-- require('github-theme').setup({
-				--  theme_style = 'light_colorblind'
-				-- })
+				require("github-theme").setup({
+					theme_style = "dark_colorblind",
+				})
 			end,
 		},
 		{
@@ -66,34 +57,34 @@ return {
 				endif
 				]])
 
-				-- vim.cmd [[set background=dark]]
-				-- vim.cmd [[colorscheme palenight]]
+				vim.cmd([[set background=dark]])
+				vim.cmd([[colorscheme palenight]])
 			end,
 		},
 		{
 			"fenetikm/falcon",
 			cond = false,
 			config = function()
-				-- 	vim.g.falcon_background = true
-				-- vim.g.falcon_inactive = false
-				-- vim.cmd [[colorscheme falcon]]
+				vim.g.falcon_background = true
+				vim.g.falcon_inactive = false
+				vim.cmd([[colorscheme falcon]])
 			end,
 		},
 		{
 			"NLKNguyen/papercolor-theme",
 			cond = false,
 			config = function()
-				-- vim.cmd [[set background=light]]
-				-- vim.cmd [[colorscheme PaperColor]]
+				vim.cmd([[set background=light]])
+				vim.cmd([[colorscheme PaperColor]])
 			end,
 		},
 		{
 			"ishan9299/nvim-solarized-lua",
 			cond = false,
 			config = function()
-				-- vim.g.solarized_termcolors = 256
-				-- vim.cmd [[set background=dark]]
-				-- vim.cmd [[colorscheme solarized]]
+				vim.g.solarized_termcolors = 256
+				vim.cmd([[set background=dark]])
+				vim.cmd([[colorscheme solarized]])
 
 				-- vim.g.solarized_termcolors = 256
 				-- vim.cmd [[set background=light]]
@@ -104,12 +95,12 @@ return {
 			"folke/tokyonight.nvim",
 			cond = false,
 			config = function()
-				-- vim.opt.background = 'dark'
-				-- vim.g.tokyonight_italic_functions = 1
-				-- vim.g.tokyonight_italic_comments = 1
-				-- vim.g.tokyonight_style = 'night'
-				-- vim.g.tokyonight_transparent = true
-				-- vim.cmd [[colorscheme tokyonight]]
+				vim.opt.background = "dark"
+				vim.g.tokyonight_italic_functions = 1
+				vim.g.tokyonight_italic_comments = 1
+				vim.g.tokyonight_style = "night"
+				vim.g.tokyonight_transparent = true
+				vim.cmd([[colorscheme tokyonight]])
 			end,
 		},
 	},
