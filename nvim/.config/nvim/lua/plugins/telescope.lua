@@ -3,6 +3,7 @@ return {
 	keys = {
 		{ "<C-p>" },
 		{ "<Leader>ht" },
+		{ "<Leader>km" },
 	},
 	config = function()
 		local actions = require("telescope.actions")
