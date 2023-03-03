@@ -103,7 +103,8 @@ return {
 
 		-- search git files and if not successful do a regular find files
 		local project_files = function()
-			local ok = pcall(require("telescope.builtin").git_files({}))
+			local opts = {}
+			local ok = pcall(require("telescope.builtin").git_files, opts)
 			if not ok then
 				require("telescope.builtin").find_files({ prompt_title = "Non-git files" })
 			end
@@ -151,7 +152,10 @@ return {
 			require("telescope.builtin").find_files(opts)
 		end
 
-		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Git or non-git)" })
+		vim.keymap.set("n", "<C-P>", function()
+			print("IN KEYMAP")
+			project_files()
+		end, { desc = "Project files (Git or non-git)" })
 		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
 		vim.keymap.set("n", "<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
 		vim.keymap.set("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
