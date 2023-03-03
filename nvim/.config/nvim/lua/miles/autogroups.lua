@@ -11,16 +11,6 @@ autocmd("BufWritePre", {
 	command = "%s/\\s\\+$//e",
 })
 
--- autocmd('WinLeave', {
---     pattern = '*',
---     command = 'set nocursorline'
--- })
-
--- autocmd('WinEnter', {
---     pattern = '*',
---     command = 'set cursorline'
--- })
-
 autocmd("WinLeave", {
 	pattern = "*",
 	callback = function()
