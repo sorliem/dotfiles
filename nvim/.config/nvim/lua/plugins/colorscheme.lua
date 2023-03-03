@@ -23,18 +23,13 @@ return {
 
 				vim.cmd([[set background=dark]])
 				vim.cmd([[colorscheme gruvbox]])
-
-				vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
-				vim.cmd([[highlight ColorColumn ctermbg=0 guibg=darkgrey]])
-				vim.cmd([[highlight CursorLine ctermbg=0 guibg=#262626]])
-				vim.cmd([[highlight CursorLine ctermbg=0 guibg=#555555]])
 			end,
 		},
 		{
 			"yeddaif/neovim-purple",
 			cond = false,
 			config = function()
-				-- vim.cmd [[colorscheme neovim_purple]]
+				vim.cmd([[colorscheme neovim_purple]])
 			end,
 		},
 		{
