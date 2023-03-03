@@ -1,7 +1,7 @@
 return {
-	'mhinz/vim-startify',
+	"mhinz/vim-startify",
 	config = function()
-		vim.cmd [[
+		vim.cmd([[
 			let folder = system('basename $(pwd)')
 			let g:startify_custom_header = startify#pad(split(system('figlet -w 100 -f digital ' .. folder), '\n'))
 
@@ -25,6 +25,6 @@ return {
          \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
          \ { 'type': 'commands',  'header': ['   Commands']       },
 			  \]
-		]]
-	end
+		]])
+	end,
 }

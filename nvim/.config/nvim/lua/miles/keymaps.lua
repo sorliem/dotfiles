@@ -156,8 +156,6 @@ map("n", "<Leader>tt", ":call RunAllTests()<CR>")
 -- run formatting
 map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
 
-map("n", "<Leader>qr", ':lua require("miles.telescope").reload()<CR>')
-
 -- set keybinds for both INSERT and VISUAL.
 map("i", "<C-n>", "<Plug>luasnip-next-choice")
 map("s", "<C-n>", "<Plug>luasnip-next-choice")

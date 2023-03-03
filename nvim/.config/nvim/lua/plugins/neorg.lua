@@ -1,5 +1,4 @@
-return
-{
+return {
 	"nvim-neorg/neorg",
 	build = ":Neorg sync-parsers",
 	opts = {
@@ -10,13 +9,13 @@ return
 				config = {
 					workspaces = {
 						work = "~/notes/work",
-						personal = "~/notes/personal"
+						personal = "~/notes/personal",
 					},
 				},
 			},
 		},
 	},
 	dependencies = {
-		"nvim-lua/plenary.nvim"
+		"nvim-lua/plenary.nvim",
 	},
 }

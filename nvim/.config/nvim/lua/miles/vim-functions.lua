@@ -1,21 +1,21 @@
 -- someday i'll convert these to lua
 
-vim.cmd [[
+vim.cmd([[
 if executable('rg')
 	let g:rg_derive_root='true'
 endif
-]]
+]])
 
-vim.cmd [[
+vim.cmd([[
 if executable('rg')
    command! -bang -nargs=* R
      \ call fzf#vim#grep(
      \   'rg --hidden --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
      \   fzf#vim#with_preview(), <bang>0)
 endif
-]]
+]])
 
-vim.cmd [[
+vim.cmd([[
 " vim & tmux navigation
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -41,17 +41,17 @@ else
   map <C-k> <C-w>k
   map <C-l> <C-w>l
 endif
-]]
+]])
 
-vim.cmd [[
+vim.cmd([[
 if has("persistent_undo")
     " set undodir=$HOME."/.undodir"
     let &undodir=$HOME."/.undodir"
     set undofile
 endif
-]]
+]])
 
-vim.cmd [[
+vim.cmd([[
 function! SaveAndExec()
   if &filetype == 'vim'
     :silent! write
@@ -63,4 +63,4 @@ function! SaveAndExec()
 
   return
 endfunction
-]]
+]])

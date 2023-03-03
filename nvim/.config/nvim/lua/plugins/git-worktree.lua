@@ -1,6 +1,6 @@
 return {
 	{
-		'ThePrimeagen/git-worktree.nvim',
+		"ThePrimeagen/git-worktree.nvim",
 		config = function()
 			local Worktree = require("git-worktree")
 
@@ -21,6 +21,6 @@ return {
 					print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
 				end
 			end)
-		end
-	}
+		end,
+	},
 }

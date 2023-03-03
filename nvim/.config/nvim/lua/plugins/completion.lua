@@ -1,11 +1,11 @@
 return {
 	{
-		'hrsh7th/nvim-cmp',
+		"hrsh7th/nvim-cmp",
 		dependencies = {
-			'onsails/lspkind-nvim'
+			"onsails/lspkind-nvim",
 		},
 		config = function()
-			local cmp = require('cmp')
+			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			lspkind.init()
 
@@ -23,20 +23,20 @@ return {
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.close(),
 					["<C-y>"] = cmp.mapping(
-					cmp.mapping.confirm {
-						behavior = cmp.ConfirmBehavior.Insert,
-						select = true,
-					},
-					{ "i", "c" }
+						cmp.mapping.confirm({
+							behavior = cmp.ConfirmBehavior.Insert,
+							select = true,
+						}),
+						{ "i", "c" }
 					),
-					['<CR>'] = cmp.mapping.confirm({ select = true })
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				},
 				window = {
 					-- completion = cmp.config.window.bordered(),
 					-- documentation = cmp.config.window.bordered(),
 				},
 				formatting = {
-					format = lspkind.cmp_format {
+					format = lspkind.cmp_format({
 						with_text = true,
 						menu = {
 							buffer = "[buf]",
@@ -45,8 +45,8 @@ return {
 							luasnip = "[snip]",
 							cmp_tabnine = "[TN]",
 							path = "[path]",
-						}
-					}
+						},
+					}),
 				},
 
 				sources = {
@@ -65,20 +65,20 @@ return {
 									bufs[vim.api.nvim_win_get_buf(win)] = true
 								end
 								return vim.tbl_keys(bufs)
-							end
-						}
+							end,
+						},
 					},
 				},
 
 				experimental = {
 					native_menu = false,
 					ghost_text = false,
-				}
+				},
 			})
-		end
+		end,
 	},
 
-	'hrsh7th/cmp-buffer',
-	'hrsh7th/cmp-nvim-lua',
-	'hrsh7th/cmp-nvim-lsp'
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-nvim-lua",
+	"hrsh7th/cmp-nvim-lsp",
 }
