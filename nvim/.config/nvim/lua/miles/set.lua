@@ -37,13 +37,20 @@ vim.opt.spelllang = "en_us"
 vim.opt.scrolloff = 0
 vim.opt.cmdheight = 1
 vim.opt.cursorline = true
--- vim.opt.cursorcolumn = true
+vim.opt.cursorcolumn = true
 -- vim.opt.colorcolumn = '80'
 vim.opt.completeopt = "menu,menuone,noselect"
-vim.opt.guicursor = "i:block"
+-- vim.opt.guicursor = "i:block"
 vim.opt.updatetime = 50
 vim.opt.backupdir = HOME .. "/.vim/backups"
 vim.opt.conceallevel = 0
+
+vim.cmd([[
+		set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+]])
 
 vim.cmd([[
 if exists('+termguicolors')
