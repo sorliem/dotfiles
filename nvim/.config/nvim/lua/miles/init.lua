@@ -1,6 +1,5 @@
 require("miles.set")
 require("miles.lazy")
-require("miles.telescope")
 require("miles.vim-functions")
 require("miles.autogroups")
 require("miles.reload")

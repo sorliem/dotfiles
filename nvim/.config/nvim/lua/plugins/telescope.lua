@@ -158,6 +158,17 @@ return {
 		vim.keymap.set("n", "<leader>gc", ":lua require('telescope.builtin').git_branches()<CR>")
 		vim.keymap.set("n", "<Leader>qr", reload_lua_modules, { desc = "Reload lua modules" })
 
+		vim.keymap.set("n", "<leader>km", function()
+			require("telescope.builtin").keymaps({ show_plug = false })
+		end, { desc = "[K]ey [M]aps" })
+
+		vim.keymap.set(
+			"n",
+			"<leader>fw",
+			":lua require('telescope.builtin').grep_string{}<CR>",
+			{ desc = "[F]ind [W]ord (telescope)" }
+		)
+
 		vim.keymap.set("n", "<leader>gm", function()
 			local git_commits_command = { "git", "log", "--pretty=oneline", "--abbrev-commit", "--", "." }
 			require("telescope.builtin").git_commits({ git_command = git_commits_command })
@@ -166,6 +177,20 @@ return {
 		vim.keymap.set("n", "<leader>gm", ":lua require('telescope.builtin').git_commits()<CR>")
 
 		vim.keymap.set("n", "<leader>gf", ":lua require('telescope.builtin').git_status()<CR>")
+
+		-- git worktrees
+		vim.keymap.set(
+			"n",
+			"<leader>gw",
+			":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>",
+			{ desc = "[G]it [W]orktrees" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>gaw",
+			":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
+			{ desc = "[G]it [A]dd [W]orktree" }
+		)
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",

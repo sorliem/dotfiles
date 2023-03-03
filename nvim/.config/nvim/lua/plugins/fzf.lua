@@ -5,7 +5,7 @@ return {
 	},
 	{
 		"junegunn/fzf.vim",
-		init = function()
+		config = function()
 			vim.env.FZF_DEFAULT_COMMAND = "rg --files --hidden"
 			vim.g.fzf_layout = {
 				up = "~90%",
@@ -18,6 +18,15 @@ return {
 					border = "sharp",
 				},
 			}
+
+			-- search over lines in buffer
+			vim.keymap.set("n", "//", ":BLines<CR>", { desc = "Fuzzy search over buffer" })
+
+			-- rg in current dir
+			vim.keymap.set("n", "<leader>ps", ":R<CR>", { desc = "[P]roject [S]earch with `rg`" })
+
+			-- fzf starting at home dir
+			vim.keymap.set("n", "<leader>F", ":FZF ~<CR>")
 		end,
 	},
 }

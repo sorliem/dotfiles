@@ -213,6 +213,12 @@ return {
 				vim.cmd("source ~/.config/nvim/after/plugin/work-snippets.lua")
 				print("dumped and reloaded snippets")
 			end, { desc = "[R]eload [S]nippets", noremap = true, silent = true })
+
+			-- set keybinds for both INSERT and VISUAL.
+			vim.keymap.set("i", "<C-n>", "<Plug>luasnip-next-choice")
+			vim.keymap.set("s", "<C-n>", "<Plug>luasnip-next-choice")
+			vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice")
+			vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice")
 		end,
 	},
 }

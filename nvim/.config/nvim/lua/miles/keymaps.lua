@@ -45,6 +45,9 @@ map("n", "J", "mzJ'z", "Join line and keep screen centered")
 map("n", "<C-j>", "<cmd>cnext<CR>zz", "Next quickfix item and center screen")
 map("n", "<C-k>", "<cmd>cprev<CR>zz", "Prev quickfix item and center screen")
 
+-- get rid of highlighting
+map("n", "<leader>hh", ":noh<CR>")
+
 -- do search and replace using the word under cursor
 map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search/replace for word under cursor")
 
@@ -72,16 +75,6 @@ map("n", "<leader>rv", ":so $MYVIMRC<CR>", "[R]eload [V]imrc (init.lua)")
 -- delete buffer
 map("n", "<leader>d", ":bdelete<CR>", "[D]elete buffer")
 
--- fzf starting at home dir
-map("n", "<leader>F", ":FZF ~<CR>")
-
--- rg in current dir
-map("n", "<leader>ps", ":R<CR>", "[P]roject [S]earch with `rg`")
--- nnoremap <leader>f :lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>
-
--- toggle undotree
-map("n", "<leader>u", ":UndotreeToggle<CR>")
-
 -- paste from clipboard
 map("n", "<leader>P", '"+p<CR>', "[P]aste from clipboard")
 
@@ -91,36 +84,8 @@ map("v", "<leader>c", '"+y<CR>', "[C]opy to system clipboard")
 -- reload all buffers from disk
 map("n", "<leader>br", ":bufdo e!<CR>", "[B]uffer [R]eload")
 
--- git worktrees
-map("n", "<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "[G]it [W]orktrees")
-map(
-	"n",
-	"<leader>gaw",
-	":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
-	"[G]it [A]dd [W]orktree"
-)
-
--- Fugitive status
-map("n", "<Leader>gs", ":Git<CR>", "[G]it [S]tatus")
-
--- Fugitive blame
-map("n", "<Leader>gb", ":Git blame<CR>", "[G]it [B]lame")
-
--- Fugitive diff master
-map("n", "<Leader>gd", ":Git diff master..HEAD<CR>:only<CR>", "[G]it [D]iff master..HEAD")
-
 -- Grab last commit messge
 map("n", "<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-back) [G]it [L]og commit message")
-
--- Grab current line as _permanent_ github link
-map("n", "<leader>ghl", ":0GBrowse!<CR>", "[G]it[H]ub line yank")
-
--- Grab current selection as _permanent_ github link
-map("v", "<leader>ghl", ":GBrowse!<CR>", "[G]it[H]ub line yank")
-
-map("n", "<leader>km", function()
-	require("telescope.builtin").keymaps({ show_plug = false })
-end, "[K]ey [M]aps")
 
 -- toggle netrw
 map("n", "<Leader>pv", ":Hexplore!<Enter>", "[P]roject [V]view (netrw)")
@@ -156,30 +121,4 @@ map("n", "<Leader>tt", ":call RunAllTests()<CR>")
 -- run formatting
 map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
 
--- set keybinds for both INSERT and VISUAL.
-map("i", "<C-n>", "<Plug>luasnip-next-choice")
-map("s", "<C-n>", "<Plug>luasnip-next-choice")
-map("i", "<C-p>", "<Plug>luasnip-prev-choice")
-map("s", "<C-p>", "<Plug>luasnip-prev-choice")
-
--- get rid of highlighting
-map("n", "<leader>hh", ":noh<CR>")
-
--- search over lines in buffer
-map("n", "//", ":BLines<CR>")
--- nnoremap // :lua require('telescope.builtin').current_buffer_fuzzy_find{}<CR>
-
--- search for word under cursor with, sublime text 2 style
-map("n", "<C-F>f", "<Plug>CtrlSFPrompt")
-
--- search for word under cursor with, sublime text 2 style
-map("n", "<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
-
-map("n", "<leader>fw", ":lua require('telescope.builtin').grep_string{}<CR>", "[F]ind [W]ord (telescope)")
-
--- toggle the CtrlSF search results window
-map("n", "<C-F>t", ":CtrlSFToggle<CR>")
-
-map("n", "<Space>ar", function()
-	vim.cmd("AutoRun")
-end, "[A]uto [R]un")
+map("n", "<Space>ar", ":AutoRun<CR>", "[A]uto [R]un")
