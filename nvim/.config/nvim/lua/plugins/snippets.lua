@@ -109,10 +109,10 @@ return {
 					fmt(
 						[[
 						defmodule {} do
-								@moduledoc """
-								"""
+						  @moduledoc """
+						  """
 
-								{}
+						  {}
 						end
 						]],
 						{ i(1, "mod_name"), i(0) }
@@ -161,7 +161,7 @@ return {
 					fmt(
 						[[
 						assert capture_log(fn ->
-								{}
+						  {}
 						end) =~ "{}"
 						]],
 						{ i(1, "assertion"), i(0, "log contents") }
