@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
 	},
+	cmd = "Trouble",
 	config = function()
 		require("trouble").setup({
 			-- your configuration comes here

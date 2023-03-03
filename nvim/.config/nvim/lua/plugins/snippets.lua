@@ -6,6 +6,7 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
+		event = { "InsertEnter" },
 		config = function()
 			vim.g.snippets = "luasnip"
 
