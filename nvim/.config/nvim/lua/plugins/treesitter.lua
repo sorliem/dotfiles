@@ -5,6 +5,9 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "elixir", "go", "lua", "rust", "kotlin", "terraform" },
+				highlight = {
+					enable = true,
+				},
 				incremental_selection = {
 					enable = true,
 					keymaps = {
