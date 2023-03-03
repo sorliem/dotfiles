@@ -41,12 +41,14 @@ return {
 		},
 		{
 			"yeddaif/neovim-purple",
+			cond = false,
 			config = function()
 				-- vim.cmd [[colorscheme neovim_purple]]
 			end,
 		},
 		{
 			"projekt0n/github-nvim-theme",
+			cond = false,
 			config = function()
 				-- require('github-theme').setup({
 				--  theme_style = 'light_colorblind'
@@ -55,6 +57,7 @@ return {
 		},
 		{
 			"drewtempelmeyer/palenight.vim",
+			cond = false,
 			config = function()
 				vim.cmd([[
 				if (has("nvim"))
@@ -69,7 +72,7 @@ return {
 		},
 		{
 			"fenetikm/falcon",
-			-- lazy = true,
+			cond = false,
 			config = function()
 				-- 	vim.g.falcon_background = true
 				-- vim.g.falcon_inactive = false
@@ -78,6 +81,7 @@ return {
 		},
 		{
 			"NLKNguyen/papercolor-theme",
+			cond = false,
 			config = function()
 				-- vim.cmd [[set background=light]]
 				-- vim.cmd [[colorscheme PaperColor]]
@@ -85,6 +89,7 @@ return {
 		},
 		{
 			"ishan9299/nvim-solarized-lua",
+			cond = false,
 			config = function()
 				-- vim.g.solarized_termcolors = 256
 				-- vim.cmd [[set background=dark]]
@@ -97,6 +102,7 @@ return {
 		},
 		{
 			"folke/tokyonight.nvim",
+			cond = false,
 			config = function()
 				-- vim.opt.background = 'dark'
 				-- vim.g.tokyonight_italic_functions = 1
