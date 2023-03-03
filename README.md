@@ -5,8 +5,7 @@ correct place on the file system.
 
 ## Install
 
-Repo must exist in the $HOME directory in order to install correctly. To do a
-fresh install of all scripts:
+Repo must exist in the $HOME directory to install. To do a fresh install of all scripts:
 
 ```bash
 ./install
@@ -20,7 +19,7 @@ fresh install of all scripts:
 
 ## Individual stow/unstow
 
-Sometimes it is useful to stow and unstow individual folders
+To stow and unstow individual folders
 
 ```bash
 cd $DOTFILES
