@@ -1,26 +1,10 @@
 return {
-	'nvim-telescope/telescope.nvim',
+	"nvim-telescope/telescope.nvim",
 	config = function()
-		local actions = require('telescope.actions')
-		local action_layout = require('telescope.actions.layout')
+		local actions = require("telescope.actions")
+		local action_layout = require("telescope.actions.layout")
 
-		vim.keymap.set('n', "<C-P>", ":lua require('miles.telescope').project_files()<CR>")
-		vim.keymap.set('n', "<leader>vrc", ":lua require('miles.telescope').search_dotfiles()<CR>")
-		vim.keymap.set('n', "<leader>ws", ":lua require('miles.telescope').search_wiki()<CR>")
-		vim.keymap.set('n', "<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
-		vim.keymap.set('n', "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
-		vim.keymap.set('n', "<leader>gc", ":lua require('telescope.builtin').git_branches()<CR>")
-
-		vim.keymap.set('n', "<leader>gm", function()
-			local git_commits_command = {"git","log","--pretty=oneline","--abbrev-commit","--","."}
-			require('telescope.builtin').git_commits({git_command = git_commits_command})
-		end)
-		--
-		vim.keymap.set('n', "<leader>gm", ":lua require('telescope.builtin').git_commits()<CR>")
-
-		vim.keymap.set('n', "<leader>gf", ":lua require('telescope.builtin').git_status()<CR>")
-
-		require('telescope').setup{
+		require("telescope").setup({
 			defaults = {
 				file_sorter = require("telescope.sorters").get_fzf_sorter,
 				prompt_prefix = " > ",
@@ -29,10 +13,10 @@ return {
 				sorting_strategy = "ascending",
 				scroll_strategy = "cycle",
 				preview = {
-					filesize_limit = 10
+					filesize_limit = 10,
 				},
 				file_ignore_patterns = {
-					".git"
+					".git",
 				},
 				layout_config = {
 					width = 0.85,
@@ -67,19 +51,19 @@ return {
 						["<esc>"] = actions.close,
 						["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 						["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-						["<C-Down>"] = require('telescope.actions').cycle_history_next,
-						["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+						["<C-Down>"] = require("telescope.actions").cycle_history_next,
+						["<C-Up>"] = require("telescope.actions").cycle_history_prev,
 						["<M-p>"] = action_layout.toggle_preview,
 						["<C-w>"] = function()
-							vim.cmd [[normal! bcw]]
+							vim.cmd([[normal! bcw]])
 						end,
 					},
 					n = {
 						["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 						["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 						["<M-p>"] = action_layout.toggle_preview,
-					}
-				}
+					},
+				},
 			},
 			pickers = {
 				-- Default configuration for builtin pickers goes here:
@@ -101,21 +85,95 @@ return {
 					override_generic_sorter = true,
 					override_file_sorter = true,
 					case_mode = "smart_case",
-				}
-			}
-		}
+				},
+			},
+		})
 
-		require('telescope').load_extension('fzf')
+		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("live_grep_args")
 		require("telescope").load_extension("git_worktree")
+
+		local search_wiki = function()
+			require("telescope.builtin").find_files({
+				prompt_title = "< Personal VimWiki >",
+				cwd = "~/vimwiki",
+				hidden = true,
+			})
+		end
+
+		-- search git files and if not successful do a regular find files
+		local project_files = function()
+			local ok = pcall(require("telescope.builtin").git_files({}))
+			if not ok then
+				require("telescope.builtin").find_files({ prompt_title = "Non-git files" })
+			end
+		end
+
+		local reload_lua_modules = function()
+			-- From https://ustrajunior.com/posts/reloading-neovim-config-with-telescope/
+			local function get_module_name(s)
+				local module_name
+
+				module_name = s:gsub("%.lua", "")
+				module_name = module_name:gsub("%/", ".")
+				module_name = module_name:gsub("%.init", "")
+
+				return module_name
+			end
+
+			local prompt_title = "~ neovim modules ~"
+
+			-- sets the path to the lua folder
+			local path = "~/.config/nvim/lua"
+
+			local opts = {
+				prompt_title = prompt_title,
+				cwd = path,
+
+				attach_mappings = function(_, map)
+					-- Adds a new map to ctrl+e.
+					map("i", "<c-e>", function(_)
+						-- these two a very self-explanatory
+						local entry = require("telescope.actions.state").get_selected_entry()
+						local name = get_module_name(entry.value)
+
+						-- call the helper method to reload the module
+						-- and give some feedback
+						R(name)
+						P(name .. " RELOADED!!!")
+					end)
+
+					return true
+				end,
+			}
+
+			-- call the builtin method to list files
+			require("telescope.builtin").find_files(opts)
+		end
+
+		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Git or non-git)" })
+		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
+		vim.keymap.set("n", "<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
+		vim.keymap.set("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
+		vim.keymap.set("n", "<leader>gc", ":lua require('telescope.builtin').git_branches()<CR>")
+		vim.keymap.set("n", "<Leader>qr", reload_lua_modules, { desc = "Reload lua modules" })
+
+		vim.keymap.set("n", "<leader>gm", function()
+			local git_commits_command = { "git", "log", "--pretty=oneline", "--abbrev-commit", "--", "." }
+			require("telescope.builtin").git_commits({ git_command = git_commits_command })
+		end)
+		--
+		vim.keymap.set("n", "<leader>gm", ":lua require('telescope.builtin').git_commits()<CR>")
+
+		vim.keymap.set("n", "<leader>gf", ":lua require('telescope.builtin').git_status()<CR>")
 	end,
 	dependencies = {
-		'nvim-lua/plenary.nvim',
-		'nvim-telescope/telescope-live-grep-args.nvim',
+		"nvim-lua/plenary.nvim",
+		"nvim-telescope/telescope-live-grep-args.nvim",
 		{
-			'nvim-telescope/telescope-fzf-native.nvim',
-			build = 'make',
-			branch = 'main'
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+			branch = "main",
 		},
-	}
+	},
 }
