@@ -2,14 +2,15 @@ return {
 	"jose-elias-alvarez/null-ls.nvim",
 	config = function()
 		local null_ls = require("null-ls")
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+		local augroup = vim.api.nvim_create_augroup("NullLS_LspFormatting", {})
 
 		null_ls.setup({
 			debug = true,
 			sources = {
-				null_ls.builtins.diagnostics.write_good,
+				null_ls.builtins.diagnostics.write_good.with({
+					filetypes = { "markdown", "graphql" },
+				}),
 				null_ls.builtins.formatting.goimports,
-				null_ls.builtins.formatting.gofmt,
 				null_ls.builtins.formatting.stylua,
 			},
 			on_attach = function(client, bufnr)
