@@ -2,8 +2,9 @@ return {
 	"mhinz/vim-startify",
 	config = function()
 		vim.cmd([[
-			let folder = system('basename $(pwd)')
-			let g:startify_custom_header = startify#pad(split(system('figlet -w 100 -f digital ' .. folder), '\n'))
+			" let folder = system('basename $(pwd)')
+			" let g:startify_custom_header = startify#pad(split(system('figlet -w 100 -f digital ' .. folder), '\n'))
+			let g:startify_custom_header = startify#pad(split(system('basename $(pwd)'), '\n'))
 
 			function! s:gitModified()
 				let files = systemlist('git ls-files -m 2>/dev/null')
