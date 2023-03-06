@@ -5,6 +5,7 @@ return {
 		{ "<C-p>" },
 		{ "<Leader>ht" },
 		{ "<Leader>km" },
+		{ "<Leader>gm" },
 	},
 	config = function()
 		local actions = require("telescope.actions")
