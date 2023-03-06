@@ -1,6 +1,9 @@
 return {
 	{
 		"tpope/vim-rhubarb",
+		dependencies = {
+			"tpope/vim-fugitive",
+		},
 		config = function()
 			-- Grab current line as _permanent_ github link
 			vim.keymap.set("n", "<leader>ghl", ":0GBrowse!<CR>", { desc = "[G]it[H]ub line yank" })
