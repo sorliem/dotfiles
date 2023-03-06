@@ -109,7 +109,7 @@ return {
 
 		-- search git files and if not successful do a regular find files
 		local project_files = function()
-			local opts = {}
+			local opts = { show_untracked = true }
 			local ok = pcall(require("telescope.builtin").git_files, opts)
 			if not ok then
 				require("telescope.builtin").find_files({ prompt_title = "Non-git files" })
