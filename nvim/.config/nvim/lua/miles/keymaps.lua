@@ -21,11 +21,11 @@ map("n", "<expr> k", '(v:count > 5 ? "m\'" . v:count : "") . \'k\'')
 map("n", "<expr> j", '(v:count > 5 ? "m\'" . v:count : "") . \'j\'')
 
 -- better indentation, keeps block highlighted
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("v", "<", "<gv", "Indent left once")
+map("v", ">", ">gv", "Indent right once")
 
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv", "Move highlighted region down one line w/ auto-indent")
+map("v", "K", ":m '<-2<CR>gv=gv", "Move highlighted region up one line w/ auto-indent")
 
 -- higlight your pasted region
 map("n", "gV", "`[v`]")
@@ -51,9 +51,6 @@ map("n", "<leader>hh", ":noh<CR>")
 -- do search and replace using the word under cursor
 map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search/replace for word under cursor")
 
--- nnoremap("<C-d>", "<C-d>zz")
--- nnoremap("<C-u>", "<C-u>zz")
-
 -- greatest remap ever (per the primagen)
 -- in visual mode, paste what is in the default register
 -- without overwriting the default register with what was
@@ -61,13 +58,15 @@ map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "S
 map("v", "<leader>p", '"_dP', "Delete to void buffer and paste over without overwriting clipboard")
 map("x", "<leader>p", '"_dP', "Delete to void buffer and paste over without overwriting clipboard")
 
--- next greatest remap ever : asbjornHaland
-map("n", "<leader>y", '"+y')
-map("v", "<leader>y", '"+y')
-map("n", "<leader>Y", '"+Y')
+-- delete to void register
+map("n", "<leader>d", '"_d', "[D]elete to void register")
+map("v", "<leader>d", '"_d', "[D]elete to void register")
 
-map("n", "<leader>d", '"_d')
-map("v", "<leader>d", '"_d')
+-- copy to clipboard
+map("v", "<leader>c", '"+y<CR>', "[C]opy to system clipboard")
+
+-- paste from clipboard
+map("n", "<leader>P", '"+p<CR>', "[P]aste from clipboard")
 
 -- reload init.lua
 map("n", "<leader>rv", ":so $MYVIMRC<CR>", "[R]eload [V]imrc (init.lua)")
@@ -75,39 +74,22 @@ map("n", "<leader>rv", ":so $MYVIMRC<CR>", "[R]eload [V]imrc (init.lua)")
 -- delete buffer
 map("n", "<leader>d", ":bdelete<CR>", "[D]elete buffer")
 
--- paste from clipboard
-map("n", "<leader>P", '"+p<CR>', "[P]aste from clipboard")
-
--- copy to clipboard
-map("v", "<leader>c", '"+y<CR>', "[C]opy to system clipboard")
-
 -- reload all buffers from disk
 map("n", "<leader>br", ":bufdo e!<CR>", "[B]uffer [R]eload")
 
 -- Grab last commit messge
 map("n", "<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-back) [G]it [L]og commit message")
 
--- toggle netrw
 map("n", "<Leader>pv", ":Hexplore!<Enter>", "[P]roject [V]view (netrw)")
-map("n", "<Leader>e", ":Hexplore!<Enter>", "[E]xplore (netrw)")
 
-map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-
--- find current file in tree
--- nnoremap <silent> <Leader>nf :NERDTreeFind<CR>
--- command! ExploreFind let @/=expand("%:t") | execute 'Explore' expand("%:h") | normal n
-map(
-	"n",
-	"<Leader>nf",
-	':let @/=expand("%:\t") <Bar> execute \'Hexplore!\' expand("%:h") <Bar> normal n<CR>',
-	"[N]erd [F]ind (in netrw)"
-)
 map(
 	"n",
 	"-",
 	':let @/=expand("%:\t") <Bar> execute \'Hexplore!\' expand("%:h") <Bar> normal n<CR>',
 	"Open netrw and find current file"
 )
+
+map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-sessionizer")
 
 -- save and exec file
 map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
@@ -121,4 +103,4 @@ map("n", "<Leader>tt", ":call RunAllTests()<CR>")
 -- run formatting
 map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
 
-map("n", "<Space>ar", ":AutoRun<CR>", "[A]uto [R]un")
+map("n", "<Space>ar", ":AutoRun<CR>", "[A]uto [R]un a file on a specific pattern and output to buffer")
