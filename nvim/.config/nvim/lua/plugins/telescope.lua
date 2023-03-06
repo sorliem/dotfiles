@@ -1,6 +1,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	keys = {
+		-- load telescope on these keymappings
 		{ "<C-p>" },
 		{ "<Leader>ht" },
 		{ "<Leader>km" },
@@ -157,10 +158,7 @@ return {
 			require("telescope.builtin").find_files(opts)
 		end
 
-		vim.keymap.set("n", "<C-P>", function()
-			print("IN KEYMAP")
-			project_files()
-		end, { desc = "Project files (Git or non-git)" })
+		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Git or non-git)" })
 		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
 		vim.keymap.set("n", "<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
 		vim.keymap.set("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
