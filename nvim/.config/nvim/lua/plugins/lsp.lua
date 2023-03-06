@@ -3,8 +3,12 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"j-hui/fidget.nvim",
+			"folke/neodev.nvim",
 		},
 		config = function()
+			-- set up neodev before lsp stuff
+			require("neodev").setup()
+
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
