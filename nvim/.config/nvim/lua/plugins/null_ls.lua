@@ -7,9 +7,7 @@ return {
 		null_ls.setup({
 			debug = true,
 			sources = {
-				null_ls.builtins.diagnostics.write_good.with({
-					filetypes = { "markdown", "graphql" },
-				}),
+				null_ls.builtins.diagnostics.vale,
 				null_ls.builtins.formatting.goimports,
 				null_ls.builtins.formatting.stylua,
 			},
