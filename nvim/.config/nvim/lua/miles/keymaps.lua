@@ -72,7 +72,7 @@ map("n", "<leader>P", '"+p<CR>', "[P]aste from clipboard")
 map("n", "<leader>rv", ":so $MYVIMRC<CR>", "[R]eload [V]imrc (init.lua)")
 
 -- delete buffer
-map("n", "<leader>d", ":bdelete<CR>", "[D]elete buffer")
+map("n", "<leader>bd", ":bdelete<CR>", "[B]uffer [D]elete")
 
 -- reload all buffers from disk
 map("n", "<leader>br", ":bufdo e!<CR>", "[B]uffer [R]eload")
