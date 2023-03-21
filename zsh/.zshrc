@@ -121,6 +121,7 @@ alias gw='git worktree'
 #################################
 alias tf='terraform'
 alias tfdocs="terraform-docs markdown ./ --hide requirements --output-mode merge --output-file README.md"
+alias tfmt="terraform fmt -recursive"
 
 # fixes issue when doing docker-compose build
 # Follow link in https://github.com/google-github-actions/setup-gcloud/issues/128#issuecomment-663215962
