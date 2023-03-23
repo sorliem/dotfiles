@@ -86,10 +86,6 @@ return {
 					{ trig = "ins", dscr = "inspect term" },
 					fmt('IO.inspect({}, label: "{}{}")', { i(1, "var"), rep(1), i(0) })
 				),
-				s(
-					{ trig = "ins2", dscr = "inspect term without auto-label" },
-					fmt('IO.inspect({}, label: "{}")', { i(1, "var"), i(2, "label") })
-				),
 				s({ trig = "pins", dscr = "pipe into inspect" }, fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
 				s({ trig = "iop", dscr = "io puts" }, fmt('IO.puts("{}")', { i(1) })),
 				s({ trig = "mdoc", dscr = "create moduledoc" }, fmt('@moduledoc """\n{}\n"""', { i(1) })),
@@ -208,10 +204,14 @@ return {
 			-- add html snips to elixir templates
 			require("luasnip").filetype_extend("eelixir", { "html" })
 
-			vim.keymap.set("n", "<Leader>rs", function()
-				ls.cleanup()
+			local source_external_snippets = function()
 				vim.cmd("source ~/.config/nvim/lua/plugins/snippets.lua")
 				vim.cmd("source ~/.config/nvim/after/plugin/work-snippets.lua")
+			end
+
+			vim.keymap.set("n", "<Leader>rs", function()
+				ls.cleanup()
+				source_external_snippets()
 				print("dumped and reloaded snippets")
 			end, { desc = "[R]eload [S]nippets", noremap = true, silent = true })
 
@@ -220,6 +220,8 @@ return {
 			vim.keymap.set("s", "<C-n>", "<Plug>luasnip-next-choice")
 			vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice")
 			vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice")
+
+			source_external_snippets()
 		end,
 	},
 }
