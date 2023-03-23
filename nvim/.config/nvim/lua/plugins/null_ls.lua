@@ -7,9 +7,18 @@ return {
 		null_ls.setup({
 			debug = true,
 			sources = {
-				null_ls.builtins.diagnostics.vale,
+				null_ls.builtins.diagnostics.vale.with({
+					filetypes = { "markdown", "graphql", "text" },
+				}),
 				null_ls.builtins.formatting.goimports,
+				-- null_ls.builtins.formatting.gofmt,
 				null_ls.builtins.formatting.stylua,
+				null_ls.builtins.formatting.rustfmt,
+				null_ls.builtins.code_actions.gitsigns,
+				-- null_ls.builtins.formatting.terraform_fmt.with({
+				-- 	async = true,
+				-- }),
+				-- null_ls.builtins.diagnostics.yamlfmt,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
