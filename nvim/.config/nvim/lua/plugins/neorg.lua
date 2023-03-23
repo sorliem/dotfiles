@@ -1,7 +1,10 @@
 return {
 	"nvim-neorg/neorg",
 	build = ":Neorg sync-parsers",
-	ft = { "norg" },
+	-- ft = { "norg" },
+	keys = {
+		{ "<Leader>no", ":Neorg workspace work<CR>" },
+	},
 	opts = {
 		load = {
 			["core.defaults"] = {}, -- Loads default behaviour
