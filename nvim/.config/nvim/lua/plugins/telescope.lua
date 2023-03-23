@@ -4,8 +4,17 @@ return {
 		-- load telescope on these keymappings
 		{ "<C-p>" },
 		{ "<Leader>ht" },
-		{ "<Leader>km" },
+		-- { "<Leader>km" },
+		{
+			"<leader>km",
+			function()
+				require("telescope.builtin").keymaps({ show_plug = false })
+			end,
+			desc = "[K]ey [M]aps",
+		},
 		{ "<Leader>gm" },
+		{ "<Leader>fw" },
+		{ "<Leader>ps" },
 	},
 	config = function()
 		local actions = require("telescope.actions")
@@ -108,6 +117,14 @@ return {
 			})
 		end
 
+		local norg_search = function()
+			require("telescope.builtin").find_files({
+				prompt_title = "< Work Norg Files >",
+				cwd = "~/notes/work",
+				hidden = true,
+			})
+		end
+
 		-- search git files and if not successful do a regular find files
 		local project_files = function()
 			local opts = { show_untracked = true }
@@ -117,58 +134,16 @@ return {
 			end
 		end
 
-		local reload_lua_modules = function()
-			-- From https://ustrajunior.com/posts/reloading-neovim-config-with-telescope/
-			local function get_module_name(s)
-				local module_name
-
-				module_name = s:gsub("%.lua", "")
-				module_name = module_name:gsub("%/", ".")
-				module_name = module_name:gsub("%.init", "")
-
-				return module_name
-			end
-
-			local prompt_title = "~ neovim modules ~"
-
-			-- sets the path to the lua folder
-			local path = "~/.config/nvim/lua"
-
-			local opts = {
-				prompt_title = prompt_title,
-				cwd = path,
-
-				attach_mappings = function(_, map)
-					-- Adds a new map to ctrl+e.
-					map("i", "<c-e>", function(_)
-						-- these two a very self-explanatory
-						local entry = require("telescope.actions.state").get_selected_entry()
-						local name = get_module_name(entry.value)
-
-						-- call the helper method to reload the module
-						-- and give some feedback
-						R(name)
-						P(name .. " RELOADED!!!")
-					end)
-
-					return true
-				end,
-			}
-
-			-- call the builtin method to list files
-			require("telescope.builtin").find_files(opts)
-		end
-
 		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Git or non-git)" })
 		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
+		vim.keymap.set("n", "<leader>ns", norg_search, { desc = "Work [N]org [S]earch" })
 		vim.keymap.set("n", "<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
 		vim.keymap.set("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
 		vim.keymap.set("n", "<leader>gc", ":lua require('telescope.builtin').git_branches()<CR>")
-		vim.keymap.set("n", "<Leader>qr", reload_lua_modules, { desc = "Reload lua modules" })
 
-		vim.keymap.set("n", "<leader>km", function()
-			require("telescope.builtin").keymaps({ show_plug = false })
-		end, { desc = "[K]ey [M]aps" })
+		-- vim.keymap.set("n", "<leader>km", function()
+		-- 	require("telescope.builtin").keymaps({ show_plug = false })
+		-- end, { desc = "[K]ey [M]aps" })
 
 		vim.keymap.set(
 			"n",
@@ -183,8 +158,7 @@ return {
 		end)
 		--
 		vim.keymap.set("n", "<leader>gm", ":lua require('telescope.builtin').git_commits()<CR>")
-
-		vim.keymap.set("n", "<leader>gf", ":lua require('telescope.builtin').git_status()<CR>")
+		-- vim.keymap.set("n", "//", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
 
 		-- git worktrees
 		vim.keymap.set(
@@ -198,6 +172,13 @@ return {
 			"<leader>gaw",
 			":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
 			{ desc = "[G]it [A]dd [W]orktree" }
+		)
+
+		vim.keymap.set(
+			"n",
+			"<leader>ps",
+			":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+			{ desc = "[P]roject [S]earch with rg" }
 		)
 	end,
 	dependencies = {
