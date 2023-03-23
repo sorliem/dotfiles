@@ -14,10 +14,16 @@ return {
 	"tpope/vim-sleuth",
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
-	"tpope/vim-commentary",
+	{ "tpope/vim-commentary", cond = false },
 	"tpope/vim-unimpaired",
 
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	},
 
 	{
 		"nvim-lua/popup.nvim",
