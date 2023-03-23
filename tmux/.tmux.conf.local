@@ -289,8 +289,9 @@ set -g mouse on
 
 bind-key -r i run-shell "tmux neww tmux-cht.sh"
 
-# set-option -sa terminal-overrides ',xterm-256color:RGB'
-set-option -ga terminal-overrides ',xterm-256color:Tc'
+# set to xterm-* instead of tmux-* https://stackoverflow.com/questions/45931164/duplicated-characters-and-non-updating-input-using-tmux-in-zsh
+set -g default-terminal "xterm-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual

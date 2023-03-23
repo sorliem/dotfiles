@@ -302,6 +302,9 @@ selection:
 
 live_config_reload: true
 
+env:
+  TERM: xterm-256color
+
 key_bindings:
   - { key: V, mods: Control|Shift, action: Paste }
   - { key: C, mods: Control|Shift, action: Copy }
