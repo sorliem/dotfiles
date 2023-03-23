@@ -18,13 +18,13 @@ return {
 	"tpope/vim-unimpaired",
 
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
+	"sindrets/diffview.nvim",
 	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
 		end,
 	},
-
 	{
 		"nvim-lua/popup.nvim",
 		dependencies = {
