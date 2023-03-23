@@ -2,12 +2,18 @@ return {
 	{
 		{
 			"ellisonleao/gruvbox.nvim",
+			priority = 1000,
+			cond = true,
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
 					underline = true,
 					bold = true,
-					italic = true,
+					italic = {
+						strings = false,
+						operators = false,
+						comments = true,
+					},
 					strikethrough = true,
 					invert_selection = false,
 					invert_signs = false,
@@ -15,14 +21,39 @@ return {
 					invert_intend_guides = false,
 					inverse = true, -- invert background for search, diffs, statuslines and errors
 					contrast = "hard", -- can be "hard", "soft" or empty string
-					palette_overrides = {},
-					overrides = {},
+					palette_overrides = {
+						dark0_hard = "#1d2021",
+						dark0 = "#1d2021",
+					},
+					overrides = {
+						-- Comment = { fg = "#fe8019", italic = true },
+					},
 					dim_inactive = false,
 					transparent_mode = false,
 				})
 
 				vim.cmd([[set background=dark]])
 				vim.cmd([[colorscheme gruvbox]])
+			end,
+		},
+		{
+			"catppuccin/nvim",
+			name = "catppuccin",
+			cond = false,
+			config = function()
+				require("catppuccin").setup({
+					flavour = "mocha",
+					transparent_mode = false,
+				})
+				vim.cmd("colorscheme catppuccin")
+				-- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
+			end,
+		},
+		{
+			"EdenEast/nightfox.nvim",
+			cond = false,
+			config = function()
+				vim.cmd("colorscheme nightfox")
 			end,
 		},
 		{
@@ -37,8 +68,10 @@ return {
 			cond = false,
 			config = function()
 				require("github-theme").setup({
-					theme_style = "dark_colorblind",
+					theme_style = "dimmed",
 				})
+
+				vim.cmd([[colorscheme github_dark]])
 			end,
 		},
 		{
@@ -91,10 +124,10 @@ return {
 			cond = false,
 			config = function()
 				vim.opt.background = "dark"
-				vim.g.tokyonight_italic_functions = 1
+				-- vim.g.tokyonight_italic_functions = 1
 				vim.g.tokyonight_italic_comments = 1
 				vim.g.tokyonight_style = "night"
-				vim.g.tokyonight_transparent = true
+				-- vim.g.tokyonight_transparent = true
 				vim.cmd([[colorscheme tokyonight]])
 			end,
 		},
