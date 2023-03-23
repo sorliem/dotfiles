@@ -15,7 +15,7 @@ autocmd("WinLeave", {
 	pattern = "*",
 	callback = function()
 		vim.opt.cursorline = false
-		vim.opt.cursorcolumn = false
+		-- vim.opt.cursorcolumn = false
 	end,
 })
 
@@ -23,7 +23,7 @@ autocmd("WinEnter", {
 	pattern = "*",
 	callback = function()
 		vim.opt.cursorline = true
-		vim.opt.cursorcolumn = true
+		-- vim.opt.cursorcolumn = true
 	end,
 })
 
