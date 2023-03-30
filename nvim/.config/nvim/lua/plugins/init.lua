@@ -3,6 +3,7 @@ return {
 	"christoomey/vim-tmux-navigator",
 	"editorconfig/editorconfig-vim",
 	"folke/lsp-colors.nvim",
+
 	{ "hashivim/vim-terraform", ft = "terraform" },
 	{ "dstein64/vim-startuptime", cmd = "StartupTime" },
 	{ "cespare/vim-toml", ft = "toml" },
@@ -12,15 +13,16 @@ return {
 
 	-- Tim Pope
 	"tpope/vim-sleuth",
-	"tpope/vim-surround",
-	"tpope/vim-repeat",
+	{ "tpope/vim-surround", event = { "BufRead" } },
+	{ "tpope/vim-repeat", event = { "BufRead" } },
 	{ "tpope/vim-commentary", cond = false },
-	"tpope/vim-unimpaired",
+	{ "tpope/vim-unimpaired", event = { "BufRead" } },
 
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 	"sindrets/diffview.nvim",
 	{
 		"numToStr/Comment.nvim",
+		event = { "BufRead" },
 		config = function()
 			require("Comment").setup()
 		end,
