@@ -131,6 +131,7 @@ export LD_LIBRARY_PATH=/usr/local/lib
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export ERL_COMPILER_OPTIONS=bin_opt_info
 export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_BUILD_DOCS="yes"
 
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
