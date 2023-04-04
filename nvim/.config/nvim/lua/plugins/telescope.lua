@@ -82,20 +82,13 @@ return {
 				},
 			},
 			pickers = {
-				-- Default configuration for builtin pickers goes here:
-				-- picker_name = {
-				--   picker_config_key = value,
-				--   ...
-				-- }
-				-- Now the picker_config_key will be applied every time you call this
-				-- builtin picker
+				live_grep = {
+					additional_args = function(--[[opts]])
+						return { "--hidden" }
+					end,
+				},
 			},
 			extensions = {
-				-- Your extension configuration goes here:
-				-- extension_name = {
-				--   extension_config_key = value,
-				-- }
-				-- please take a look at the readme of the extension you want to configure
 				fzf = {
 					fuzzy = true,
 					override_generic_sorter = true,
@@ -106,7 +99,6 @@ return {
 		})
 
 		require("telescope").load_extension("fzf")
-		require("telescope").load_extension("live_grep_args")
 		require("telescope").load_extension("git_worktree")
 
 		local search_wiki = function()
@@ -177,13 +169,12 @@ return {
 		vim.keymap.set(
 			"n",
 			"<leader>ps",
-			":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+			":lua require('telescope.builtin').live_grep()<CR>",
 			{ desc = "[P]roject [S]earch with rg" }
 		)
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"nvim-telescope/telescope-live-grep-args.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
