@@ -4,9 +4,26 @@ return {
 		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "elixir", "go", "lua", "rust", "kotlin", "terraform" },
+				ensure_installed = {
+					"elixir",
+					"go",
+					"lua",
+					"rust",
+					"kotlin",
+					"terraform",
+					"gitcommit",
+					"diff",
+					"git_rebase",
+				},
+				auto_install = true,
+				indent = { enable = true },
 				highlight = {
 					enable = true, -- critical for getting TS-enabled colorschemes to work
+					-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+					-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+					-- Using this option may slow down your editor, and you may see some duplicate highlights.
+					-- Instead of true it can also be a list of languages
+					additional_vim_regex_highlighting = false,
 					disable = function(_, buf)
 						-- disable TS highlighting if filesize > 100KB
 						local max_filesize = 100 * 1024 -- 100 KB
