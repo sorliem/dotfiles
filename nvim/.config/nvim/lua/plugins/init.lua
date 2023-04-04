@@ -33,4 +33,11 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 	},
+
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	},
 }
