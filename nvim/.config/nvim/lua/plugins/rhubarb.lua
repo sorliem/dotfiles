@@ -22,10 +22,10 @@ return {
 				else
 					vim.cmd("0GBrowse!")
 				end
-			end, { desc = "[G]it[H]ub line yank" })
+			end, { desc = "[G]it[H]ub [L]ine yank - normal mode" })
 
 			-- Grab current selection as _permanent_ github link
-			vim.keymap.set("v", "<leader>ghl", ":GBrowse!<CR>", { desc = "[G]it[H]ub line yank" })
+			vim.keymap.set("v", "<leader>ghl", ":GBrowse!<CR>", { desc = "[G]it[H]ub [L]ine yank - visual mode" })
 		end,
 	},
 }
