@@ -173,6 +173,10 @@ return {
 			":lua require('telescope.builtin').live_grep()<CR>",
 			{ desc = "[P]roject [S]earch with rg" }
 		)
+
+		vim.keymap.set("n", "<leader>ji", function()
+			vim.cmd([[Easypick myjira]])
+		end, { desc = "[J][i]ra ticket list" })
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
