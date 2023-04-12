@@ -174,6 +174,16 @@ return {
 			{ desc = "[P]roject [S]earch with rg" }
 		)
 
+		vim.keymap.set("n", "<leader>ofs", function()
+			local ft = vim.fn.input("File type to search onx files for (see rg --type-list): ")
+
+			require("telescope.builtin").live_grep({
+				cwd = "~/gitroot/onxmaps",
+				type_filter = ft,
+				prompt_title = "Live Grep all [" .. ft .. "] OnX Files",
+			})
+		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
+
 		vim.keymap.set("n", "<leader>ji", function()
 			vim.cmd([[Easypick myjira]])
 		end, { desc = "[J][i]ra ticket list" })
