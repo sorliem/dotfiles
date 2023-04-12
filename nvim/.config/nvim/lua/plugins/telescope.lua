@@ -100,6 +100,7 @@ return {
 
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("git_worktree")
+		require("telescope").load_extension("emoji")
 
 		local search_wiki = function()
 			require("telescope.builtin").find_files({
@@ -175,6 +176,7 @@ return {
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"xiyaowong/telescope-emoji.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
