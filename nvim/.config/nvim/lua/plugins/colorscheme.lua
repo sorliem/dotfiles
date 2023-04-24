@@ -3,7 +3,7 @@ return {
 		{
 			"ellisonleao/gruvbox.nvim",
 			priority = 1000,
-			cond = true,
+			cond = false,
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
@@ -37,14 +37,23 @@ return {
 			end,
 		},
 		{
+			"briones-gabriel/darcula-solid.nvim",
+			dependencies = { "rktjmp/lush.nvim" },
+			config = function()
+				vim.cmd("colorscheme darcula-solid")
+				vim.cmd("set termguicolors")
+			end,
+		},
+		{
 			"catppuccin/nvim",
 			name = "catppuccin",
 			cond = false,
 			config = function()
 				require("catppuccin").setup({
-					flavour = "mocha",
+					flavour = "latte",
 					transparent_mode = false,
 				})
+				vim.cmd([[set background=light]])
 				vim.cmd("colorscheme catppuccin")
 				-- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
 			end,
@@ -53,7 +62,7 @@ return {
 			"EdenEast/nightfox.nvim",
 			cond = false,
 			config = function()
-				vim.cmd("colorscheme nightfox")
+				vim.cmd("colorscheme dayfox")
 			end,
 		},
 		{
