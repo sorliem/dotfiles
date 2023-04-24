@@ -18,21 +18,22 @@ autocmd("BufWritePre", {
 	command = "%s/\\s\\+$//e",
 })
 
-autocmd("WinLeave", {
-	pattern = "*",
-	callback = function()
-		vim.opt.cursorline = false
-		-- vim.opt.cursorcolumn = false
-	end,
-})
+-- autocmd("WinLeave", {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.opt.cursorline = false
+-- 		vim.opt.cursorcolumn = false
+-- 	end,
+-- })
 
-autocmd("WinEnter", {
-	pattern = "*",
-	callback = function()
-		vim.opt.cursorline = true
-		-- vim.opt.cursorcolumn = true
-	end,
-})
+-- autocmd("WinEnter", {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.opt.cursorline = true
+-- 		vim.opt.cursorcolumn = true
+-- 	end,
+-- })
+--
 
 autocmd("TextYankPost", {
 	group = YankGroup,
