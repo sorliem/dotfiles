@@ -167,26 +167,23 @@ return {
 			{ desc = "[G]it [A]dd [W]orktree" }
 		)
 
-		vim.keymap.set(
-			"n",
-			"<leader>ps",
-			":lua require('telescope.builtin').live_grep()<CR>",
-			{ desc = "[P]roject [S]earch with rg" }
-		)
+		vim.keymap.set("n", "<leader>ps", function()
+			-- tip: when grepping, <c-space> will pin that search and you can refine from there
+			-- require("telescope").extensions.live_grep_args.live_grep_args()
+			require("telescope.builtin").live_grep()
+		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()
-			local ft = vim.fn.input("File type to search onx files for (see rg --type-list): ")
-
-			require("telescope.builtin").live_grep({
-				cwd = "~/gitroot/onxmaps",
-				type_filter = ft,
-				prompt_title = "Live Grep all [" .. ft .. "] OnX Files",
-			})
+			require("miles.telescope_functions").onx_live_grep()
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
 		vim.keymap.set("n", "<leader>ji", function()
-			vim.cmd([[Easypick myjira]])
+			require("miles.telescope_functions").jira_tickets()
 		end, { desc = "[J][i]ra ticket list" })
+
+		vim.keymap.set("n", "<leader>lc", function()
+			require("telescope.builtin").commands()
+		end, { desc = "[L]ist [C]ommands" })
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
