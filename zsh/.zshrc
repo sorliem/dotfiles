@@ -23,6 +23,7 @@ alias j='jobs'
 alias f='pushd'
 alias b='popd'
 alias lua='lua5.3'
+alias ll='ls -alh'
 
 #################################
 #             GIT               #
@@ -45,7 +46,19 @@ alias glogp='git log --graph --abbrev-commit --decorate --date=relative --all'
 alias gl='git log --decorate --oneline --all --graph --stat'
 alias gl1='git log -n 1'
 alias gw='git worktree'
+alias shortsha='git rev-parse --short=7 HEAD'
 
+
+function delete-branches() {
+  git branch |
+    grep --invert-match '\*' |
+    grep --invert-match 'master' |
+    grep --invert-match 'daily' |
+    grep --invert-match 'staging' |
+    cut -c 3- |
+    fzf --multi --bind up:preview-up,down:preview-down --preview="git log {} --" |
+    xargs --no-run-if-empty git branch --delete
+}
 
 
 #################################
@@ -85,7 +98,7 @@ fi
 #           FZF                 #
 #################################
 
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --multi'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --multi --bind up:preview-up,down:preview-down'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #################################
@@ -143,14 +156,27 @@ fi
 
 bindkey -s ^f "tmux-sessionizer\n"
 
+# Tmuxifier
+export PATH="$HOME/.tmuxifier/bin:$PATH"
+export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
+eval "$(tmuxifier init -)"
+
 # export LS_COLORS=$LS_COLORS:'di=0;35:'
 
 # don't auto-cd into a dir by typing its name
 unsetopt AUTO_CD
 
+# share history between sessions
+# setopt share_history
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+
 source ~/.work_zshrc
 
-# eval "$(starship init zsh)"
 source ~/gitroot/src/Powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
