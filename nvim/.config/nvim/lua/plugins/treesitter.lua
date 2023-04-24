@@ -10,6 +10,7 @@ return {
 					"lua",
 					"rust",
 					"kotlin",
+					"help",
 					"terraform",
 					"gitcommit",
 					"diff",
