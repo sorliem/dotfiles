@@ -342,6 +342,7 @@ bind-key -n M-y attach-session -t xgps
 bind-key -n M-u attach-session -t vimwiki
 bind-key -n M-i attach-session -t dotfiles
 bind-key -n M-o attach-session -t offerings
+bind-key -n M-p attach-session -t terraform-modules
 
 # move windows left/right
 bind-key -n C-S-Left swap-window -t -1
