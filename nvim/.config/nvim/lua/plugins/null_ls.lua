@@ -20,6 +20,12 @@ return {
 				-- }),
 				-- null_ls.builtins.diagnostics.yamlfmt,
 			},
+			should_attach = function(bufnr)
+				local bufname = vim.api.nvim_buf_get_name(bufnr)
+				-- TODO: add check to make sure buffer size < 100k, to prevent vale from attaching from giant files
+
+				return true
+			end,
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
