@@ -21,39 +21,88 @@ return {
 			-- Use an on_attach function to only map the following keys
 			-- after the language server attaches to the current buffer
 			local on_attach = function(_, bufnr)
-				local nmap = function(keys, func, desc)
+				local map = function(mode, keys, func, desc)
 					if desc then
 						desc = "LSP: " .. desc
 					end
 
-					vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc, noremap = true, silent = true })
+					vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc, noremap = true, silent = true })
 				end
 
 				-- Enable completion triggered by <c-x><c-o>
 				vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-				nmap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "[G]oto [d]eclaration")
-				nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", "[G]oto [D]efinition")
-				nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover documentation")
-				nmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "[G]oto [I]mplementation")
-				nmap("gr", "<cmd>lua vim.lsp.buf.references()<CR>", "[G]oto [R]eferences")
-				-- nmap('<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>', "Signature help")
-				nmap("<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "[W]orkspace [A]dd Folder")
-				nmap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "[W]orkspace [R]emove Folder")
-				nmap(
-					"<space>wl",
-					"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-					"[W]orkspace [L]ist Folders"
-				)
-				nmap("<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Type [D]efinition")
-				nmap("<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", "LSP [R]e[N]ame")
-				nmap("<space>rf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", "[R]un [F]ormatter")
-				nmap("<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", "[C]ode [A]ction")
-				nmap("<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", "Open floating diagnostic message")
-				nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic")
-				nmap("[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic")
-				nmap("<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", "Open diagnostics list")
-				vim.keymap.set("i", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
+				map("n", "gD", function()
+					vim.lsp.buf.declaration()
+				end, "[G]oto [d]eclaration")
+
+				map("n", "gd", function()
+					vim.lsp.buf.definition()
+				end, "[G]oto [D]efinition")
+
+				map("n", "K", function()
+					vim.lsp.buf.hover()
+				end, "Hover documentation")
+
+				map("n", "gi", function()
+					vim.lsp.buf.implementation()
+				end, "[G]oto [I]mplementation")
+
+				map("n", "gr", function()
+					vim.lsp.buf.references()
+				end, "[G]oto [R]eferences")
+
+				-- map("i", "<C-k>", function()
+				-- 	vim.lsp.buf.signature_help()
+				-- end, "Signature help")
+
+				map("n", "<space>wa", function()
+					vim.lsp.buf.add_workspace_folder()
+				end, "[W]orkspace [A]dd Folder")
+
+				map("n", "<space>wr", function()
+					vim.lsp.buf.remove_workspace_folder()
+				end, "[W]orkspace [R]emove Folder")
+
+				map("n", "<space>wl", function()
+					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+				end, "[W]orkspace [L]ist Folders")
+
+				map("n", "<space>D", function()
+					vim.lsp.buf.type_definition()
+				end, "Type [D]efinition")
+
+				map("n", "<space>rn", function()
+					vim.lsp.buf.rename()
+				end, "LSP [R]e[N]ame")
+
+				map("n", "<space>rf", function()
+					vim.lsp.buf.format({ async = true })
+				end, "[R]un [F]ormatter")
+
+				map("n", "<space>ca", function()
+					vim.lsp.buf.code_action()
+				end, "[C]ode [A]ction")
+
+				map("n", "<space>e", function()
+					vim.diagnostic.open_float()
+				end, "Open floating diagnostic message")
+
+				map("n", "]d", function()
+					vim.diagnostic.goto_next()
+				end, "Next diagnostic")
+
+				map("n", "[d", function()
+					vim.diagnostic.goto_prev()
+				end, "Previous diagnostic")
+
+				map("n", "<space>q", function()
+					vim.diagnostic.setloclist()
+				end, "Open diagnostics list")
+
+				map("i", "<C-h>", function()
+					vim.lsp.buf.signature_help()
+				end, "Signature help")
 			end
 
 			local sumneko_binary_path = vim.fn.exepath("lua-language-server")
