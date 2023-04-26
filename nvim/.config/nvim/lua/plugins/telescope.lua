@@ -130,42 +130,46 @@ return {
 		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Git or non-git)" })
 		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
 		vim.keymap.set("n", "<leader>ns", norg_search, { desc = "Work [N]org [S]earch" })
-		vim.keymap.set("n", "<leader><leader>", ":lua require('telescope.builtin').buffers()<CR>")
-		vim.keymap.set("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>")
-		vim.keymap.set("n", "<leader>gc", ":lua require('telescope.builtin').git_branches()<CR>")
+
+		vim.keymap.set("n", "<leader><leader>", function()
+			require("telescope.builtin").buffers()
+		end)
+
+		vim.keymap.set("n", "<leader>ht", function()
+			require("telescope.builtin").help_tags()
+		end)
+
+		vim.keymap.set("n", "<leader>gc", function()
+			require("telescope.builtin").git_branches()
+		end)
 
 		-- vim.keymap.set("n", "<leader>km", function()
 		-- 	require("telescope.builtin").keymaps({ show_plug = false })
 		-- end, { desc = "[K]ey [M]aps" })
 
-		vim.keymap.set(
-			"n",
-			"<leader>fw",
-			":lua require('telescope.builtin').grep_string{}<CR>",
-			{ desc = "[F]ind [W]ord (telescope)" }
-		)
+		vim.keymap.set("n", "<leader>fw", function()
+			require("telescope.builtin").grep_string({ additional_args = { "--hidden" } })
+		end, { desc = "[F]ind [W]ord (telescope)" })
 
 		vim.keymap.set("n", "<leader>gm", function()
 			local git_commits_command = { "git", "log", "--pretty=oneline", "--abbrev-commit", "--", "." }
 			require("telescope.builtin").git_commits({ git_command = git_commits_command })
 		end)
 		--
-		vim.keymap.set("n", "<leader>gm", ":lua require('telescope.builtin').git_commits()<CR>")
+		vim.keymap.set("n", "<leader>gm", function()
+			require("telescope.builtin").git_commits()
+		end)
+
 		-- vim.keymap.set("n", "//", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
 
 		-- git worktrees
-		vim.keymap.set(
-			"n",
-			"<leader>gw",
-			":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>",
-			{ desc = "[G]it [W]orktrees" }
-		)
-		vim.keymap.set(
-			"n",
-			"<leader>gaw",
-			":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
-			{ desc = "[G]it [A]dd [W]orktree" }
-		)
+		vim.keymap.set("n", "<leader>gw", function()
+			require("telescope").extensions.git_worktree.git_worktrees()
+		end, { desc = "[G]it [W]orktrees" })
+
+		vim.keymap.set("n", "<leader>gaw", function()
+			require("telescope").extensions.git_worktree.create_git_worktree()
+		end, { desc = "[G]it [A]dd [W]orktree" })
 
 		vim.keymap.set("n", "<leader>ps", function()
 			-- tip: when grepping, <c-space> will pin that search and you can refine from there
