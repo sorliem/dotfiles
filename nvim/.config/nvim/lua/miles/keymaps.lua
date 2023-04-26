@@ -82,12 +82,12 @@ map("n", "<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-b
 
 map("n", "<Leader>pv", ":Hexplore!<Enter>", "[P]roject [V]view (netrw)")
 
-map(
-	"n",
-	"-",
-	':let @/=expand("%:\t") <Bar> execute \'Hexplore!\' expand("%:h") <Bar> normal n<CR>',
-	"Open netrw and find current file"
-)
+-- map(
+-- 	"n",
+-- 	"-",
+-- 	':let @/=expand("%:\t") <Bar> execute \'Hexplore!\' expand("%:h") <Bar> normal n<CR>',
+-- 	"Open netrw and find current file"
+-- )
 
 map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-sessionizer")
 
