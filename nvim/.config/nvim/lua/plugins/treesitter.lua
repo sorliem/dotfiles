@@ -11,7 +11,7 @@ return {
 					"lua",
 					"rust",
 					"kotlin",
-					"help",
+					"vimdoc",
 					"terraform",
 					"gitcommit",
 					"diff",

@@ -96,6 +96,10 @@ map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
 
 -- run test file
 map("n", "<Leader>rt", ":call RunElixirTest()<CR>")
+-- map("n", "<Leader>rt", function()
+-- 	-- aosdifj
+-- 	local cmd = "tmux send-keys -t "
+-- end)
 
 -- run all tests
 map("n", "<Leader>tt", ":call RunAllTests()<CR>")

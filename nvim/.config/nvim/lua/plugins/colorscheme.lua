@@ -3,7 +3,7 @@ return {
 		{
 			"ellisonleao/gruvbox.nvim",
 			priority = 1000,
-			cond = false,
+			cond = true,
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
@@ -39,6 +39,7 @@ return {
 		{
 			"briones-gabriel/darcula-solid.nvim",
 			dependencies = { "rktjmp/lush.nvim" },
+			cond = false,
 			config = function()
 				vim.cmd("colorscheme darcula-solid")
 				vim.cmd("set termguicolors")

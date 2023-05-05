@@ -4,13 +4,6 @@ MilesDevGroup = augroup("Miles", {})
 YankGroup = augroup("YankGroup", {})
 WhiteSpaceGroup = augroup("WhiteSpaceGroup", {})
 PackerGroup = augroup("PackerGroup", {})
-MarkdownGroup = augroup("MarkdownGroup", {})
-
-vim.api.nvim_create_autocmd("BufRead", {
-	group = MarkdownGroup,
-	pattern = { "README.md", "SLO.md", "SLI.md", "ARCHITECTURE.md" },
-	command = "MarkdownPreview",
-})
 
 autocmd("BufWritePre", {
 	group = WhiteSpaceGroup,

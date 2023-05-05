@@ -43,4 +43,4 @@ gh \
   | xargs -n 1 -P12 -I {} bash -c 'clone_repo "$@"' _ {}
 
 # update all repos
-ls ~/gitroot/onxmaps | head -20 | xargs -n 1 -P12 -I {} bash -c 'update_repo "$@"' _ {}
+ls ~/gitroot/onxmaps | xargs -n 1 -P12 -I {} bash -c 'update_repo "$@"' _ {}

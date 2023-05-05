@@ -16,7 +16,7 @@ return {
 	{ "tpope/vim-surround", event = { "BufRead" } },
 	{ "tpope/vim-repeat", event = { "BufRead" } },
 	{ "tpope/vim-commentary", cond = false },
-	{ "tpope/vim-unimpaired", event = { "BufRead" } },
+	{ "tpope/vim-unimpaired" },
 
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 	"sindrets/diffview.nvim",

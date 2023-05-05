@@ -1,5 +1,6 @@
 return {
-	"nvim-telescope/telescope.nvim",
+	-- "nvim-telescope/telescope.nvim",
+	dir = "/home/miles/gitroot/src/telescope.nvim",
 	keys = {
 		-- load telescope on these keymappings
 		{ "<C-p>" },
@@ -15,6 +16,7 @@ return {
 		{ "<Leader>gm" },
 		{ "<Leader>fw" },
 		{ "<Leader>ps" },
+		{ "//" },
 	},
 	config = function()
 		local actions = require("telescope.actions")
@@ -67,10 +69,12 @@ return {
 						["<esc>"] = actions.close,
 						["<tab>"] = actions.toggle_selection + actions.move_selection_next,
 						["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
-						["<C-Down>"] = require("telescope.actions").cycle_history_next,
-						["<C-Up>"] = require("telescope.actions").cycle_history_prev,
+						["<C-Down>"] = actions.cycle_history_next,
+						["<C-Up>"] = actions.cycle_history_prev,
 						["<M-p>"] = action_layout.toggle_preview,
+						["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
 						["<C-w>"] = function()
+							-- delete previous word
 							vim.cmd([[normal! bcw]])
 						end,
 					},
@@ -160,7 +164,12 @@ return {
 			require("telescope.builtin").git_commits()
 		end)
 
-		-- vim.keymap.set("n", "//", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
+		-- vim.keymap.set("n", "//", function()
+		-- 	require("telescope.builtin").current_buffer_fuzzy_find({
+		-- 		sorter = require("telescope.sorters").get_substr_matcher({}),
+		-- 	})
+		-- 	-- require('telescope.builtin').current_buffer_fuzzy_find()
+		-- end)
 
 		-- git worktrees
 		vim.keymap.set("n", "<leader>gw", function()
@@ -174,7 +183,14 @@ return {
 		vim.keymap.set("n", "<leader>ps", function()
 			-- tip: when grepping, <c-space> will pin that search and you can refine from there
 			-- require("telescope").extensions.live_grep_args.live_grep_args()
-			require("telescope.builtin").live_grep()
+			require("telescope.builtin").grep_string({
+				shorten_path = true,
+				word_match = "-w",
+				only_sort_text = true,
+				search = "",
+				prompt_title = "Grep String (fzf style)",
+			})
+			-- require("telescope.builtin").live_grep()
 		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()
