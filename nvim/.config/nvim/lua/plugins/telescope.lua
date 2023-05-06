@@ -189,6 +189,9 @@ return {
 				only_sort_text = true,
 				search = "",
 				prompt_title = "Grep String (fzf style)",
+				additional_args = function(--[[opts]])
+					return { "--hidden" }
+				end,
 			})
 			-- require("telescope.builtin").live_grep()
 		end, { desc = "[P]roject [S]earch with rg" })
