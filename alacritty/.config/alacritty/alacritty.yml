@@ -304,36 +304,40 @@ colors:
 #     cyan:    '0x93a1a1'
 #     white:   '0xfdf6e3'
 
-background_opacity: 1.0
+window_opacity: 1.0
 
 font:
   normal:
     # family: "DroidSansMono Nerd Font"
     # family: "Hack Nerd Font"
     # family: "Inconsolata Nerd Font"
-    # family: "Ubuntu Nerd Font"
-    # family: "JetBrainsMono NF"
-    family: "JetBrains Mono"
+    # family: "Ubuntu Mono"
+    family: "JetBrainsMono NF"
+    # family: "MesloLGS NF"
+    # family: "JetBrains Mono"
     # family: "Mononoki Nerd Font"
     # family: "UbuntuMono Nerd Font"
-    style: Bold
+    style: Normal
   bold:
-    # family: "UbuntuMono Nerd Font"
+    # family: "Ubuntu Nerd Font"
     # family: "Mononoki Nerd Font"
-    # family: "JetBrainsMono NF"
-    family: "JetBrains Mono"
+    family: "JetBrainsMono NF"
+    # family: "MesloLGS NF"
+    # family: "JetBrains Mono"
     style: Bold
   italic:
     # family: "Mononoki Nerd Font"
-    # family: "JetBrainsMono NF"
-    family: "JetBrains Mono"
-    # family: "UbuntuMono Nerd Font"
+    family: "JetBrainsMono NF"
+    # family: "MesloLGS NF"
+    # family: "JetBrains Mono"
+    # family: "Ubuntu Nerd Font"
     style: Italic
   bold_italic:
     # family: "Mononoki Nerd Font"
-    family: "JetBrains Mono"
-    # family: "JetBrainsMono NF"
-    # family: "UbuntuMono Nerd Font"
+    # family: "JetBrains Mono"
+    family: "JetBrainsMono NF"
+    family: "MesloLGS NF"
+    # family: "Ubuntu Nerd Font"
     style: Bold Italic
 
   # Point size
