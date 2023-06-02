@@ -34,6 +34,8 @@ return {
 
 				vim.cmd([[set background=dark]])
 				vim.cmd([[colorscheme gruvbox]])
+
+				vim.cmd([[ hi Search guibg=peru guifg=wheat ]])
 			end,
 		},
 		{
@@ -77,11 +79,9 @@ return {
 			"projekt0n/github-nvim-theme",
 			cond = false,
 			config = function()
-				require("github-theme").setup({
-					theme_style = "dimmed",
-				})
+				require("github-theme").setup({})
 
-				vim.cmd([[colorscheme github_dark]])
+				vim.cmd.colorscheme("github_dark")
 			end,
 		},
 		{
