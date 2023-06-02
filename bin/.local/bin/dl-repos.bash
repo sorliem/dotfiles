@@ -4,7 +4,7 @@ clone_repo() {
   if [ -d "/home/miles/gitroot/onxmaps/$@" ]; then
     echo "$@ already cloned, skipping"
   else
-    echo "cloning "$@
+    echo "==> CLONING NEW REPO: "$@
     git clone git@github.com:onXmaps/$@.git /home/miles/gitroot/onxmaps/$@
   fi
 }
@@ -21,7 +21,7 @@ update_repo() {
       echo "$@ is NOT master/main and clean, skipping git pull";
     fi
   else
-    echo "==> DIRTY repo: "$@
+    echo "==> SKIPPING UPDATING DIRTY repo: "$@
   fi
   popd > /dev/null 2>&1
 }
