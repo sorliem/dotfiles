@@ -1,23 +1,5 @@
 return {
-	-- "nvim-telescope/telescope.nvim",
-	dir = "/home/miles/gitroot/src/telescope.nvim",
-	keys = {
-		-- load telescope on these keymappings
-		{ "<C-p>" },
-		{ "<Leader>ht" },
-		-- { "<Leader>km" },
-		{
-			"<leader>km",
-			function()
-				require("telescope.builtin").keymaps({ show_plug = false })
-			end,
-			desc = "[K]ey [M]aps",
-		},
-		{ "<Leader>gm" },
-		{ "<Leader>fw" },
-		{ "<Leader>ps" },
-		{ "//" },
-	},
+	"nvim-telescope/telescope.nvim",
 	config = function()
 		local actions = require("telescope.actions")
 		local action_layout = require("telescope.actions.layout")
@@ -56,7 +38,6 @@ return {
 						height = 0.85,
 						preview_height = 0.5,
 					},
-
 					flex = {
 						horizontal = {
 							preview_width = 0.9,
@@ -99,11 +80,24 @@ return {
 					override_file_sorter = true,
 					case_mode = "smart_case",
 				},
+				advanced_git_search = {
+					-- fugitive or diffview
+					diff_plugin = "fugitive",
+					-- customize git in previewer
+					-- e.g. flags such as { "--no-pager" }, or { "-c", "delta.side-by-side=false" }
+					git_flags = {},
+					-- customize git diff in previewer
+					-- e.g. flags such as { "--raw" }
+					git_diff_flags = {},
+					-- Show builtin git pickers when executing "show_custom_functions" or :AdvancedGitSearch
+					show_builtin_git_pickers = false,
+				},
 			},
 		})
 
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("git_worktree")
+		require("telescope").load_extension("advanced_git_search")
 		require("telescope").load_extension("emoji")
 
 		local search_wiki = function()
@@ -147,9 +141,9 @@ return {
 			require("telescope.builtin").git_branches()
 		end)
 
-		-- vim.keymap.set("n", "<leader>km", function()
-		-- 	require("telescope.builtin").keymaps({ show_plug = false })
-		-- end, { desc = "[K]ey [M]aps" })
+		vim.keymap.set("n", "<leader>km", function()
+			require("telescope.builtin").keymaps({ show_plug = false })
+		end, { desc = "[K]ey [M]aps" })
 
 		vim.keymap.set("n", "<leader>fw", function()
 			require("telescope.builtin").grep_string({ additional_args = { "--hidden" } })
@@ -183,17 +177,17 @@ return {
 		vim.keymap.set("n", "<leader>ps", function()
 			-- tip: when grepping, <c-space> will pin that search and you can refine from there
 			-- require("telescope").extensions.live_grep_args.live_grep_args()
-			require("telescope.builtin").grep_string({
-				shorten_path = true,
-				word_match = "-w",
-				only_sort_text = true,
-				search = "",
-				prompt_title = "Grep String (fzf style)",
-				additional_args = function(--[[opts]])
-					return { "--hidden" }
-				end,
-			})
-			-- require("telescope.builtin").live_grep()
+			-- require("telescope.builtin").grep_string({
+			-- shorten_path = true,
+			-- word_match = "-w",
+			-- only_sort_text = true,
+			-- search = "",
+			-- 	prompt_title = "Grep String (fzf style)",
+			-- 	additional_args = function(--[[opts]])
+			-- 		return { "--hidden" }
+			-- 	end,
+			-- })
+			require("telescope.builtin").live_grep()
 		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()
@@ -211,6 +205,12 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"xiyaowong/telescope-emoji.nvim",
+		{
+			"aaronhallaert/advanced-git-search.nvim",
+			config = function()
+				vim.keymap.set("n", "<leader>ags", ":AdvancedGitSearch<CR>", { desc = "[A]dvanced [G]it [S]earch" })
+			end,
+		},
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
