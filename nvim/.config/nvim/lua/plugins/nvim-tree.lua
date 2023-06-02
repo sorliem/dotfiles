@@ -1,6 +1,10 @@
 return {
 	{
 		"nvim-tree/nvim-tree.lua",
+		keys = {
+			{ "<leader>nt" },
+			{ "<leader>nf" },
+		},
 		config = function()
 			require("nvim-tree").setup({
 				on_attach = function(bufnr)
