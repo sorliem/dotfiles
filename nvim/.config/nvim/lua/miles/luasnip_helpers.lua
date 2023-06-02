@@ -29,11 +29,6 @@ _M.prev_git_sha = function(_, _, _)
 	return "no_prev_git_sha_found"
 end
 
-_M.get_wiki_file_name_without_extension = function(_, _, _)
-	local filename = vim.fn.expand("%:t")
-	return filename:gsub("(.wiki)$", "")
-end
-
 _M.jira_ticket_number = function(_, _, _)
 	local raw_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
