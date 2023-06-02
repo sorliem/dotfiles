@@ -1,6 +1,12 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -75,7 +81,7 @@ export LD_LIBRARY_PATH=/usr/local/lib
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export ERL_COMPILER_OPTIONS=bin_opt_info
-export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac"
+export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac -with-ssl=/usr/local/ssl"
 export KERL_BUILD_DOCS="yes"
 
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
@@ -90,9 +96,9 @@ if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
 fi
 
-# if [[ -f "$HOME/.asdf/completions/asdf.bash" ]]; then
-#     source $HOME/.asdf/completions/asdf.bash
-# fi
+if [[ -f "$HOME/.asdf/completions/asdf.bash" ]]; then
+    source $HOME/.asdf/completions/asdf.bash
+fi
 
 #################################
 #           FZF                 #
@@ -150,8 +156,8 @@ alias pbpaste='xclip -selection clipboard -o'
 
 export EDITOR="/usr/bin/nvim"
 
-if [[ -f "$HOME/Documents/scripts/z.sh" ]]; then
-    source $HOME/Documents/scripts/z.sh
+if [[ -f "$HOME/gitroot/src/z/z.sh" ]]; then
+  source $HOME/gitroot/src/z/z.sh
 fi
 
 bindkey -s ^f "tmux-sessionizer\n"
@@ -175,9 +181,21 @@ SAVEHIST=10000
 setopt appendhistory
 
 
+ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.work_zshrc
-
-source ~/gitroot/src/Powerlevel10k/powerlevel10k.zsh-theme
+# source ~/gitroot/src/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# source ~/gitroot/src/powerlevel10k/config/p10k-robbyrussell.zsh
+# source ~/gitroot/src/powerlevel10k/config/p10k-classic.zsh
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/miles/google-cloud-sdk/path.zsh.inc' ]; then . '/home/miles/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/miles/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/miles/google-cloud-sdk/completion.zsh.inc'; fi
