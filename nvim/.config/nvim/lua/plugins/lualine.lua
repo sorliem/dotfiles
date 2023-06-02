@@ -16,12 +16,19 @@ return {
 					always_divide_middle = true,
 				},
 				sections = {
-					lualine_a = {},
+					lualine_a = { "searchcount" },
 					lualine_b = {},
 					lualine_c = {
 						{
 							"filename",
+							file_status = true, -- Displays file status (readonly status, modified status)
 							path = 1,
+							symbols = {
+								modified = "[+]", -- Text to show when the file is modified.
+								readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+								unnamed = "[No Name]", -- Text to show for unnamed buffers.
+								newfile = "[New]", -- Text to show for newly created file before first write
+							},
 						},
 					},
 					lualine_x = {
@@ -30,7 +37,11 @@ return {
 						{ "diagnostics", sources = { "nvim_diagnostic" } },
 					},
 					lualine_y = { "filetype" },
-					lualine_z = { "progress" },
+					lualine_z = {
+						function()
+							return "DB:" .. vim.g.db_name
+						end,
+					},
 				},
 				inactive_sections = {
 					lualine_a = {},
@@ -38,7 +49,14 @@ return {
 					lualine_c = {
 						{
 							"filename",
+							file_status = true, -- Displays file status (readonly status, modified status)
 							path = 1,
+							symbols = {
+								modified = "[+]", -- Text to show when the file is modified.
+								readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+								unnamed = "[No Name]", -- Text to show for unnamed buffers.
+								newfile = "[New]", -- Text to show for newly created file before first write
+							},
 						},
 					},
 					lualine_x = { "filetype" },
@@ -47,7 +65,7 @@ return {
 						"diff",
 						{ "diagnostics", sources = { "nvim_diagnostic" } },
 					},
-					lualine_z = { "progress" },
+					lualine_z = {},
 				},
 				tabline = {},
 				extensions = {},
