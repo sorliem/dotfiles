@@ -25,7 +25,7 @@ _M.jira_tickets = function(opts)
 		"issue",
 		"list",
 		"-q",
-		'assignee = "miles.sorlie@onxmaps.com" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
+		'assignee = "Miles Sorlie" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
 		"--plain",
 		"--columns",
 		"key,status,summary",
