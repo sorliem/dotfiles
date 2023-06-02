@@ -1,6 +1,6 @@
 return {
 	"nvim-neorg/neorg",
-	build = ":Neorg sync-parsers",
+	-- build = ":Neorg sync-parsers",
 	-- ft = { "norg" },
 	keys = {
 		{ "<Leader>no", ":Neorg workspace work<CR>" },
