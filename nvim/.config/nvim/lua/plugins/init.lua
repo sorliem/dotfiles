@@ -1,7 +1,6 @@
 -- see other files in this dir for plugin setups with larger configs
 return {
 	"christoomey/vim-tmux-navigator",
-	"editorconfig/editorconfig-vim",
 	"folke/lsp-colors.nvim",
 
 	{ "hashivim/vim-terraform", ft = "terraform" },
