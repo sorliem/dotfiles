@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+notify-send ">> RUNNING dl-repos.bash <<"
 
 clone_repo() {
   if [ -d "/home/miles/gitroot/onxmaps/$@" ]; then
