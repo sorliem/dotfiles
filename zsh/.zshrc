@@ -1,6 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git)
 
@@ -192,7 +193,7 @@ source ~/.work_zshrc
 # source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.p10k_work.zsh ]] || source ~/.p10k_work.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/miles/google-cloud-sdk/path.zsh.inc' ]; then . '/home/miles/google-cloud-sdk/path.zsh.inc'; fi
