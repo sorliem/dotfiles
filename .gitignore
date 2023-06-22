@@ -2,3 +2,4 @@ nvim/.config/nvim/after/plugin/work-*.lua
 nvim/.config/nvim/lua/miles/dadbod_connection_helpers.lua
 bin/.local/bin/create_xgps_account
 zsh/.oh-my-zsh/custom/
+bin/.local/bin/fd
