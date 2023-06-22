@@ -202,7 +202,12 @@ return {
 			-- 		return { "--hidden" }
 			-- 	end,
 			-- })
-			require("telescope.builtin").live_grep()
+			require("telescope.builtin").live_grep({
+				file_ignore_patterns = { ".git" },
+				additional_args = function(--[[opts]])
+					return { "--hidden" }
+				end,
+			})
 		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()
