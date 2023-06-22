@@ -147,6 +147,23 @@ return {
 			require("telescope.builtin").grep_string({ additional_args = { "--hidden" } })
 		end, { desc = "[F]ind [W]ord (telescope)" })
 
+		vim.keymap.set("n", "<leader>ofw", function()
+			local ft = vim.bo.ft
+			local search_word = vim.fn.expand("<cword>")
+
+			if ft == "terraform" then
+				ft = "tf"
+			end
+
+			local prompt_title = "Find [" .. search_word .. "] in all [" .. ft .. "] OnX Files"
+
+			require("telescope.builtin").grep_string({
+				additional_args = { "--hidden", "--type", ft },
+				cwd = "~/gitroot/onxmaps",
+				prompt_title = prompt_title,
+			})
+		end, { desc = "[O]nX [F]ind [W]ord (telescope)" })
+
 		vim.keymap.set("n", "<leader>gm", function()
 			local git_commits_command = { "git", "log", "--pretty=oneline", "--abbrev-commit", "--", "." }
 			require("telescope.builtin").git_commits({ git_command = git_commits_command })
