@@ -2,7 +2,10 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"j-hui/fidget.nvim",
+			{
+				"j-hui/fidget.nvim",
+				tag = "legacy",
+			},
 			"folke/neodev.nvim",
 		},
 		config = function()
