@@ -15,9 +15,7 @@ return {
 				preview = {
 					filesize_limit = 10,
 				},
-				file_ignore_patterns = {
-					".git",
-				},
+				file_ignore_patterns = {},
 				layout_config = {
 					width = 0.85,
 					height = 0.85,
