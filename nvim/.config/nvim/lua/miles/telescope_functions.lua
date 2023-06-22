@@ -25,7 +25,7 @@ _M.jira_tickets = function(opts)
 		"issue",
 		"list",
 		"-q",
-		'assignee = "Miles Sorlie" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
+		'project in ("GD", "SRE") AND assignee = "Miles Sorlie" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
 		"--plain",
 		"--columns",
 		"key,status,summary",
