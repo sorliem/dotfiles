@@ -123,7 +123,7 @@ return {
 			end
 		end
 
-		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Git or non-git)" })
+		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Supports Git & non-git)" })
 		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
 		vim.keymap.set("n", "<leader>ns", norg_search, { desc = "Work [N]org [S]earch" })
 
