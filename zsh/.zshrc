@@ -73,8 +73,24 @@ function delete-branches() {
 #           TERRAFORM           #
 #################################
 alias tf='terraform'
-alias tfdocs="terraform-docs markdown ./ --hide requirements --output-mode merge --output-file README.md"
 alias tfmt="terraform fmt -recursive"
+alias tfapply="terraform apply"
+alias tfdocs="terraform-docs markdown ./ --hide requirements --output-mode merge --output-file README.md"
+alias tfgit="terraform-docs markdown ./ --recursive --hide requirements --output-mode merge --output-file README.md && terraform fmt -recursive && git add --all"
+alias tfinit="terraform init"
+alias tfplan="terraform plan"
+alias tfproviders="terraform providers"
+alias tfrefresh="terraform refresh"
+alias tfupgrade="terraform init --upgrade"
+alias tfvalidate="terraform validate"
+alias tfworkspace="terraform workspace select"
+alias switch_local_modules="git grep -l 'terraform-modules.git' | grep -v README | xargs sed -i'' 's/git@github.com:onXmaps\/terraform-modules.git/\/home\/miles\/gitroot\/onxmaps\/terraform-modules/g'"
+
+export TF_CLI_ARGS_plan="-parallelism=100"
+export TF_CLI_ARGS_apply="-parallelism=100"
+
+export PATH=$PATH:$HOME/.tfenv/bin
+
 
 # fixes issue when doing docker-compose build
 # Follow link in https://github.com/google-github-actions/setup-gcloud/issues/128#issuecomment-663215962
