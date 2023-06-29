@@ -1,6 +1,7 @@
 return {
 	{
 		"junegunn/fzf.vim",
+		cond = false,
 		dependencies = {
 			{
 				"junegunn/fzf",
@@ -22,13 +23,13 @@ return {
 			}
 
 			-- search over lines in buffer
-			vim.keymap.set("n", "//", ":BLines<CR>", { desc = "Fuzzy search over buffer lines" })
+			-- vim.keymap.set("n", "//", ":BLines<CR>", { desc = "Fuzzy search over buffer lines" })
 
 			-- rg in current dir
 			-- vim.keymap.set("n", "<leader>ps", ":R<CR>", { desc = "[P]roject [S]earch with `rg`" })
 
 			-- fzf starting at home dir
-			vim.keymap.set("n", "<leader>F", ":FZF ~<CR>")
+			-- vim.keymap.set("n", "<leader>F", ":FZF ~<CR>")
 		end,
 	},
 }
