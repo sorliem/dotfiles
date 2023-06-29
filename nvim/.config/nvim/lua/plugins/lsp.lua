@@ -122,8 +122,15 @@ return {
 			table.insert(runtime_path, "lua/?.lua")
 			table.insert(runtime_path, "lua/?/init.lua")
 
+			-- local cmd = { sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua" }
+			local cmd = {
+				sumneko_binary_path,
+				"-E",
+				"/home/miles/.local/share/nvim/mason/packages/lua-language-server/libexec/main.lua",
+			}
+
 			require("lspconfig").lua_ls.setup(config({
-				cmd = { sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua" },
+				cmd = cmd,
 				on_attach = on_attach,
 				flags = {
 					debounce_text_changes = 150,
@@ -174,6 +181,13 @@ return {
 			}))
 
 			require("lspconfig").terraformls.setup(config({
+				on_attach = on_attach,
+				flags = {
+					debounce_text_changes = 150,
+				},
+			}))
+
+			require("lspconfig").tflint.setup(config({
 				on_attach = on_attach,
 				flags = {
 					debounce_text_changes = 150,
