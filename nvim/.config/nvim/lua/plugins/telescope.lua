@@ -214,6 +214,10 @@ return {
 			require("miles.telescope_functions").onx_live_grep()
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
+		vim.keymap.set("n", "//", function()
+			require("telescope.builtin").current_buffer_fuzzy_find()
+		end, { desc = "Fuzzy find over buffer lines" })
+
 		vim.keymap.set("n", "<leader>ji", function()
 			require("miles.telescope_functions").jira_tickets()
 		end, { desc = "[J][i]ra ticket list" })
