@@ -3,6 +3,11 @@ return {
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"onsails/lspkind-nvim",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"hrsh7th/cmp-emoji",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -37,6 +42,7 @@ return {
 				},
 				formatting = {
 					format = lspkind.cmp_format({
+						-- mode = "symbol_text",
 						with_text = true,
 						menu = {
 							buffer = "[buf]",
@@ -53,6 +59,7 @@ return {
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
+					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
 					{
 						name = "buffer",
@@ -69,6 +76,7 @@ return {
 							end,
 						},
 					},
+					{ name = "emoji" },
 				},
 
 				experimental = {
@@ -78,8 +86,4 @@ return {
 			})
 		end,
 	},
-
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-nvim-lua",
-	"hrsh7th/cmp-nvim-lsp",
 }
