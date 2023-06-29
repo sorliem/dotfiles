@@ -66,7 +66,7 @@ return {
 			},
 			pickers = {
 				live_grep = {
-					additional_args = function(--[[opts]])
+					additional_args = function( --[[opts]])
 						return { "--hidden" }
 					end,
 				},
@@ -97,6 +97,7 @@ return {
 		require("telescope").load_extension("git_worktree")
 		require("telescope").load_extension("advanced_git_search")
 		require("telescope").load_extension("emoji")
+		require("telescope").load_extension("yank_history")
 
 		local search_wiki = function()
 			require("telescope.builtin").find_files({
@@ -204,7 +205,7 @@ return {
 			-- })
 			require("telescope.builtin").live_grep({
 				file_ignore_patterns = { ".git" },
-				additional_args = function(--[[opts]])
+				additional_args = function( --[[opts]])
 					return { "--hidden" }
 				end,
 			})
