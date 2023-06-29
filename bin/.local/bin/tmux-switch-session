@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-selected=$(tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --height=75%)
+selected=$(tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --height=75% --header "Switch to session")
 
 if [ -z "$selected"  ]; then
   echo "no selection made, running tmux-sessionizer"
