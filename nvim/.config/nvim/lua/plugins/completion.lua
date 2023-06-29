@@ -45,6 +45,7 @@ return {
 							luasnip = "[snip]",
 							cmp_tabnine = "[TN]",
 							path = "[path]",
+							["vim-dadbod-completion"] = "[DB]",
 						},
 					}),
 				},
