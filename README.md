@@ -26,6 +26,3 @@ cd $DOTFILES
 stow -D nvim      # delete symlinks for all files in nvim/ folder
 stow nvim         # make symlinks for all files in nvim/ folder
 ```
-
-
-
