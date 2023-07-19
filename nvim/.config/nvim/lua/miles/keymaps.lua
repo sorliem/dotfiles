@@ -17,6 +17,9 @@ map("i", "?", "?<c-g>u")
 
 map("n", "<CR>", "ciw")
 
+-- for some reason on mac alt file doesn't work
+map("n", "<C-6>", "<C-^>")
+
 map("v", "y", "ygv<ESC>", "ygv<ESC> - yank but don't move cursor back to start of selection")
 
 -- jumplist muations. Add to jumplist when jumping more than 5 lines

@@ -5,7 +5,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -55,6 +55,8 @@ alias gl='git log --decorate --oneline --all --graph --stat'
 alias gl1='git log -n 1'
 alias gw='git worktree'
 alias shortsha='git rev-parse --short=7 HEAD'
+
+alias dc='docker compose'
 
 
 function delete-branches() {
@@ -110,6 +112,8 @@ export PATH="$HOME/.mix/escripts:$PATH"
 export PATH="$PATH:protoc-gen-elixir"
 
 export PATH="$PATH:/usr/lib/elixir/1.11.4/bin"
+
+export PATH="$PATH:/usr/local/mysql/bin"
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
@@ -182,9 +186,9 @@ fi
 bindkey -s ^f "tmux-sessionizer\n"
 
 # Tmuxifier
-export PATH="$HOME/.tmuxifier/bin:$PATH"
-export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
-eval "$(tmuxifier init -)"
+# export PATH="$HOME/.tmuxifier/bin:$PATH"
+# export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
+# eval "$(tmuxifier init -)"
 
 # export LS_COLORS=$LS_COLORS:'di=0;35:'
 
@@ -208,13 +212,13 @@ source ~/.work_zshrc
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # source ~/gitroot/src/powerlevel10k/config/p10k-robbyrussell.zsh
 # source ~/gitroot/src/powerlevel10k/config/p10k-classic.zsh
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k_work.zsh ]] || source ~/.p10k_work.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/miles/google-cloud-sdk/path.zsh.inc' ]; then . '/home/miles/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/miles/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/miles/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi

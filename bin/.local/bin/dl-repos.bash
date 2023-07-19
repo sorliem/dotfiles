@@ -2,15 +2,18 @@
 
 # notify-send ">> RUNNING dl-repos.bash <<"
 
+
 clone_repo() {
-  if ! [ -d "/home/miles/gitroot/onxmaps/$@" ]; then
+  if [ -d "/Users/miles.sorlie/gitroot/onxmaps/$@" ]; then
+    echo "$@ already cloned, skipping"
+  else
     echo "==> CLONING NEW REPO: "$@
-    git clone git@github.com:onXmaps/$@.git /home/miles/gitroot/onxmaps/$@
+    git clone git@github.com:onXmaps/$@.git /Users/miles.sorlie/gitroot/onxmaps/$@
   fi
 }
 
 update_repo() {
-  pushd /home/miles/gitroot/onxmaps/$@ > /dev/null 2>&1
+  pushd /Users/miles.sorlie/gitroot/onxmaps/$@ > /dev/null 2>&1
   if [ -z "$(git status --porcelain)" ]; then
     # Working directory clean
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
