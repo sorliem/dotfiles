@@ -3,6 +3,7 @@ return {
 	config = function()
 		local actions = require("telescope.actions")
 		local action_layout = require("telescope.actions.layout")
+		local previewers = require("telescope.previewers")
 
 		require("telescope").setup({
 			defaults = {
@@ -50,8 +51,11 @@ return {
 						["<s-tab>"] = actions.toggle_selection + actions.move_selection_previous,
 						["<C-Down>"] = actions.cycle_history_next,
 						["<C-Up>"] = actions.cycle_history_prev,
+						["<C-s>"] = actions.cycle_previewers_next,
+						["<C-a>"] = actions.cycle_previewers_prev,
 						["<M-p>"] = action_layout.toggle_preview,
 						["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+						["<C-space>"] = actions.to_fuzzy_refine,
 						["<C-w>"] = function()
 							-- delete previous word
 							vim.cmd([[normal! bcw]])
@@ -65,6 +69,17 @@ return {
 				},
 			},
 			pickers = {
+				git_commits = {
+					--[[
+					Show author, sha, msg, and time ago commited
+					git log --all --pretty="%an %h %s (%cr)" -- .
+					]]
+					git_command = { "git", "log", "--all", "--pretty=%h %<(15,trunc) %an %s (%cr)", "--", "." },
+					previewers = {
+						previewers.git_commit_message.new({}),
+						previewers.git_commit_diff_as_was.new({}),
+					},
+				},
 				live_grep = {
 					additional_args = function( --[[opts]])
 						return { "--hidden" }
@@ -98,6 +113,7 @@ return {
 		require("telescope").load_extension("advanced_git_search")
 		require("telescope").load_extension("emoji")
 		require("telescope").load_extension("yank_history")
+		require("telescope").load_extension("harpoon")
 
 		local search_wiki = function()
 			require("telescope.builtin").find_files({
@@ -125,11 +141,12 @@ return {
 		end
 
 		vim.keymap.set("n", "<C-P>", project_files, { desc = "Project files (Supports Git & non-git)" })
+		-- vim.keymap.set("n", "<leader>pf", project_files, { desc = "[P]roject [F]iles (Supports Git & non-git)" })
 		vim.keymap.set("n", "<leader>ws", search_wiki, { desc = "[W]iki [S]earch" })
 		vim.keymap.set("n", "<leader>ns", norg_search, { desc = "Work [N]org [S]earch" })
 
 		vim.keymap.set("n", "<leader><leader>", function()
-			require("telescope.builtin").buffers()
+			require("telescope.builtin").buffers({ sort_mru = true })
 		end)
 
 		vim.keymap.set("n", "<leader>ht", function()
@@ -166,8 +183,7 @@ return {
 		end, { desc = "[O]nX [F]ind [W]ord (telescope)" })
 
 		vim.keymap.set("n", "<leader>gm", function()
-			local git_commits_command = { "git", "log", "--pretty=oneline", "--abbrev-commit", "--", "." }
-			require("telescope.builtin").git_commits({ git_command = git_commits_command })
+			require("telescope.builtin").git_commits()
 		end)
 		--
 		vim.keymap.set("n", "<leader>gm", function()
@@ -222,6 +238,10 @@ return {
 		vim.keymap.set("n", "<leader>ji", function()
 			require("miles.telescope_functions").jira_tickets()
 		end, { desc = "[J][i]ra ticket list" })
+
+		vim.keymap.set("n", "<leader>mp", function()
+			require("telescope.builtin").man_pages()
+		end, { desc = "[M]an [P]ages" })
 
 		vim.keymap.set("n", "<leader>lc", function()
 			require("telescope.builtin").commands()

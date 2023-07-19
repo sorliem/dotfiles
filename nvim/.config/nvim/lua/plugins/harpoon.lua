@@ -2,6 +2,9 @@ return {
 	{
 		"ThePrimeagen/harpoon",
 		config = function()
+			require("harpoon").setup({
+				tabline = true,
+			})
 			vim.keymap.set("n", "<leader>ha", function()
 				require("harpoon.mark").add_file()
 			end, { desc = "[H]arpoon [A]dd file" })
@@ -22,6 +25,11 @@ return {
 					vim.cmd("setlocal cursorline")
 				end,
 			})
+			-- vim.cmd("highlight! HarpoonInactive guibg=NONE guifg=#63698c")
+			vim.cmd("highlight! HarpoonActive guibg=NONE guifg=white")
+			vim.cmd("highlight! HarpoonNumberActive guibg=NONE guifg=#7aa2f7")
+			-- vim.cmd("highlight! HarpoonNumberInactive guibg=NONE guifg=#7aa2f7")
+			-- vim.cmd("highlight! TabLineFill guibg=NONE guifg=white")
 		end,
 	},
 }

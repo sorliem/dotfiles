@@ -103,7 +103,7 @@ map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
 map("n", "<Leader>rt", ":call RunElixirTest()<CR>")
 
 -- run all tests
-map("n", "<Leader>tt", ":call RunAllTests()<CR>")
+-- map("n", "<Leader>tt", ":call RunAllTests()<CR>")
 
 -- run formatting
 map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
