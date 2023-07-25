@@ -55,6 +55,7 @@ return {
 						["<C-a>"] = actions.cycle_previewers_prev,
 						["<M-p>"] = action_layout.toggle_preview,
 						["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+						["<C-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 						["<C-space>"] = actions.to_fuzzy_refine,
 						["<C-w>"] = function()
 							-- delete previous word
