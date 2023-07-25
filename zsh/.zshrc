@@ -177,7 +177,7 @@ export PATH="$HOME/.tfenv/bin:$PATH"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-export EDITOR="/usr/bin/nvim"
+export EDITOR="/usr/local/bin/nvim"
 
 if [[ -f "$HOME/gitroot/src/z/z.sh" ]]; then
   source $HOME/gitroot/src/z/z.sh
@@ -186,9 +186,9 @@ fi
 bindkey -s ^f "tmux-sessionizer\n"
 
 # Tmuxifier
-# export PATH="$HOME/.tmuxifier/bin:$PATH"
-# export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
-# eval "$(tmuxifier init -)"
+export PATH="$HOME/.tmuxifier/bin:$PATH"
+export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
+eval "$(tmuxifier init -)"
 
 # export LS_COLORS=$LS_COLORS:'di=0;35:'
 
