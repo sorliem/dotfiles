@@ -187,13 +187,13 @@ return {
 				},
 			}))
 
-			require("lspconfig").elixirls.setup(config({
-				on_attach = on_attach,
-				cmd = { "/home/miles/bin/elixirls/language_server.sh" },
-				flags = {
-					debounce_text_changes = 150,
-				},
-			}))
+			-- require("lspconfig").elixirls.setup(config({
+			-- 	on_attach = on_attach,
+			-- 	cmd = { "/home/miles/bin/elixirls/language_server.sh" },
+			-- 	flags = {
+			-- 		debounce_text_changes = 150,
+			-- 	},
+			-- }))
 
 			require("lspconfig").gopls.setup(config({
 				cmd = { "gopls", "serve" },
