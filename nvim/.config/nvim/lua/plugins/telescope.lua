@@ -174,6 +174,14 @@ return {
 				ft = "tf"
 			end
 
+			if ft == "dockerfile" then
+				ft = "docker"
+			end
+
+			if ft == "eelixir" then
+				ft = "elixir"
+			end
+
 			local prompt_title = "Find [" .. search_word .. "] in all [" .. ft .. "] OnX Files"
 
 			require("telescope.builtin").grep_string({
