@@ -15,6 +15,7 @@ update_repo() {
     # Working directory clean
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
     if [[ "$BRANCH" == "master" ]] || [[ "$BRANCH" == "main" ]] || [[ "$BRANCH" == "develop" ]]; then
+      echo "pulling "$@
       git pull > /dev/null 2>&1
     else
       echo "[x] $@ [x] skipping pull - not on master/main/develop";
