@@ -22,6 +22,10 @@ return {
 			end, { desc = "Select database for vim-dadbod" })
 
 			vim.keymap.set("v", "<leader>db", ":DB<CR>", { desc = "Run visually selected statement against database" })
+
+			vim.keymap.set("n", "<leader>ds", function()
+				require("miles.dadbod_connection_helpers").change_db()
+			end, { desc = "[D]adbod [s]witch db with telescope" })
 		end,
 	},
 }
