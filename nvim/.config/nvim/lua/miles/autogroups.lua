@@ -83,7 +83,7 @@ local attach_to_buffer = function(output_bufnr, pattern, command)
 				end
 			end
 
-			vim.api.nvim_buf_set_lines(output_bufnr, 0, -1, false, { "main.ex output:" })
+			vim.api.nvim_buf_set_lines(output_bufnr, 0, -1, false, { "AutoRun output:" })
 			vim.fn.jobstart(command, {
 				stdout_buffered = true,
 				on_stdout = append_data,
