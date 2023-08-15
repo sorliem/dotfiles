@@ -103,10 +103,22 @@ map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-se
 map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
 
 -- run test file
-map("n", "<Leader>rt", ":call RunElixirTest()<CR>")
+-- map("n", "<Leader>rt", ":call RunElixirTest()<CR>")
+map("n", "<Leader>rst", function()
+	local file_plus_linenum = vim.fn.expand('%:') .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
+	local cmd = "tmux send-keys -t {left} 'dtest " .. file_plus_linenum .. "' C-m"
+	print("👈👈👈 Running ONE test 👉 " .. file_plus_linenum)
 
--- run all tests
--- map("n", "<Leader>tt", ":call RunAllTests()<CR>")
+	vim.call("system", cmd)
+end, {desc = "[R]un [S]ingle [T]est - only Elixir"})
+
+map("n", "<Leader>rt", function()
+	local file = vim.fn.expand('%:')
+	print("👈👈👈 Running all tests 👉 " .. file)
+	local cmd = "tmux send-keys -t {left} 'dtest " .. file .. "' C-m"
+
+	vim.call("system", cmd)
+end, {desc = "[R]un all [T]ests - only Elixir"})
 
 -- run formatting
 map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
