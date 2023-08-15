@@ -87,7 +87,9 @@ alias tfrefresh="terraform refresh"
 alias tfupgrade="terraform init --upgrade"
 alias tfvalidate="terraform validate"
 alias tfworkspace="terraform workspace select"
-alias switch_local_modules="git grep -l 'terraform-modules.git' | grep -v README | xargs sed -i'' 's/git@github.com:onXmaps\/terraform-modules.git/\/home\/miles\/gitroot\/onxmaps\/terraform-modules/g'"
+alias switch_local_modules="git grep -l 'terraform-modules.git' | grep -v README | xargs sed -i'' 's/git@github.com:onXmaps\/terraform-modules.git/\/Users\/miles.sorlie\/gitroot\/onxmaps\/terraform-modules/g'"
+
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 export TF_CLI_ARGS_plan="-parallelism=100"
 export TF_CLI_ARGS_apply="-parallelism=100"
