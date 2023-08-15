@@ -9,11 +9,30 @@ local utils = require("telescope.utils")
 local _M = {}
 
 _M.onx_live_grep = function(opts)
-	local ft = vim.fn.input("File type to search onx files for (see rg --type-list): ")
+	local ft = vim.fn.input("File type(s) to search onx files for (comma-delimited): ")
+
+	local delimiter = ","
+	local additional_args_list = {}
+	local startIndex = 1
+
+	-- gross string split, thanks to chatgpt
+	while true do
+		local endIndex = string.find(ft, delimiter, startIndex)
+
+		if endIndex == nil then
+			table.insert(additional_args_list, "--type")
+			table.insert(additional_args_list, string.sub(ft, startIndex))
+			break
+		end
+
+		table.insert(additional_args_list, "--type")
+		table.insert(additional_args_list, string.sub(ft, startIndex, endIndex - 1))
+		startIndex = endIndex + 1
+	end
 
 	require("telescope.builtin").live_grep({
 		cwd = "~/gitroot/onxmaps",
-		type_filter = ft,
+		additional_args = additional_args_list,
 		prompt_title = "Live Grep all [" .. ft .. "] OnX Files",
 	})
 end
