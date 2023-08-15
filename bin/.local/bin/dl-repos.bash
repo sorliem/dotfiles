@@ -44,3 +44,5 @@ gh \
 
 # update all repos
 ls ~/gitroot/onxmaps | xargs -P12 -I {} bash -c 'update_repo "$@"' _ {}
+
+osascript -e 'display notification "Done running dl-repos.bash" with title "All done"'
