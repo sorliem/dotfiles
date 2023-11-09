@@ -121,14 +121,14 @@ return {
 					fmt(
 						[[
 						defmodule {}Test do
-								use ExUnit.Case
+							use ExUnit.Case
 
-								setup do
+							setup do
 
-								end
+							end
 
-								test "{}" do
-								end
+							test "{}" do
+							end
 						end
 						]],
 						{ i(1, "mod_under_test"), i(0, "first_test_name") }
@@ -168,7 +168,7 @@ return {
 			}
 
 			local go_snippets = {
-				s("fmt", fmt('fmt.Printf("{}\\n", {})', { i(1, "str"), i(2, "replacements") })),
+				s("fmt", fmt('fmt.Printf("{} = %v\\n", {})', { i(1, "str"), i(2, "replacements") })),
 			}
 
 			ls.add_snippets("all", all_snippets)
