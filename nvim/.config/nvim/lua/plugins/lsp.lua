@@ -211,6 +211,13 @@ return {
 				},
 			}))
 
+			require("lspconfig").tailwindcss.setup(config({
+				on_attach = on_attach,
+				flags = {
+					debounce_text_changes = 150,
+				},
+			}))
+
 			require("fidget").setup({
 				text = {
 					spinner = "dots",
