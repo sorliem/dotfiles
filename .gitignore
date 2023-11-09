@@ -1,6 +1,8 @@
 nvim/.config/nvim/after/plugin/work-*.lua
 nvim/.config/nvim/lua/miles/dadbod_connection_helpers.lua
+zsh/.oh-my-zsh/custom/
 bin/.local/bin/create_xgps_account
 bin/.local/bin/start-all-cloudsql-proxies
-zsh/.oh-my-zsh/custom/
+bin/.local/bin/cloud-sql-proxy
 bin/.local/bin/fd
+bin/.local/bin/kbc*
