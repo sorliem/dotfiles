@@ -100,25 +100,26 @@ map("n", "<Leader>pv", ":Hexplore!<Enter>", "[P]roject [V]view (netrw)")
 map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-sessionizer")
 
 -- save and exec file
-map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
+-- map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
 
 -- run test file
 -- map("n", "<Leader>rt", ":call RunElixirTest()<CR>")
 map("n", "<Leader>rst", function()
-	local file_plus_linenum = vim.fn.expand('%:') .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
+	local file_plus_linenum = vim.fn.expand("%:") .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
 	local cmd = "tmux send-keys -t {left} 'dtest " .. file_plus_linenum .. "' C-m"
-	print("👈👈👈 Running ONE test 👉 " .. file_plus_linenum)
+	print("👈👈👈 Running ONE test: " .. file_plus_linenum)
 
 	vim.call("system", cmd)
-end, {desc = "[R]un [S]ingle [T]est - only Elixir"})
+end, { desc = "[R]un [S]ingle [T]est - only Elixir" })
 
 map("n", "<Leader>rt", function()
-	local file = vim.fn.expand('%:')
-	print("👈👈👈 Running all tests 👉 " .. file)
+	local file = vim.fn.expand("%:")
+	print("👈👈👈 Running all tests: " .. file)
 	local cmd = "tmux send-keys -t {left} 'dtest " .. file .. "' C-m"
 
 	vim.call("system", cmd)
-end, {desc = "[R]un all [T]ests - only Elixir"})
+end, { desc = "[R]un all [T]ests - only Elixir" })
+
 map("n", "<leader>td", function()
 	local provider = "hashicorp"
 	local baseurl = "https://registry.terraform.io/providers/%s/%s/latest/docs/resources/%s"
