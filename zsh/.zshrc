@@ -77,8 +77,8 @@ function delete-branches() {
 alias tf='terraform'
 alias tfmt="terraform fmt -recursive"
 alias tfapply="terraform apply"
-alias tfdocs="terraform-docs markdown ./ --hide requirements --output-mode merge --output-file README.md"
-alias tfgit="terraform-docs markdown ./ --recursive --hide requirements --output-mode merge --output-file README.md && terraform fmt -recursive && git add --all"
+alias tfdocs="terraform-docs markdown ./"
+alias tfgit="terraform-docs markdown ./ && terraform fmt -recursive && git add --all"
 alias tfws="terraform workspace select"
 alias tfplan="terraform plan"
 alias tfproviders="terraform providers"
