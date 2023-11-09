@@ -182,7 +182,7 @@ tmux_conf_theme_right_separator_sub='|'
 # tmux_conf_theme_status_left=' #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
 tmux_conf_theme_status_left=' #S '
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} #(curl -m 2 wttr.in/Bozeman?format=3 2>/dev/null; sleep 900) , %R , %d %b %y '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} #(curl -m 2 wttr.in/Manhattan?format=3 2>/dev/null; sleep 900) , %R , %d %b %y '
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
