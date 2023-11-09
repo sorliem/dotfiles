@@ -86,6 +86,31 @@ alias tfrefresh="terraform refresh"
 alias tfupgrade="terraform init --upgrade"
 alias tfvalidate="terraform validate"
 alias tfworkspace="terraform workspace select"
+alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
+
+# select multiple resources to show with fzf
+function tfshow () {
+  tf state list |\
+  fzf --height=70% --header "[TF-WORKSPACE: $(terraform workspace show)] [REPO: $(basename $(pwd))]" |\
+  sed 's/"/\\"/g' |\
+  xargs -P 12 -n 1 -I {} terraform state show {}
+}
+
+function tfplanall () {
+  for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
+    terraform workspace select "${workspace}" || break
+    if ! terraform plan -detailed-exitcode; then
+      read -e "?$workspace - Plan identified changes. Hit enter to continue"$'\n'
+    fi
+  done
+}
+
+function tfapplyall () {
+  for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
+    terraform workspace select "${workspace}" || break
+    terraform apply
+  done
+}
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
@@ -93,6 +118,13 @@ export TF_CLI_ARGS_plan="-parallelism=100"
 export TF_CLI_ARGS_apply="-parallelism=100"
 
 export PATH=$PATH:$HOME/.tfenv/bin
+
+if [[ -e "$HOME/.local/bin/kbc-ac.sh" ]]; then
+    source $HOME/.local/bin/kbc-ac.sh
+    alias kp="kubectl get pods -L project"
+fi
+
+export K9SCONFIG="$HOME/.config/k9s"
 
 
 # fixes issue when doing docker-compose build
@@ -102,7 +134,8 @@ export LD_LIBRARY_PATH=/usr/local/lib
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export ERL_COMPILER_OPTIONS=bin_opt_info
-export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac -with-ssl=/usr/local/ssl"
+# export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac -with-ssl=/usr/local/ssl"
+export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
 export KERL_BUILD_DOCS="yes"
 
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
@@ -114,6 +147,10 @@ export PATH="$PATH:protoc-gen-elixir"
 export PATH="$PATH:/usr/lib/elixir/1.11.4/bin"
 
 export PATH="$PATH:/usr/local/mysql/bin"
+
+export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
@@ -185,6 +222,14 @@ fi
 
 bindkey -s ^f "tmux-sessionizer\n"
 
+function rename_tmux_window() {
+  tmux rename-window $(basename `pwd`)
+  echo "renamed tmux window"
+}
+
+alias trn="tmux rename-window $(basename `pwd`) &&  echo \"renamed tmux window\""
+alias trn2="rename_tmux_window"
+
 # Tmuxifier
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
@@ -222,3 +267,4 @@ if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/U
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="/opt/homebrew/opt/lua@5.3/bin:$PATH"
