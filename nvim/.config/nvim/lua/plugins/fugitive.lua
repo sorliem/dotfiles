@@ -3,7 +3,7 @@ return {
 		"tpope/vim-fugitive",
 		keys = {
 			{ "<Leader>gs" },
-			{ "<Leader>gb" },
+			{ "<Leader>bl" },
 			{ "<Leader>gd" },
 		},
 		config = function()
@@ -11,7 +11,7 @@ return {
 			vim.keymap.set("n", "<Leader>gs", vim.cmd.Git, { desc = "[G]it [S]tatus" })
 
 			-- Fugitive blame
-			vim.keymap.set("n", "<Leader>gb", ":Git blame<CR>", { desc = "[G]it [B]lame" })
+			vim.keymap.set("n", "<Leader>bl", ":Git blame<CR>", { desc = "Git [B][l]ame" })
 
 			-- Fugitive diff master
 			vim.keymap.set(
