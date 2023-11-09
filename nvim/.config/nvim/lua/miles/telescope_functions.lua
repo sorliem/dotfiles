@@ -1,6 +1,7 @@
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local actions = require("telescope.actions")
+local previewers = require("telescope.previewers")
 local themes = require("telescope.themes")
 local action_state = require("telescope.actions.state")
 local conf = require("telescope.config").values
@@ -29,6 +30,8 @@ _M.onx_live_grep = function(opts)
 		table.insert(additional_args_list, string.sub(ft, startIndex, endIndex - 1))
 		startIndex = endIndex + 1
 	end
+
+	table.insert(additional_args_list, { "--hidden", "--ignore-case" })
 
 	require("telescope.builtin").live_grep({
 		cwd = "~/gitroot/onxmaps",
@@ -89,4 +92,57 @@ _M.jira_tickets = function(opts)
 		:find()
 end
 
+_M.github_pull_requests = function(opts)
+	local output = utils.get_os_command_output({
+		"gh",
+		"search",
+		"prs",
+		"--author=@me",
+		"--limit=50",
+		"--json=title,number,repository,state,title,updatedAt",
+		"--template",
+		"'{{range .}}{{.number}}|{{.state}}|{{.title}}|{{.repository.nameWithOwner}}|{{.repository.name}}|{{.updatedAt}}{{\"\\n\"}}{{end}}'",
+	})
+
+	local sep = "|"
+	local results_out = {}
+
+	for _, item in ipairs(output) do
+		local gh_pr_details = {}
+
+		if item ~= "'" then
+			for str in string.gmatch(item, "([^" .. sep .. "]+)") do
+				stripped = string.gsub(str, "^'", "")
+				table.insert(gh_pr_details, stripped)
+			end
+			table.insert(results_out, gh_pr_details)
+		end
+	end
+
+	opts = opts or themes.get_dropdown({}) -- fix!!
+	pickers
+		.new(opts, {
+			prompt_title = "Miles' Recent PRs",
+			finder = finders.new_table({
+				results = results_out,
+				entry_maker = function(entry)
+					return {
+						value = "https://github.com/" .. entry[4] .. "/pull/" .. entry[1],
+						display = entry[2] .. "[" .. entry[5] .. "] - " .. entry[3],
+						ordinal = entry[4] .. " - " .. entry[2] .. " " .. entry[3],
+					}
+				end,
+			}),
+			sorter = conf.generic_sorter(opts),
+			attach_mappings = function(prompt_bufnr, map)
+				actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+					local selection = action_state.get_selected_entry()
+					vim.api.nvim_put({ selection.value }, "", false, true)
+				end)
+				return true
+			end,
+		})
+		:find()
+end
 return _M
