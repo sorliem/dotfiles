@@ -2,6 +2,7 @@ return {
 	"nvim-telescope/telescope.nvim",
 	config = function()
 		local actions = require("telescope.actions")
+		local action_state = require("telescope.actions.state")
 		local action_layout = require("telescope.actions.layout")
 		local previewers = require("telescope.previewers")
 
@@ -54,13 +55,23 @@ return {
 						["<C-s>"] = actions.cycle_previewers_next,
 						["<C-a>"] = actions.cycle_previewers_prev,
 						["<M-p>"] = action_layout.toggle_preview,
-						["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-						["<C-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+						["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
+						-- ["<C-X>"] = actions.send_selected_to_qflist + actions.open_qflist,
 						["<C-space>"] = actions.to_fuzzy_refine,
 						["<C-w>"] = function()
 							-- delete previous word
 							vim.cmd([[normal! bcw]])
 						end,
+						-- ["<C-o>"] = function()
+						-- 	local selection = action_state.get_selected_entry()
+						-- 	-- local selection = actions.get_selected_entry(prompt_bufnr)
+						-- 	local val = selection.value
+						-- 	print("val = " .. val)
+						-- 	local cmd = string.format([[:%s ]], val.name)
+						--
+						-- 	print("CMD = " .. cmd)
+						-- 	actions.close(prompt_bufnr)
+						-- end,
 					},
 					n = {
 						["<tab>"] = actions.toggle_selection + actions.move_selection_next,
@@ -83,7 +94,7 @@ return {
 				},
 				live_grep = {
 					additional_args = function( --[[opts]])
-						return { "--hidden" }
+						return { "--hidden", "--ignore-case" }
 					end,
 				},
 			},
@@ -154,9 +165,17 @@ return {
 			require("telescope.builtin").help_tags()
 		end)
 
-		vim.keymap.set("n", "<leader>gc", function()
+		vim.keymap.set("n", "<leader>gb", function()
 			require("telescope.builtin").git_branches()
 		end)
+
+		vim.keymap.set("n", "<leader>ghr", function()
+			require("miles.telescope_functions").github_pull_requests()
+		end)
+
+		vim.api.nvim_create_user_command("GhList", function()
+			require("miles.telescope_functions").github_pull_requests()
+		end, {})
 
 		vim.keymap.set("n", "<leader>km", function()
 			require("telescope.builtin").keymaps({ show_plug = false })
@@ -180,6 +199,14 @@ return {
 
 			if ft == "eelixir" then
 				ft = "elixir"
+			end
+
+			if ft == "nginx" then
+				ft = "config"
+			end
+
+			if ft == "template" then
+				ft = "config"
 			end
 
 			local prompt_title = "Find [" .. search_word .. "] in all [" .. ft .. "] OnX Files"
@@ -231,7 +258,7 @@ return {
 			require("telescope.builtin").live_grep({
 				file_ignore_patterns = { ".git" },
 				additional_args = function( --[[opts]])
-					return { "--hidden" }
+					return { "--hidden", "--ignore-case" }
 				end,
 			})
 		end, { desc = "[P]roject [S]earch with rg" })
