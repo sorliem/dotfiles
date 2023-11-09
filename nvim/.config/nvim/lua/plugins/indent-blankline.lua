@@ -11,11 +11,8 @@ return {
 			vim.opt.listchars:append("extends:›")
 			vim.opt.listchars:append("precedes:‹")
 
-			require("indent_blankline").setup({
-				show_end_of_line = true,
-				space_char_blankline = " ",
-				show_current_context = false,
-				show_current_context_start = false,
+			require("ibl").setup({
+				enabled = false,
 			})
 		end,
 	},
