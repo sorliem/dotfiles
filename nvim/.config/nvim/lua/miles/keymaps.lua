@@ -110,7 +110,7 @@ map("n", "<Leader>rst", function()
 	print("👈👈👈 Running ONE test: " .. file_plus_linenum)
 
 	vim.call("system", cmd)
-end, { desc = "[R]un [S]ingle [T]est - only Elixir" })
+end, "[R]un [S]ingle [T]est - only Elixir")
 
 map("n", "<Leader>rt", function()
 	local file = vim.fn.expand("%:")
@@ -118,30 +118,14 @@ map("n", "<Leader>rt", function()
 	local cmd = "tmux send-keys -t {left} 'dtest " .. file .. "' C-m"
 
 	vim.call("system", cmd)
-end, { desc = "[R]un all [T]ests - only Elixir" })
+end, "[R]un all [T]ests - only Elixir")
 
 map("n", "<leader>td", function()
-	local provider = "hashicorp"
-	local baseurl = "https://registry.terraform.io/providers/%s/%s/latest/docs/resources/%s"
-
+	local baseurl = "https://registry.terraform.io/?q=%s"
 	local word = vim.fn.expand("<cword>")
-	local matches = {}
-	for str1, str2 in word:gmatch("(%w+)_(.+)") do
-		table.insert(matches, str1)
-		table.insert(matches, str2)
-	end
-
-	if matches[1] == "checkly" then
-		provider = "checkly"
-	elseif matches[1] == "grafana" then
-		provider = "grafana"
-	elseif matches[1] == "cloudsmith" then
-		provider = "cloudsmith-io"
-	end
-
-	local url = string.format(baseurl, provider, matches[1], matches[2])
-	vim.cmd("!open " .. url)
-end, { desc = "[T]erraform [D]efinition" })
+	local url = string.format(baseurl, word)
+	vim.ui.open(url)
+end, "[T]erraform [D]efinition")
 
 -- run formatting
 map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")

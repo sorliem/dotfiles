@@ -287,7 +287,7 @@ setw -g automatic-rename off   # rename window to reflect current program
 set -g mouse on
 # set -g mouse-select-pane on
 
-bind-key -r i run-shell "tmux neww tmux-cht.sh"
+# bind-key -r i run-shell "tmux neww tmux-cht.sh"
 
 # set to xterm-* instead of tmux-* https://stackoverflow.com/questions/45931164/duplicated-characters-and-non-updating-input-using-tmux-in-zsh
 set -g default-terminal "xterm-256color"
@@ -297,6 +297,7 @@ set -ag terminal-overrides ",xterm-256color:RGB"
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
 set -g mode-keys vi
+set -g status-keys emacs
 
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator

@@ -8,6 +8,9 @@ plugins=(git)
 # source $ZSH/oh-my-zsh.sh
 
 
+# emacs style navigation
+bindkey -e
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -80,20 +83,32 @@ alias tfapply="terraform apply"
 alias tfdocs="terraform-docs markdown ./"
 alias tfgit="terraform-docs markdown ./ && terraform fmt -recursive && git add --all"
 alias tfws="terraform workspace select"
+alias tfp="terraform plan"
 alias tfplan="terraform plan"
 alias tfproviders="terraform providers"
 alias tfrefresh="terraform refresh"
 alias tfupgrade="terraform init --upgrade"
 alias tfvalidate="terraform validate"
 alias tfworkspace="terraform workspace select"
+alias tfwl="terraform workspace list"
 alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
+
+alias describerole="gcloud iam roles describe"
 
 # select multiple resources to show with fzf
 function tfshow () {
   tf state list |\
-  fzf --height=70% --header "[TF-WORKSPACE: $(terraform workspace show)] [REPO: $(basename $(pwd))]" |\
+  fzf --height=30% --header "[TF-WORKSPACE: $(terraform workspace show)] [REPO: $(basename $(pwd))]" |\
   sed 's/"/\\"/g' |\
   xargs -P 12 -n 1 -I {} terraform state show {}
+}
+
+function showgcprole () {
+  if [ ! -f /tmp/GCP_PREDEFINED_ROLES ]; then
+    echo "/tmp/GCP_PREDEFINED_ROLES is NOT populated, getting all roles..."
+    gcloud iam roles list --format="get(name)" > /tmp/GCP_PREDEFINED_ROLES
+  fi
+  cat /tmp/GCP_PREDEFINED_ROLES | fzf --header "describe role:" | xargs gcloud iam roles describe
 }
 
 function tfplanall () {
@@ -156,9 +171,9 @@ if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
 fi
 
-if [[ -f "$HOME/.asdf/completions/asdf.bash" ]]; then
-    source $HOME/.asdf/completions/asdf.bash
-fi
+# if [[ -f "$HOME/.asdf/completions/asdf.bash" ]]; then
+#     source $HOME/.asdf/completions/asdf.bash
+# fi
 
 #################################
 #           FZF                 #
@@ -216,9 +231,11 @@ alias pbpaste='xclip -selection clipboard -o'
 
 export EDITOR="/usr/local/bin/nvim"
 
-if [[ -f "$HOME/gitroot/src/z/z.sh" ]]; then
-  source $HOME/gitroot/src/z/z.sh
-fi
+# if [[ -f "$HOME/gitroot/src/z/z.sh" ]]; then
+#   source $HOME/gitroot/src/z/z.sh
+# fi
+
+eval "$(zoxide init zsh)"
 
 bindkey -s ^f "tmux-sessionizer\n"
 

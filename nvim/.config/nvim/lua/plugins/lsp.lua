@@ -175,10 +175,18 @@ return {
 
 			require("lspconfig").terraformls.setup(config({
 				on_attach = on_attach,
+				cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
 				flags = {
 					debounce_text_changes = 150,
 				},
 			}))
+
+			vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+				pattern = { "*.tf", "*.tfvars" },
+				callback = function()
+					vim.lsp.buf.format()
+				end,
+			})
 
 			require("lspconfig").tflint.setup(config({
 				on_attach = on_attach,

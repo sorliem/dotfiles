@@ -1,8 +1,9 @@
 local _M = {}
 
 vim.api.nvim_create_user_command("ViewSecret", function(args)
-	local varname = args.fargs[1]
-	local env = args.fargs[2]
+	-- local varname = args.fargs[1]
+	local varname = vim.fn.expand("<cword>")
+	local env = args.fargs[1]
 	-- print("varname: " .. varname)
 	-- print("env: " .. env)
 
@@ -12,9 +13,9 @@ vim.api.nvim_create_user_command("ViewSecret", function(args)
 		.. env
 
 	-- print("url: " .. url)
-	vim.cmd(":!firefox '" .. url .. "'")
+	vim.ui.open(url)
 end, { nargs = "*" })
 
--- vim.keymap.set("n", "<leader>vs", ":ViewSecret<CR>", { desc = "[V]iew [S]ecret in GCP" })
+vim.keymap.set("n", "<leader>vs", ":ViewSecret<CR>", { desc = "[V]iew [S]ecret in GCP" })
 
 return _M

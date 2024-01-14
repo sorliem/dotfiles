@@ -10,13 +10,13 @@ return {
 					underline = true,
 					bold = true,
 					italic = {
-						strings = false,
-						operators = false,
+						strings = true,
+						operators = true,
 						comments = true,
 					},
 					strikethrough = true,
 					invert_selection = false,
-					invert_signs = false,
+					invert_signs = true,
 					invert_tabline = false,
 					invert_intend_guides = false,
 					inverse = true, -- invert background for search, diffs, statuslines and errors
@@ -26,7 +26,7 @@ return {
 						dark0 = "#1d2021",
 					},
 					overrides = {
-						-- Comment = { fg = "#fe8019", italic = true },
+						Comment = { fg = "#8f8f8f", italic = true },
 					},
 					dim_inactive = false,
 					transparent_mode = false,
@@ -53,10 +53,11 @@ return {
 			cond = false,
 			config = function()
 				require("catppuccin").setup({
-					flavour = "latte",
+					-- latte, frappe, macchiato, mocha
+					flavour = "macchiato",
 					transparent_mode = false,
 				})
-				vim.cmd([[set background=light]])
+				vim.cmd([[set background=dark]])
 				vim.cmd("colorscheme catppuccin")
 				-- vim.cmd([[hi Normal guibg=NONE ctermbg=NONE]])
 			end,
@@ -65,7 +66,7 @@ return {
 			"EdenEast/nightfox.nvim",
 			cond = false,
 			config = function()
-				vim.cmd("colorscheme dayfox")
+				vim.cmd("colorscheme nightfox")
 			end,
 		},
 		{
@@ -112,7 +113,7 @@ return {
 			"NLKNguyen/papercolor-theme",
 			cond = false,
 			config = function()
-				vim.cmd([[set background=light]])
+				vim.cmd([[set background=dark]])
 				vim.cmd([[colorscheme PaperColor]])
 			end,
 		},
@@ -135,11 +136,35 @@ return {
 			config = function()
 				vim.opt.background = "dark"
 				-- vim.g.tokyonight_italic_functions = 1
-				vim.g.tokyonight_italic_comments = 1
-				vim.g.tokyonight_style = "night"
+				-- vim.g.tokyonight_italic_comments = 1
+				-- vim.g.tokyonight_style = "moon"
 				-- vim.g.tokyonight_transparent = true
+				require("tokyonight").setup({
+					style = "night",
+					lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
+					sidebars = { "qf", "fugitive" },
+					on_colors = function(colors)
+						colors.hint = colors.orange
+						colors.error = "#ff0000"
+					end,
+				})
 				vim.cmd([[colorscheme tokyonight]])
 			end,
 		},
+	},
+	{
+		"maxmx03/fluoromachine.nvim",
+		cond = false,
+		config = function()
+			local fm = require("fluoromachine")
+
+			-- themes: fluoromachine, retrowave, delta
+			fm.setup({
+				glow = true,
+				theme = "fluoromachine",
+			})
+
+			vim.cmd.colorscheme("fluoromachine")
+		end,
 	},
 }

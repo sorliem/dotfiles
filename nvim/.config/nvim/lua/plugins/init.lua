@@ -17,6 +17,8 @@ return {
 	{ "tpope/vim-commentary", cond = false },
 	{ "tpope/vim-unimpaired" },
 
+	{ "chr4/nginx.vim", ft = "template" },
+	{ "lepture/vim-jinja", ft = "template" },
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 	"sindrets/diffview.nvim",
 	{

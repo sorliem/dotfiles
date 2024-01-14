@@ -6,3 +6,7 @@ bin/.local/bin/start-all-cloudsql-proxies
 bin/.local/bin/cloud-sql-proxy
 bin/.local/bin/fd
 bin/.local/bin/kbc*
+bin/.local/bin/create-jira-tickets.bash
+bin/.local/bin/jira-refresh.bash
+bin/.local/bin/port-scanner.bash
+bin/.local/bin/start-all-cloudsql-proxies.bash

@@ -42,22 +42,36 @@ end
 
 -- our picker function: colors
 _M.jira_tickets = function(opts)
-	local output = utils.get_os_command_output({
-		"jira",
-		"issue",
-		"list",
-		"-q",
-		'project in ("GD", "SRE") AND assignee = "Miles Sorlie" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
-		"--plain",
-		"--columns",
-		"key,status,summary",
-	})
+	-- local output2 = utils.get_os_command_output({
+	-- 	"jira",
+	-- 	"issue",
+	-- 	"list",
+	-- 	"-q",
+	-- 	'project in ("GD", "SRE") AND assignee = "Miles Sorlie" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
+	-- 	"--plain",
+	-- 	"--columns",
+	-- 	"key,status,summary",
+	-- })
+	-- print("output2: ", vim.inspect(output2))
 
-	table.remove(output, 1) -- remove CSV header
+	-- cron task outputs to tmp file
+	local file = io.open("/tmp/jira-issues.txt", "r")
+	if not file then
+		print("FILE NOT FOUND: /tmp/jira-issues.txt")
+	end
+	local output = file:read("*a")
+	file:close()
+
+	local raw_lines = {}
+	for s in output:gmatch("[^\r\n]+") do
+		table.insert(raw_lines, s)
+	end
+
+	table.remove(raw_lines, 1) -- remove CSV header
 
 	local results_out = {}
 
-	for _, item in ipairs(output) do
+	for _, item in ipairs(raw_lines) do
 		local jira_ticket_details = {}
 		for s in string.gmatch(item, "([^\t]+)") do
 			table.insert(jira_ticket_details, s)
@@ -76,11 +90,19 @@ _M.jira_tickets = function(opts)
 						value = "JIRA https://onxmaps.atlassian.net/browse/" .. entry[1],
 						display = entry[1] .. "[" .. entry[2] .. "]: " .. entry[3],
 						ordinal = entry[1] .. " - " .. entry[2] .. " " .. entry[3],
+						ticket_num = entry[1],
 					}
 				end,
 			}),
 			sorter = conf.generic_sorter(opts),
 			attach_mappings = function(prompt_bufnr, map)
+				map("i", "<C-y>", function(prompt_bufnr2)
+					actions.close(prompt_bufnr2)
+					local selection = action_state.get_selected_entry()
+					print("selection = ", vim.inspect(selection))
+					vim.api.nvim_put({ selection.ticket_num }, "", false, true)
+				end)
+
 				actions.select_default:replace(function()
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
@@ -128,7 +150,7 @@ _M.github_pull_requests = function(opts)
 				entry_maker = function(entry)
 					return {
 						value = "https://github.com/" .. entry[4] .. "/pull/" .. entry[1],
-						display = entry[2] .. "[" .. entry[5] .. "] - " .. entry[3],
+						display = "PR " .. entry[1] .. " - " .. entry[2] .. "[" .. entry[5] .. "] - " .. entry[3],
 						ordinal = entry[4] .. " - " .. entry[2] .. " " .. entry[3],
 					}
 				end,

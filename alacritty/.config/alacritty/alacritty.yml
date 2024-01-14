@@ -304,38 +304,41 @@ colors:
 #     cyan:    '0x93a1a1'
 #     white:   '0xfdf6e3'
 
-window_opacity: 1.0
+window_opacity: 0.5
 
 font:
   normal:
+    family: "JetBrainsMono NF"
+    # family: "UbuntuMono Nerd Font"
     # family: "DroidSansMono Nerd Font"
     # family: "Hack Nerd Font"
     # family: "Inconsolata Nerd Font"
     # family: "Ubuntu Mono"
-    family: "JetBrainsMono NF"
     # family: "MesloLGS NF"
     # family: "JetBrains Mono"
     # family: "Mononoki Nerd Font"
-    # family: "UbuntuMono Nerd Font"
     style: Regular
   bold:
+    family: "JetBrainsMono NF"
+    # family: "UbuntuMono Nerd Font"
     # family: "Ubuntu Nerd Font"
     # family: "Mononoki Nerd Font"
-    family: "JetBrainsMono NF"
     # family: "MesloLGS NF"
     # family: "JetBrains Mono"
     style: Bold
   italic:
-    # family: "Mononoki Nerd Font"
     family: "JetBrainsMono NF"
+    # family: "UbuntuMono Nerd Font"
+    # family: "Mononoki Nerd Font"
     # family: "MesloLGS NF"
     # family: "JetBrains Mono"
     # family: "Ubuntu Nerd Font"
     style: Italic
   bold_italic:
+    family: "JetBrainsMono NF"
+    # family: "UbuntuMono Nerd Font"
     # family: "Mononoki Nerd Font"
     # family: "JetBrains Mono"
-    family: "JetBrainsMono NF"
     # family: "MesloLGS NF"
     # family: "Ubuntu Nerd Font"
     style: Bold Italic
