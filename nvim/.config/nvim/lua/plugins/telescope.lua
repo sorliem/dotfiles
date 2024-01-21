@@ -5,6 +5,7 @@ return {
 		local action_state = require("telescope.actions.state")
 		local action_layout = require("telescope.actions.layout")
 		local previewers = require("telescope.previewers")
+		local themes = require("telescope.themes")
 
 		require("telescope").setup({
 			defaults = {
@@ -97,6 +98,9 @@ return {
 						return { "--hidden", "--ignore-case" }
 					end,
 				},
+				current_buffer_fuzzy_find = {
+					theme = "ivy",
+				},
 			},
 			extensions = {
 				fzf = {
@@ -146,9 +150,9 @@ return {
 		-- search git files and if not successful do a regular find files
 		local project_files = function()
 			local opts = { show_untracked = true }
-			local ok = pcall(require("telescope.builtin").git_files, opts)
+			local ok = pcall(require("telescope.builtin").git_files, themes.get_ivy(opts))
 			if not ok then
-				require("telescope.builtin").find_files({ prompt_title = "Non-git files" })
+				require("telescope.builtin").find_files(themes.get_ivy({ prompt_title = "Non-git files" }))
 			end
 		end
 
@@ -158,7 +162,7 @@ return {
 		vim.keymap.set("n", "<leader>ns", norg_search, { desc = "Work [N]org [S]earch" })
 
 		vim.keymap.set("n", "<leader><leader>", function()
-			require("telescope.builtin").buffers({ sort_mru = true })
+			require("telescope.builtin").buffers(themes.get_ivy({ sort_mru = true }))
 		end)
 
 		vim.keymap.set("n", "<leader>ht", function()
@@ -268,7 +272,7 @@ return {
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
 		vim.keymap.set("n", "//", function()
-			require("telescope.builtin").current_buffer_fuzzy_find()
+			require("telescope.builtin").current_buffer_fuzzy_find(themes.get_ivy())
 		end, { desc = "Fuzzy find over buffer lines" })
 
 		vim.keymap.set("n", "<leader>ji", function()
