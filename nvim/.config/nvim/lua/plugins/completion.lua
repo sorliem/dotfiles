@@ -4,6 +4,8 @@ return {
 		dependencies = {
 			"onsails/lspkind-nvim",
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
@@ -11,8 +13,7 @@ return {
 		},
 		config = function()
 			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-			lspkind.init()
+			local cmp_buffer = require("cmp_buffer")
 
 			cmp.setup({
 				snippet = {
@@ -41,8 +42,13 @@ return {
 					-- documentation = cmp.config.window.bordered(),
 				},
 				formatting = {
-					format = lspkind.cmp_format({
-						-- mode = "symbol_text",
+					format = require("lspkind").cmp_format({
+						mode = "symbol_text",
+						maxwidth = function()
+							return math.floor(0.45 * vim.o.columns)
+						end,
+						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 						with_text = true,
 						menu = {
 							buffer = "[buf]",
@@ -60,29 +66,53 @@ return {
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip" },
+					{ name = "luasnip", max_item_count = 10 },
 					{
 						name = "buffer",
 						keyword_length = 2,
 						max_item_count = 7,
 						option = {
-							-- allow completion of words in visible windows, not just current buffer
 							get_bufnrs = function()
-								local bufs = {}
-								for _, win in ipairs(vim.api.nvim_list_wins()) do
-									bufs[vim.api.nvim_win_get_buf(win)] = true
-								end
-								return vim.tbl_keys(bufs)
+								return vim.api.nvim_list_bufs()
 							end,
 						},
 					},
 					{ name = "emoji" },
+					{ name = "path" },
 				},
-
+				sorting = {
+					comparators = {
+						function(...)
+							-- sort completion results based on the distance of the word from the cursor line
+							return cmp_buffer:compare_locality(...)
+						end,
+					},
+				},
 				experimental = {
 					native_menu = false,
 					ghost_text = false,
 				},
+			})
+
+			cmp.setup.cmdline("/", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
+					{
+						name = "cmdline",
+						option = {
+							ignore_cmds = { "Man", "!", "write", "quit", "global" },
+						},
+					},
+				}),
 			})
 		end,
 	},

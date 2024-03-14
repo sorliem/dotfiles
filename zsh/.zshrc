@@ -58,6 +58,7 @@ alias gl='git log --decorate --oneline --all --graph --stat'
 alias gl1='git log -n 1'
 alias gw='git worktree'
 alias shortsha='git rev-parse --short=7 HEAD'
+alias lg=lazygit
 
 alias dc='docker compose'
 
@@ -80,7 +81,7 @@ function delete-branches() {
 alias tf='terraform'
 alias tfmt="terraform fmt -recursive"
 alias tfapply="terraform apply"
-alias tfdocs="terraform-docs markdown ./"
+# alias tfdocs="terraform-docs markdown ./"
 alias tfgit="terraform-docs markdown ./ && terraform fmt -recursive && git add --all"
 alias tfws="terraform workspace select"
 alias tfp="terraform plan"
@@ -95,10 +96,18 @@ alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base
 
 alias describerole="gcloud iam roles describe"
 
+function tfdocs () {
+  if [ ! -d modules/ ]; then
+    terraform-docs markdown ./
+  else
+    terraform-docs markdown ./ --recursive
+  fi
+}
+
 # select multiple resources to show with fzf
 function tfshow () {
   tf state list |\
-  fzf --height=30% --header "[TF-WORKSPACE: $(terraform workspace show)] [REPO: $(basename $(pwd))]" |\
+  fzf --height=70% --header "[TF-WORKSPACE: $(terraform workspace show)] [REPO: $(basename $(pwd))]" |\
   sed 's/"/\\"/g' |\
   xargs -P 12 -n 1 -I {} terraform state show {}
 }
@@ -109,6 +118,20 @@ function showgcprole () {
     gcloud iam roles list --format="get(name)" > /tmp/GCP_PREDEFINED_ROLES
   fi
   cat /tmp/GCP_PREDEFINED_ROLES | fzf --header "describe role:" | xargs gcloud iam roles describe
+}
+
+function showrolesformember() {
+  project="$1"
+  member="$2"
+
+  if [ -z "$project" ] || [ -z "$member" ]; then
+    echo "Usage: showrolesformember <project-id> <member>"
+  else
+    gcloud projects get-iam-policy $project \
+      --flatten="bindings[].members" \
+      --filter="bindings.members:$member" \
+      --format="table(bindings.role)"
+  fi
 }
 
 function tfplanall () {

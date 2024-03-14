@@ -127,7 +127,19 @@ map("n", "<leader>td", function()
 	vim.ui.open(url)
 end, "[T]erraform [D]efinition")
 
+vim.keymap.set("n", "dd", function()
+	if vim.api.nvim_get_current_line():match("^%s*$") then
+		-- delete to black hole register if deleting a blank line --comment
+		return '"_dd' --comment
+	else --comment
+		return "dd" --comment
+	end
+end, { expr = true, desc = "Smart dd" })
+
+map("x", ".", ":norm .<CR>", "Repeat last action on visually selected line")
+map("x", "@", ":norm @q<CR>", "Repeat @q macro on visually selected lines")
+
 -- run formatting
-map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
+-- map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
 
 map("n", "<Space>ar", ":AutoRun<CR>", "[A]uto [R]un a file on a specific pattern and output to buffer")

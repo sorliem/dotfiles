@@ -173,6 +173,13 @@ return {
 				},
 			}))
 
+			require("lspconfig").pylsp.setup(config({
+				on_attach = on_attach,
+				flags = {
+					debounce_text_changes = 150,
+				},
+			}))
+
 			require("lspconfig").terraformls.setup(config({
 				on_attach = on_attach,
 				cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },

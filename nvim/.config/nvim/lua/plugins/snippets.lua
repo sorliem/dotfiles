@@ -59,7 +59,7 @@ return {
 			local all_snippets = {}
 
 			local javascript_snippets = {
-				s("log", fmt("console.log('{}')", { i(1, "log") })),
+				s("ins", fmt("console.log('{} = ' + {}{})", { i(1, "label"), rep(1), i(0) })),
 			}
 
 			local lua_snippets = {
@@ -78,6 +78,14 @@ return {
 					fmt([[local {} = require("{}")]], {
 						d(2, require_var, { 1 }),
 						i(1),
+					})
+				),
+				s(
+					{ trig = "ins", desc = "inspect vim object in lua" },
+					fmt([[print("{} = " .. vim.inspect({}{}))]], {
+						i(1, "label"),
+						rep(1),
+						i(0),
 					})
 				),
 			}
@@ -168,7 +176,12 @@ return {
 			}
 
 			local go_snippets = {
-				s("fmt", fmt('fmt.Printf("{} = %v\\n", {})', { i(1, "str"), i(2, "replacements") })),
+				s("ins", fmt('fmt.Printf("{} = %v\\n", {}{})', { i(1, "str"), rep(1, "replacement"), i(0) })),
+				s({ trig = "iop", dscr = "print line" }, fmt('fmt.Println("{}")', { i(1) })),
+			}
+
+			local python_snippets = {
+				s("ins", fmt('print("{} = {{0}}".format({}{}))', { i(1, "str"), rep(1, "replacement"), i(0) })),
 			}
 
 			ls.add_snippets("all", all_snippets)
@@ -177,6 +190,7 @@ return {
 			ls.add_snippets("go", go_snippets)
 			ls.add_snippets("javascript", javascript_snippets)
 			ls.add_snippets("vue", javascript_snippets)
+			ls.add_snippets("python", python_snippets)
 
 			-- <c-k> is my expansion key
 			-- this will expand the current item or jump to the next item within the snippet.
@@ -202,12 +216,19 @@ return {
 				end
 			end)
 
+			require("luasnip.loaders.from_vscode").lazy_load()
+
 			-- add html snips to elixir templates
 			require("luasnip").filetype_extend("eelixir", { "html" })
 
+			-- add terraform snippets
+			-- require("luasnip").filetype_extend("terraform", { "terraform" })
+
+			vim.cmd.source("~/.config/nvim/after/plugin/terraform-snippets.lua")
+
 			local source_external_snippets = function()
-				vim.cmd("source ~/.config/nvim/lua/plugins/snippets.lua")
-				vim.cmd("source ~/.config/nvim/after/plugin/work-snippets.lua")
+				vim.cmd.source("~/.config/nvim/lua/plugins/snippets.lua")
+				vim.cmd.source("~/.config/nvim/after/plugin/work-snippets.lua")
 			end
 
 			vim.keymap.set("n", "<Leader>rs", function()

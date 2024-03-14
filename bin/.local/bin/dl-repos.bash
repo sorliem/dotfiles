@@ -14,7 +14,7 @@ update_repo() {
   if [ -z "$(git status --porcelain)" ]; then
     # Working directory clean
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-    if [[ "$BRANCH" == "master" ]] || [[ "$BRANCH" == "main" ]] || [[ "$BRANCH" == "develop" ]]; then
+    if [[ "$BRANCH" == "master" ]] || [[ "$BRANCH" == "main" ]] || [[ "$BRANCH" == "develop" ]] || [[ "$BRANCH" == "onx-master" ]] || [[ "$BRANCH" == "v2-master" ]]; then
       echo "pulling "$@
       git pull > /dev/null 2>&1
     else
@@ -36,13 +36,15 @@ gh \
   repo \
   list \
   onXmaps \
-  --limit=1000 \
+  --limit=3000 \
   --no-archived \
   --json name \
   --jq '.[].name' \
   | xargs -P12 -I {} bash -c 'clone_repo "$@"' _ {}
 
 # update all repos
-ls ~/gitroot/onxmaps | xargs -P12 -I {} bash -c 'update_repo "$@"' _ {}
+ls ~/gitroot/onxmaps | xargs -P12 -I {} bash -c 'update_repo "$@"' _ {} | tee /tmp/dl-repos.bash.log
 
 osascript -e 'display notification "Done running dl-repos.bash" with title "All done"'
+
+cat /tmp/dl-repos.bash.log | grep skip > /tmp/dl-repos-skipped.log

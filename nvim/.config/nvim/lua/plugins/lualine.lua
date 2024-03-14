@@ -38,9 +38,9 @@ return {
 					},
 					lualine_y = { "filetype" },
 					lualine_z = {
-						function()
-							return "DB:" .. vim.g.db_name
-						end,
+						-- function()
+						-- 	return "DB:" .. vim.g.db_name
+						-- end,
 					},
 				},
 				inactive_sections = {

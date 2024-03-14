@@ -64,10 +64,10 @@ tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
 tmux_conf_theme_pane_border='#444444'                   # gray
-tmux_conf_theme_pane_active_border='#00afff'            # light blue
+tmux_conf_theme_pane_active_border='#08ffff'            # light blue
 
 # pane indicator colours
-tmux_conf_theme_pane_indicator='#00afff'                # light blue
+tmux_conf_theme_pane_indicator='#08ffff'                # light blue
 tmux_conf_theme_pane_active_indicator='#00afff'         # light blue
 
 # status line style
@@ -124,7 +124,7 @@ tmux_conf_theme_window_status_format='#I #W'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_current_fg='#000000'      # black
-tmux_conf_theme_window_status_current_bg='#00afff'      # light blue
+tmux_conf_theme_window_status_current_bg='#a0afff'      # light blue
 tmux_conf_theme_window_status_current_attr='bold'
 tmux_conf_theme_window_status_current_format='#I #W'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
@@ -141,7 +141,7 @@ tmux_conf_theme_window_status_bell_bg='default'
 tmux_conf_theme_window_status_bell_attr='blink,bold'
 
 # window last status style
-tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
+tmux_conf_theme_window_status_last_fg='#a0afff'         # light blue
 tmux_conf_theme_window_status_last_bg='default'
 tmux_conf_theme_window_status_last_attr='none'
 
@@ -182,7 +182,8 @@ tmux_conf_theme_right_separator_sub='|'
 # tmux_conf_theme_status_left=' #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
 tmux_conf_theme_status_left=' #S '
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} #(curl -m 2 wttr.in/Manhattan?format=3 2>/dev/null; sleep 900) , %R , %d %b %y '
+# tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} #(curl -m 2 wttr.in/Manhattan?format=3 2>/dev/null; sleep 900) , %R , %d %b %y '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} %R , %d %b %y '
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
@@ -278,10 +279,10 @@ tmux_conf_copy_to_os_clipboard=false
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
 
-setw -g automatic-rename off   # rename window to reflect current program
+set-option -g automatic-rename-format '#{b:pane_current_path}'
 
 # increase history size
-#set -g history-limit 10000
+set -g history-limit 40000
 
 # start with mouse mode enabled
 set -g mouse on
@@ -356,3 +357,19 @@ bind-key -r ^ switch-client -l
 bind-key -r f run-shell "tmux neww ~/.local/bin/tmux-sessionizer"
 bind-key -r C-j run-shell "tmux neww ~/.local/bin/tmux-switch-session"
 bind-key -r Space run-shell "tmux neww ~/.local/bin/tmux-switch-session"
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+set -g @plugin 'egel/tmux-gruvbox'
+
+set -g @tmux-gruvbox 'dark'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

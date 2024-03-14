@@ -8,19 +8,11 @@ return {
 	{ "cespare/vim-toml", ft = "toml" },
 	{ "elixir-editors/vim-elixir", ft = { "elixir", "eelixir" } },
 	{ "udalov/kotlin-vim", ft = "kotlin" },
-	{ "jparise/vim-graphql", ft = "graphql" },
-
-	-- Tim Pope
-	"tpope/vim-sleuth",
-	{ "tpope/vim-surround", event = { "BufRead" } },
-	{ "tpope/vim-repeat", event = { "BufRead" } },
-	{ "tpope/vim-commentary", cond = false },
-	{ "tpope/vim-unimpaired" },
+	{ "jparise/vim-graphql", ft = "graphql", cond = false },
 
 	{ "chr4/nginx.vim", ft = "template" },
 	{ "lepture/vim-jinja", ft = "template" },
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
-	"sindrets/diffview.nvim",
 	{
 		"numToStr/Comment.nvim",
 		event = { "BufRead" },
@@ -46,6 +38,18 @@ return {
 		"nacro90/numb.nvim",
 		config = function()
 			require("numb").setup()
+		end,
+	},
+	{
+		"haya14busa/vim-asterisk",
+		config = function()
+			vim.cmd([[
+				map *  <Plug>(asterisk-z*)
+				map #  <Plug>(asterisk-z#)
+				map g* <Plug>(asterisk-gz*)
+				map g# <Plug>(asterisk-gz#)
+				let g:asterisk#keeppos = 1
+			]])
 		end,
 	},
 }

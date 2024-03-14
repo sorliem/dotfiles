@@ -7,6 +7,7 @@ return {
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-neotest/neotest-go",
 		},
+		cond = false,
 		config = function()
 			-- get neotest namespace (api call creates or returns namespace)
 			local neotest_ns = vim.api.nvim_create_namespace("neotest")
@@ -14,7 +15,7 @@ return {
 				virtual_text = {
 					format = function(diagnostic)
 						local message =
-						diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+							diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
 						return message
 					end,
 				},
@@ -27,5 +28,5 @@ return {
 				},
 			})
 		end,
-	}
+	},
 }

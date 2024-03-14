@@ -15,20 +15,26 @@ _M.onx_live_grep = function(opts)
 	local delimiter = ","
 	local additional_args_list = {}
 	local startIndex = 1
+	print("ft = " .. vim.inspect(ft))
 
-	-- gross string split, thanks to chatgpt
-	while true do
-		local endIndex = string.find(ft, delimiter, startIndex)
+	if ft == "" then
+		ft = "tf (default)"
+		table.insert(additional_args_list, { "--type", "tf" })
+	else
+		-- gross string split, thanks to chatgpt
+		while true do
+			local endIndex = string.find(ft, delimiter, startIndex)
 
-		if endIndex == nil then
+			if endIndex == nil then
+				table.insert(additional_args_list, "--type")
+				table.insert(additional_args_list, string.sub(ft, startIndex))
+				break
+			end
+
 			table.insert(additional_args_list, "--type")
-			table.insert(additional_args_list, string.sub(ft, startIndex))
-			break
+			table.insert(additional_args_list, string.sub(ft, startIndex, endIndex - 1))
+			startIndex = endIndex + 1
 		end
-
-		table.insert(additional_args_list, "--type")
-		table.insert(additional_args_list, string.sub(ft, startIndex, endIndex - 1))
-		startIndex = endIndex + 1
 	end
 
 	table.insert(additional_args_list, { "--hidden", "--ignore-case" })

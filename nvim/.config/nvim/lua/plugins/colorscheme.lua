@@ -3,15 +3,15 @@ return {
 		{
 			"ellisonleao/gruvbox.nvim",
 			priority = 1000,
-			cond = true,
+			cond = false,
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
 					underline = true,
 					bold = true,
 					italic = {
-						strings = true,
-						operators = true,
+						strings = false,
+						operators = false,
 						comments = true,
 					},
 					strikethrough = true,
@@ -54,7 +54,7 @@ return {
 			config = function()
 				require("catppuccin").setup({
 					-- latte, frappe, macchiato, mocha
-					flavour = "macchiato",
+					flavour = "frappe",
 					transparent_mode = false,
 				})
 				vim.cmd([[set background=dark]])
@@ -66,7 +66,9 @@ return {
 			"EdenEast/nightfox.nvim",
 			cond = false,
 			config = function()
-				vim.cmd("colorscheme nightfox")
+				-- vim.cmd("colorscheme nightfox")
+				vim.cmd([[set background=light]])
+				vim.cmd("colorscheme dayfox")
 			end,
 		},
 		{
@@ -78,7 +80,7 @@ return {
 		},
 		{
 			"projekt0n/github-nvim-theme",
-			cond = false,
+			cond = true,
 			config = function()
 				require("github-theme").setup({})
 

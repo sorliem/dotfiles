@@ -28,6 +28,7 @@ return {
 			},
 		},
 		config = function()
+			-- see ~/.config/nvim/lua/miles/dadbod_connection_helpers.lua
 			require("miles.dadbod_connection_helpers").set_default_db()
 
 			vim.api.nvim_create_user_command("DadBodDB", function()
