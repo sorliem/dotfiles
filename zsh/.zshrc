@@ -62,6 +62,9 @@ alias lg=lazygit
 
 alias dc='docker compose'
 
+# [g]it[h]ub [o]pen
+alias gho='basename $(pwd) | xargs -I {} open https://github.com/onXmaps/{}'
+
 
 function delete-branches() {
   git branch |
@@ -80,19 +83,29 @@ function delete-branches() {
 #################################
 alias tf='terraform'
 alias tfmt="terraform fmt -recursive"
-alias tfapply="terraform apply"
+# alias tfapply="terraform apply"
 # alias tfdocs="terraform-docs markdown ./"
 alias tfgit="terraform-docs markdown ./ && terraform fmt -recursive && git add --all"
 alias tfws="terraform workspace select"
 alias tfp="terraform plan"
-alias tfplan="terraform plan"
+# alias tfplan="terraform plan"
 alias tfproviders="terraform providers"
 alias tfrefresh="terraform refresh"
 alias tfupgrade="terraform init --upgrade"
 alias tfvalidate="terraform validate"
 alias tfworkspace="terraform workspace select"
 alias tfwl="terraform workspace list"
+
+
+#################################
+#           KUBECTL             #
+#################################
+alias kctl="kubectl"
 alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
+# alias kubetail="kubectl logs -f"
+alias kconfigyaml="kubectl get configmaps | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get configmap {} -o yaml"
+alias kevents="kubectl get events --sort-by=.metadata.creationTimestamp"
+alias ksniff="kubectl sniff -n default"
 
 alias describerole="gcloud iam roles describe"
 
@@ -134,10 +147,34 @@ function showrolesformember() {
   fi
 }
 
+function tfplan () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(terraform workspace show).tfvars"
+  else
+    extra=""
+  fi
+  terraform plan $extra "$@"
+}
+
+function tfapply () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(terraform workspace show).tfvars"
+  else
+    extra=""
+  fi
+  terraform apply $extra "$@"
+}
+
 function tfplanall () {
   for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
     terraform workspace select "${workspace}" || break
-    if ! terraform plan -detailed-exitcode; then
+    if fd -q '.*tfvars' .; then
+      extra="-var-file=${workspace}.tfvars"
+    else
+      extra=""
+    fi
+    echo "terraform plan $extra"
+    if ! terraform plan $extra -detailed-exitcode; then
       read -e "?$workspace - Plan identified changes. Hit enter to continue"$'\n'
     fi
   done
@@ -146,10 +183,17 @@ function tfplanall () {
 function tfapplyall () {
   for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
     terraform workspace select "${workspace}" || break
-    terraform apply
+    if fd -q '.*tfvars' .; then
+      extra="-var-file=${workspace}.tfvars"
+    else
+      extra=""
+    fi
+    echo "terraform apply $extra"
+    terraform apply $extra
   done
 }
 
+export CLOUDSDK_PYTHON=$(which python3.11)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 export TF_CLI_ARGS_plan="-parallelism=100"
@@ -247,6 +291,12 @@ export DOTFILES=$HOME/dotfiles
 export PATH="$HOME/.tools/lua-language-server/bin/Linux:$PATH"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
+
+# kubectl package manager
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# add wireshark executable to path
+export PATH="$PATH:/Applications/Wireshark.app/Contents/MacOS"
 
 # command line copy/paste
 alias pbcopy='xclip -selection clipboard'

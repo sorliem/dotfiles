@@ -3,7 +3,7 @@ return {
 	{ "tpope/vim-surround", event = { "BufRead" } },
 	{ "tpope/vim-repeat", event = { "BufRead" } },
 	{ "tpope/vim-commentary", cond = false },
-	{ "tpope/vim-unimpaired", event = { "InsertEnter" } },
+	{ "tpope/vim-unimpaired" },
 	{
 		"tpope/vim-abolish",
 		config = function()
@@ -13,6 +13,8 @@ return {
 					Abolish fucnton function
 					Abolish fucntion function
 					Abolish fuction function
+
+					Abolish varible variable
 			]])
 		end,
 	},

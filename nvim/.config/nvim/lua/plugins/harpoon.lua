@@ -12,7 +12,7 @@ return {
 			})
 
 			vim.keymap.set("n", "<leader>ha", function()
-				harpoon:list():append()
+				harpoon:list():add()
 			end, { desc = "[H]arpoon [A]dd file" })
 
 			vim.keymap.set("n", "<leader>he", function()
@@ -41,6 +41,19 @@ return {
 					vim.cmd("setlocal cursorline")
 				end,
 			})
+
+			harpoon:extend({
+					UI_CREATE = function(cx)
+							vim.keymap.set("n", "<C-v>", function()
+									harpoon.ui:select_menu_item({ vsplit = true })
+							end, { buffer = cx.bufnr })
+
+							vim.keymap.set("n", "<C-x>", function()
+									harpoon.ui:select_menu_item({ split = true })
+							end, { buffer = cx.bufnr })
+					end,
+			})
 		end,
+
 	},
 }

@@ -21,6 +21,13 @@ return {
 				{ desc = "[G]it [D]iff master..HEAD" }
 			)
 
+			vim.keymap.set("n", "<leader>gho", function()
+				-- local url = vim.fn.system([[git remote get-url origin | sed -e 's|git@\(.*\):|https://\1/|' -e 's|\.git$||']])
+				-- local url2 = url:gsub("\n$", "")
+				-- vim.ui.open(url2)
+				vim.cmd("GBrowse")
+			end, { desc = "[G]it[h]ub [O]pen repo website" })
+
 			local Miles_Fugitive = vim.api.nvim_create_augroup("Miles_Fugitive", {})
 
 			vim.api.nvim_create_autocmd("BufWinEnter", {

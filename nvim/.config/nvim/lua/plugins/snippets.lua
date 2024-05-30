@@ -216,7 +216,7 @@ return {
 				end
 			end)
 
-			require("luasnip.loaders.from_vscode").lazy_load()
+			-- require("luasnip.loaders.from_vscode").lazy_load()
 
 			-- add html snips to elixir templates
 			require("luasnip").filetype_extend("eelixir", { "html" })

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# notify-send ">> RUNNING dl-repos.bash <<"
+osascript -e "display notification \"\" with title \">> RUNNING dl-repos.bash <<\""
 
 clone_repo() {
   if [ ! -d "/Users/miles.sorlie/gitroot/onxmaps/$@" ]; then
@@ -48,3 +48,12 @@ ls ~/gitroot/onxmaps | xargs -P12 -I {} bash -c 'update_repo "$@"' _ {} | tee /t
 osascript -e 'display notification "Done running dl-repos.bash" with title "All done"'
 
 cat /tmp/dl-repos.bash.log | grep skip > /tmp/dl-repos-skipped.log
+cat /tmp/dl-repos.bash.log | grep 'CLONING NEW REPO' > /tmp/dl-repos-new.log
+
+SKIPNUM=$(wc -l /tmp/dl-repos-skipped.log)
+NEWNUM=$(wc -l /tmp/dl-repos-new.log)
+
+sleep 4
+osascript -e "display notification \"$SKIPNUM\" with title \"Number of SKIPPED repos\""
+sleep 4
+osascript -e "display notification \"$NEWNUM\" with title \"Number of NEW repos\""

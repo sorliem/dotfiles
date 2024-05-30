@@ -325,7 +325,9 @@ bind-key -T copy-mode-vi 'C-\' select-pane -l
 # unbind C-a
 # unbind C-b
 # set -g prefix C-a
-# bind C-a send-prefix
+bind C-a send-prefix
+bind-key C-a send-key C-a
+
 
 # move status line to top
 #set -g status-position top
@@ -368,8 +370,14 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 # set -g @plugin 'git@github.com:user/plugin'
 # set -g @plugin 'git@bitbucket.com:user/plugin'
 set -g @plugin 'egel/tmux-gruvbox'
+set -g @plugin 'fabioluciano/tmux-tokyo-night'
 
-set -g @tmux-gruvbox 'dark'
+### Tokyo Night Theme configuration
+set -g @theme_variation 'day'
+set -g @theme_left_separator ''
+set -g @theme_right_separator ''
+
+# set -g @tmux-gruvbox 'dark'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

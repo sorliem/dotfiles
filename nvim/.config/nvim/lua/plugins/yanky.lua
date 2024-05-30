@@ -1,6 +1,7 @@
 return {
 	{
 		"gbprod/yanky.nvim",
+		cond = false,
 		config = function()
 			require("yanky").setup()
 

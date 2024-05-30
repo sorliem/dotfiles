@@ -27,6 +27,17 @@ local terraform_snippets = {
 			{ i(0, "Name description") }
 		)
 	),
+	snippet(
+		"td",
+		fmt(
+			[[
+#####
+# {}
+#####
+			]],
+			{ i(0, "Section description") }
+		)
+	),
 }
 
 ls.add_snippets("terraform", terraform_snippets)

@@ -2,7 +2,18 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		event = { "BufRead" },
+		-- event = { "BufRead" },
+		dependencies = {
+			{
+				"nvim-treesitter/nvim-treesitter-context",
+				config = function()
+					require("treesitter-context").setup({
+						min_window_height = 50,
+						max_lines = 3,
+					})
+				end,
+			},
+		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {

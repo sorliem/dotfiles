@@ -5,11 +5,11 @@ YankGroup = augroup("YankGroup", {})
 WhiteSpaceGroup = augroup("WhiteSpaceGroup", {})
 PackerGroup = augroup("PackerGroup", {})
 
-autocmd("BufWritePre", {
-	group = WhiteSpaceGroup,
-	pattern = "*",
-	command = "%s/\\s\\+$//e",
-})
+-- autocmd("BufWritePre", {
+-- 	group = WhiteSpaceGroup,
+-- 	pattern = "*",
+-- 	command = "%s/\\s\\+$//e",
+-- })
 
 -- autocmd("WinLeave", {
 -- 	pattern = "*",
@@ -66,10 +66,13 @@ autocmd("FileType", {
 	end,
 })
 
-autocmd("BufWritePost", {
-	group = PackerGroup,
-	pattern = "packer.lua",
-	command = "source <afile> | PackerCompile",
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function(ctx)
+		-- local root = vim.fs.root(ctx.buf, { ".git", "Makefile" })
+		-- if root then
+		-- 	vim.uv.chdir(root)
+		-- end
+	end,
 })
 
 local attach_to_buffer = function(output_bufnr, pattern, command)
@@ -125,3 +128,12 @@ vim.api.nvim_create_user_command("AutoRun", function()
 	local command = vim.split(vim.fn.input("Command: "), " ")
 	attach_to_buffer(tonumber(bufnr), pattern, command)
 end, {})
+
+-- Highlight the trailing space with DiffDelete highight group
+vim.cmd([[
+augroup TrailingSpace
+  au!
+  au VimEnter,WinEnter * highlight link TrailingSpaces DiffDelete
+  au VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
+]])

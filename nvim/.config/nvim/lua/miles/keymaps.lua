@@ -90,6 +90,8 @@ map("n", "<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-b
 
 map("n", "<Leader>pv", ":Hexplore!<Enter>", "[P]roject [V]view (netrw)")
 
+map("n", "<Leader>ts", ":%s/\\s\\+$//e<CR>", "[T]rim trailing [S]paces")
+
 -- map(
 -- 	"n",
 -- 	"-",
@@ -126,6 +128,12 @@ map("n", "<leader>td", function()
 	local url = string.format(baseurl, word)
 	vim.ui.open(url)
 end, "[T]erraform [D]efinition")
+
+-- map("n", "<leader>gho", function()
+-- 	local url = vim.fn.system([[git remote get-url origin | sed -e 's|git@\(.*\):|https://\1/|' -e 's|\.git$||']])
+-- 	local url2 = url:gsub("\n$", "")
+-- 	vim.ui.open(url2)
+-- end, "[G]it[h]ub [O]pen repo website")
 
 vim.keymap.set("n", "dd", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then

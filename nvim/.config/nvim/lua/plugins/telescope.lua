@@ -163,7 +163,7 @@ return {
 		require("telescope").load_extension("git_worktree")
 		require("telescope").load_extension("advanced_git_search")
 		require("telescope").load_extension("emoji")
-		require("telescope").load_extension("yank_history")
+		-- require("telescope").load_extension("yank_history")
 		require("telescope").load_extension("harpoon")
 		require("telescope").load_extension("luasnip")
 
@@ -244,6 +244,7 @@ return {
 			ft = mappings[ft] or ft
 
 			require("telescope.builtin").grep_string({
+				-- additional_args = { "--hidden", "--type-add='tf:*.tfvars'", "--type", ft  },
 				additional_args = { "--hidden", "--type", ft },
 				cwd = "~/gitroot/onxmaps",
 				prompt_title = string.format("Find [%s] in all [%s] OnX Files", search_word, ft),

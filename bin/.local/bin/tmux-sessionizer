@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/gitroot/onxmaps ~/gitroot/src ~/ -mindepth 1 -maxdepth 1 -type d | fzf --height=100% --header "CREATE SESSION FROM REPO")
+    selected=$(find ~/gitroot/onxmaps ~/gitroot/src ~/ -mindepth 1 -maxdepth 1 -type d | fzf --height=100% --header "CREATE/SWITCH TO SESSION FROM REPO")
 fi
 
 if [[ -z $selected ]]; then

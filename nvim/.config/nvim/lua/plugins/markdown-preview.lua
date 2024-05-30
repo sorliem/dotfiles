@@ -11,4 +11,11 @@ return {
 			-- })
 		end,
 	},
+	{
+		"richardbizik/nvim-toc",
+		cond = false,
+		config = function()
+			require("nvim-toc").setup({})
+		end,
+	},
 }
