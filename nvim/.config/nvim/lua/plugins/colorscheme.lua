@@ -19,7 +19,7 @@ return {
 					invert_signs = true,
 					invert_tabline = false,
 					invert_intend_guides = false,
-					inverse = true,    -- invert background for search, diffs, statuslines and errors
+					inverse = true, -- invert background for search, diffs, statuslines and errors
 					contrast = "hard", -- can be "hard", "soft" or empty string
 					palette_overrides = {
 						dark0_hard = "#1d2021",
@@ -161,7 +161,7 @@ return {
 		cond = true,
 		config = function()
 			require("rose-pine").setup({
-				variant = "moon",      -- auto, main, moon, or dawn
+				variant = "moon", -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
 				extend_background_behind_borders = true,
@@ -169,7 +169,7 @@ return {
 				enable = {
 					terminal = true,
 					legacy_highlights = false, -- Improve compatibility for previous versions of Neovim
-					migrations = true,        -- Handle deprecated options automatically
+					migrations = true, -- Handle deprecated options automatically
 				},
 
 				styles = {
@@ -250,20 +250,20 @@ return {
 	},
 	{
 		"diegoulloao/neofusion.nvim",
-		priority = 1000 ,
+		priority = 1000,
 		cond = false,
-		config = function() 
+		config = function()
 			require("neofusion").setup({
 				terminal_colors = true, -- add neovim terminal colors
 				undercurl = true,
 				underline = true,
 				bold = true,
 				italic = {
-						strings = true,
-						emphasis = true,
-						comments = true,
-						operators = false,
-						folds = true,
+					strings = true,
+					emphasis = true,
+					comments = true,
+					operators = false,
+					folds = true,
 				},
 				strikethrough = true,
 				invert_selection = false,
@@ -275,9 +275,9 @@ return {
 				overrides = {},
 				dim_inactive = false,
 				transparent_mode = false,
-		})
+			})
 
 			vim.cmd([[ colorscheme neofusion ]])
 		end,
-	}
+	},
 }
