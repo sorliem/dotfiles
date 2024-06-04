@@ -3,16 +3,16 @@ return {
 	"christoomey/vim-tmux-navigator",
 	"folke/lsp-colors.nvim",
 
-	{ "hashivim/vim-terraform", ft = "terraform" },
-	{ "dstein64/vim-startuptime", cmd = "StartupTime" },
-	{ "cespare/vim-toml", ft = "toml" },
+	{ "hashivim/vim-terraform",    ft = "terraform" },
+	{ "dstein64/vim-startuptime",  cmd = "StartupTime" },
+	{ "cespare/vim-toml",          ft = "toml" },
 	{ "elixir-editors/vim-elixir", ft = { "elixir", "eelixir" } },
-	{ "udalov/kotlin-vim", ft = "kotlin" },
-	{ "jparise/vim-graphql", ft = "graphql", cond = false },
+	{ "udalov/kotlin-vim",         ft = "kotlin" },
+	{ "jparise/vim-graphql",       ft = "graphql",              cond = false },
 
-	{ "chr4/nginx.vim", ft = "template" },
-	{ "lepture/vim-jinja", ft = "template" },
-	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
+	{ "chr4/nginx.vim",            ft = "template" },
+	{ "lepture/vim-jinja",         ft = "template" },
+	{ "ThePrimeagen/vim-be-good",  cmd = "VimBeGood" },
 	{
 		"numToStr/Comment.nvim",
 		event = { "BufRead" },
@@ -52,4 +52,7 @@ return {
 			]])
 		end,
 	},
+
+	-- Interesting plugins
+	-- https://github.com/metakirby5/codi.vim
 }

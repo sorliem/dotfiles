@@ -17,7 +17,7 @@ vim.opt.list = true
 vim.opt.listchars:append("tab:→·")
 vim.opt.listchars:append("lead:·")
 vim.opt.listchars:append("space:·")
-vim.opt.listchars:append("trail:·")   
+vim.opt.listchars:append("trail:·")
 vim.opt.listchars:append("eol:↵")
 vim.opt.listchars:append("extends:›")
 vim.opt.listchars:append("precedes:‹")
@@ -71,9 +71,9 @@ endif
 vim.g.editorconfig = true
 
 vim.g.netrw_browse_split = 2
-vim.g.netrw_banner = 0 -- disable annoying banner
+vim.g.netrw_banner = 0       -- disable annoying banner
 vim.g.netrw_browse_split = 4 -- open in prior window
-vim.g.netrw_altv = 1 -- open splits to the right
+vim.g.netrw_altv = 1         -- open splits to the right
 vim.cmd([[let g:netrw_list_hide=netrw_gitignore#Hide()]])
 
 vim.g.mapleader = " "
