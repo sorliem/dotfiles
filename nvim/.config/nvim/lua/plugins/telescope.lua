@@ -2,6 +2,9 @@ return {
 	"nvim-telescope/telescope.nvim",
 	keys = {
 		{ "<C-p>" },
+		{ "<leader>ps" },
+		{ "<leader>ofs" },
+		{ "<leader>ofw" },
 	},
 	config = function()
 		local actions = require("telescope.actions")
@@ -217,9 +220,9 @@ return {
 			require("miles.telescope_functions").github_pull_requests()
 		end)
 
-		vim.api.nvim_create_user_command("GhList", function()
-			require("miles.telescope_functions").github_pull_requests()
-		end, {})
+		-- vim.api.nvim_create_user_command("GhList", function()
+		-- 	require("miles.telescope_functions").github_pull_requests()
+		-- end, {})
 
 		vim.keymap.set("n", "<leader>km", function()
 			require("telescope.builtin").keymaps({ show_plug = false })
@@ -232,6 +235,7 @@ return {
 		vim.keymap.set("n", "<leader>ofw", function()
 			local ft = vim.bo.ft
 			local search_word = vim.fn.expand("<cword>")
+			local additional_args = { "--hidden" }
 
 			local mappings = {
 				terraform = "tf",
@@ -242,18 +246,14 @@ return {
 			}
 
 			ft = mappings[ft] or ft
+			vim.list_extend(additional_args, { "--type", ft, "--type-add", "tf:*tfvars" })
 
 			require("telescope.builtin").grep_string({
-				-- additional_args = { "--hidden", "--type-add='tf:*.tfvars'", "--type", ft  },
-				additional_args = { "--hidden", "--type", ft },
+				additional_args = additional_args,
 				cwd = "~/gitroot/onxmaps",
 				prompt_title = string.format("Find [%s] in all [%s] OnX Files", search_word, ft),
 			})
 		end, { desc = "[O]nX [F]ind [W]ord (telescope)" })
-
-		vim.keymap.set("n", "<leader>gm", function()
-			require("telescope.builtin").git_commits()
-		end)
 
 		vim.keymap.set("n", "<leader>gm", function()
 			require("telescope.builtin").git_commits()

@@ -11,34 +11,30 @@ local _M = {}
 
 _M.onx_live_grep = function(opts)
 	local ft = vim.fn.input("File type(s) to search onx files for (comma-delimited): ")
-
 	local delimiter = ","
 	local additional_args_list = {}
 	local startIndex = 1
-	print("ft = " .. vim.inspect(ft))
 
 	if ft == "" then
 		ft = "tf (default)"
-		table.insert(additional_args_list, { "--type", "tf" })
+		vim.list_extend(additional_args_list, { "--type", "tf" })
 	else
 		-- gross string split, thanks to chatgpt
 		while true do
 			local endIndex = string.find(ft, delimiter, startIndex)
 
 			if endIndex == nil then
-				table.insert(additional_args_list, "--type")
-				table.insert(additional_args_list, string.sub(ft, startIndex))
+				vim.list_extend(additional_args_list, { "--type", string.sub(ft, startIndex) })
 				break
 			end
 
-			table.insert(additional_args_list, "--type")
-			table.insert(additional_args_list, string.sub(ft, startIndex, endIndex - 1))
+			vim.list_extend(additional_args_list, { "--type", string.sub(ft, startIndex, endIndex - 1) })
 			startIndex = endIndex + 1
 		end
 	end
 
-	-- table.insert(additional_args_list, { "--type-add", "'tf:*.tfvars'" })
-	table.insert(additional_args_list, { "--hidden", "--ignore-case" })
+	-- add additional typespec for tfvars files that is not built into ripgrep
+	vim.list_extend(additional_args_list, { "--type-add", "tf:*.tfvars" })
 
 	require("telescope.builtin").live_grep({
 		cwd = "~/gitroot/onxmaps",
@@ -49,18 +45,6 @@ end
 
 -- our picker function: colors
 _M.jira_tickets = function(opts)
-	-- local output2 = utils.get_os_command_output({
-	-- 	"jira",
-	-- 	"issue",
-	-- 	"list",
-	-- 	"-q",
-	-- 	'project in ("GD", "SRE") AND assignee = "Miles Sorlie" AND status in ("In Progress", "To Do", "In Review", "Backlog")',
-	-- 	"--plain",
-	-- 	"--columns",
-	-- 	"key,status,summary",
-	-- })
-	-- print("output2: ", vim.inspect(output2))
-
 	-- cron task outputs to tmp file
 	local file = io.open("/tmp/jira-issues.txt", "r")
 	if not file then
