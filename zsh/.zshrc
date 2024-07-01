@@ -101,7 +101,7 @@ alias tfwl="terraform workspace list"
 #           KUBECTL             #
 #################################
 alias kctl="kubectl"
-alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
+alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=/+' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
 # alias kubetail="kubectl logs -f"
 alias kconfigyaml="kubectl get configmaps | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get configmap {} -o yaml"
 alias kevents="kubectl get events --sort-by=.metadata.creationTimestamp"
@@ -154,6 +154,16 @@ function tfplan () {
     extra=""
   fi
   terraform plan $extra "$@"
+}
+
+function tfplang () {
+  # plan but grep for 'will be' to list all addresses
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(terraform workspace show).tfvars"
+  else
+    extra=""
+  fi
+  terraform plan $extra "$@" | grep 'will be'
 }
 
 function tfapply () {

@@ -2,6 +2,8 @@ local map = function(mode, keys, func, desc)
 	vim.keymap.set(mode, keys, func, { desc = desc, noremap = true, silent = true })
 end
 
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search on <Esc> in normal mode")
+
 -- swap colon and semicolon
 map("n", ";", ":")
 map("n", ":", ";")

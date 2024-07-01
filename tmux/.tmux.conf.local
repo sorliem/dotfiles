@@ -342,6 +342,7 @@ bind-key C-a send-key C-a
 # bind-key -n M-7 select-window -t 7
 # bind-key -n M-8 select-window -t 8
 # bind-key -n M-9 select-window -t 9
+
 # bind-key -n M-y attach-session -t xgps
 # bind-key -n M-u attach-session -t vimwiki
 # bind-key -n M-i attach-session -t dotfiles

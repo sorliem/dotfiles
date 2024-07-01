@@ -1,5 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
+	event = "VimEnter",
 	keys = {
 		{ "<C-p>" },
 		{ "<leader>ps" },
@@ -133,11 +134,11 @@ return {
 				},
 				live_grep = {
 					additional_args = function( --[[opts]])
-						return { "--hidden", "--ignore-case" }
+						return { "--hidden", "--ignore-case", "--glob", "'!*README.md'" }
 					end,
 				},
 				colorscheme = {
-					enable_preview = true,
+					enable_preview = false,
 				},
 			},
 			extensions = {
@@ -146,6 +147,9 @@ return {
 					override_generic_sorter = true,
 					override_file_sorter = true,
 					case_mode = "smart_case",
+				},
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown(),
 				},
 				advanced_git_search = {
 					-- fugitive or diffview
@@ -163,6 +167,7 @@ return {
 		})
 
 		require("telescope").load_extension("fzf")
+		require("telescope").load_extension("ui-select")
 		require("telescope").load_extension("git_worktree")
 		require("telescope").load_extension("advanced_git_search")
 		require("telescope").load_extension("emoji")
@@ -229,7 +234,7 @@ return {
 		end, { desc = "[K]ey [M]aps" })
 
 		vim.keymap.set("n", "<leader>fw", function()
-			require("telescope.builtin").grep_string({ additional_args = { "--hidden" } })
+			require("telescope.builtin").grep_string({ additional_args = { "--hidden", "--glob", "!README.md" } })
 		end, { desc = "[F]ind [W]ord (telescope)" })
 
 		vim.keymap.set("n", "<leader>ofw", function()
@@ -268,11 +273,13 @@ return {
 		end, { desc = "[G]it [A]dd [W]orktree" })
 
 		vim.keymap.set("n", "<leader>ps", function()
+			local additional_args = {}
+			vim.list_extend(additional_args, { "--glob", "!README.md" })
+			vim.list_extend(additional_args, { "--hidden", "--ignore-case" })
+
 			local opts = {
 				file_ignore_patterns = { ".git" },
-				additional_args = function( --[[opts]])
-					return { "--hidden", "--ignore-case" }
-				end,
+				additional_args = additional_args,
 			}
 
 			require("telescope.builtin").live_grep(opts)
@@ -283,7 +290,10 @@ return {
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
 		vim.keymap.set("n", "//", function()
-			require("telescope.builtin").current_buffer_fuzzy_find()
+			require("telescope.builtin").current_buffer_fuzzy_find(themes.get_ivy({
+				winblend = 10,
+				previewer = false,
+			}))
 		end, { desc = "Fuzzy find over buffer lines" })
 
 		vim.keymap.set("n", "<leader>ji", function()
@@ -305,6 +315,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"xiyaowong/telescope-emoji.nvim",
+		"nvim-telescope/telescope-ui-select.nvim",
 		{
 			"aaronhallaert/advanced-git-search.nvim",
 			config = function()

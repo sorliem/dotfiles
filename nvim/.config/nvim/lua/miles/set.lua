@@ -14,19 +14,23 @@ vim.opt.smartcase = true
 vim.opt.backup = false
 
 vim.opt.list = true
-vim.opt.listchars:append("tab:→·")
-vim.opt.listchars:append("lead:·")
-vim.opt.listchars:append("space:·")
-vim.opt.listchars:append("trail:·")
-vim.opt.listchars:append("eol:↵")
-vim.opt.listchars:append("extends:›")
-vim.opt.listchars:append("precedes:‹")
+vim.opt.listchars = {
+	tab = "→·",
+	lead = "·",
+	space = "·",
+	trail = "·",
+	eol = "↵",
+	extends = "›",
+	precedes = "‹",
+	nbsp = "␣",
+}
 
 vim.opt.ruler = true
 vim.opt.hidden = true
 vim.opt.laststatus = 2
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
+vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 vim.opt.undolevels = 500
 vim.opt.swapfile = false
@@ -34,6 +38,7 @@ vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.showcmd = true
 vim.opt.wildmenu = true
+vim.opt.wildmode = "list:longest,list:full" -- for : stuff
 vim.opt.showmatch = true
 vim.opt.ttimeoutlen = 50
 vim.opt.foldenable = false
@@ -48,17 +53,16 @@ vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 -- vim.opt.colorcolumn = '80'
 vim.opt.completeopt = "menu,menuone,noselect"
--- vim.opt.guicursor = "i:block"
+vim.opt.guicursor = "i:block"
 vim.opt.updatetime = 50
 vim.opt.backupdir = HOME .. "/.vim/backups"
 vim.opt.conceallevel = 0
 
-vim.cmd([[
-		set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-		  \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-]])
+-- vim.cmd([[
+-- 		set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+-- 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+-- 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+-- ]])
 
 vim.cmd([[
 if exists('+termguicolors')
@@ -71,9 +75,9 @@ endif
 vim.g.editorconfig = true
 
 vim.g.netrw_browse_split = 2
-vim.g.netrw_banner = 0 -- disable annoying banner
+vim.g.netrw_banner = 0       -- disable annoying banner
 vim.g.netrw_browse_split = 4 -- open in prior window
-vim.g.netrw_altv = 1 -- open splits to the right
+vim.g.netrw_altv = 1         -- open splits to the right
 vim.cmd([[let g:netrw_list_hide=netrw_gitignore#Hide()]])
 
 vim.g.mapleader = " "

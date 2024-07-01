@@ -36,6 +36,9 @@ _M.onx_live_grep = function(opts)
 	-- add additional typespec for tfvars files that is not built into ripgrep
 	vim.list_extend(additional_args_list, { "--type-add", "tf:*.tfvars" })
 
+	-- ignore README.md files
+	vim.list_extend(additional_args_list, { "--glob", "!README.md" })
+
 	require("telescope.builtin").live_grep({
 		cwd = "~/gitroot/onxmaps",
 		additional_args = additional_args_list,

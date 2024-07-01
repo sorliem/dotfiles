@@ -19,7 +19,7 @@ return {
 					invert_signs = true,
 					invert_tabline = false,
 					invert_intend_guides = false,
-					inverse = true, -- invert background for search, diffs, statuslines and errors
+					inverse = true,    -- invert background for search, diffs, statuslines and errors
 					contrast = "hard", -- can be "hard", "soft" or empty string
 					palette_overrides = {
 						dark0_hard = "#1d2021",
@@ -159,9 +159,10 @@ return {
 		"rose-pine/neovim",
 		name = "rose-pine",
 		cond = true,
+		priority = 1000,
 		config = function()
 			require("rose-pine").setup({
-				variant = "moon", -- auto, main, moon, or dawn
+				variant = "moon",      -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
 				extend_background_behind_borders = true,
@@ -169,7 +170,7 @@ return {
 				enable = {
 					terminal = true,
 					legacy_highlights = false, -- Improve compatibility for previous versions of Neovim
-					migrations = true, -- Handle deprecated options automatically
+					migrations = true,         -- Handle deprecated options automatically
 				},
 
 				styles = {
