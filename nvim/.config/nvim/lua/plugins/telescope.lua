@@ -223,7 +223,7 @@ return {
 
 		vim.keymap.set("n", "<leader>ghr", function()
 			require("miles.telescope_functions").github_pull_requests()
-		end)
+		end, { desc = "List Recent [G]it[H]ub Pull [R]equests" })
 
 		-- vim.api.nvim_create_user_command("GhList", function()
 		-- 	require("miles.telescope_functions").github_pull_requests()
@@ -290,10 +290,9 @@ return {
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
 		vim.keymap.set("n", "//", function()
-			require("telescope.builtin").current_buffer_fuzzy_find(themes.get_ivy({
-				winblend = 10,
+			require("telescope.builtin").current_buffer_fuzzy_find({
 				previewer = false,
-			}))
+			})
 		end, { desc = "Fuzzy find over buffer lines" })
 
 		vim.keymap.set("n", "<leader>ji", function()

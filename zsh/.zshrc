@@ -109,6 +109,17 @@ alias ksniff="kubectl sniff -n default"
 
 alias describerole="gcloud iam roles describe"
 
+function gcloudreadlogs() {
+  app="$1"
+  msgKey="$2"
+  if [ -z "$msgKey" ]; then 
+    msgKey="message"
+  fi
+
+  gcloud logging read "resource.type=\"k8s_container\" labels.\"k8s-pod/app\":\"$app\"" --format="value(jsonPayload.$msgKey)"
+}
+
+
 function tfdocs () {
   if [ ! -d modules/ ]; then
     terraform-docs markdown ./
@@ -191,6 +202,9 @@ function tfplanall () {
 }
 
 function tfapplyall () {
+  nworkspaces=$(terraform workspace list | awk '{print $NF}' | grep -v "default" | grep -v "^$" | wc -l | tr -d ' ')
+  index=1
+
   for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
     terraform workspace select "${workspace}" || break
     if fd -q '.*tfvars' .; then
@@ -198,8 +212,9 @@ function tfapplyall () {
     else
       extra=""
     fi
-    echo "terraform apply $extra"
+    echo "["$index"/"$nworkspaces"] terraform apply $extra"
     terraform apply $extra
+    ((index++))
   done
 }
 

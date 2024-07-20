@@ -40,6 +40,17 @@ return {
 							end
 						end,
 					},
+					terraform = {
+						name = "terraform",
+						filetype = { "tf" },
+						handle = function(mode, line, _)
+							local resource = require("gx.helper").find(line, mode, '"(%w+)"')
+
+							if resource then
+								return "https://registry.terraform.io/?q=" .. resource
+							end
+						end,
+					},
 					elixir = {             -- custom handler to open rust's cargo packages
 						name = "elixir",      -- set name of handler
 						filename = "mix.exs", -- or the necessary filename

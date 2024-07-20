@@ -2,6 +2,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		cond = true,
 		-- event = { "BufRead" },
 		dependencies = {
 			{
