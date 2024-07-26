@@ -7,6 +7,8 @@ find_repo_or_cmd = function(findstr, cmd)
 	end
 end
 
+
+
 vim.api.nvim_create_user_command("ReplaceIfStrNotFound", function(args)
 	local str = args.fargs[1]
 	local cmd = args.fargs[2]
