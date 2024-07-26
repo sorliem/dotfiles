@@ -3,14 +3,14 @@
 osascript -e "display notification \"\" with title \">> RUNNING dl-repos.bash <<\""
 
 clone_repo() {
-  if [ ! -d "/Users/miles.sorlie/gitroot/onxmaps/$@" ]; then
+  if [ ! -d "/Users/milessorlie/gitroot/onxmaps/$@" ]; then
     echo "==> CLONING NEW REPO: "$@
-    git clone git@github.com:onXmaps/$@.git /Users/miles.sorlie/gitroot/onxmaps/$@
+    git clone git@github.com:onXmaps/$@.git /Users/milessorlie/gitroot/onxmaps/$@
   fi
 }
 
 update_repo() {
-  pushd /Users/miles.sorlie/gitroot/onxmaps/$@ > /dev/null 2>&1
+  pushd /Users/milessorlie/gitroot/onxmaps/$@ > /dev/null 2>&1
   if [ -z "$(git status --porcelain)" ]; then
     # Working directory clean
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
