@@ -88,6 +88,14 @@ return {
 						i(0),
 					})
 				),
+				s(
+					{ trig = "insx", desc = "inspect vim object in lua" },
+					fmt([[ngx.log(ngx.INFO, "{} = ", {}{})]], {
+						i(1, "label"),
+						rep(1),
+						i(0),
+					})
+				),
 			}
 
 			local elixir_snippets = {
@@ -220,6 +228,7 @@ return {
 
 			-- add html snips to elixir templates
 			require("luasnip").filetype_extend("eelixir", { "html" })
+			require("luasnip").filetype_extend("nginx", { "lua" })
 
 			-- add terraform snippets
 			-- require("luasnip").filetype_extend("terraform", { "terraform" })
