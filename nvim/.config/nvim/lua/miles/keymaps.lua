@@ -55,11 +55,10 @@ map("n", "<C-j>", "<cmd>cnext<CR>zz", "Next quickfix item and center screen")
 map("n", "<C-k>", "<cmd>cprev<CR>zz", "Prev quickfix item and center screen")
 
 -- get rid of highlighting
-map("n", "<leader>hh", ":noh<CR>")
+map("n", "<leader>hh", "<cmd>noh<CR>")
 
 -- do search and replace using the word under cursor
 map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search/replace for word under cursor")
-map("n", "<leader>rn", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search/replace for word under cursor")
 
 -- greatest remap ever (per the primagen)
 -- in visual mode, paste what is in the default register
@@ -79,20 +78,20 @@ map("v", "<leader>c", '"+y<CR>', "[C]opy to system clipboard")
 map("n", "<leader>P", '"+p<CR>', "[P]aste from clipboard")
 
 -- reload init.lua
-map("n", "<leader>rv", ":so $MYVIMRC<CR>", "[R]eload [V]imrc (init.lua)")
+map("n", "<leader>rv", "<cmd>so $MYVIMRC<CR>", "[R]eload [V]imrc (init.lua)")
 
 -- delete buffer
-map("n", "<leader>bd", ":bdelete<CR>", "[B]uffer [D]elete")
+map("n", "<leader>bd", "<cmd>bdelete<CR>", "[B]uffer [D]elete")
 
 -- reload all buffers from disk
-map("n", "<leader>br", ":bufdo e!<CR>", "[B]uffer [R]eload")
+map("n", "<leader>br", "<cmd>bufdo e!<CR>", "[B]uffer [R]eload")
 
 -- Grab last commit messge
-map("n", "<leader>gl1", ":read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-back) [G]it [L]og commit message")
+map("n", "<leader>gl1", "<cmd>read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-back) [G]it [L]og commit message")
 
-map("n", "<Leader>pv", ":Hexplore!<Enter>", "[P]roject [V]view (netrw)")
+map("n", "<Leader>pv", "<cmd>Hexplore!<Enter>", "[P]roject [V]view (netrw)")
 
-map("n", "<Leader>ts", ":%s/\\s\\+$//e<CR>", "[T]rim trailing [S]paces")
+map("n", "<Leader>ts", "<cmd>%s/\\s\\+$//e<CR>", "[T]rim trailing [S]paces")
 
 -- map(
 -- 	"n",
@@ -141,15 +140,15 @@ vim.keymap.set("n", "dd", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		-- delete to black hole register if deleting a blank line --comment
 		return '"_dd' --comment
-	else --comment
-		return "dd" --comment
+	else           --comment
+		return "dd"   --comment
 	end
 end, { expr = true, desc = "Smart dd" })
 
-map("x", ".", ":norm .<CR>", "Repeat last action on visually selected line")
-map("x", "@", ":norm @q<CR>", "Repeat @q macro on visually selected lines")
+map("x", ".", "<cmd>norm .<CR>", "Repeat last action on visually selected line")
+map("x", "@", "<cmd>norm @q<CR>", "Repeat @q macro on visually selected lines")
 
 -- run formatting
 -- map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")
 
-map("n", "<Space>ar", ":AutoRun<CR>", "[A]uto [R]un a file on a specific pattern and output to buffer")
+map("n", "<Space>ar", "<cmd>AutoRun<CR>", "[A]uto [R]un a file on a specific pattern and output to buffer")

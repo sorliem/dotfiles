@@ -9,7 +9,7 @@ return {
 			vim.keymap.set("n", "<C-F>w", "<Plug>CtrlSFCwordPath<CR>")
 
 			-- toggle the CtrlSF search results window
-			vim.keymap.set("n", "<C-F>t", ":CtrlSFToggle<CR>")
+			vim.keymap.set("n", "<C-F>t", "<cmd>CtrlSFToggle<CR>")
 		end,
 	},
 }
