@@ -1,9 +1,24 @@
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
+#
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# zsh-fzf-history-search
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
+
+autoload -Uz compinit
+compinit
 
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(git)
+# plugins=(git)
 
 # source $ZSH/oh-my-zsh.sh
 
@@ -11,9 +26,6 @@ plugins=(git)
 # emacs style navigation
 bindkey -e
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 #################################
 #       GENERAL ALIASES         #
@@ -259,6 +271,9 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
+export CLOUDSDK_PYTHON="/usr/bin/python3"
+export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
+
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
 fi
@@ -273,6 +288,7 @@ fi
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --multi --bind up:preview-up,down:preview-down'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 #################################
 #           BAT                 #
@@ -316,6 +332,7 @@ export DOTFILES=$HOME/dotfiles
 export PATH="$HOME/.tools/lua-language-server/bin/Linux:$PATH"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
+export PATH="$PATH:/opt/homebrew/Cellar/bash/5.2.32/bin"
 
 # kubectl package manager
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
@@ -327,7 +344,7 @@ export PATH="$PATH:/Applications/Wireshark.app/Contents/MacOS"
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-export EDITOR="/usr/local/bin/nvim"
+export EDITOR="/opt/homebrew/bin/nvim"
 
 # if [[ -f "$HOME/gitroot/src/z/z.sh" ]]; then
 #   source $HOME/gitroot/src/z/z.sh
@@ -346,9 +363,9 @@ alias trn="tmux rename-window $(basename `pwd`) &&  echo \"renamed tmux window\"
 alias trn2="rename_tmux_window"
 
 # Tmuxifier
-export PATH="$HOME/.tmuxifier/bin:$PATH"
-export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
-eval "$(tmuxifier init -)"
+# export PATH="$HOME/.tmuxifier/bin:$PATH"
+# export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
+# eval "$(tmuxifier init -)"
 
 # export LS_COLORS=$LS_COLORS:'di=0;35:'
 
@@ -356,7 +373,7 @@ eval "$(tmuxifier init -)"
 unsetopt AUTO_CD
 
 # share history between sessions
-# setopt share_history
+setopt share_history
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -383,3 +400,12 @@ if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/U
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/opt/homebrew/opt/lua@5.3/bin:$PATH"
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="/opt/homebrew/opt/mysql-client@8.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
