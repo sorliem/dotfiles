@@ -199,7 +199,7 @@ return {
 				},
 			}))
 
-			require("lspconfig").tsserver.setup(config({
+			require("lspconfig").ts_ls.setup(config({
 				on_attach = on_attach,
 				flags = {
 					debounce_text_changes = 150,

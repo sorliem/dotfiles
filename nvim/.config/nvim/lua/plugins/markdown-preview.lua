@@ -17,5 +17,5 @@ return {
 		config = function()
 			require("nvim-toc").setup({})
 		end,
-	},
+	}
 }
