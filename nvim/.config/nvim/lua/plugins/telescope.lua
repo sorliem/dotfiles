@@ -262,7 +262,11 @@ return {
 
 		vim.keymap.set("n", "<leader>gm", function()
 			require("telescope.builtin").git_commits()
-		end)
+		end, { desc = "Telescope [G]it Co[m]mits" })
+
+		vim.keymap.set("n", "<leader>bb", function()
+			require("telescope.builtin").git_bcommits()
+		end, { desc = "Telescope [Bb]uffer Commits, not a great mnemonic" })
 
 		vim.keymap.set("n", "<leader>gw", function()
 			require("telescope").extensions.git_worktree.git_worktrees()
