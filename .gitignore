@@ -12,3 +12,4 @@ bin/.local/bin/create-jira-tickets.bash
 bin/.local/bin/jira-refresh.bash
 bin/.local/bin/port-scanner.bash
 bin/.local/bin/start-all-cloudsql-proxies.bash
+bin/.local/bin/cloud_sql_proxy
