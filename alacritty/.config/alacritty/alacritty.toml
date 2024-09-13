@@ -1,0 +1,85 @@
+window.opacity = 0.99
+colors.draw_bold_text_with_bright_colors = true
+live_config_reload = true
+
+import = [
+  "~/.config/alacritty/colorschemes/falcon.toml",
+  # "~/.config/alacritty/colorschemes/gruvbox-dark.toml",
+  # "~/.config/alacritty/colorschemes/gruvbox-light.toml",
+  # "~/.config/alacritty/colorschemes/catpuccin-latte.toml",
+  # "~/.config/alacritty/colorschemes/catpuccin-mocha.toml",
+  # "~/.config/alacritty/colorschemes/papercolor-light.toml",
+  # "~/.config/alacritty/colorschemes/tokyonight-dark.toml",
+  # "~/.config/alacritty/colorschemes/tokyonight-light.toml",
+]
+
+[font]
+size = 16
+
+[font.normal]
+family = "CaskaydiaMono Nerd Font Mono"
+style = "Regular"
+
+[font.bold]
+family = "CaskaydiaMono Nerd Font Mono"
+style = "Bold"
+
+[font.italic]
+family = "CaskaydiaMono Nerd Font Mono"
+style = "SemiLight Italic"
+
+[font.bold_italic]
+family = "CaskaydiaMono Nerd Font Mono"
+style = "Bold Italic"
+
+[font.offset]
+x = 0
+y = 0
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+
+[window.padding]
+x = 2
+y = 2
+
+[scrolling]
+history = 10_000
+multiplier = 10
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+save_to_clipboard = true
+
+[env]
+TERM = "xterm-256color"
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+
+ # make alternate file work in vim w/o having to do ctrl-shift-6
+  { key = "Key6",  mods = "Control", chars = "\u001e" },
+
+  # Tmux move to window 1-9.
+  { key = "Key1", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "1"] } },
+  { key = "Key2", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "2"] } },
+  { key = "Key3", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "3"] } },
+  { key = "Key4", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "4"] } },
+  { key = "Key5", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "5"] } },
+  { key = "Key6", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "6"] } },
+  { key = "Key7", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "7"] } },
+  { key = "Key8", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "8"] } },
+  { key = "Key9", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "9"] } },
+
+  { key = "Y", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "xgps"] } },
+  { key = "U", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "dotfiles"] } },
+  { key = "I", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "terraform-modules"] } },
+
+  { key=  "Key0", mods = "Command", command = { program=  "/opt/homebrew/bin/tmux", args = ["switch-client", "-l"] } },
+  { key = "Equals", mods = "Control", action = "IncreaseFontSize" },
+  { key =  "Minus", mods =  "Control", action =  "DecreaseFontSize" },
+]
