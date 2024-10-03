@@ -200,6 +200,11 @@ return {
 			ls.add_snippets("vue", javascript_snippets)
 			ls.add_snippets("python", python_snippets)
 
+			-- not working???
+			-- for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
+			-- 	loadfile(ft_path)
+			-- end
+
 			-- <c-k> is my expansion key
 			-- this will expand the current item or jump to the next item within the snippet.
 			vim.keymap.set({ "i", "s" }, "<c-k>", function()
@@ -236,6 +241,8 @@ return {
 			vim.cmd.source("~/.config/nvim/after/plugin/terraform-snippets.lua")
 
 			local source_external_snippets = function()
+				-- loadfile(vim.api.nvim_get_runtime_file("lua/plugins/snippets.lua", false)[1])
+				-- loadfile(vim.api.nvim_get_runtime_file("lua/plugins/work-snippets.lua", false)[1])
 				vim.cmd.source("~/.config/nvim/lua/plugins/snippets.lua")
 				vim.cmd.source("~/.config/nvim/after/plugin/work-snippets.lua")
 			end

@@ -4,6 +4,7 @@ return {
 		dependencies = {
 			"tpope/vim-fugitive",
 		},
+		event = "VeryLazy",
 		config = function()
 			local function on_master_branch()
 				local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")

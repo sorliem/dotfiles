@@ -66,6 +66,30 @@ autocmd("FileType", {
 	end,
 })
 
+-- vim.api.nvim_create_autocmd(
+-- 	{ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" },
+-- 	{ desc = "autosave", pattern = "*", command = "silent! update" }
+-- )
+
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+	desc = "resize splits if window got resized",
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd("tabdo wincmd =")
+		vim.cmd("tabnext " .. current_tab)
+	end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	callback = function()
+		vim.opt_local.relativenumber = false
+		vim.opt_local.number = false
+		vim.opt_local.scrolloff = 0
+		vim.bo.filetype = "terminal"
+	end,
+})
+
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function(ctx)
 		-- local root = vim.fs.root(ctx.buf, { ".git", "Makefile" })
@@ -130,10 +154,10 @@ vim.api.nvim_create_user_command("AutoRun", function()
 end, {})
 
 -- Highlight the trailing space with DiffDelete highight group
-vim.cmd([[
-augroup TrailingSpace
-  au!
-  au VimEnter,WinEnter * highlight link TrailingSpaces DiffDelete
-  au VimEnter,WinEnter * match TrailingSpaces /\s\+$/
-augroup END
-]])
+-- vim.cmd([[
+-- augroup TrailingSpace
+--   au!
+--   au VimEnter,WinEnter * highlight link TrailingSpaces DiffDelete
+--   au VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+-- augroup END
+-- ]])

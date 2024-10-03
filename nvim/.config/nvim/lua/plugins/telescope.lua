@@ -12,6 +12,9 @@ return {
 		local action_state = require("telescope.actions.state")
 		local action_layout = require("telescope.actions.layout")
 		local previewers = require("telescope.previewers")
+		local pickers = require("telescope.pickers")
+		local sorters = require("telescope.sorters")
+		local finders = require("telescope.finders")
 		local themes = require("telescope.themes")
 
 		local function tmux_command(command)
@@ -126,7 +129,21 @@ return {
 			},
 			pickers = {
 				git_commits = {
-					git_command = { "git", "log", "--all", "--pretty=%h %<(15,trunc) %an %s (%cr)", "--", "." },
+					git_command = {
+						"git",
+						"log",
+						"--all",
+						"--pretty=%h %<(10,trunc) %an %<(33,trunc) %s (%cr)",
+						"--",
+						".",
+					},
+					previewers = {
+						previewers.git_commit_message.new({}),
+						previewers.git_commit_diff_as_was.new({}),
+					},
+				},
+				git_bcommits = {
+					git_command = { "git", "log", "--pretty=%h %<(10,trunc) %an %<(33,trunc) %s (%cr)" },
 					previewers = {
 						previewers.git_commit_message.new({}),
 						previewers.git_commit_diff_as_was.new({}),
@@ -139,6 +156,13 @@ return {
 				},
 				colorscheme = {
 					enable_preview = false,
+				},
+				buffers = {
+					mappings = {
+						i = {
+							["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+						},
+					},
 				},
 			},
 			extensions = {
@@ -233,6 +257,10 @@ return {
 			require("telescope.builtin").keymaps({ show_plug = false })
 		end, { desc = "[K]ey [M]aps" })
 
+		vim.keymap.set("n", "z=", function()
+			require("telescope.builtin").spell_suggest()
+		end, { desc = "Spell Suggest w/ Telescope" })
+
 		vim.keymap.set("n", "<leader>fw", function()
 			require("telescope.builtin").grep_string({ additional_args = { "--hidden", "--glob", "!README.md" } })
 		end, { desc = "[F]ind [W]ord (telescope)" })
@@ -314,6 +342,33 @@ return {
 		vim.keymap.set("n", "<leader>tls", function()
 			require("telescope").extensions.luasnip.luasnip({})
 		end, { desc = "[T]elescope [L]ua[S]nip" })
+
+		vim.keymap.set("n", "<leader>tfs", function()
+			local workspace = vim.fn.system("terraform workspace show"):gsub("\n", "")
+			pickers
+				.new({
+					prompt_title = "Terraform state show",
+					results_title = string.format("Resources (%s)", workspace),
+					finder = finders.new_oneshot_job({ "terraform", "state", "list" }),
+					sorter = sorters.get_fuzzy_file(),
+					previewer = previewers.new_buffer_previewer({
+						define_preview = function(self, entry, status)
+							return require("telescope.previewers.utils").job_maker(
+								{ "terraform", "state", "show", entry.value },
+								self.state.bufnr,
+								{
+									callback = function(bufnr, content)
+										if content ~= nil then
+											require("telescope.previewers.utils").regex_highlighter(bufnr, "terraform")
+										end
+									end,
+								}
+							)
+						end,
+					}),
+				})
+				:find()
+		end, { desc = "[T]erra[f]orm State [S]how w/ Telescope" })
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",

@@ -2,6 +2,7 @@ return {
 	{
 		"jpalardy/vim-slime",
 		branch = "main",
+		event = "VeryLazy",
 		config = function()
 			if os.getenv("TMUX") then
 				local tmux = os.getenv("TMUX")

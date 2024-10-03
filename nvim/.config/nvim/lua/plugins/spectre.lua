@@ -4,6 +4,7 @@ return {
 		keys = {
 			{ "<leader>rg" },
 		},
+		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "<leader>rg", function()
 				require("spectre").open_visual({ select_word = true })

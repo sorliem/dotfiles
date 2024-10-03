@@ -1,6 +1,7 @@
 return {
 	{
 		"ThePrimeagen/git-worktree.nvim",
+		event = "VeryLazy",
 		config = function()
 			local Worktree = require("git-worktree")
 

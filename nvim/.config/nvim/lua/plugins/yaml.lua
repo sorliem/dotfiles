@@ -1,6 +1,7 @@
 return {
 	{
 		"cuducos/yaml.nvim",
+		event = "VeryLazy",
 		ft = { "yaml", "template" }, -- optional
 		config = function()
 			-- require("lualine").setup({

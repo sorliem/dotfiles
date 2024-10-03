@@ -4,7 +4,6 @@ return {
 		dependencies = {
 			{
 				"j-hui/fidget.nvim",
-				tag = "legacy",
 			},
 			"folke/neodev.nvim",
 		},
@@ -216,6 +215,7 @@ return {
 			require("lspconfig").terraformls.setup(config({
 				on_attach = on_attach,
 				cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
+				filetypes = { "terraform" },
 				flags = {
 					debounce_text_changes = 150,
 				},

@@ -17,7 +17,29 @@ map("i", ".", ".<c-g>u")
 map("i", "!", "!<c-g>u")
 map("i", "?", "?<c-g>u")
 
-map("n", "<CR>", "ciw")
+-- map("n", "<CR>", "ciw")
+
+vim.keymap.set("n", "<CR>", function()
+	---@diagnostic disable-next-line: undefined-field
+	if vim.o.buftype == "nofile" then
+		-- not perfect, but in the command window (`q:`) hitting Enter should input <CR> to run the command
+		-- don't have a better way of detecting when in a command window
+		return vim.keycode("<CR>")
+	else
+		return vim.keycode("ciw")
+	end
+end, { expr = true, desc = "Clear highlighting if showing then replace word under cursor" })
+
+-- vim.keymap.set("t", "<Esc>", function()
+-- 	vim.keycode("<C-\\><C-n>")
+-- end, { expr = true, desc = "ecape a terminal window" })
+
+vim.cmd([[ tnoremap <Esc> <C-\><C-n> ]])
+
+-- C-a goes beginning of line in command line mode
+vim.cmd([[ cnoremap <C-A> <Home> ]])
+
+map("n", "<leader>tm", "<cmd>vert term<CR>", "Open neovim terminal in a vertical split")
 
 -- for some reason on mac alt file doesn't work
 map("n", "<C-6>", "<C-^>")
@@ -140,8 +162,8 @@ vim.keymap.set("n", "dd", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		-- delete to black hole register if deleting a blank line --comment
 		return '"_dd' --comment
-	else           --comment
-		return "dd"   --comment
+	else --comment
+		return "dd" --comment
 	end
 end, { expr = true, desc = "Smart dd" })
 

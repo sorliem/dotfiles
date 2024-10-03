@@ -40,6 +40,10 @@ else
   map <C-j> <C-w>j
   map <C-k> <C-w>k
   map <C-l> <C-w>l
+  tnoremap <A-h> <C-\><C-N><C-w>h
+  tnoremap <A-j> <C-\><C-N><C-w>j
+  tnoremap <A-k> <C-\><C-N><C-w>k
+  tnoremap <A-l> <C-\><C-N><C-w>l
 endif
 ]])
 

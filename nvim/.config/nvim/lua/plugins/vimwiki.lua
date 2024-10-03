@@ -1,6 +1,7 @@
 return {
 	{
 		"vimwiki/vimwiki",
+		event = "VeryLazy",
 		keys = {
 			{ "<leader>ww" },
 		},

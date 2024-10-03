@@ -4,6 +4,7 @@ return {
 		-- cmd = {
 		-- 	"DBUI",
 		-- },
+		event = "VeryLazy",
 		dependencies = {
 			{
 				"kristijanhusak/vim-dadbod-completion",

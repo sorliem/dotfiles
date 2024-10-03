@@ -7,7 +7,7 @@ return {
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
-					underline = true,
+					underline = false,
 					bold = true,
 					italic = {
 						strings = false,
@@ -19,7 +19,7 @@ return {
 					invert_signs = true,
 					invert_tabline = false,
 					invert_intend_guides = false,
-					inverse = true,    -- invert background for search, diffs, statuslines and errors
+					inverse = true, -- invert background for search, diffs, statuslines and errors
 					contrast = "hard", -- can be "hard", "soft" or empty string
 					palette_overrides = {
 						dark0_hard = "#1d2021",
@@ -29,10 +29,10 @@ return {
 						Comment = { fg = "#8f8f8f", italic = true },
 					},
 					dim_inactive = false,
-					transparent_mode = false,
+					transparent_mode = true,
 				})
 
-				vim.cmd([[set background=light]])
+				vim.cmd([[set background=dark]])
 				vim.cmd([[colorscheme gruvbox]])
 
 				-- vim.cmd([[ hi Search guibg=peru guifg=wheat ]])
@@ -50,12 +50,12 @@ return {
 		{
 			"catppuccin/nvim",
 			name = "catppuccin",
-			cond = false,
+			cond = true,
 			config = function()
 				require("catppuccin").setup({
 					-- latte, frappe, macchiato, mocha
-					flavour = "latte",
-					transparent_mode = true,
+					flavour = "mocha",
+					transparent_mode = false,
 				})
 				vim.cmd([[set background=light]])
 				vim.cmd("colorscheme catppuccin")
@@ -82,7 +82,11 @@ return {
 			"projekt0n/github-nvim-theme",
 			cond = false,
 			config = function()
-				require("github-theme").setup({})
+				require("github-theme").setup({
+					options = {
+						transparent = false,
+					},
+				})
 
 				vim.cmd.colorscheme("github_dark")
 			end,
@@ -158,11 +162,11 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		cond = true,
+		cond = false,
 		priority = 1000,
 		config = function()
 			require("rose-pine").setup({
-				variant = "moon",      -- auto, main, moon, or dawn
+				variant = "main", -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
 				extend_background_behind_borders = true,
@@ -170,7 +174,7 @@ return {
 				enable = {
 					terminal = true,
 					legacy_highlights = false, -- Improve compatibility for previous versions of Neovim
-					migrations = true,         -- Handle deprecated options automatically
+					migrations = true, -- Handle deprecated options automatically
 				},
 
 				styles = {

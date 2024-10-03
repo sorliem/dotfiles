@@ -1,6 +1,7 @@
 return {
 	{
 		"dyng/ctrlsf.vim",
+		event = "VeryLazy",
 		config = function()
 			-- search for word under cursor with, sublime text 2 style
 			vim.keymap.set("n", "<C-F>f", "<Plug>CtrlSFPrompt")

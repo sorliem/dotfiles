@@ -1,15 +1,13 @@
 return {
 	{
 		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		event = "VeryLazy",
 		build = "cd app && yarn install",
 		init = function()
-			-- MarkdownGroup = vim.api.nvim_create_augroup("MarkdownGroup", {})
-			-- vim.api.nvim_create_autocmd("BufRead", {
-			-- 	group = MarkdownGroup,
-			-- 	pattern = { "*.md" },
-			-- 	command = "MarkdownPreview",
-			-- })
+			vim.g.mkdp_filetypes = { "markdown" }
 		end,
+		ft = { "markdown" },
 	},
 	{
 		"richardbizik/nvim-toc",
@@ -17,5 +15,5 @@ return {
 		config = function()
 			require("nvim-toc").setup({})
 		end,
-	}
+	},
 }
