@@ -6,7 +6,7 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
-		event = { "InsertEnter" },
+		-- event = { "InsertEnter" },
 		config = function()
 			vim.g.snippets = "luasnip"
 
@@ -15,29 +15,7 @@ return {
 			end
 
 			local ls = require("luasnip")
-			local s = ls.snippet
-			local snippet_from_nodes = ls.sn
-			local i = ls.insert_node
-			local t = ls.text_node
-			local d = ls.dynamic_node
-			local c = ls.choice_node
-			local fmt = require("luasnip.extras.fmt").fmt
-			local rep = require("luasnip.extras").rep
 			local types = require("luasnip.util.types")
-
-			local require_var = function(args, _)
-				local text = args[1][1] or ""
-				local split = vim.split(text, ".", { plain = true })
-
-				local options = {}
-				for len = 0, #split - 1 do
-					table.insert(options, t(table.concat(vim.list_slice(split, #split - len, #split), "_")))
-				end
-
-				return snippet_from_nodes(nil, {
-					c(1, options),
-				})
-			end
 
 			ls.config.set_config({
 				history = false,
@@ -56,154 +34,9 @@ return {
 				},
 			})
 
-			local all_snippets = {}
-
-			local javascript_snippets = {
-				s("ins", fmt("console.log('{} = ' + {}{})", { i(1, "label"), rep(1), i(0) })),
-			}
-
-			local lua_snippets = {
-				s({ trig = "for", dscr = "for loop in lua" }, {
-					t("for "),
-					i(1, "k, v"),
-					t(" in "),
-					i(2, "ipairs()"),
-					t({ " do", "  " }),
-					i(0),
-					t({ "", "" }),
-					t("end"),
-				}),
-				s(
-					"req",
-					fmt([[local {} = require("{}")]], {
-						d(2, require_var, { 1 }),
-						i(1),
-					})
-				),
-				s(
-					{ trig = "ins", desc = "inspect vim object in lua" },
-					fmt([[print("{} = " .. vim.inspect({}{}))]], {
-						i(1, "label"),
-						rep(1),
-						i(0),
-					})
-				),
-				s(
-					{ trig = "insx", desc = "inspect vim object in lua" },
-					fmt([[ngx.log(ngx.INFO, "{} = ", {}{})]], {
-						i(1, "label"),
-						rep(1),
-						i(0),
-					})
-				),
-			}
-
-			local elixir_snippets = {
-				s(
-					{ trig = "ins", dscr = "inspect term" },
-					fmt('IO.inspect({}, label: "{}{}")', { i(1, "var"), rep(1), i(0) })
-				),
-				s({ trig = "pins", dscr = "pipe into inspect" }, fmt('|> IO.inspect(label: "{}")', { i(1, "label") })),
-				s({ trig = "iop", dscr = "io puts" }, fmt('IO.puts("{}")', { i(1) })),
-				s({ trig = "mdoc", dscr = "create moduledoc" }, fmt('@moduledoc """\n{}\n"""', { i(1) })),
-				s({ trig = "fdoc", dscr = "create function doc" }, fmt('@doc """\n{}\n"""', { i(1) })),
-				s(
-					{ trig = "test", dscr = "create simple test" },
-					fmt('test "{}" do \n{}\nend', { i(1, "test_name"), i(2) })
-				),
-				s({ trig = "exu", dscr = "import ExUnit.Case" }, t("use ExUnit.Case")),
-				s(
-					{ trig = "itest", dscr = "create simple exunit test" },
-					fmt('it "{}" do \n{}\nend', { i(1, "test_name"), i(2) })
-				),
-				s({ trig = "assert", dscr = "assert var" }, fmt("assert {} == {}", { i(1, "left"), i(2, "right") })),
-				s({ trig = "assert_recv", dscr = "assert receive" }, fmt("assert_receive {}", { i(1) })),
-				s(
-					{ trig = "mod", dscr = "Define an elixir module" },
-					fmt(
-						[[
-						defmodule {} do
-						  @moduledoc """
-						  """
-
-						  {}
-						end
-						]],
-						{ i(1, "mod_name"), i(0) }
-					)
-				),
-				s(
-					{ trig = "tmodeu", dscr = "Define a test module with ExUnit.Case loaded" },
-					fmt(
-						[[
-						defmodule {}Test do
-							use ExUnit.Case
-
-							setup do
-
-							end
-
-							test "{}" do
-							end
-						end
-						]],
-						{ i(1, "mod_under_test"), i(0, "first_test_name") }
-					)
-				),
-				s(
-					{ trig = "tmodes", dscr = "Define a test module with ExSpec loaded" },
-					fmt(
-						[[
-						defmodule {}Test do
-								use ExSpec
-
-								setup do
-
-								end
-
-								it "should {}" do
-										{}
-								end
-						end
-						]],
-						{ i(1, "mod_under_test"), i(2, "first_test_name"), i(0) }
-					)
-				),
-				s("cap", t("import ExUnit.CaptureLog")),
-				s(
-					"acap",
-					fmt(
-						[[
-						assert capture_log(fn ->
-						  {}
-						end) =~ "{}"
-						]],
-						{ i(1, "assertion"), i(0, "log contents") }
-					)
-				),
-			}
-
-			local go_snippets = {
-				s("ins", fmt('fmt.Printf("{} = %v\\n", {}{})', { i(1, "str"), rep(1, "replacement"), i(0) })),
-				s({ trig = "iop", dscr = "print line" }, fmt('fmt.Println("{}")', { i(1) })),
-			}
-
-			local python_snippets = {
-				s("ins", fmt('print("{} = {{0}}".format({}{}))', { i(1, "str"), rep(1, "replacement"), i(0) })),
-			}
-
-			ls.add_snippets("all", all_snippets)
-			ls.add_snippets("lua", lua_snippets)
-			ls.add_snippets("elixir", elixir_snippets)
-			ls.add_snippets("go", go_snippets)
-			ls.add_snippets("javascript", javascript_snippets)
-			ls.add_snippets("vue", javascript_snippets)
-			ls.add_snippets("python", python_snippets)
-
-			-- not working???
-			-- for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
-			-- 	loadfile(ft_path)
-			-- end
+			for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
+				loadfile(ft_path)()
+			end
 
 			-- <c-k> is my expansion key
 			-- this will expand the current item or jump to the next item within the snippet.
@@ -238,20 +71,16 @@ return {
 			-- add terraform snippets
 			-- require("luasnip").filetype_extend("terraform", { "terraform" })
 
-			vim.cmd.source("~/.config/nvim/after/plugin/terraform-snippets.lua")
+			-- local source_external_snippets = function()
+			-- 	-- loadfile(vim.api.nvim_get_runtime_file("lua/plugins/snippets.lua", false)[1])
+			-- 	loadfile(vim.api.nvim_get_runtime_file("after/plugin/work-snippets.lua", false)[1])()
+			-- end
 
-			local source_external_snippets = function()
-				-- loadfile(vim.api.nvim_get_runtime_file("lua/plugins/snippets.lua", false)[1])
-				-- loadfile(vim.api.nvim_get_runtime_file("lua/plugins/work-snippets.lua", false)[1])
-				vim.cmd.source("~/.config/nvim/lua/plugins/snippets.lua")
-				vim.cmd.source("~/.config/nvim/after/plugin/work-snippets.lua")
-			end
-
-			vim.keymap.set("n", "<Leader>rs", function()
-				ls.cleanup()
-				source_external_snippets()
-				print("dumped and reloaded snippets")
-			end, { desc = "[R]eload [S]nippets", noremap = true, silent = true })
+			-- vim.keymap.set("n", "<Leader>rs", function()
+			-- 	ls.cleanup()
+			-- 	source_external_snippets()
+			-- 	print("dumped and reloaded snippets")
+			-- end, { desc = "[R]eload [S]nippets", noremap = true, silent = true })
 
 			-- set keybinds for both INSERT and VISUAL.
 			vim.keymap.set("i", "<C-n>", "<Plug>luasnip-next-choice")
@@ -259,7 +88,7 @@ return {
 			vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice")
 			vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice")
 
-			source_external_snippets()
+			loadfile(vim.api.nvim_get_runtime_file("after/plugin/work-snippets.lua", false)[1])()
 		end,
 	},
 }

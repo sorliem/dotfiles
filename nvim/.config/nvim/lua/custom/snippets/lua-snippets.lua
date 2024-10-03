@@ -1,15 +1,15 @@
 require("luasnip.session.snippet_collection").clear_snippets("lua")
 
-print("in lua-snippets.lua")
-
 local ls = require("luasnip")
 
 local s = ls.snippet
 local i = ls.insert_node
 local t = ls.text_node
+local d = ls.dynamic_node
 local c = ls.choice_node
 local snippet_from_nodes = ls.sn
 local fmt = require("luasnip.extras.fmt").fmt
+local rep = require("luasnip.extras").rep
 
 local require_var = function(args, _)
 	local text = args[1][1] or ""
