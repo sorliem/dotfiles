@@ -71,6 +71,7 @@ return {
 					search_engine = "https://www.startpage.com/do/dsearch?q=", -- or you can pass in a custom search engine
 					select_for_search = false,                                 -- if your cursor is e.g. on a link, the pattern for the link AND for the word will always match. This disables this behaviour for default so that the link is opened without the select option for the word AND link
 					git_remotes = { "upstream", "origin" },                    -- list of git remotes to search for git issue linking, in priority
+					git_remote_push = false,                                   -- use the push url for git issue linking,
 				},
 			})
 		end,

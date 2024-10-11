@@ -22,9 +22,6 @@ return {
 			)
 
 			vim.keymap.set("n", "<leader>gho", function()
-				-- local url = vim.fn.system([[git remote get-url origin | sed -e 's|git@\(.*\):|https://\1/|' -e 's|\.git$||']])
-				-- local url2 = url:gsub("\n$", "")
-				-- vim.ui.open(url2)
 				vim.cmd("GBrowse")
 			end, { desc = "[G]it[h]ub [O]pen repo website" })
 
@@ -39,7 +36,6 @@ return {
 					end
 
 					local bufnr = vim.api.nvim_get_current_buf()
-					local opts = { buffer = bufnr, remap = false }
 
 					vim.keymap.set("n", "<leader>pu", function()
 						vim.cmd.Git("push")

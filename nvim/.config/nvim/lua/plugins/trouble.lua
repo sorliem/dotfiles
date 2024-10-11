@@ -1,6 +1,6 @@
 return {
 	"folke/trouble.nvim",
-	cond = false,
+	cond = true,
 	dependencies = {
 		"kyazdani42/nvim-web-devicons",
 	},

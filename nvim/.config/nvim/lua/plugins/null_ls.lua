@@ -8,9 +8,9 @@ return {
 		null_ls.setup({
 			debug = true,
 			sources = {
-				-- null_ls.builtins.diagnostics.vale.with({
-				-- 	filetypes = { "markdown", "graphql", "text" },
-				-- }),
+				null_ls.builtins.diagnostics.vale.with({
+					filetypes = { "markdown", "graphql", "text" },
+				}),
 				null_ls.builtins.formatting.goimports,
 				null_ls.builtins.formatting.gofmt,
 				null_ls.builtins.formatting.stylua,
@@ -22,7 +22,7 @@ return {
 				-- }),
 				-- null_ls.builtins.diagnostics.yamlfmt,
 			},
-			should_attach = function(bufnr)
+			should_attach = function( --[[bufnr]])
 				-- local bufname = vim.api.nvim_buf_get_name(bufnr)
 				-- TODO: add check to make sure buffer size < 100k, to prevent vale from attaching from giant files
 

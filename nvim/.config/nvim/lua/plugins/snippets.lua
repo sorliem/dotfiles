@@ -8,18 +8,47 @@ return {
 		},
 		-- event = { "InsertEnter" },
 		config = function()
-			vim.g.snippets = "luasnip"
+			-- vim.g.snippets = "luasnip"
+			--
+			-- if vim.g.snippets ~= "luasnip" then
+			-- 	return
+			-- end
 
-			if vim.g.snippets ~= "luasnip" then
-				return
-			end
+			vim.opt.shortmess:append("c") -- see :h shm-c
 
 			local ls = require("luasnip")
 			local types = require("luasnip.util.types")
 
-			ls.config.set_config({
-				history = false,
-				updateevents = "TextChanged,TextChangedI",
+			vim.snippet.expand = ls.lsp_expand
+
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.snippet.active = function(filter)
+				filter = filter or {}
+				filter.direction = filter.direction or 1
+
+				if filter.direction == 1 then
+					return ls.expand_or_jumpable()
+				else
+					return ls.jumpable(filter.direction)
+				end
+			end
+
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.snippet.jump = function(direction)
+				if direction == 1 then
+					if ls.expandable() then
+						return ls.expand_or_jump()
+					else
+						return ls.jumpable(1) and ls.jump(1)
+					end
+				else
+					return ls.jumpable(-1) and ls.jump(-1)
+				end
+			end
+
+			ls.setup({
+				-- history = false,
+				update_events = "TextChanged,TextChangedI",
 				enable_autosnippets = true,
 				ext_opts = {
 					[types.choiceNode] = {
@@ -41,26 +70,25 @@ return {
 			-- <c-k> is my expansion key
 			-- this will expand the current item or jump to the next item within the snippet.
 			vim.keymap.set({ "i", "s" }, "<c-k>", function()
-				if ls.expand_or_jumpable() then
-					ls.expand_or_jump()
-				end
+				return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
+				-- if ls.expand_or_jumpable() then
+				-- 	ls.expand_or_jump()
+				-- end
 			end, { silent = true })
 
 			-- <c-j> is my jump backwards key
 			-- this always moves to the previous item within the snippet
 			vim.keymap.set({ "i", "s" }, "<c-j>", function()
-				if ls.jumpable(-1) then
-					ls.jump(-1)
-				end
+				return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
 			end, { silent = true })
 
 			-- <c-l> is selecting within a list of options.
 			-- This is useful for choice nodes
-			vim.keymap.set("i", "<c-j>", function()
-				if ls.choice_active() then
-					ls.change_choice()
-				end
-			end)
+			-- vim.keymap.set("i", "<c-j>", function()
+			-- 	if ls.choice_active() then
+			-- 		ls.change_choice()
+			-- 	end
+			-- end)
 
 			-- require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -88,6 +116,7 @@ return {
 			vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice")
 			vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice")
 
+			-- ~/.config/nvim/after/plugin/work-snippets.lua
 			loadfile(vim.api.nvim_get_runtime_file("after/plugin/work-snippets.lua", false)[1])()
 		end,
 	},

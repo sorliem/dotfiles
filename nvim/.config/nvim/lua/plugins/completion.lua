@@ -24,8 +24,10 @@ return {
 				mapping = {
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-n>"] = cmp.mapping.select_next_item(),
-					["<C-p>"] = cmp.mapping.select_prev_item(),
+					["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+					-- ["<C-n>"] = cmp.mapping.select_next_item(),
+					-- ["<C-p>"] = cmp.mapping.select_prev_item(),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.close(),
 					["<C-y>"] = cmp.mapping(
@@ -47,7 +49,7 @@ return {
 						maxwidth = function()
 							return math.floor(0.45 * vim.o.columns)
 						end,
-						ellipsis_char = "...",    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 						with_text = true,
 						menu = {
@@ -66,7 +68,7 @@ return {
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip",                max_item_count = 10 },
+					{ name = "luasnip", max_item_count = 10 },
 					{
 						name = "buffer",
 						keyword_length = 2,
@@ -81,6 +83,7 @@ return {
 					{ name = "path" },
 				},
 				sorting = {
+					priority_weight = 1,
 					comparators = {
 						function(...)
 							-- sort completion results based on the distance of the word from the cursor line

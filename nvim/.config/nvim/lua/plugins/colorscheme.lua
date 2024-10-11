@@ -162,7 +162,7 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		cond = false,
+		cond = true,
 		priority = 1000,
 		config = function()
 			require("rose-pine").setup({

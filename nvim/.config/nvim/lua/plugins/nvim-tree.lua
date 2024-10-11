@@ -5,6 +5,7 @@ return {
 			{ "<leader>nt" },
 			{ "<leader>nf" },
 		},
+		cond = false,
 		config = function()
 			require("nvim-tree").setup({
 				on_attach = function(bufnr)

@@ -6,6 +6,7 @@ return {
 				"j-hui/fidget.nvim",
 			},
 			"folke/neodev.nvim",
+			"folke/lsp-colors.nvim",
 		},
 		config = function()
 			-- Use internal formatting for bindings like gq.
@@ -39,7 +40,7 @@ return {
 				end
 
 				-- Enable completion triggered by <c-x><c-o>
-				vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
 				map("n", "gD", function()
 					vim.lsp.buf.declaration()
@@ -114,46 +115,9 @@ return {
 				end, "Signature help")
 			end
 
-			local sumneko_binary_path = vim.fn.exepath("lua-language-server")
-			local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ":h:h:h")
-
 			local runtime_path = vim.split(package.path, ";")
 			table.insert(runtime_path, "lua/?.lua")
 			table.insert(runtime_path, "lua/?/init.lua")
-
-			-- print("sumneko_root_path = " .. vim.inspect(sumneko_root_path))
-			-- print("sumneko_binary_path = " .. vim.inspect(sumneko_binary_path))
-			-- print("runtime_path = " .. vim.inspect(runtime_path))
-
-			-- require("lspconfig").lua_ls.setup(config({
-			-- 	cmd = { sumneko_binary_path, "-E", sumneko_root_path },
-			-- 	on_attach = on_attach,
-			-- 	flags = {
-			-- 		debounce_text_changes = 150,
-			-- 	},
-			-- 	settings = {
-			-- 		Lua = {
-			-- 			runtime = {
-			-- 				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-			-- 				version = "LuaJIT",
-			-- 				-- Setup your lua path
-			-- 				path = runtime_path,
-			-- 			},
-			-- 			diagnostics = {
-			-- 				-- Get the language server to recognize the `vim` global
-			-- 				globals = { "vim" },
-			-- 			},
-			-- 			workspace = {
-			-- 				-- Make the server aware of Neovim runtime files
-			-- 				library = vim.api.nvim_get_runtime_file("", true),
-			-- 			},
-			-- 			-- Do not send telemetry data containing a randomized but unique identifier
-			-- 			telemetry = {
-			-- 				enable = false,
-			-- 			},
-			-- 		},
-			-- 	},
-			-- }))
 
 			require("lspconfig").lua_ls.setup(config({
 				on_attach = on_attach,
@@ -274,12 +238,10 @@ return {
 			}))
 
 			require("fidget").setup({
-				text = {
-					spinner = "dots",
-				},
-				window = {
-					relative = "win",
-					blend = 0,
+				progress = {
+					display = {
+						progress_icon = "dots",
+					},
 				},
 			})
 		end,

@@ -52,7 +52,7 @@ ls.add_snippets("lua", {
 		})
 	),
 	s(
-		{ trig = "insx", desc = "inspect vim object in lua" },
+		{ trig = "insx", desc = "inspect nginx variable" },
 		fmt([[ngx.log(ngx.INFO, "{} = ", {}{})]], {
 			i(1, "label"),
 			rep(1),

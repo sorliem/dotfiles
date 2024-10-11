@@ -1,17 +1,15 @@
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-MilesDevGroup = augroup("Miles", {})
-YankGroup = augroup("YankGroup", {})
-WhiteSpaceGroup = augroup("WhiteSpaceGroup", {})
-PackerGroup = augroup("PackerGroup", {})
+WhiteSpaceGroupilesDevGroup = vim.api.nvim_create_augroup("Miles", {})
+YankGroup = vim.api.nvim_create_augroup("YankGroup", {})
+WhiteSpaceGroup = vim.api.nvim_create_augroup("WhiteSpaceGroup", {})
+PackerGroup = vim.api.nvim_create_augroup("PackerGroup", {})
 
--- autocmd("BufWritePre", {
+-- vim.api.nvim_create_autocmd("BufWritePre", {
 -- 	group = WhiteSpaceGroup,
 -- 	pattern = "*",
 -- 	command = "%s/\\s\\+$//e",
 -- })
 
--- autocmd("WinLeave", {
+-- vim.api.nvim_create_autocmd("WinLeave", {
 -- 	pattern = "*",
 -- 	callback = function()
 -- 		vim.opt.cursorline = false
@@ -19,7 +17,7 @@ PackerGroup = augroup("PackerGroup", {})
 -- 	end,
 -- })
 
--- autocmd("WinEnter", {
+-- vim.api.nvim_create_autocmd("WinEnter", {
 -- 	pattern = "*",
 -- 	callback = function()
 -- 		vim.opt.cursorline = true
@@ -28,7 +26,7 @@ PackerGroup = augroup("PackerGroup", {})
 -- })
 --
 
-autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd("TextYankPost", {
 	group = YankGroup,
 	pattern = "*",
 	callback = function()
@@ -36,19 +34,19 @@ autocmd("TextYankPost", {
 	end,
 })
 
-autocmd({ "BufNewFile", "BufRead" }, {
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = MilesDevGroup,
 	pattern = { "*.ex", ".exs" },
 	command = "set syntax=elixir",
 })
 
-autocmd({ "BufNewFile", "BufRead" }, {
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = MilesDevGroup,
 	pattern = "*.eex",
 	command = "set syntax=eelixir",
 })
 
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
 	group = MilesDevGroup,
 	pattern = { "gitcommit", "markdown" },
 	callback = function()
@@ -57,13 +55,24 @@ autocmd("FileType", {
 	end,
 })
 
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
 	group = MilesDevGroup,
 	pattern = { "vimwiki" },
 	callback = function()
 		vim.opt_local.spell = true
 		-- vim.opt.listchars:remove('eol')
 	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.yaml.tmpl",
+	command = "set filetype=yaml",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	group = MilesDevGroup,
+	pattern = "*.md",
+	command = "set filetype=markdown",
 })
 
 -- vim.api.nvim_create_autocmd(

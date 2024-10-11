@@ -20,21 +20,12 @@ return {
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end, { desc = "[H]arpoon [E]dit list" })
 
-			vim.keymap.set("n", "<leader>1", function()
-				harpoon:list():select(1)
-			end, { desc = "Harpoon file 1" })
-			vim.keymap.set("n", "<leader>2", function()
-				harpoon:list():select(2)
-			end, { desc = "Harpoon file 2" })
-			vim.keymap.set("n", "<leader>3", function()
-				harpoon:list():select(3)
-			end, { desc = "Harpoon file 3" })
-			vim.keymap.set("n", "<leader>4", function()
-				harpoon:list():select(4)
-			end, { desc = "Harpoon file 4" })
-			vim.keymap.set("n", "<leader>5", function()
-				harpoon:list():select(5)
-			end, { desc = "Harpoon file 5" })
+			-- Set <leader>1..<leader>5 be my shortcuts to moving to the files
+			for _, idx in ipairs({ 1, 2, 3, 4, 5 }) do
+				vim.keymap.set("n", string.format("<leader>%d", idx), function()
+					harpoon:list():select(idx)
+				end, { desc = string.format("Harpoon file %d", idx) })
+			end
 
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = "harpoon",

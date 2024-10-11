@@ -50,6 +50,7 @@ end
 _M.jira_tickets = function(opts)
 	-- cron task outputs to tmp file
 	local file = io.open("/tmp/jira-issues.txt", "r")
+
 	if not file then
 		print("FILE NOT FOUND: /tmp/jira-issues.txt")
 	end
@@ -75,37 +76,37 @@ _M.jira_tickets = function(opts)
 
 	opts = opts or themes.get_dropdown({}) -- fix!!
 	pickers
-		.new(opts, {
-			prompt_title = "Miles' OnX Jira",
-			finder = finders.new_table({
-				results = results_out,
-				entry_maker = function(entry)
-					return {
-						value = "JIRA https://onxmaps.atlassian.net/browse/" .. entry[1],
-						display = entry[1] .. "[" .. entry[2] .. "]: " .. entry[3],
-						ordinal = entry[1] .. " - " .. entry[2] .. " " .. entry[3],
-						ticket_num = entry[1],
-					}
-				end,
-			}),
-			sorter = conf.generic_sorter(opts),
-			attach_mappings = function(prompt_bufnr, map)
-				map("i", "<C-y>", function(prompt_bufnr2)
-					actions.close(prompt_bufnr2)
-					local selection = action_state.get_selected_entry()
-					print("selection = ", vim.inspect(selection))
-					vim.api.nvim_put({ selection.ticket_num }, "", false, true)
-				end)
+					.new(opts, {
+						prompt_title = "Miles' OnX Jira",
+						finder = finders.new_table({
+							results = results_out,
+							entry_maker = function(entry)
+								return {
+									value = "JIRA https://onxmaps.atlassian.net/browse/" .. entry[1],
+									display = entry[1] .. "[" .. entry[2] .. "]: " .. entry[3],
+									ordinal = entry[1] .. " - " .. entry[2] .. " " .. entry[3],
+									ticket_num = entry[1],
+								}
+							end,
+						}),
+						sorter = conf.generic_sorter(opts),
+						attach_mappings = function(prompt_bufnr, map)
+							map("i", "<C-y>", function(prompt_bufnr2)
+								actions.close(prompt_bufnr2)
+								local selection = action_state.get_selected_entry()
+								print("selection = ", vim.inspect(selection))
+								vim.api.nvim_put({ selection.ticket_num }, "", false, true)
+							end)
 
-				actions.select_default:replace(function()
-					actions.close(prompt_bufnr)
-					local selection = action_state.get_selected_entry()
-					vim.api.nvim_put({ selection.value }, "", false, true)
-				end)
-				return true
-			end,
-		})
-		:find()
+							actions.select_default:replace(function()
+								actions.close(prompt_bufnr)
+								local selection = action_state.get_selected_entry()
+								vim.api.nvim_put({ selection.value }, "", false, true)
+							end)
+							return true
+						end,
+					})
+					:find()
 end
 
 _M.github_pull_requests = function(opts)
@@ -137,28 +138,29 @@ _M.github_pull_requests = function(opts)
 
 	opts = opts or themes.get_dropdown({}) -- fix!!
 	pickers
-		.new(opts, {
-			prompt_title = "Miles' Recent PRs",
-			finder = finders.new_table({
-				results = results_out,
-				entry_maker = function(entry)
-					return {
-						value = "https://github.com/" .. entry[4] .. "/pull/" .. entry[1],
-						display = "PR " .. entry[1] .. " - " .. entry[2] .. "[" .. entry[5] .. "] - " .. entry[3],
-						ordinal = entry[4] .. " - " .. entry[2] .. " " .. entry[3],
-					}
-				end,
-			}),
-			sorter = conf.generic_sorter(opts),
-			attach_mappings = function(prompt_bufnr, map)
-				actions.select_default:replace(function()
-					actions.close(prompt_bufnr)
-					local selection = action_state.get_selected_entry()
-					vim.api.nvim_put({ selection.value }, "", false, true)
-				end)
-				return true
-			end,
-		})
-		:find()
+					.new(opts, {
+						prompt_title = "Miles' Recent PRs",
+						finder = finders.new_table({
+							results = results_out,
+							entry_maker = function(entry)
+								return {
+									value = "https://github.com/" .. entry[4] .. "/pull/" .. entry[1],
+									display = "PR " .. entry[1] .. " - " .. entry[2] .. "[" .. entry[5] .. "] - " .. entry[3],
+									ordinal = entry[4] .. " - " .. entry[2] .. " " .. entry[3],
+								}
+							end,
+						}),
+						sorter = conf.generic_sorter(opts),
+						attach_mappings = function(prompt_bufnr, map)
+							actions.select_default:replace(function()
+								actions.close(prompt_bufnr)
+								local selection = action_state.get_selected_entry()
+								vim.api.nvim_put({ selection.value }, "", false, true)
+							end)
+							return true
+						end,
+					})
+					:find()
 end
+
 return _M
