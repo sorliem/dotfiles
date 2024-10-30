@@ -40,10 +40,11 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				},
 				window = {
-					-- completion = cmp.config.window.bordered(),
-					-- documentation = cmp.config.window.bordered(),
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
 				},
 				formatting = {
+					expandable_indicator = true,
 					format = require("lspkind").cmp_format({
 						mode = "symbol_text",
 						maxwidth = function()
@@ -55,7 +56,7 @@ return {
 						menu = {
 							buffer = "[buf]",
 							nvim_lsp = "[LSP]",
-							nvim_lua = "[api]",
+							nvim_lua = "[lua]",
 							luasnip = "[snip]",
 							cmp_tabnine = "[TN]",
 							path = "[path]",

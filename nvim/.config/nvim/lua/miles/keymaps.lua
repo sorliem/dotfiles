@@ -8,9 +8,6 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search on <Esc> in normal mode")
 map("n", ";", ":")
 map("n", ":", ";")
 
--- make Y behave like other captial letters
-map("n", "Y", "y$", "Yank to end of line")
-
 -- better undo break points
 map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
@@ -161,14 +158,15 @@ end, "[T]erraform [D]efinition")
 vim.keymap.set("n", "dd", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
 		-- delete to black hole register if deleting a blank line --comment
-		return '"_dd' --comment
-	else --comment
-		return "dd" --comment
+		return '"_dd'
+	else
+		return "dd"
 	end
 end, { expr = true, desc = "Smart dd" })
 
-map("x", ".", "<cmd>norm .<CR>", "Repeat last action on visually selected line")
-map("x", "@", "<cmd>norm @q<CR>", "Repeat @q macro on visually selected lines")
+-- COMMENTED OUT - part of default neovim
+-- map("x", ".", "<cmd>norm .<CR>", "Repeat last action on visually selected line")
+-- map("x", "@", "<cmd>norm @q<CR>", "Repeat @q macro on visually selected lines")
 
 -- run formatting
 -- map("n", "<Leader>rf", ":call RunFormatter()<CR>", "[R]un [F]ormatter")

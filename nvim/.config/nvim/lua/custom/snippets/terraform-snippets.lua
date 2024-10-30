@@ -21,7 +21,7 @@ ls.add_snippets("terraform", {
 		)
 	),
 	s(
-		"td",
+		{ trig = "td", dscr = "[t]erraform [d]oc" },
 		fmt(
 			[[
 #####

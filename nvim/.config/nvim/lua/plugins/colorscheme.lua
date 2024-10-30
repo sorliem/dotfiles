@@ -3,6 +3,7 @@ return {
 		{
 			"ellisonleao/gruvbox.nvim",
 			priority = 1000,
+			lazy = false,
 			cond = false,
 			config = function()
 				require("gruvbox").setup({
@@ -29,7 +30,7 @@ return {
 						Comment = { fg = "#8f8f8f", italic = true },
 					},
 					dim_inactive = false,
-					transparent_mode = true,
+					transparent_mode = false,
 				})
 
 				vim.cmd([[set background=dark]])
@@ -39,22 +40,15 @@ return {
 			end,
 		},
 		{
-			"briones-gabriel/darcula-solid.nvim",
-			dependencies = { "rktjmp/lush.nvim" },
-			cond = false,
-			config = function()
-				vim.cmd("colorscheme darcula-solid")
-				vim.cmd("set termguicolors")
-			end,
-		},
-		{
 			"catppuccin/nvim",
 			name = "catppuccin",
-			cond = true,
+			priority = 1000,
+			lazy = false,
+			cond = false,
 			config = function()
 				require("catppuccin").setup({
 					-- latte, frappe, macchiato, mocha
-					flavour = "mocha",
+					flavour = "frappe",
 					transparent_mode = false,
 				})
 				vim.cmd([[set background=light]])
@@ -63,24 +57,33 @@ return {
 			end,
 		},
 		{
-			"EdenEast/nightfox.nvim",
+			"rebelot/kanagawa.nvim",
+			priority = 1000,
+			lazy = false,
 			cond = false,
 			config = function()
-				-- vim.cmd("colorscheme nightfox")
-				vim.cmd([[set background=light]])
-				vim.cmd("colorscheme dayfox")
+				require("kanagawa").setup({
+					theme = "wavelotus",
+				})
+				vim.cmd("colorscheme kanagawa")
 			end,
 		},
 		{
-			"yeddaif/neovim-purple",
+			"EdenEast/nightfox.nvim",
+			priority = 1000,
+			lazy = false,
 			cond = false,
 			config = function()
-				vim.cmd([[colorscheme neovim_purple]])
+				-- vim.cmd("colorscheme nightfox")
+				vim.cmd([[set background=dark]])
+				vim.cmd("colorscheme nightfox")
 			end,
 		},
 		{
 			"projekt0n/github-nvim-theme",
-			cond = false,
+			priority = 1000,
+			lazy = false,
+			cond = true,
 			config = function()
 				require("github-theme").setup({
 					options = {
@@ -92,22 +95,9 @@ return {
 			end,
 		},
 		{
-			"drewtempelmeyer/palenight.vim",
-			cond = false,
-			config = function()
-				vim.cmd([[
-				if (has("nvim"))
-					"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-					let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-				endif
-				]])
-
-				vim.cmd([[set background=dark]])
-				vim.cmd([[colorscheme palenight]])
-			end,
-		},
-		{
 			"fenetikm/falcon",
+			priority = 1000,
+			lazy = false,
 			cond = false,
 			config = function()
 				vim.g.falcon_background = true
@@ -116,38 +106,19 @@ return {
 			end,
 		},
 		{
-			"NLKNguyen/papercolor-theme",
-			cond = false,
-			config = function()
-				vim.cmd([[set background=dark]])
-				vim.cmd([[colorscheme PaperColor]])
-			end,
-		},
-		{
-			"ishan9299/nvim-solarized-lua",
-			cond = false,
-			config = function()
-				-- vim.g.solarized_termcolors = 256
-				-- vim.cmd([[set background=dark]])
-				-- vim.cmd([[colorscheme solarized]])
-
-				-- vim.g.solarized_termcolors = 256
-				vim.cmd([[set background=dark]])
-				vim.cmd([[colorscheme solarized]])
-			end,
-		},
-		{
 			"folke/tokyonight.nvim",
+			priority = 1000,
+			lazy = false,
 			cond = false,
 			config = function()
-				vim.opt.background = "light"
+				vim.opt.background = "dark"
 				-- vim.g.tokyonight_italic_functions = 1
 				-- vim.g.tokyonight_italic_comments = 1
 				-- vim.g.tokyonight_style = "moon"
 				-- vim.g.tokyonight_transparent = true
 				require("tokyonight").setup({
 					-- styles: moon, night, storm, day
-					style = "day",
+					style = "moon",
 					lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
 					sidebars = { "qf", "fugitive" },
 					on_colors = function(colors)
@@ -161,12 +132,13 @@ return {
 	},
 	{
 		"rose-pine/neovim",
-		name = "rose-pine",
-		cond = true,
 		priority = 1000,
+		lazy = false,
+		name = "rose-pine",
+		cond = false,
 		config = function()
 			require("rose-pine").setup({
-				variant = "main", -- auto, main, moon, or dawn
+				variant = "moon", -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
 				extend_background_behind_borders = true,
@@ -180,7 +152,7 @@ return {
 				styles = {
 					bold = true,
 					italic = true,
-					transparency = true,
+					transparency = false,
 				},
 
 				groups = {
@@ -218,18 +190,6 @@ return {
 					Comment = { fg = "muted" },
 					VertSplit = { fg = "muted", bg = "muted" },
 				},
-
-				before_highlight = function(group, highlight, palette)
-					-- Disable all undercurls
-					-- if highlight.undercurl then
-					--     highlight.undercurl = false
-					-- end
-					--
-					-- Change palette colour
-					-- if highlight.fg == palette.pine then
-					--     highlight.fg = palette.foam
-					-- end
-				end,
 			})
 
 			vim.cmd("colorscheme rose-pine")
@@ -240,6 +200,8 @@ return {
 	},
 	{
 		"maxmx03/fluoromachine.nvim",
+		priority = 1000,
+		lazy = false,
 		cond = false,
 		config = function()
 			local fm = require("fluoromachine")
@@ -251,38 +213,6 @@ return {
 			})
 
 			vim.cmd.colorscheme("fluoromachine")
-		end,
-	},
-	{
-		"diegoulloao/neofusion.nvim",
-		priority = 1000,
-		cond = false,
-		config = function()
-			require("neofusion").setup({
-				terminal_colors = true, -- add neovim terminal colors
-				undercurl = true,
-				underline = true,
-				bold = true,
-				italic = {
-					strings = true,
-					emphasis = true,
-					comments = true,
-					operators = false,
-					folds = true,
-				},
-				strikethrough = true,
-				invert_selection = false,
-				invert_signs = false,
-				invert_tabline = false,
-				invert_intend_guides = false,
-				inverse = true, -- invert background for search, diffs, statuslines and errors
-				palette_overrides = {},
-				overrides = {},
-				dim_inactive = false,
-				transparent_mode = false,
-			})
-
-			vim.cmd([[ colorscheme neofusion ]])
 		end,
 	},
 }

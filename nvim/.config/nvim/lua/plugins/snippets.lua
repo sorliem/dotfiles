@@ -4,16 +4,9 @@ return {
 		dependencies = {
 			"hrsh7th/nvim-cmp",
 			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
+			-- "rafamadriz/friendly-snippets",
 		},
-		-- event = { "InsertEnter" },
 		config = function()
-			-- vim.g.snippets = "luasnip"
-			--
-			-- if vim.g.snippets ~= "luasnip" then
-			-- 	return
-			-- end
-
 			vim.opt.shortmess:append("c") -- see :h shm-c
 
 			local ls = require("luasnip")
@@ -82,33 +75,11 @@ return {
 				return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
 			end, { silent = true })
 
-			-- <c-l> is selecting within a list of options.
-			-- This is useful for choice nodes
-			-- vim.keymap.set("i", "<c-j>", function()
-			-- 	if ls.choice_active() then
-			-- 		ls.change_choice()
-			-- 	end
-			-- end)
-
 			-- require("luasnip.loaders.from_vscode").lazy_load()
 
-			-- add html snips to elixir templates
+			-- extend snippet filetypes
 			require("luasnip").filetype_extend("eelixir", { "html" })
 			require("luasnip").filetype_extend("nginx", { "lua" })
-
-			-- add terraform snippets
-			-- require("luasnip").filetype_extend("terraform", { "terraform" })
-
-			-- local source_external_snippets = function()
-			-- 	-- loadfile(vim.api.nvim_get_runtime_file("lua/plugins/snippets.lua", false)[1])
-			-- 	loadfile(vim.api.nvim_get_runtime_file("after/plugin/work-snippets.lua", false)[1])()
-			-- end
-
-			-- vim.keymap.set("n", "<Leader>rs", function()
-			-- 	ls.cleanup()
-			-- 	source_external_snippets()
-			-- 	print("dumped and reloaded snippets")
-			-- end, { desc = "[R]eload [S]nippets", noremap = true, silent = true })
 
 			-- set keybinds for both INSERT and VISUAL.
 			vim.keymap.set("i", "<C-n>", "<Plug>luasnip-next-choice")
@@ -116,7 +87,7 @@ return {
 			vim.keymap.set("i", "<C-p>", "<Plug>luasnip-prev-choice")
 			vim.keymap.set("s", "<C-p>", "<Plug>luasnip-prev-choice")
 
-			-- ~/.config/nvim/after/plugin/work-snippets.lua
+			-- Ignored file: ~/.config/nvim/after/plugin/work-snippets.lua
 			loadfile(vim.api.nvim_get_runtime_file("after/plugin/work-snippets.lua", false)[1])()
 		end,
 	},

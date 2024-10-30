@@ -18,15 +18,16 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
+					"diff",
 					"elixir",
+					"git_rebase",
+					"gitcommit",
 					"go",
 					"lua",
+					"query",
 					"rust",
-					"vimdoc",
 					"terraform",
-					"gitcommit",
-					"diff",
-					"git_rebase",
+					"vimdoc",
 				},
 				auto_install = true,
 				indent = { enable = true },
@@ -40,6 +41,11 @@ return {
 							return true
 						end
 					end,
+				},
+				query_linter = {
+					enable = true,
+					use_virtual_text = true,
+					lint_events = { "BufWrite", "CursorHold" },
 				},
 				incremental_selection = {
 					enable = true,
@@ -76,7 +82,7 @@ return {
 				playground = {
 					enable = true,
 					disable = {},
-					updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+					updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
 					persist_queries = false, -- Whether the query persists across vim sessions
 					keybindings = {
 						toggle_query_editor = "o",

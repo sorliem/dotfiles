@@ -116,6 +116,7 @@ alias kctl="kubectl"
 alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=/+' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
 # alias kubetail="kubectl logs -f"
 alias kconfigyaml="kubectl get configmaps | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get configmap {} -o yaml"
+alias ksecretyaml="kubectl get secrets | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get secrets {} -o yaml"
 alias kevents="kubectl get events --sort-by=.metadata.creationTimestamp"
 alias ksniff="kubectl sniff -n default"
 
@@ -229,6 +230,7 @@ function tfapplyall () {
     ((index++))
   done
 }
+
 
 export CLOUDSDK_PYTHON=$(which python3.11)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True

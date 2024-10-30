@@ -1,4 +1,4 @@
--- see other files in this dir for plugin setups with larger configs
+-- see other fles in this dir for plugin setups with larger configs
 return {
 	"christoomey/vim-tmux-navigator",
 
@@ -15,13 +15,6 @@ return {
 	{ "chr4/nginx.vim",           ft = "template" },
 	{ "lepture/vim-jinja",        ft = "template" },
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
-	{
-		"numToStr/Comment.nvim",
-		event = { "BufRead" },
-		config = function()
-			require("Comment").setup()
-		end,
-	},
 	{
 		"nvim-lua/popup.nvim",
 		dependencies = {
