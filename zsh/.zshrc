@@ -114,6 +114,7 @@ alias tfwl="terraform workspace list"
 #################################
 alias kctl="kubectl"
 alias curlbox="kubectl run --rm msorlie-tmp-curl-$(head -c 5 /dev/urandom | base64 | tr -d '=/+' | tr '[:upper:]' '[:lower:]') --image=curlimages/curl -i --tty -- sh"
+alias redisbox="kubectl run --rm msorlie-tmp-redis --image=redis:7 -i --tty -- /bin/bash"
 # alias kubetail="kubectl logs -f"
 alias kconfigyaml="kubectl get configmaps | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get configmap {} -o yaml"
 alias ksecretyaml="kubectl get secrets | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get secrets {} -o yaml"
@@ -275,6 +276,7 @@ export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
 export CLOUDSDK_PYTHON="/usr/bin/python3"
 export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
+export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=$(brew --prefix openssl)"
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh

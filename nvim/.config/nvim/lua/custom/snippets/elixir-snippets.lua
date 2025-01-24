@@ -34,6 +34,17 @@ ls.add_snippets("elixir", {
 		)
 	),
 	s(
+		{ trig = "def", dscr = "Define an elixir functio" },
+		fmt(
+			[[
+						def {}({}) do
+						  {}
+						end
+						]],
+			{ i(1, "func_name"), i(2, "arg"), i(0) }
+		)
+	),
+	s(
 		{ trig = "tmodeu", dscr = "Define a test module with ExUnit.Case loaded" },
 		fmt(
 			[[

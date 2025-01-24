@@ -6,8 +6,8 @@ return {
 			vim.keymap.set(
 				"n",
 				"<leader>dfh",
-				":DiffviewFileHistory<CR>",
-				{ desc = "[D]iffview [F]ile [H]istory (diffview.nvim)" }
+				":DiffviewFileHistory %<CR>",
+				{ desc = "[D]iffview [F]ile [H]istory of current file (diffview.nvim)" }
 			)
 
 			vim.keymap.set(

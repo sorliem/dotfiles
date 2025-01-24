@@ -9,7 +9,7 @@ return {
 				columns = { "icon" },
 				keymaps = {
 					["<C-h>"] = false,
-					["<C-p>"] = false, -- disable preview
+					-- ["<C-p>"] = false, -- disable preview
 				},
 				view_options = {
 					show_hidden = true,

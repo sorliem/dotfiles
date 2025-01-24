@@ -10,6 +10,7 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-emoji",
+			"petertriho/cmp-git",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -40,8 +41,8 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				},
 				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+					-- completion = cmp.config.window.bordered(),
+					-- documentation = cmp.config.window.bordered(),
 				},
 				formatting = {
 					expandable_indicator = true,
@@ -50,7 +51,7 @@ return {
 						maxwidth = function()
 							return math.floor(0.45 * vim.o.columns)
 						end,
-						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+						ellipsis_char = "...",    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 						with_text = true,
 						menu = {
@@ -66,13 +67,14 @@ return {
 				},
 
 				sources = {
+					{ name = "git" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip", max_item_count = 10 },
+					{ name = "luasnip",                max_item_count = 10 },
 					{
 						name = "buffer",
-						keyword_length = 2,
+						keyword_length = 3,
 						max_item_count = 7,
 						option = {
 							get_bufnrs = function()
@@ -85,11 +87,20 @@ return {
 				},
 				sorting = {
 					priority_weight = 1,
+					-- comparators = {
+					-- 	function(...)
+					-- 		-- sort completion results based on the distance of the word from the cursor line
+					-- 		return cmp_buffer:compare_locality(...)
+					-- 	end,
+					-- },
 					comparators = {
-						function(...)
-							-- sort completion results based on the distance of the word from the cursor line
-							return cmp_buffer:compare_locality(...)
-						end,
+						cmp.config.compare.offset,
+						cmp.config.compare.exact,
+						cmp.config.compare.score,
+						cmp.config.compare.kind,
+						cmp.config.compare.sort_text,
+						cmp.config.compare.length,
+						cmp.config.compare.order,
 					},
 				},
 				experimental = {
@@ -97,6 +108,8 @@ return {
 					ghost_text = false,
 				},
 			})
+
+			require("cmp_git").setup()
 
 			cmp.setup.cmdline("/", {
 				mapping = cmp.mapping.preset.cmdline(),

@@ -48,6 +48,7 @@ vim.opt.mouse = "a"
 -- vim.opt.synmaxcol = 210
 vim.opt.spelllang = "en_us"
 vim.opt.scrolloff = 3
+vim.opt.sidescrolloff = 3
 vim.opt.cmdheight = 1
 vim.opt.cmdwinheight = 10
 vim.opt.cursorline = true

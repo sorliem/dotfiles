@@ -43,7 +43,7 @@ return {
 					-- nnoremap('<leader>hS', gs.stage_buffer)
 					-- nnoremap('<leader>hu', gs.undo_stage_hunk)
 					-- nnoremap('<leader>hR', gs.reset_buffer)
-					-- vim.keymap.set("n", "<leader>hp", gs.preview_hunk)
+					vim.keymap.set("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk under cursor" })
 					-- vim.keymap.set("n", "<leader>hb", function()
 					-- 	gs.blame_line({ full = true })
 					-- end)

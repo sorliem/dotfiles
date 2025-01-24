@@ -49,6 +49,8 @@ return {
 
 			vim.keymap.set("n", "<Leader>gy", "<cmd>diffget //2<CR>")
 			vim.keymap.set("n", "<Leader>go", "<cmd>diffget //3<CR>")
+
+			vim.cmd([[ cabbrev Gco Git checkout ]])
 		end,
 	},
 }

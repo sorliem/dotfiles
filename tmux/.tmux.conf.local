@@ -372,6 +372,8 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 # set -g @plugin 'git@bitbucket.com:user/plugin'
 set -g @plugin 'egel/tmux-gruvbox'
 set -g @plugin 'fabioluciano/tmux-tokyo-night'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
 
 ### Tokyo Night Theme configuration
 set -g @theme_variation 'day'
