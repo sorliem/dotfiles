@@ -176,6 +176,43 @@ return {
 				},
 			}))
 
+			require("lspconfig").yamlls.setup(config({
+				on_attach = on_attach,
+				flags = {
+					debounce_text_changes = 150,
+				},
+				settings = {
+					yaml = {
+						schemas = {
+							["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose*.yml",
+							["https://json.schemastore.org/github-workflow.json"] = ".github/workflow/*.yml",
+							["https://json.schemastore.org/cloudbuild.json"] = "cloudbuild*.yml",
+						},
+					},
+				},
+			}))
+
+			require("lspconfig").jsonls.setup(config({
+				on_attach = on_attach,
+				flags = {
+					debounce_text_changes = 150,
+				},
+				settings = {
+					json = {
+						schemas = {
+							["https://docs.renovatebot.com/renovate-schema.json"] = "global-config.json5*",
+						},
+					},
+				},
+			}))
+
+			require("lspconfig").dockerls.setup(config({
+				on_attach = on_attach,
+				flags = {
+					debounce_text_changes = 150,
+				},
+			}))
+
 			require("lspconfig").terraformls.setup(config({
 				on_attach = on_attach,
 				cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
