@@ -39,6 +39,9 @@ _M.onx_live_grep = function(opts)
 	-- ignore README.md files
 	vim.list_extend(additional_args_list, { "--glob", "!README.md" })
 
+	-- search hidden files and directories
+	vim.list_extend(additional_args_list, { "--hidden" })
+
 	require("telescope.builtin").live_grep({
 		cwd = "~/gitroot/onxmaps",
 		additional_args = additional_args_list,

@@ -35,7 +35,6 @@ vim.cmd([[ tnoremap <Esc> <C-\><C-n> ]])
 
 -- C-a goes beginning of line in command line mode
 vim.cmd([[ cnoremap <C-A> <Home> ]])
-
 map("n", "<leader>tm", "<cmd>vert term<CR>", "Open neovim terminal in a vertical split")
 
 -- for some reason on mac alt file doesn't work
@@ -65,6 +64,15 @@ map("n", "<C-u>", "<C-u>zz")
 -- keep center of screen when iterating through search results
 map("n", "n", "nzzzv", "Next result and center the screen")
 map("n", "N", "Nzzzv", "Prev result and center the screen")
+
+-- Navigate merge conflict markers
+map("n", "]n", [[<cmd>call search('^\(@@ .* @@\|[<=>|]\{7}[<=>|]\@!\)', 'W')<cr>]], "Navate to next conflict marker")
+map(
+	"n",
+	"[n",
+	[[<cmd>call search('^\(@@ .* @@\|[<=>|]\{7}[<=>|]\@!\)', 'bW')<cr>]],
+	"Navate to previous conflict marker"
+)
 
 -- keeping it centered when jumping around, joining lines
 map("n", "J", "mzJ'z", "Join line and keep screen centered")
