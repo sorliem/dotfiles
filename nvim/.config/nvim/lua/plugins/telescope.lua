@@ -112,7 +112,7 @@ return {
 						["<C-a>"] = actions.cycle_previewers_prev,
 						["<M-p>"] = action_layout.toggle_preview,
 						["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
-						-- ["<C-X>"] = actions.send_selected_to_qflist + actions.open_qflist,
+						["<C-j>"] = actions.send_selected_to_qflist + actions.open_qflist,
 						["<C-space>"] = actions.to_fuzzy_refine,
 						["<C-t>"] = open_file_in_tmux_session,
 						["<C-w>"] = function()
@@ -346,28 +346,28 @@ return {
 		vim.keymap.set("n", "<leader>tfs", function()
 			local workspace = vim.fn.system("terraform workspace show"):gsub("\n", "")
 			pickers
-				.new({
-					prompt_title = "Terraform state show",
-					results_title = string.format("Resources (%s)", workspace),
-					finder = finders.new_oneshot_job({ "terraform", "state", "list" }),
-					sorter = sorters.get_fuzzy_file(),
-					previewer = previewers.new_buffer_previewer({
-						define_preview = function(self, entry, status)
-							return require("telescope.previewers.utils").job_maker(
-								{ "terraform", "state", "show", entry.value },
-								self.state.bufnr,
-								{
-									callback = function(bufnr, content)
-										if content ~= nil then
-											require("telescope.previewers.utils").regex_highlighter(bufnr, "terraform")
-										end
+							.new({
+								prompt_title = "Terraform state show",
+								results_title = string.format("Resources (%s)", workspace),
+								finder = finders.new_oneshot_job({ "terraform", "state", "list" }),
+								sorter = sorters.get_fuzzy_file(),
+								previewer = previewers.new_buffer_previewer({
+									define_preview = function(self, entry, status)
+										return require("telescope.previewers.utils").job_maker(
+											{ "terraform", "state", "show", entry.value },
+											self.state.bufnr,
+											{
+												callback = function(bufnr, content)
+													if content ~= nil then
+														require("telescope.previewers.utils").regex_highlighter(bufnr, "terraform")
+													end
+												end,
+											}
+										)
 									end,
-								}
-							)
-						end,
-					}),
-				})
-				:find()
+								}),
+							})
+							:find()
 		end, { desc = "[T]erra[f]orm State [S]how w/ Telescope" })
 	end,
 	dependencies = {

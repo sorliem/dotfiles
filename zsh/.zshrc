@@ -121,6 +121,8 @@ alias ksecretyaml="kubectl get secrets | grep -v NAME | cut -f1 -d' ' | fzf | xa
 alias kevents="kubectl get events --sort-by=.metadata.creationTimestamp"
 alias ksniff="kubectl sniff -n default"
 
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 alias describerole="gcloud iam roles describe"
 
 function gcloudreadlogs() {
