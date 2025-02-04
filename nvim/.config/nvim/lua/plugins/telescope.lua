@@ -132,7 +132,6 @@ return {
 					git_command = {
 						"git",
 						"log",
-						"--all",
 						"--pretty=%h %<(10,trunc) %an %<(33,trunc) %s (%cr)",
 						"--",
 						".",
