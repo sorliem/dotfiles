@@ -368,6 +368,8 @@ function rename_tmux_window() {
 alias trn="tmux rename-window $(basename `pwd`) &&  echo \"renamed tmux window\""
 alias trn2="rename_tmux_window"
 
+alias killsessions="tmux list-sessions | awk 'BEGIN { FS=\":\" } { print \$1 }' | fzf --height=50% | xargs -n1 -I {} bash -c \"tmux kill-session -t {}; echo 'killed session {}'\""
+
 # Tmuxifier
 # export PATH="$HOME/.tmuxifier/bin:$PATH"
 # export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"

@@ -8,6 +8,7 @@ return {
 		dependencies = {
 			{
 				"kristijanhusak/vim-dadbod-completion",
+				cond = false,
 				config = function()
 					vim.cmd([[
 						augroup DadbodSql
