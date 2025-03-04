@@ -39,6 +39,8 @@ return {
 
 					vim.keymap.set("n", "<leader>pu", function()
 						vim.cmd.Git("push")
+						-- Run command that opens url using the dir + branch name like below
+						-- https://github.com/onXmaps/atlantis-trailcams/pull/new/miles/SRE-5365-cert-walkback-ds
 					end, {
 						buffer = bufnr,
 						remap = false,

@@ -30,7 +30,6 @@ end, { expr = true, desc = "Clear highlighting if showing then replace word unde
 -- vim.keymap.set("t", "<Esc>", function()
 -- 	vim.keycode("<C-\\><C-n>")
 -- end, { expr = true, desc = "ecape a terminal window" })
-
 vim.cmd([[ tnoremap <Esc> <C-\><C-n> ]])
 
 -- C-a goes beginning of line in command line mode

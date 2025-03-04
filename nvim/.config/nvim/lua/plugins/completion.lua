@@ -51,7 +51,7 @@ return {
 						maxwidth = function()
 							return math.floor(0.45 * vim.o.columns)
 						end,
-						ellipsis_char = "...",    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 						with_text = true,
 						menu = {
@@ -61,6 +61,7 @@ return {
 							luasnip = "[snip]",
 							cmp_tabnine = "[TN]",
 							path = "[path]",
+							copilot = "",
 							["vim-dadbod-completion"] = "[DB]",
 						},
 					}),
@@ -70,8 +71,9 @@ return {
 					{ name = "git" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
+					-- { name = "copilot" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip",                max_item_count = 10 },
+					{ name = "luasnip", max_item_count = 10 },
 					{
 						name = "buffer",
 						keyword_length = 3,
@@ -94,8 +96,10 @@ return {
 					-- 	end,
 					-- },
 					comparators = {
+						-- require("copilot_cmp.comparators").prioritize,
 						cmp.config.compare.offset,
 						cmp.config.compare.exact,
+						cmp.config.compare.recently_used,
 						cmp.config.compare.score,
 						cmp.config.compare.kind,
 						cmp.config.compare.sort_text,

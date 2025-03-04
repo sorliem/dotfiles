@@ -305,11 +305,10 @@ return {
 
 		vim.keymap.set("n", "<leader>ps", function()
 			local additional_args = {}
-			vim.list_extend(additional_args, { "--glob", "!README.md" })
 			vim.list_extend(additional_args, { "--hidden", "--ignore-case" })
 
 			local opts = {
-				file_ignore_patterns = { ".git" },
+				glob_pattern = { "!README.md", "!.git/*" },
 				additional_args = additional_args,
 			}
 
