@@ -66,6 +66,7 @@ bindings = [
   { key = "Y", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "xgps"] } },
   { key = "U", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "dotfiles"] } },
   { key = "I", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "terraform-modules"] } },
+  { key = "O", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "k9s-dashboard"] } },
 
   { key=  "Key0", mods = "Command", command = { program=  "/opt/homebrew/bin/tmux", args = ["switch-client", "-l"] } },
   { key = "Equals", mods = "Control", action = "IncreaseFontSize" },

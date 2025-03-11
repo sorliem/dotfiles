@@ -15,3 +15,4 @@ bin/.local/bin/start-all-cloudsql-proxies.bash
 bin/.local/bin/cloud_sql_proxy
 bin/.local/bin/cloudsmith
 bin/.local/bin/tfdocs2.sh
+k9s/.config/k9s/clusters/*

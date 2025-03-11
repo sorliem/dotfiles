@@ -120,6 +120,7 @@ alias kconfigyaml="kubectl get configmaps | grep -v NAME | cut -f1 -d' ' | fzf |
 alias ksecretyaml="kubectl get secrets | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get secrets {} -o yaml"
 alias kevents="kubectl get events --sort-by=.metadata.creationTimestamp"
 alias ksniff="kubectl sniff -n default"
+alias k='kubectl'
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
@@ -248,7 +249,7 @@ if [[ -e "$HOME/.local/bin/kbc-ac.sh" ]]; then
     alias kp="kubectl get pods -L project"
 fi
 
-export K9SCONFIG="$HOME/.config/k9s"
+export K9S_CONFIG_DIR="$HOME/.config/k9s"
 
 
 # fixes issue when doing docker-compose build
