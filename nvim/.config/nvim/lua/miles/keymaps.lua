@@ -2,6 +2,15 @@ local map = function(mode, keys, func, desc)
 	vim.keymap.set(mode, keys, func, { desc = desc, noremap = true, silent = true })
 end
 
+local function is_quickfix_open()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype") == "quickfix" then
+			return true
+		end
+	end
+	return false
+end
+
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search on <Esc> in normal mode")
 
 -- swap colon and semicolon
@@ -34,7 +43,7 @@ vim.cmd([[ tnoremap <Esc> <C-\><C-n> ]])
 
 -- C-a goes beginning of line in command line mode
 vim.cmd([[ cnoremap <C-A> <Home> ]])
-map("n", "<leader>tm", "<cmd>vert term<CR>", "Open neovim terminal in a vertical split")
+map("n", "<leader>tm", "<cmd>vert term<CR>", "Open neovim [t]er[m]inal in a vertical split")
 
 -- for some reason on mac alt file doesn't work
 map("n", "<C-6>", "<C-^>")
@@ -77,8 +86,21 @@ map(
 map("n", "J", "mzJ'z", "Join line and keep screen centered")
 
 -- keep center of screen when iterating through quickfix
-map("n", "<C-j>", "<cmd>cnext<CR>zz", "Next quickfix item and center screen")
-map("n", "<C-k>", "<cmd>cprev<CR>zz", "Prev quickfix item and center screen")
+vim.keymap.set("n", "<C-j>", function()
+	if is_quickfix_open() then
+		return "<cmd>cnext<CR>"
+	else
+		return "<C-w>j"
+	end
+end, { desc = "Next quickfix item or jump window below", expr = true })
+
+vim.keymap.set("n", "<C-k>", function()
+	if is_quickfix_open() then
+		return "<cmd>cprev<CR>"
+	else
+		return "<C-w>k"
+	end
+end, { desc = "Prev quickfix item or jump window above", expr = true })
 
 -- get rid of highlighting
 map("n", "<leader>hh", "<cmd>noh<CR>")
@@ -115,16 +137,7 @@ map("n", "<leader>br", "<cmd>bufdo e!<CR>", "[B]uffer [R]eload")
 -- Grab last commit messge
 map("n", "<leader>gl1", "<cmd>read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-back) [G]it [L]og commit message")
 
-map("n", "<Leader>pv", "<cmd>Hexplore!<Enter>", "[P]roject [V]view (netrw)")
-
 map("n", "<Leader>ts", "<cmd>%s/\\s\\+$//e<CR>", "[T]rim trailing [S]paces")
-
--- map(
--- 	"n",
--- 	"-",
--- 	':let @/=expand("%:\t") <Bar> execute \'Hexplore!\' expand("%:h") <Bar> normal n<CR>',
--- 	"Open netrw and find current file"
--- )
 
 map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-sessionizer")
 
@@ -164,7 +177,7 @@ end, "[T]erraform [D]efinition")
 
 vim.keymap.set("n", "dd", function()
 	if vim.api.nvim_get_current_line():match("^%s*$") then
-		-- delete to black hole register if deleting a blank line --comment
+		-- delete to black hole register if deleting a blank line
 		return '"_dd'
 	else
 		return "dd"

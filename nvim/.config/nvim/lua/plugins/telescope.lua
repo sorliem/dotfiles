@@ -316,7 +316,7 @@ return {
 		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()
-			require("miles.telescope_functions").onx_live_grep()
+			require("miles.telescope_functions").onx_live_grep({})
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
 		vim.keymap.set("n", "//", function()
