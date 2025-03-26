@@ -5,6 +5,7 @@ return {
 			markdown = { "vale" },
 			graphql = { "vale" },
 			text = { "vale" },
+			dockerfile = { "hadolint" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {

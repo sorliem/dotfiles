@@ -1,7 +1,7 @@
 return {
 	"tpope/vim-sleuth",
-	{ "tpope/vim-surround",   event = { "BufRead" } },
-	{ "tpope/vim-repeat",     event = { "BufRead" } },
+	{ "tpope/vim-surround", event = { "BufRead" } },
+	{ "tpope/vim-repeat", event = { "BufRead" } },
 	{ "tpope/vim-commentary", cond = false },
 	{ "tpope/vim-unimpaired" },
 	{
@@ -19,6 +19,7 @@ return {
 					Abolish fuction function
 					Abolish funciton function
 					Abolish arcvhies archives
+					Abolish udpate update
 
 					Abolish {is,was,do,does,did,would,could,should,wo,ca}nt {}n't
 					Abolish {he,here,she,that,there,where}s {}'s

@@ -138,7 +138,8 @@ _M.jira_tickets = function(opts)
 				results = results_out,
 				entry_maker = function(entry)
 					return {
-						value = "JIRA https://onxmaps.atlassian.net/browse/" .. entry[1],
+						-- value = "JIRA https://onxmaps.atlassian.net/browse/" .. entry[1],
+						value = entry[1],
 						display = entry[1] .. "[" .. entry[2] .. "]: " .. entry[3],
 						ordinal = entry[1] .. " - " .. entry[2] .. " " .. entry[3],
 						ticket_num = entry[1],

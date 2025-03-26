@@ -224,7 +224,14 @@ return {
 			}))
 
 			require("lspconfig").terraformls.setup(config({
-				on_attach = on_attach,
+				on_attach = function(client, bufnr)
+					-- Skip LSP attachment for .tfvars files
+					local filename = vim.api.nvim_buf_get_name(bufnr)
+					if filename:match("%.tfvars$") then
+						return
+					end
+					on_attach(client, bufnr)
+				end,
 				cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
 				filetypes = { "terraform" },
 				flags = {
