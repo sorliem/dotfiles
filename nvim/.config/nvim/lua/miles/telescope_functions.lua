@@ -11,7 +11,7 @@ local make_entry = require("telescope.make_entry")
 
 local _M = {}
 
-_M.onx_live_grep = function(opts)
+_M.onx_live_grep = function(_)
 	local ft = vim.fn.input("File type(s) to search onx files for (comma-delimited): ")
 	local delimiter = ","
 	local additional_args_list = {}
@@ -225,12 +225,12 @@ _M.tf_state_show = function(opts)
 		.new({
 			prompt_title = "Terraform state show",
 			results_title = string.format("Resources (%s)", workspace),
-			finder = finders.new_oneshot_job({ "terraform", "state", "list" }),
+			finder = finders.new_oneshot_job({ "terraform", "state", "list" }, { cwd = vim.uv.cwd() }),
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.new_buffer_previewer({
 				define_preview = function(self, entry, status)
 					return require("telescope.previewers.utils").job_maker(
-						{ "terraform", "state", "show", entry.value },
+						{ "terraform", "state", "show", entry.value, "-no-color" },
 						self.state.bufnr,
 						{
 							callback = function(bufnr, content)
@@ -242,6 +242,24 @@ _M.tf_state_show = function(opts)
 					)
 				end,
 			}),
+			attach_mappings = function(prompt_bufnr, _)
+				actions.select_default:replace(function()
+					-- Get the preview buffer
+					local preview_bufnr =
+						require("telescope.actions.state").get_current_picker(prompt_bufnr).previewer.state.bufnr
+					if preview_bufnr and vim.api.nvim_buf_is_valid(preview_bufnr) then
+						-- Get all lines from the preview buffer
+						local content = table.concat(vim.api.nvim_buf_get_lines(preview_bufnr, 0, -1, false), "\n")
+						-- Copy to default register
+						vim.fn.setreg('"', content)
+						print("Copied resource state to register")
+					else
+						print("Preview buffer not available")
+					end
+					actions.close(prompt_bufnr)
+				end)
+				return true
+			end,
 		})
 		:find()
 end
