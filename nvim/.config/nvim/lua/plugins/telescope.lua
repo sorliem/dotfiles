@@ -322,7 +322,7 @@ return {
 				cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
 				prompt_title = "Search [l]azy [d]ependency files",
 			})
-		end)
+		end, { desc = "Search [l]azy [d]ependency files" })
 
 		vim.keymap.set("n", "//", function()
 			require("telescope.builtin").current_buffer_fuzzy_find({
