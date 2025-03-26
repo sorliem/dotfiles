@@ -12,10 +12,6 @@ return {
 		local action_state = require("telescope.actions.state")
 		local action_layout = require("telescope.actions.layout")
 		local previewers = require("telescope.previewers")
-		local pickers = require("telescope.pickers")
-		local sorters = require("telescope.sorters")
-		local finders = require("telescope.finders")
-		local themes = require("telescope.themes")
 
 		local function tmux_command(command)
 			local tmux_socket = vim.fn.split(vim.env.TMUX, ",")[1]
@@ -231,18 +227,12 @@ return {
 			require("telescope.builtin").buffers({ sort_mru = true })
 		end)
 
-		vim.keymap.set("n", "<leader>ht", function()
-			require("telescope.builtin").help_tags()
-		end)
+		vim.keymap.set("n", "<leader>ht", require("telescope.builtin").help_tags)
 
 		-- similar to alternate buffer motion
-		vim.keymap.set("n", "<leader>t6", function()
-			require("telescope.builtin").resume()
-		end)
+		vim.keymap.set("n", "<leader>t6", require("telescope.builtin").resume)
 
-		vim.keymap.set("n", "<leader>gb", function()
-			require("telescope.builtin").git_branches()
-		end)
+		vim.keymap.set("n", "<leader>gb", require("telescope.builtin").git_branches)
 
 		vim.keymap.set("n", "<leader>ghr", function()
 			require("miles.telescope_functions").github_pull_requests()
@@ -256,9 +246,7 @@ return {
 			require("telescope.builtin").keymaps({ show_plug = false })
 		end, { desc = "[K]ey [M]aps" })
 
-		vim.keymap.set("n", "z=", function()
-			require("telescope.builtin").spell_suggest()
-		end, { desc = "Spell Suggest w/ Telescope" })
+		vim.keymap.set("n", "z=", require("telescope.builtin").spell_suggest, { desc = "Spell Suggest w/ Telescope" })
 
 		vim.keymap.set("n", "<leader>fw", function()
 			require("telescope.builtin").grep_string({ additional_args = { "--hidden", "--glob", "!README.md" } })
@@ -287,13 +275,19 @@ return {
 			})
 		end, { desc = "[O]nX [F]ind [W]ord (telescope)" })
 
-		vim.keymap.set("n", "<leader>gm", function()
-			require("telescope.builtin").git_commits()
-		end, { desc = "Telescope [G]it Co[m]mits" })
+		vim.keymap.set(
+			"n",
+			"<leader>gm",
+			require("telescope.builtin").git_commits,
+			{ desc = "Telescope [G]it Co[m]mits" }
+		)
 
-		vim.keymap.set("n", "<leader>bb", function()
-			require("telescope.builtin").git_bcommits()
-		end, { desc = "Telescope [Bb]uffer Commits, not a great mnemonic" })
+		vim.keymap.set(
+			"n",
+			"<leader>bb",
+			require("telescope.builtin").git_bcommits,
+			{ desc = "Telescope [Bb]uffer Commits, not a great mnemonic" }
+		)
 
 		vim.keymap.set("n", "<leader>gw", function()
 			require("telescope").extensions.git_worktree.git_worktrees()
@@ -319,6 +313,17 @@ return {
 			require("miles.telescope_functions").onx_live_grep({})
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
+		vim.keymap.set("n", "<leader>mg", function()
+			require("miles.telescope_functions").live_multigrep({})
+		end, { desc = "Telescope Live [M]ulti [G]grep" })
+
+		vim.keymap.set("n", "<space>ld", function()
+			require("telescope.builtin").find_files({
+				cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+				prompt_title = "Search [l]azy [d]ependency files",
+			})
+		end)
+
 		vim.keymap.set("n", "//", function()
 			require("telescope.builtin").current_buffer_fuzzy_find({
 				previewer = false,
@@ -342,30 +347,7 @@ return {
 		end, { desc = "[T]elescope [L]ua[S]nip" })
 
 		vim.keymap.set("n", "<leader>tfs", function()
-			local workspace = vim.fn.system("terraform workspace show"):gsub("\n", "")
-			pickers
-							.new({
-								prompt_title = "Terraform state show",
-								results_title = string.format("Resources (%s)", workspace),
-								finder = finders.new_oneshot_job({ "terraform", "state", "list" }),
-								sorter = sorters.get_fuzzy_file(),
-								previewer = previewers.new_buffer_previewer({
-									define_preview = function(self, entry, status)
-										return require("telescope.previewers.utils").job_maker(
-											{ "terraform", "state", "show", entry.value },
-											self.state.bufnr,
-											{
-												callback = function(bufnr, content)
-													if content ~= nil then
-														require("telescope.previewers.utils").regex_highlighter(bufnr, "terraform")
-													end
-												end,
-											}
-										)
-									end,
-								}),
-							})
-							:find()
+			require("miles.telescope_functions").tf_state_show()
 		end, { desc = "[T]erra[f]orm State [S]how w/ Telescope" })
 	end,
 	dependencies = {
