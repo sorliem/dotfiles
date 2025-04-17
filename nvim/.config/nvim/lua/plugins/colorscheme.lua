@@ -63,7 +63,7 @@ return {
 			cond = false,
 			config = function()
 				require("kanagawa").setup({
-					theme = "wavelotus",
+					-- theme = "",
 				})
 				vim.cmd("colorscheme kanagawa")
 			end,
@@ -72,7 +72,7 @@ return {
 			"EdenEast/nightfox.nvim",
 			priority = 1000,
 			lazy = false,
-			cond = false,
+			cond = true,
 			config = function()
 				-- vim.cmd("colorscheme nightfox")
 				vim.cmd([[set background=dark]])
@@ -83,7 +83,7 @@ return {
 			"projekt0n/github-nvim-theme",
 			priority = 1000,
 			lazy = false,
-			cond = true,
+			cond = false,
 			config = function()
 				require("github-theme").setup({
 					options = {
@@ -91,7 +91,7 @@ return {
 					},
 				})
 
-				vim.cmd.colorscheme("github_dark")
+				vim.cmd.colorscheme("github_light")
 			end,
 		},
 		{
@@ -111,7 +111,7 @@ return {
 			lazy = false,
 			cond = false,
 			config = function()
-				vim.opt.background = "dark"
+				vim.opt.background = "light"
 				-- vim.g.tokyonight_italic_functions = 1
 				-- vim.g.tokyonight_italic_comments = 1
 				-- vim.g.tokyonight_style = "moon"
@@ -119,6 +119,7 @@ return {
 				require("tokyonight").setup({
 					-- styles: moon, night, storm, day
 					style = "moon",
+					day_brightness = "0.25",
 					lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
 					sidebars = { "qf", "fugitive" },
 					on_colors = function(colors)
@@ -138,7 +139,7 @@ return {
 		cond = false,
 		config = function()
 			require("rose-pine").setup({
-				variant = "moon", -- auto, main, moon, or dawn
+				variant = "dawn", -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
 				extend_background_behind_borders = true,
@@ -189,6 +190,7 @@ return {
 				highlight_groups = {
 					Comment = { fg = "muted" },
 					VertSplit = { fg = "muted", bg = "muted" },
+					-- Whitespace = { fg = "muted", bg = "muted" },
 				},
 			})
 

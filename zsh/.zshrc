@@ -39,14 +39,14 @@ alias v='nvim'
 # alias ll='lsd -la --color=never'
 # alias ls='lsd --color=never'
 alias sl='ls'
-alias ls='lsd'
+alias ls='lsd --color=never'
 alias c='clear'
 alias vi='nvim'
 alias j='jobs'
 alias f='pushd'
 alias b='popd'
 alias lua='lua5.3'
-alias ll='ls -alh'
+alias ll='ls -alh --color=never'
 
 #################################
 #             GIT               #

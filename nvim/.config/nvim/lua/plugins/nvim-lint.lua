@@ -6,6 +6,7 @@ return {
 			graphql = { "vale" },
 			text = { "vale" },
 			dockerfile = { "hadolint" },
+			terraform = { "tflint" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {

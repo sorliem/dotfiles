@@ -73,8 +73,7 @@ _M.live_multigrep = function(opts)
 				table.insert(args, pieces[2])
 			end
 
-			---@diagnostic disable-next-line: deprecated
-			return vim.tbl_flatten({
+			return vim.iter({
 				args,
 				{
 					"--hidden",
@@ -86,6 +85,8 @@ _M.live_multigrep = function(opts)
 					"--smart-case",
 				},
 			})
+				:flatten()
+				:totable()
 		end,
 		entry_maker = make_entry.gen_from_vimgrep(opts),
 		cwd = opts.cwd,

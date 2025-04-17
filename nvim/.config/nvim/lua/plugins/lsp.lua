@@ -226,10 +226,10 @@ return {
 			require("lspconfig").terraformls.setup(config({
 				on_attach = function(client, bufnr)
 					-- Skip LSP attachment for .tfvars files
-					local filename = vim.api.nvim_buf_get_name(bufnr)
-					if filename:match("%.tfvars$") then
-						return
-					end
+					-- local filename = vim.api.nvim_buf_get_name(bufnr)
+					-- if filename:match("%.tfvars$") then
+					-- 	return
+					-- end
 					on_attach(client, bufnr)
 				end,
 				cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
@@ -260,13 +260,15 @@ return {
 				},
 			}))
 
-			-- require("lspconfig").elixirls.setup(config({
-			-- 	on_attach = on_attach,
-			-- 	cmd = { "/home/miles/bin/elixirls/language_server.sh" },
-			-- 	flags = {
-			-- 		debounce_text_changes = 150,
-			-- 	},
-			-- }))
+			local path_to_elixirls = vim.fn.expand("~/gitroot/src/elixir-ls/release/language_server.sh")
+
+			require("lspconfig").elixirls.setup(config({
+				on_attach = on_attach,
+				cmd = { path_to_elixirls },
+				flags = {
+					debounce_text_changes = 150,
+				},
+			}))
 
 			require("lspconfig").gopls.setup(config({
 				cmd = { "gopls", "serve" },
@@ -298,6 +300,8 @@ return {
 					},
 				},
 			})
+
+			vim.diagnostic.config({ virtual_text = { current_line = true } })
 		end,
 	},
 }

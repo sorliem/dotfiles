@@ -1,11 +1,11 @@
-window.opacity = 0.95
+window.opacity = 1.0
 colors.draw_bold_text_with_bright_colors = true
 live_config_reload = true
 
 import = [
   # COLORSCHEME
-  "~/.config/alacritty/colorschemes/falcon.toml",
-  # "~/.config/alacritty/colorschemes/gruvbox-dark.toml",
+  # "~/.config/alacritty/colorschemes/falcon.toml",
+  "~/.config/alacritty/colorschemes/gruvbox-dark.toml",
   # "~/.config/alacritty/colorschemes/gruvbox-light.toml",
   # "~/.config/alacritty/colorschemes/catpuccin-latte.toml",
   # "~/.config/alacritty/colorschemes/catpuccin-mocha.toml",
