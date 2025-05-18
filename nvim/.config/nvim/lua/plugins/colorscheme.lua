@@ -72,7 +72,7 @@ return {
 			"EdenEast/nightfox.nvim",
 			priority = 1000,
 			lazy = false,
-			cond = true,
+			cond = false,
 			config = function()
 				-- vim.cmd("colorscheme nightfox")
 				vim.cmd([[set background=dark]])
@@ -83,7 +83,7 @@ return {
 			"projekt0n/github-nvim-theme",
 			priority = 1000,
 			lazy = false,
-			cond = false,
+			cond = true,
 			config = function()
 				require("github-theme").setup({
 					options = {
@@ -91,7 +91,7 @@ return {
 					},
 				})
 
-				vim.cmd.colorscheme("github_light")
+				vim.cmd.colorscheme("github_dark")
 			end,
 		},
 		{

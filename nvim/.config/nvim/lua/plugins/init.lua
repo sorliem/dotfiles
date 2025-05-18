@@ -2,18 +2,18 @@
 return {
 	"christoomey/vim-tmux-navigator",
 
-	{ "hashivim/vim-terraform",    ft = "terraform" },
-	{ "dstein64/vim-startuptime",  cmd = "StartupTime" },
-	{ "cespare/vim-toml",          ft = "toml" },
+	{ "hashivim/vim-terraform", ft = "terraform" },
+	{ "dstein64/vim-startuptime", cmd = "StartupTime" },
+	{ "cespare/vim-toml", ft = "toml" },
 	{ "elixir-editors/vim-elixir", ft = { "elixir", "eelixir" } },
-	{ "udalov/kotlin-vim",         ft = "kotlin" },
+	{ "udalov/kotlin-vim", ft = "kotlin" },
 	{
 		"jparise/vim-graphql",
 		ft = "graphql",
 		cond = false,
 	},
-	{ "chr4/nginx.vim",           ft = "template" },
-	{ "lepture/vim-jinja",        ft = "template" },
+	{ "chr4/nginx.vim", ft = "template" },
+	{ "lepture/vim-jinja", ft = "template" },
 	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
 	{
 		"nvim-lua/popup.nvim",
@@ -46,6 +46,15 @@ return {
 				let g:asterisk#keeppos = 1
 			]])
 		end,
+	},
+	{
+		"maxandron/goplements.nvim",
+		ft = "go",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
 	},
 
 	-- Interesting plugins

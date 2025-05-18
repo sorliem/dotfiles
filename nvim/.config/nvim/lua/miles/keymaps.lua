@@ -82,6 +82,13 @@ map(
 	"Navate to previous conflict marker"
 )
 
+-- vim.keymap.set("n", "ycc", "yygccp", { remap = true, desc = "Duplicate line and comment the first line" })
+vim.keymap.set("n", "ycc", function()
+	vim.cmd("normal! " .. vim.v.count1 .. "yy")
+	vim.cmd("normal " .. vim.v.count .. "gcc")
+	vim.cmd("normal! ']$p")
+end, { remap = true, desc = "Duplicate and comment lines, supports count prefix" })
+
 -- keeping it centered when jumping around, joining lines
 map("n", "J", "mzJ'z", "Join line and keep screen centered")
 
