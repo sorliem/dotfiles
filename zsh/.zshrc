@@ -1,4 +1,4 @@
-# export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsih"
 #
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -90,6 +90,7 @@ function delete-branches() {
 }
 
 
+
 #################################
 #           TERRAFORM           #
 #################################
@@ -125,7 +126,21 @@ alias k='kubectl'
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+
+#################################
+#           GCLOUD              #
+#################################
+alias gswitch="gcloud projects list | grep ^onx | awk '{ print \$1 }' | fzf | xargs -n1 -I {} gcloud config set project {}"
 alias describerole="gcloud iam roles describe"
+
+function getsecret() {
+  gcloud secrets list |\
+    grep -v '^NAME' |\
+    grep -v '^$' |\
+    awk '{ print $1 }' |\
+    fzf --header="GCLOUD PROJECT: $(gcloud config get project)" |\
+    xargs -n1 -I {} bash -c "cat <(echo 'secret: {}') <(gcloud secrets versions access latest --secret={}) | less"
+}
 
 function gcloudreadlogs() {
   app="$1"

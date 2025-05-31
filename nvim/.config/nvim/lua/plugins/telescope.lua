@@ -303,11 +303,13 @@ return {
 			vim.list_extend(additional_args, { "--hidden", "--ignore-case" })
 
 			local opts = {
-				glob_pattern = { "!README.md", "!.git/*" },
+				-- glob_pattern = { "!README.md", "!.git/*" },
+				glob_pattern = { "!.git/*" },
 				additional_args = additional_args,
 			}
 
-			require("telescope.builtin").live_grep(opts)
+			require("miles.telescope_functions").live_multigrep(opts)
+			-- require("telescope.builtin").live_grep(opts)
 		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()

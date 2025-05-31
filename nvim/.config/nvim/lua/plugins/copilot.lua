@@ -12,7 +12,10 @@ return {
 			},
 			build = "make tiktoken", -- Only on MacOS or Linux
 			config = function( --[[opts]])
-				require("CopilotChat").setup({ model = "claude-3.7-sonnet" })
+				require("CopilotChat").setup({
+					-- model = "claude-opus-4"
+					model = "gemini-2.5-pro",
+				})
 
 				vim.keymap.set("n", "<space>pi", function()
 					require("CopilotChat").toggle()
