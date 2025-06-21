@@ -292,7 +292,7 @@ _M.view_secrets = function(opts)
 				define_preview = function(self, entry, _)
 					if not show_actual_value then
 						vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {
-							"SECRET HIDDEN, Press <C-s> to reveal",
+							"SECRET HIDDEN, Press <C-s> to toggle reveal",
 						})
 						return
 					end
