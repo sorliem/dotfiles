@@ -83,7 +83,7 @@ return {
 			"projekt0n/github-nvim-theme",
 			priority = 1000,
 			lazy = false,
-			cond = true,
+			cond = false,
 			config = function()
 				require("github-theme").setup({
 					options = {
@@ -111,14 +111,14 @@ return {
 			lazy = false,
 			cond = false,
 			config = function()
-				vim.opt.background = "light"
+				vim.opt.background = "dark"
 				-- vim.g.tokyonight_italic_functions = 1
 				-- vim.g.tokyonight_italic_comments = 1
 				-- vim.g.tokyonight_style = "moon"
 				-- vim.g.tokyonight_transparent = true
 				require("tokyonight").setup({
 					-- styles: moon, night, storm, day
-					style = "moon",
+					style = "night",
 					day_brightness = "0.25",
 					lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
 					sidebars = { "qf", "fugitive" },
@@ -136,10 +136,10 @@ return {
 		priority = 1000,
 		lazy = false,
 		name = "rose-pine",
-		cond = false,
+		cond = true,
 		config = function()
 			require("rose-pine").setup({
-				variant = "dawn", -- auto, main, moon, or dawn
+				variant = "auto", -- auto, main, moon, or dawn
 				dark_variant = "main", -- main, moon, or dawn
 				dim_inactive_windows = false,
 				extend_background_behind_borders = true,
@@ -152,7 +152,7 @@ return {
 
 				styles = {
 					bold = true,
-					italic = true,
+					italic = false,
 					transparency = false,
 				},
 

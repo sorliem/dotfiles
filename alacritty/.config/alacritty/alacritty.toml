@@ -14,7 +14,8 @@ import = [
   # "~/.config/alacritty/colorschemes/tokyonight-light.toml",
 
   # FONT
-  "~/.config/alacritty/fonts/caskaydia.toml",
+  # "~/.config/alacritty/fonts/caskaydia.toml",
+  "~/.config/alacritty/fonts/caskaydia_cove.toml",
 ]
 
 [font]

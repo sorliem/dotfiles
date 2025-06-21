@@ -70,6 +70,16 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.yaml.tftpl",
+	command = "set filetype=yaml",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.json.tftpl",
+	command = "set filetype=json",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.json5.tmpl",
 	command = "set filetype=json5",
 })

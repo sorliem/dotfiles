@@ -14,7 +14,8 @@ return {
 					javascript = { "prettierd", "prettier", stop_after_first = true },
 					elixir = { "mix" },
 					yaml = { "yamlfmt", "prettier", stop_after_first = true },
-					json = { "deno_fmt", "prettier", stop_after_first = true },
+					json = { "prettier", stop_after_first = true },
+					["*.json.tftpl"] = { "prettier" },
 				},
 				format_on_save = {
 					-- These options will be passed to conform.format()

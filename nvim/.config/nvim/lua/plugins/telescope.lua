@@ -11,6 +11,7 @@ return {
 		local actions = require("telescope.actions")
 		local action_state = require("telescope.actions.state")
 		local action_layout = require("telescope.actions.layout")
+		local utils = require("telescope.utils")
 		local previewers = require("telescope.previewers")
 
 		local function tmux_command(command)
@@ -352,6 +353,13 @@ return {
 		vim.keymap.set("n", "<leader>tfs", function()
 			require("miles.telescope_functions").tf_state_show()
 		end, { desc = "[T]erra[f]orm State [S]how w/ Telescope" })
+
+		vim.keymap.set("n", "<leader>vs", function()
+			local cur_project = utils.get_os_command_output({ "gcloud", "config", "get", "project" })[1]
+			local project = vim.fn.input(string.format("Project (current: %s): ", cur_project))
+			project = project ~= "" and project or cur_project
+			require("miles.telescope_functions").view_secrets({ project = project })
+		end, { desc = "[V]iew [S]ecrets in GCP" })
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",

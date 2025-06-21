@@ -11,6 +11,23 @@ local make_entry = require("telescope.make_entry")
 
 local _M = {}
 
+local copy_to_default_register = function(prompt_bufnr)
+	return function()
+		-- Get the preview buffer
+		local preview_bufnr = require("telescope.actions.state").get_current_picker(prompt_bufnr).previewer.state.bufnr
+		if preview_bufnr and vim.api.nvim_buf_is_valid(preview_bufnr) then
+			-- Get all lines from the preview buffer
+			local content = table.concat(vim.api.nvim_buf_get_lines(preview_bufnr, 0, -1, false), "\n")
+			-- Copy to default register
+			vim.fn.setreg('"', content)
+			print("Copied resource state to register")
+		else
+			print("Preview buffer not available")
+		end
+		actions.close(prompt_bufnr)
+	end
+end
+
 _M.onx_live_grep = function(_)
 	local ft = vim.fn.input("File type(s) to search onx files for (comma-delimited): ")
 	local delimiter = ","
@@ -245,21 +262,45 @@ _M.tf_state_show = function(opts)
 				end,
 			}),
 			attach_mappings = function(prompt_bufnr, _)
-				actions.select_default:replace(function()
-					-- Get the preview buffer
-					local preview_bufnr =
-						require("telescope.actions.state").get_current_picker(prompt_bufnr).previewer.state.bufnr
-					if preview_bufnr and vim.api.nvim_buf_is_valid(preview_bufnr) then
-						-- Get all lines from the preview buffer
-						local content = table.concat(vim.api.nvim_buf_get_lines(preview_bufnr, 0, -1, false), "\n")
-						-- Copy to default register
-						vim.fn.setreg('"', content)
-						print("Copied resource state to register")
-					else
-						print("Preview buffer not available")
-					end
-					actions.close(prompt_bufnr)
-				end)
+				actions.select_default:replace(copy_to_default_register(prompt_bufnr))
+				return true
+			end,
+		})
+		:find()
+end
+
+_M.view_secrets = function(opts)
+	local project = nil
+	if opts.project == nil then
+		project = utils.get_os_command_output({ "gcloud", "config", "get", "project" })[1]
+	else
+		project = opts.project
+	end
+
+	pickers
+		.new({
+			prompt_title = string.format("View secrets (%s)", project),
+			results_title = string.format("Secrets (%s)", project),
+			finder = finders.new_oneshot_job(
+				{ "gcloud", "secrets", "list", "--format=value(name)", string.format("--project=%s", project) },
+				{ cwd = vim.uv.cwd() }
+			),
+			sorter = sorters.get_fuzzy_file(),
+			previewer = previewers.new_buffer_previewer({
+				define_preview = function(self, entry, status)
+					return require("telescope.previewers.utils").job_maker({
+						"gcloud",
+						"secrets",
+						"versions",
+						"access",
+						"latest",
+						string.format("--secret=%s", entry.value),
+						string.format("--project=%s", project),
+					}, self.state.bufnr)
+				end,
+			}),
+			attach_mappings = function(prompt_bufnr, _)
+				actions.select_default:replace(copy_to_default_register(prompt_bufnr))
 				return true
 			end,
 		})

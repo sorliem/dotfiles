@@ -71,7 +71,7 @@ return {
 					{ name = "git" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
-					-- { name = "copilot" },
+					{ name = "copilot" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip", max_item_count = 10 },
 					{
@@ -96,7 +96,7 @@ return {
 					-- 	end,
 					-- },
 					comparators = {
-						-- require("copilot_cmp.comparators").prioritize,
+						require("copilot_cmp.comparators").prioritize,
 						cmp.config.compare.offset,
 						cmp.config.compare.exact,
 						cmp.config.compare.recently_used,
