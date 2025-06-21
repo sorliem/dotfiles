@@ -277,6 +277,8 @@ _M.view_secrets = function(opts)
 		project = opts.project
 	end
 
+	local show_actual_value = false
+
 	pickers
 		.new({
 			prompt_title = string.format("View secrets (%s)", project),
@@ -287,7 +289,14 @@ _M.view_secrets = function(opts)
 			),
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.new_buffer_previewer({
-				define_preview = function(self, entry, status)
+				define_preview = function(self, entry, _)
+					if not show_actual_value then
+						vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {
+							"SECRET HIDDEN, Press <C-s> to reveal",
+						})
+						return
+					end
+
 					return require("telescope.previewers.utils").job_maker({
 						"gcloud",
 						"secrets",
@@ -299,7 +308,13 @@ _M.view_secrets = function(opts)
 					}, self.state.bufnr)
 				end,
 			}),
-			attach_mappings = function(prompt_bufnr, _)
+			attach_mappings = function(prompt_bufnr, map)
+				map("i", "<C-s>", function()
+					show_actual_value = not show_actual_value
+					local current_picker = action_state.get_current_picker(prompt_bufnr)
+					current_picker:refresh_previewer()
+				end)
+
 				actions.select_default:replace(copy_to_default_register(prompt_bufnr))
 				return true
 			end,
