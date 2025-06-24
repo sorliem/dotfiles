@@ -59,8 +59,9 @@ return {
 						-- end,
 						-- { "diagnostics", sources = { "nvim_diagnostic" } },
 					},
-					lualine_y = { "filetype", "fileformat" },
+					lualine_y = { "filetype" },
 					lualine_z = {
+						"progress",
 						-- function()
 						-- 	return "DB:" .. vim.g.db_name
 						-- end,
@@ -82,12 +83,8 @@ return {
 							},
 						},
 					},
-					lualine_x = { "filetype" },
-					lualine_y = {
-						"branch",
-						"diff",
-						{ "diagnostics", sources = { "nvim_diagnostic" } },
-					},
+					lualine_x = {},
+					lualine_y = {},
 					lualine_z = {},
 				},
 				tabline = {},

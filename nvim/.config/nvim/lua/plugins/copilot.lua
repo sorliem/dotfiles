@@ -25,6 +25,14 @@ return {
 					question_header = "👤 User ", -- Header to use for user questions
 					answer_header = "🤖 Copilot ", -- Header to use for AI answers
 					error_header = "❗Error ", -- Header to use for errors
+					prompts = {
+						MyCustomPrompt = {
+							prompt = "Explain how it works.",
+							system_prompt = "You are very good at explaining stuff",
+							mapping = "<leader>ccmc",
+							description = "My custom prompt description",
+						},
+					},
 					mappings = {
 						reset = {
 							normal = "", -- disable chat clearing

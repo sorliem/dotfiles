@@ -4,7 +4,7 @@ return {
 			"ellisonleao/gruvbox.nvim",
 			priority = 1000,
 			lazy = false,
-			cond = false,
+			cond = true,
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
@@ -136,7 +136,7 @@ return {
 		priority = 1000,
 		lazy = false,
 		name = "rose-pine",
-		cond = true,
+		cond = false,
 		config = function()
 			require("rose-pine").setup({
 				variant = "auto", -- auto, main, moon, or dawn
@@ -190,6 +190,7 @@ return {
 				highlight_groups = {
 					Comment = { fg = "muted" },
 					VertSplit = { fg = "muted", bg = "muted" },
+					Whitespace = { fg = "muted" },
 					-- Whitespace = { fg = "muted", bg = "muted" },
 				},
 			})
