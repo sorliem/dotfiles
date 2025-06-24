@@ -8,6 +8,7 @@ local action_state = require("telescope.actions.state")
 local conf = require("telescope.config").values
 local utils = require("telescope.utils")
 local make_entry = require("telescope.make_entry")
+local work_functions = require("miles.work-commands")
 
 local _M = {}
 
@@ -31,6 +32,7 @@ end
 _M.onx_live_grep = function(_)
 	local ft = vim.fn.input("File type(s) to search onx files for (comma-delimited): ")
 	local delimiter = ","
+
 	local additional_args_list = {}
 	local startIndex = 1
 
@@ -169,7 +171,6 @@ _M.jira_tickets = function(opts)
 				map("i", "<C-y>", function(prompt_bufnr2)
 					actions.close(prompt_bufnr2)
 					local selection = action_state.get_selected_entry()
-					print("selection = ", vim.inspect(selection))
 					vim.api.nvim_put({ selection.ticket_num }, "", false, true)
 				end)
 
@@ -238,7 +239,7 @@ _M.github_pull_requests = function(opts)
 		:find()
 end
 
-_M.tf_state_show = function(opts)
+_M.tf_state_show = function()
 	local workspace = vim.fn.system("terraform workspace show"):gsub("\n", "")
 	pickers
 		.new({
@@ -265,7 +266,7 @@ _M.tf_state_show = function(opts)
 				actions.select_default:replace(copy_to_default_register(prompt_bufnr))
 				return true
 			end,
-		})
+		}, {})
 		:find()
 end
 
@@ -318,8 +319,114 @@ _M.view_secrets = function(opts)
 				actions.select_default:replace(copy_to_default_register(prompt_bufnr))
 				return true
 			end,
-		})
+		}, {})
 		:find()
 end
+
+local gcloud_explore = function(opts)
+	local show_actual_value = opts.hide_value
+	local fmt_cmd = vim.split(string.format("%s --project=%s", opts.list_cmd, opts.project), " ")
+
+	pickers
+		.new({
+			prompt_title = string.format("%s (%s)", opts.prompt_title, opts.project),
+			results_title = "Results",
+			finder = finders.new_oneshot_job(fmt_cmd, { cwd = vim.uv.cwd() }),
+			sorter = sorters.get_fuzzy_file(),
+			previewer = previewers.new_buffer_previewer({
+				define_preview = function(self, entry, _)
+					if not show_actual_value then
+						vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {
+							"VALUE HIDDEN, Press <C-s> to toggle reveal",
+						})
+						return
+					end
+					local fmt_show_cmd = string.format(opts.show_cmd, entry.value, opts.project)
+					local fmt_show_cmd_split = vim.split(
+						string.format("%s --format=%s --project=%s", fmt_show_cmd, opts.format, opts.project),
+						" "
+					)
+
+					return require("telescope.previewers.utils").job_maker(fmt_show_cmd_split, self.state.bufnr, {
+						callback = function(bufnr, content)
+							if content ~= nil then
+								require("telescope.previewers.utils").regex_highlighter(bufnr, opts.format)
+							end
+						end,
+					})
+				end,
+			}),
+			attach_mappings = function(prompt_bufnr, map)
+				map("i", "<C-s>", function()
+					show_actual_value = not show_actual_value
+					local current_picker = action_state.get_current_picker(prompt_bufnr)
+					current_picker:refresh_previewer()
+				end)
+
+				actions.select_default:replace(copy_to_default_register(prompt_bufnr))
+				return true
+			end,
+		}, {})
+		:find()
+end
+
+local gcloud_mappings = {
+	{
+		cmd = "GcloudServiceExtensions",
+		prompt_title = "Service extensions",
+		list_cmd = "gcloud service-extensions lb-traffic-extensions list --format=value(name) --location=global",
+		show_cmd = "gcloud service-extensions lb-traffic-extensions describe %s --location=global",
+	},
+	{
+		cmd = "GcloudRunJobs",
+		prompt_title = "Cloud Run Jobs in us-central1",
+		list_cmd = "gcloud run jobs list --format=value(name)",
+		show_cmd = "gcloud run jobs describe %s --region=us-central1",
+	},
+	{
+		cmd = "GcloudSqlInstances",
+		prompt_title = "Sql Instances",
+		list_cmd = "gcloud sql instances list --format=value(name)",
+		show_cmd = "gcloud sql instances describe %s",
+	},
+	{
+		cmd = "GcloudManagedSecrets",
+		prompt_title = "Managed Secrets",
+		list_cmd = "gcloud secrets list --format=value(name)",
+		show_cmd = "gcloud secrets versions access latest --secret=%s",
+		gcloud_display_format = "", -- empty string reveals secret
+		show_actual_value = false, -- don't show actual secret value by default
+	},
+}
+
+vim.schedule(function()
+	for _, value in pairs(gcloud_mappings) do
+		local hide_value = (value.show_actual_value == true or value.show_actual_value == nil) or false
+		local format_value = (value.gcloud_display_format ~= nil and value.gcloud_display_format) or "yaml"
+
+		vim.api.nvim_create_user_command(value.cmd, function(opts)
+			local project = nil
+			if opts.args ~= "" then
+				project = opts.args
+			else
+				project = utils.get_os_command_output({ "gcloud", "config", "get", "project" })[1]
+			end
+			gcloud_explore({
+				prompt_title = value.prompt_title,
+				list_cmd = value.list_cmd,
+				show_cmd = value.show_cmd,
+				hide_value = hide_value,
+				format = format_value,
+				project = project,
+			})
+		end, {
+			nargs = "?",
+			desc = "Explore " .. value.prompt_title,
+			complete = function()
+				return work_functions.gcloud_projects()
+			end,
+		})
+	end
+end)
 
 return _M
