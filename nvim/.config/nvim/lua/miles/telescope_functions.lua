@@ -278,7 +278,7 @@ _M.view_secrets = function(opts)
 		project = opts.project
 	end
 
-	local show_actual_value = false
+	local show_value = opts.show_value
 
 	pickers
 		.new({
@@ -291,7 +291,7 @@ _M.view_secrets = function(opts)
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.new_buffer_previewer({
 				define_preview = function(self, entry, _)
-					if not show_actual_value then
+					if not show_value then
 						vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {
 							"SECRET HIDDEN, Press <C-s> to toggle reveal",
 						})
@@ -311,7 +311,7 @@ _M.view_secrets = function(opts)
 			}),
 			attach_mappings = function(prompt_bufnr, map)
 				map("i", "<C-s>", function()
-					show_actual_value = not show_actual_value
+					show_value = not opts.show_value
 					local current_picker = action_state.get_current_picker(prompt_bufnr)
 					current_picker:refresh_previewer()
 				end)
@@ -324,7 +324,7 @@ _M.view_secrets = function(opts)
 end
 
 local gcloud_explore = function(opts)
-	local show_actual_value = opts.hide_value
+	local show_value = opts.show_value
 	local fmt_cmd = vim.split(string.format("%s --project=%s", opts.list_cmd, opts.project), " ")
 
 	pickers
@@ -335,7 +335,7 @@ local gcloud_explore = function(opts)
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.new_buffer_previewer({
 				define_preview = function(self, entry, _)
-					if not show_actual_value then
+					if not show_value then
 						vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {
 							"VALUE HIDDEN, Press <C-s> to toggle reveal",
 						})
@@ -358,7 +358,7 @@ local gcloud_explore = function(opts)
 			}),
 			attach_mappings = function(prompt_bufnr, map)
 				map("i", "<C-s>", function()
-					show_actual_value = not show_actual_value
+					show_value = not show_value
 					local current_picker = action_state.get_current_picker(prompt_bufnr)
 					current_picker:refresh_previewer()
 				end)
@@ -395,14 +395,24 @@ local gcloud_mappings = {
 		list_cmd = "gcloud secrets list --format=value(name)",
 		show_cmd = "gcloud secrets versions access latest --secret=%s",
 		gcloud_display_format = "", -- empty string reveals secret
-		show_actual_value = false, -- don't show actual secret value by default
+		show_value = false, -- don't show actual secret value by default
 	},
 }
 
 vim.schedule(function()
 	for _, value in pairs(gcloud_mappings) do
-		local hide_value = (value.show_actual_value == true or value.show_actual_value == nil) or false
-		local format_value = (value.gcloud_display_format ~= nil and value.gcloud_display_format) or "yaml"
+		local show_value, format_value = nil, nil
+		if value.show_value == false then
+			show_value = false
+		else
+			show_value = true
+		end
+
+		if value.gcloud_display_format == nil then
+			format_value = "yaml"
+		else
+			format_value = ""
+		end
 
 		vim.api.nvim_create_user_command(value.cmd, function(opts)
 			local project = nil
@@ -415,7 +425,7 @@ vim.schedule(function()
 				prompt_title = value.prompt_title,
 				list_cmd = value.list_cmd,
 				show_cmd = value.show_cmd,
-				hide_value = hide_value,
+				show_value = show_value,
 				format = format_value,
 				project = project,
 			})
