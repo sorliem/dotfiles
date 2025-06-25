@@ -11,7 +11,7 @@ local telescope_functions = require("miles.telescope-functions")
 local gcloud_explore = function(opts)
 	local show_value = opts.show_value
 	local fmt_cmd = vim.split(string.format("%s --project=%s", opts.list_cmd, opts.project), " ")
-	print("fmt_cmd = " .. vim.inspect(fmt_cmd))
+	-- print("fmt_cmd = " .. vim.inspect(fmt_cmd))
 
 	pickers
 		.new({
@@ -30,24 +30,33 @@ local gcloud_explore = function(opts)
 
 					local fmt_show_cmd = opts.show_cmd
 					if opts.replace_str then
-						-- For subnets, entry.value will be "subnet-name	region"
 						local parts = vim.split(entry.value, "\t")
 						local name = parts[1]
-						local region = parts[2]
+						local region_or_location = parts[2]
 
 						fmt_show_cmd = string.gsub(fmt_show_cmd, opts.replace_str, name)
-						if opts.region_replace_str and region then
-							fmt_show_cmd = string.gsub(fmt_show_cmd, opts.region_replace_str, region)
+						if opts.region_replace_str and region_or_location then
+							fmt_show_cmd = string.gsub(fmt_show_cmd, opts.region_replace_str, region_or_location)
 						end
 					else
 						fmt_show_cmd = string.format(opts.show_cmd, entry.value, opts.project)
 					end
 
+					fmt_show_cmd = string.gsub(fmt_show_cmd, "PROJECT", opts.project)
+
+					-- add --format flag if not present
 					-- print("fmt_show_cmd = " .. vim.inspect(fmt_show_cmd))
-					local fmt_show_cmd_split = vim.split(
-						string.format("%s --format=%s --project=%s", fmt_show_cmd, opts.format, opts.project),
-						" "
-					)
+					local fmt_show_cmd_split
+					if string.find(fmt_show_cmd, "--format") then
+						fmt_show_cmd_split =
+							vim.split(string.format("%s --project=%s", fmt_show_cmd, opts.project), " ")
+					else
+						fmt_show_cmd_split = vim.split(
+							string.format("%s --format=%s --project=%s", fmt_show_cmd, opts.format, opts.project),
+							" "
+						)
+					end
+					-- print("fmt_show_cmd_split = " .. vim.inspect(fmt_show_cmd_split))
 
 					return require("telescope.previewers.utils").job_maker(fmt_show_cmd_split, self.state.bufnr, {
 						callback = function(bufnr, content)
@@ -131,6 +140,12 @@ local gcloud_mappings = {
 		list_cmd = "gcloud spanner instances list --format=value(name.basename())",
 		show_cmd = "gcloud spanner instances describe %s",
 	},
+	{
+		cmd = "GcloudBigTableInstances",
+		prompt_title = "Bigtable Instances",
+		list_cmd = "gcloud bigtable instances list --format=value(name.basename())",
+		show_cmd = "gcloud bigtable instances describe %s",
+	},
 
 	-- ============================================================================
 	-- NETWORKING
@@ -194,12 +209,6 @@ local gcloud_mappings = {
 	-- SECURITY & IAM
 	-- ============================================================================
 	{
-		cmd = "GcloudServiceAccounts",
-		prompt_title = "Service Accounts",
-		list_cmd = "gcloud iam service-accounts list --format=value(email)",
-		show_cmd = "gcloud iam service-accounts get-iam-policy %s",
-	},
-	{
 		cmd = "GcloudIamRoles",
 		prompt_title = "IAM Roles (Predefined)",
 		list_cmd = "gcloud iam roles list --format=value(name.basename())",
@@ -212,6 +221,12 @@ local gcloud_mappings = {
 		show_cmd = "gcloud secrets versions access latest --secret=%s",
 		gcloud_display_format = "", -- empty string reveals secret
 		show_value = false, -- don't show actual secret value by default
+	},
+	{
+		cmd = "GcloudServiceAccountRoles",
+		prompt_title = "Service Accounts & Their Roles",
+		list_cmd = "gcloud iam service-accounts list --format=value(email)",
+		show_cmd = "gcloud projects get-iam-policy PROJECT --flatten=bindings[].members --filter=bindings.members:%s --format=table(bindings.role)",
 	},
 
 	-- ============================================================================
