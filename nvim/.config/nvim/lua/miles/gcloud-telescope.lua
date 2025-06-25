@@ -108,6 +108,18 @@ local gcloud_mappings = {
 		show_cmd = "gcloud sql instances describe %s",
 	},
 	{
+		cmd = "GcloudMemorystoreInstances",
+		prompt_title = "Memorystore Redis Instances",
+		list_cmd = "gcloud redis instances list --region=us-central1 --format=value(name.basename())",
+		show_cmd = "gcloud redis instances describe %s --region=us-central1",
+	},
+	{
+		cmd = "GcloudSpannerInstances",
+		prompt_title = "Cloud Spanner Instances",
+		list_cmd = "gcloud spanner instances list --format=value(name.basename())",
+		show_cmd = "gcloud spanner instances describe %s",
+	},
+	{
 		cmd = "GcloudComputeInstances",
 		prompt_title = "Compute Engine Instances",
 		list_cmd = "gcloud compute instances list --format=value(name)",
