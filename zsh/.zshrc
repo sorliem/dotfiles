@@ -94,21 +94,114 @@ function delete-branches() {
 #################################
 #           TERRAFORM           #
 #################################
-alias tf='terraform'
-alias tfmt="terraform fmt -recursive"
-# alias tfapply="terraform apply"
-# alias tfdocs="terraform-docs markdown ./"
-alias tfgit="terraform-docs markdown ./ && terraform fmt -recursive && git add --all"
-alias tfws="terraform workspace select"
-alias tfp="terraform plan"
-# alias tfplan="terraform plan"
-alias tfproviders="terraform providers"
-alias tfrefresh="terraform refresh"
-alias tfupgrade="terraform init --upgrade"
-alias tfvalidate="terraform validate"
-alias tfworkspace="terraform workspace select"
-alias tfwl="terraform workspace list"
+alias tf='tofu'
+alias tfws="tofu workspace select"
+alias tfproviders="tofu providers"
+alias tfwl="tofu workspace list"
 
+function tfdocs () {
+  if [ ! -d modules/ ]; then
+    terraform-docs markdown ./
+  else
+    terraform-docs markdown ./ --recursive
+  fi
+}
+
+# select multiple resources to show with fzf
+function tfshow () {
+  tf state list |\
+  fzf --height=70% --header "[TF-WORKSPACE: $(tofu workspace show)] [REPO: $(basename $(pwd))]" |\
+  sed 's/"/\\"/g' |\
+  xargs -P 12 -n 1 -I {} tofu state show {}
+}
+
+
+function tfplang () {
+  # plan but grep for 'will be' to list all addresses
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu plan $extra "$@" | grep 'will be'
+}
+
+# Tofu Functions
+function tfplan () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu plan $extra "$@"
+}
+function tfapply () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu apply $extra "$@"
+}
+function tfupgrade () {
+  tofu init --upgrade
+}
+function tfinit () {
+  echo "removing .terraform dir"
+  rm -rf .terraform*
+  tofu init --upgrade
+}
+function tfproviders () {
+  tofu providers
+}
+function tfimport () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu import $extra "$@"
+}
+function tfrefresh () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu refresh $extra "$@"
+}
+function tfdestroy () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu destroy $extra "$@"
+}
+function tfplanall () {
+  for workspace in $(tofu workspace list | awk '{print $NF}' | grep -v "default"); do
+    tofu workspace select "${workspace}" || break
+    if fd -q '.*tfvars' .; then
+      extra="-var-file=${workspace}.tfvars"
+    else
+      extra=""
+    fi
+    if ! tofu plan $extra -detailed-exitcode; then
+      read -e "?$workspace - Plan identified changes. Hit enter to continue"$'\n'
+    fi
+  done
+}
+function tfapplyall () {
+  for workspace in $(tofu workspace list | awk '{print $NF}' | grep -v "default"); do
+    tofu workspace select "${workspace}" || break
+    if fd -q '.*tfvars' .; then
+      extra="-var-file=${workspace}.tfvars"
+    else
+      extra=""
+    fi
+    tofu apply $extra
+  done
+}
 
 #################################
 #           KUBECTL             #
@@ -130,6 +223,15 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 #################################
 #           GCLOUD              #
 #################################
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
+export CLOUDSDK_PYTHON=$(which python3.11)
+# export CLOUDSDK_PYTHON="/usr/bin/python3"
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 alias gswitch="gcloud projects list | grep ^onx | awk '{ print \$1 }' | fzf | xargs -n1 -I {} gcloud config set project {}"
 alias describerole="gcloud iam roles describe"
 
@@ -150,23 +252,6 @@ function gcloudreadlogs() {
   fi
 
   gcloud logging read "resource.type=\"k8s_container\" labels.\"k8s-pod/app\":\"$app\"" --format="value(jsonPayload.$msgKey)"
-}
-
-
-function tfdocs () {
-  if [ ! -d modules/ ]; then
-    terraform-docs markdown ./
-  else
-    terraform-docs markdown ./ --recursive
-  fi
-}
-
-# select multiple resources to show with fzf
-function tfshow () {
-  tf state list |\
-  fzf --height=70% --header "[TF-WORKSPACE: $(terraform workspace show)] [REPO: $(basename $(pwd))]" |\
-  sed 's/"/\\"/g' |\
-  xargs -P 12 -n 1 -I {} terraform state show {}
 }
 
 function showgcprole () {
@@ -191,74 +276,13 @@ function showrolesformember() {
   fi
 }
 
-function tfplan () {
-  if fd -q '.*tfvars' .; then
-    extra="-var-file=$(terraform workspace show).tfvars"
-  else
-    extra=""
-  fi
-  terraform plan $extra "$@"
-}
-
-function tfplang () {
-  # plan but grep for 'will be' to list all addresses
-  if fd -q '.*tfvars' .; then
-    extra="-var-file=$(terraform workspace show).tfvars"
-  else
-    extra=""
-  fi
-  terraform plan $extra "$@" | grep 'will be'
-}
-
-function tfapply () {
-  if fd -q '.*tfvars' .; then
-    extra="-var-file=$(terraform workspace show).tfvars"
-  else
-    extra=""
-  fi
-  terraform apply $extra "$@"
-}
-
-function tfplanall () {
-  for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
-    terraform workspace select "${workspace}" || break
-    if fd -q '.*tfvars' .; then
-      extra="-var-file=${workspace}.tfvars"
-    else
-      extra=""
-    fi
-    echo "terraform plan $extra"
-    if ! terraform plan $extra -detailed-exitcode; then
-      read -e "?$workspace - Plan identified changes. Hit enter to continue"$'\n'
-    fi
-  done
-}
-
-function tfapplyall () {
-  nworkspaces=$(terraform workspace list | awk '{print $NF}' | grep -v "default" | grep -v "^$" | wc -l | tr -d ' ')
-  index=1
-
-  for workspace in $(terraform workspace list | awk '{print $NF}' | grep -v "default"); do
-    terraform workspace select "${workspace}" || break
-    if fd -q '.*tfvars' .; then
-      extra="-var-file=${workspace}.tfvars"
-    else
-      extra=""
-    fi
-    echo "["$index"/"$nworkspaces"] terraform apply $extra"
-    terraform apply $extra
-    ((index++))
-  done
-}
-
-
-export CLOUDSDK_PYTHON=$(which python3.11)
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export PATH=$PATH:$HOME/.tfenv/bin
 
 export TF_CLI_ARGS_plan="-parallelism=100"
 export TF_CLI_ARGS_apply="-parallelism=100"
 
-export PATH=$PATH:$HOME/.tfenv/bin
+
+
 
 if [[ -e "$HOME/.local/bin/kbc-ac.sh" ]]; then
     source $HOME/.local/bin/kbc-ac.sh
@@ -293,8 +317,6 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
-export CLOUDSDK_PYTHON="/usr/bin/python3"
-export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
 export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=$(brew --prefix openssl)"
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
@@ -419,11 +441,8 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k_work.zsh ]] || source ~/.p10k_work.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/opt/homebrew/opt/lua@5.3/bin:$PATH"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
