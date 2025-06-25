@@ -74,11 +74,22 @@ local gcloud_explore = function(opts)
 end
 
 local gcloud_mappings = {
+	-- ============================================================================
+	-- COMPUTE & CONTAINER SERVICES
+	-- ============================================================================
 	{
-		cmd = "GcloudServiceExtensions",
-		prompt_title = "Service extensions",
-		list_cmd = "gcloud service-extensions lb-traffic-extensions list --format=value(name) --location=global",
-		show_cmd = "gcloud service-extensions lb-traffic-extensions describe %s --location=global",
+		cmd = "GcloudComputeInstances",
+		prompt_title = "Compute Engine Instances",
+		list_cmd = "gcloud compute instances list --format=value(name)",
+		show_cmd = "gcloud compute instances describe %s",
+	},
+	{
+		cmd = "GcloudGkeClusters",
+		prompt_title = "GKE Clusters",
+		list_cmd = "gcloud container clusters list --format=value(name,location)",
+		show_cmd = "gcloud container clusters describe CLUSTER_NAME --location=CLUSTER_REGION",
+		replace_str = "CLUSTER_NAME",
+		region_replace_str = "CLUSTER_REGION",
 	},
 	{
 		cmd = "GcloudRunJobs",
@@ -93,13 +104,14 @@ local gcloud_mappings = {
 		show_cmd = "gcloud functions describe %s",
 	},
 
+	-- ============================================================================
+	-- STORAGE & DATABASES
+	-- ============================================================================
 	{
-		cmd = "GcloudGkeClusters",
-		prompt_title = "GKE Clusters",
-		list_cmd = "gcloud container clusters list --format=value(name,location)",
-		show_cmd = "gcloud container clusters describe CLUSTER_NAME --location=CLUSTER_REGION",
-		replace_str = "CLUSTER_NAME",
-		region_replace_str = "CLUSTER_REGION",
+		cmd = "GcloudStorageBuckets",
+		prompt_title = "Cloud Storage Buckets",
+		list_cmd = "gcloud storage buckets list --format=value(name)",
+		show_cmd = "gcloud storage buckets describe gs://%s",
 	},
 	{
 		cmd = "GcloudSqlInstances",
@@ -119,65 +131,10 @@ local gcloud_mappings = {
 		list_cmd = "gcloud spanner instances list --format=value(name.basename())",
 		show_cmd = "gcloud spanner instances describe %s",
 	},
-	{
-		cmd = "GcloudComputeInstances",
-		prompt_title = "Compute Engine Instances",
-		list_cmd = "gcloud compute instances list --format=value(name)",
-		show_cmd = "gcloud compute instances describe %s",
-	},
-	{
-		cmd = "GcloudPubsubTopics",
-		prompt_title = "Pubsub Topics & Attached Subscriptions",
-		list_cmd = "gcloud pubsub topics list --format=value(name.basename())",
-		show_cmd = "gcloud pubsub topics list-subscriptions %s",
-	},
-	{
-		cmd = "GcloudPubsubSubscriptions",
-		prompt_title = "Pubsub Subscriptions",
-		list_cmd = "gcloud pubsub subscriptions list --format=value(name)",
-		show_cmd = "gcloud pubsub subscriptions describe %s",
-	},
 
-	{
-		cmd = "GcloudStorageBuckets",
-		prompt_title = "Cloud Storage Buckets",
-		list_cmd = "gcloud storage buckets list --format=value(name)",
-		show_cmd = "gcloud storage buckets describe gs://%s",
-	},
-	{
-		cmd = "GcloudServiceAccounts",
-		prompt_title = "Service Accounts",
-		list_cmd = "gcloud iam service-accounts list --format=value(email)",
-		show_cmd = "gcloud iam service-accounts get-iam-policy %s",
-	},
-	{
-		cmd = "GcloudIamRoles",
-		prompt_title = "IAM Roles (Predefined)",
-		list_cmd = "gcloud iam roles list --format=value(name.basename())",
-		show_cmd = "gcloud iam roles describe %s",
-	},
-	{
-		cmd = "GcloudManagedSecrets",
-		prompt_title = "Managed Secrets",
-		list_cmd = "gcloud secrets list --format=value(name)",
-		show_cmd = "gcloud secrets versions access latest --secret=%s",
-		gcloud_display_format = "", -- empty string reveals secret
-		show_value = false, -- don't show actual secret value by default
-	},
-	{
-		cmd = "GcloudProjects",
-		prompt_title = "Gcloud Projects",
-		list_cmd = "gcloud projects list --format=value(projectId)",
-		show_cmd = "gcloud projects describe %s",
-	},
-	{
-		cmd = "GcloudEnabledApis",
-		prompt_title = "Enabled APIs & Services",
-		list_cmd = "gcloud services list --enabled --format=value(name.basename())",
-		show_cmd = "gcloud services describe %s", -- doesn't work, no describe command
-	},
-
-	-- Networking
+	-- ============================================================================
+	-- NETWORKING
+	-- ============================================================================
 	{
 		cmd = "GcloudLoadBalancers",
 		prompt_title = "Load Balancers",
@@ -209,6 +166,68 @@ local gcloud_mappings = {
 		prompt_title = "Load Balancer Forwarding Rules",
 		list_cmd = "gcloud compute forwarding-rules list --format=value(name)",
 		show_cmd = "gcloud compute forwarding-rules describe %s --global",
+	},
+	{
+		cmd = "GcloudServiceExtensions",
+		prompt_title = "Service extensions",
+		list_cmd = "gcloud service-extensions lb-traffic-extensions list --format=value(name) --location=global",
+		show_cmd = "gcloud service-extensions lb-traffic-extensions describe %s --location=global",
+	},
+
+	-- ============================================================================
+	-- MESSAGING & EVENTS
+	-- ============================================================================
+	{
+		cmd = "GcloudPubsubTopics",
+		prompt_title = "Pubsub Topics & Attached Subscriptions",
+		list_cmd = "gcloud pubsub topics list --format=value(name.basename())",
+		show_cmd = "gcloud pubsub topics list-subscriptions %s",
+	},
+	{
+		cmd = "GcloudPubsubSubscriptions",
+		prompt_title = "Pubsub Subscriptions",
+		list_cmd = "gcloud pubsub subscriptions list --format=value(name)",
+		show_cmd = "gcloud pubsub subscriptions describe %s",
+	},
+
+	-- ============================================================================
+	-- SECURITY & IAM
+	-- ============================================================================
+	{
+		cmd = "GcloudServiceAccounts",
+		prompt_title = "Service Accounts",
+		list_cmd = "gcloud iam service-accounts list --format=value(email)",
+		show_cmd = "gcloud iam service-accounts get-iam-policy %s",
+	},
+	{
+		cmd = "GcloudIamRoles",
+		prompt_title = "IAM Roles (Predefined)",
+		list_cmd = "gcloud iam roles list --format=value(name.basename())",
+		show_cmd = "gcloud iam roles describe %s",
+	},
+	{
+		cmd = "GcloudManagedSecrets",
+		prompt_title = "Managed Secrets",
+		list_cmd = "gcloud secrets list --format=value(name)",
+		show_cmd = "gcloud secrets versions access latest --secret=%s",
+		gcloud_display_format = "", -- empty string reveals secret
+		show_value = false, -- don't show actual secret value by default
+	},
+
+	-- ============================================================================
+	-- PROJECT & API MANAGEMENT
+	-- ============================================================================
+	{
+		cmd = "GcloudProjects",
+		prompt_title = "Gcloud Projects",
+		list_cmd = "gcloud projects list --format=value(projectId)",
+		show_cmd = "gcloud projects describe %s",
+	},
+	{
+		cmd = "GcloudEnabledApis",
+		prompt_title = "Enabled APIs & Services",
+		list_cmd = "gcloud services list --enabled --format=value(name.basename())",
+		show_cmd = "gcloud services describe %s", -- doesn't work, no describe command
 	},
 }
 
