@@ -237,7 +237,7 @@ return {
 		vim.keymap.set("n", "<leader>gb", require("telescope.builtin").git_branches)
 
 		vim.keymap.set("n", "<leader>ghr", function()
-			require("miles.telescope_functions").github_pull_requests()
+			require("miles.telescope-functions").github_pull_requests()
 		end, { desc = "List Recent [G]it[H]ub Pull [R]equests" })
 
 		-- vim.api.nvim_create_user_command("GhList", function()
@@ -309,16 +309,16 @@ return {
 				additional_args = additional_args,
 			}
 
-			require("miles.telescope_functions").live_multigrep(opts)
+			require("miles.telescope-functions").live_multigrep(opts)
 			-- require("telescope.builtin").live_grep(opts)
 		end, { desc = "[P]roject [S]earch with rg" })
 
 		vim.keymap.set("n", "<leader>ofs", function()
-			require("miles.telescope_functions").onx_live_grep({})
+			require("miles.telescope-functions").onx_live_grep({})
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
 		vim.keymap.set("n", "<leader>mg", function()
-			require("miles.telescope_functions").live_multigrep({})
+			require("miles.telescope-functions").live_multigrep({})
 		end, { desc = "Telescope Live [M]ulti [G]grep" })
 
 		vim.keymap.set("n", "<space>ld", function()
@@ -335,7 +335,7 @@ return {
 		end, { desc = "Fuzzy find over buffer lines" })
 
 		vim.keymap.set("n", "<leader>ji", function()
-			require("miles.telescope_functions").jira_tickets()
+			require("miles.telescope-functions").jira_tickets()
 		end, { desc = "[J][i]ra ticket list" })
 
 		vim.keymap.set("n", "<leader>mp", function()
@@ -351,14 +351,14 @@ return {
 		end, { desc = "[T]elescope [L]ua[S]nip" })
 
 		vim.keymap.set("n", "<leader>tfs", function()
-			require("miles.telescope_functions").tf_state_show()
+			require("miles.telescope-functions").tf_state_show()
 		end, { desc = "[T]erra[f]orm State [S]how w/ Telescope" })
 
 		vim.keymap.set("n", "<leader>vs", function()
 			local cur_project = utils.get_os_command_output({ "gcloud", "config", "get", "project" })[1]
 			local project = vim.fn.input(string.format("Project (current: %s): ", cur_project))
 			project = project ~= "" and project or cur_project
-			require("miles.telescope_functions").view_secrets({ project = project })
+			require("miles.telescope-functions").view_secrets({ project = project })
 		end, { desc = "[V]iew [S]ecrets in GCP" })
 	end,
 	dependencies = {

@@ -1,6 +1,6 @@
 local _M = {}
 
-local telescope_functions = require("miles.telescope_functions")
+local telescope_functions = require("miles.telescope-functions")
 
 _M.git_sha = function(_, _, user_arg)
 	local diff_direction
