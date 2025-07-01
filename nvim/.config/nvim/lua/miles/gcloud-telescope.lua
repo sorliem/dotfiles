@@ -52,7 +52,12 @@ local gcloud_explore = function(opts)
 							vim.split(string.format("%s --project=%s", fmt_show_cmd, opts.project), " ")
 					else
 						fmt_show_cmd_split = vim.split(
-							string.format("%s --format=%s --project=%s", fmt_show_cmd, opts.format, opts.project),
+							string.format(
+								"%s --format=%s --project=%s",
+								fmt_show_cmd,
+								opts.gcloud_display_format,
+								opts.project
+							),
 							" "
 						)
 					end
@@ -62,7 +67,8 @@ local gcloud_explore = function(opts)
 						callback = function(bufnr, content)
 							-- print("content = " .. vim.inspect(content))
 							if content ~= nil then
-								require("telescope.previewers.utils").regex_highlighter(bufnr, opts.format)
+								print("preview_format = " .. vim.inspect(preview_format))
+								require("telescope.previewers.utils").regex_highlighter(bufnr, opts.preview_format)
 							end
 						end,
 					})
@@ -91,6 +97,7 @@ local gcloud_mappings = {
 		prompt_title = "Compute Engine Instances",
 		list_cmd = "gcloud compute instances list --format=value(name)",
 		show_cmd = "gcloud compute instances describe %s",
+		gcloud_display_format = "",
 	},
 	{
 		cmd = "GcloudGkeClusters",
@@ -127,6 +134,13 @@ local gcloud_mappings = {
 		prompt_title = "Sql Instances",
 		list_cmd = "gcloud sql instances list --format=value(name)",
 		show_cmd = "gcloud sql instances describe %s",
+	},
+	{
+		cmd = "GcloudSqlUsers",
+		prompt_title = "SQL Instance Users",
+		list_cmd = "gcloud sql instances list --format=value(name)",
+		show_cmd = "gcloud sql users list --instance=%s",
+		gcloud_display_format = "[box]",
 	},
 	{
 		cmd = "GcloudMemorystoreInstances",
@@ -183,10 +197,45 @@ local gcloud_mappings = {
 		show_cmd = "gcloud compute forwarding-rules describe %s --global",
 	},
 	{
-		cmd = "GcloudServiceExtensions",
-		prompt_title = "Service extensions",
-		list_cmd = "gcloud service-extensions lb-traffic-extensions list --format=value(name) --location=global",
-		show_cmd = "gcloud service-extensions lb-traffic-extensions describe %s --location=global",
+		cmd = "GcloudDnsZones",
+		prompt_title = "DNS Zones & Records",
+		list_cmd = "gcloud dns managed-zones list --format=value(name)",
+		show_cmd = "gcloud dns record-sets list --zone=%s",
+		gcloud_display_format = "yaml(name,type,ttl,rrdatas)",
+		preview_format = "yaml",
+	},
+
+	-- service extensions
+	{
+		cmd = "GcloudTrafficCalloutExtensions",
+		prompt_title = "Traffic callout extensions",
+		list_cmd = "gcloud beta service-extensions lb-traffic-extensions list --location=global --format=value(name)",
+		show_cmd = "gcloud beta service-extensions lb-traffic-extensions describe %s --location=global",
+	},
+	{
+		cmd = "GcloudRouteCalloutExtensions",
+		prompt_title = "Route callout extensions",
+		list_cmd = "gcloud beta service-extensions lb-route-extensions list --location=global --format=value(name)",
+		show_cmd = "gcloud beta service-extensions lb-route-extensions describe %s --location=global",
+	},
+	{
+		cmd = "GcloudAuthCalloutExtensions",
+		prompt_title = "Auth callout extensions",
+		list_cmd = "gcloud beta service-extensions authz-extensions list --location=global --format=value(name)",
+		show_cmd = "gcloud beta service-extensions authz-extensions describe %s --location=global",
+	},
+	{
+		cmd = "GcloudTrafficPluginExtensions",
+		prompt_title = "Traffic plugin extensions",
+		list_cmd = "gcloud beta service-extensions wasm-plugins list --format=value(name)",
+		show_cmd = "gcloud beta service-extensions wasm-plugins describe %s",
+	},
+
+	{
+		cmd = "GcloudAuthzPolicies",
+		prompt_title = "Authz policies",
+		list_cmd = "gcloud beta network-security authz-policies list --location global --format=value(name)",
+		show_cmd = "gcloud beta network-security authz-policies describe %s --location=global",
 	},
 
 	-- ============================================================================
@@ -248,7 +297,7 @@ local gcloud_mappings = {
 
 vim.schedule(function()
 	for _, value in pairs(gcloud_mappings) do
-		local show_value, format_value = nil, nil
+		local show_value, gcloud_display_format = nil, nil
 		if value.show_value == false then
 			show_value = false
 		else
@@ -256,9 +305,9 @@ vim.schedule(function()
 		end
 
 		if value.gcloud_display_format == nil then
-			format_value = "yaml"
+			gcloud_display_format = "yaml"
 		else
-			format_value = ""
+			gcloud_display_format = value.gcloud_display_format
 		end
 
 		vim.api.nvim_create_user_command(value.cmd, function(opts)
@@ -275,7 +324,8 @@ vim.schedule(function()
 				show_value = show_value,
 				replace_str = value.replace_str,
 				region_replace_str = value.region_replace_str,
-				format = format_value,
+				gcloud_display_format = gcloud_display_format,
+				preview_format = value.preview_format or "yaml",
 				project = project,
 			})
 		end, {

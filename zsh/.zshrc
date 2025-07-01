@@ -229,7 +229,7 @@ if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/U
 if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
 export CLOUDSDK_PYTHON=$(which python3.11)
-# export CLOUDSDK_PYTHON="/usr/bin/python3"
+export CLOUDSDK_PYTHON="/usr/bin/python3"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 alias gswitch="gcloud projects list | grep ^onx | awk '{ print \$1 }' | fzf | xargs -n1 -I {} gcloud config set project {}"
