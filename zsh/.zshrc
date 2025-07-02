@@ -178,6 +178,14 @@ function tfdestroy () {
   fi
   tofu destroy $extra "$@"
 }
+function tfconsole () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars"
+  else
+    extra=""
+  fi
+  tofu console $extra "$@"
+}
 function tfplanall () {
   for workspace in $(tofu workspace list | awk '{print $NF}' | grep -v "default"); do
     tofu workspace select "${workspace}" || break
