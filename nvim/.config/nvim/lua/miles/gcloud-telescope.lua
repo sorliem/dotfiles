@@ -67,7 +67,7 @@ local gcloud_explore = function(opts)
 						callback = function(bufnr, content)
 							-- print("content = " .. vim.inspect(content))
 							if content ~= nil then
-								print("preview_format = " .. vim.inspect(preview_format))
+								-- print("preview_format = " .. vim.inspect(preview_format))
 								require("telescope.previewers.utils").regex_highlighter(bufnr, opts.preview_format)
 							end
 						end,
@@ -162,11 +162,44 @@ local gcloud_mappings = {
 	},
 
 	-- ============================================================================
+	-- Load balancing
+	-- ============================================================================
+	{
+		cmd = "GcloudBackendServices",
+		prompt_title = "Load Balancer Backend Services",
+		list_cmd = "gcloud compute backend-services list --format=value(name)",
+		show_cmd = "gcloud compute backend-services describe %s --global",
+	},
+	{
+		cmd = "GcloudHealthChecks",
+		prompt_title = "Load Balancer Health Checks",
+		list_cmd = "gcloud compute health-checks list --format=value(name)",
+		show_cmd = "gcloud compute health-checks describe %s --global",
+	},
+	{
+		cmd = "GcloudSecurityPolicies",
+		prompt_title = "Cloud Armor Security Policies",
+		list_cmd = "gcloud compute security-policies list --format=value(name)",
+		show_cmd = "gcloud compute security-policies describe %s",
+	},
+	{
+		cmd = "GcloudBackendBuckets",
+		prompt_title = "Load Balancer Backend Buckets",
+		list_cmd = "gcloud compute backend-buckets list --format=value(name)",
+		show_cmd = "gcloud compute backend-buckets describe %s",
+	},
+	{
+		cmd = "GcloudForwardingRules",
+		prompt_title = "Load Balancer Forwarding Rules",
+		list_cmd = "gcloud compute forwarding-rules list --format=value(name)",
+		show_cmd = "gcloud compute forwarding-rules describe %s --global",
+	},
+	-- ============================================================================
 	-- NETWORKING
 	-- ============================================================================
 	{
-		cmd = "GcloudLoadBalancers",
-		prompt_title = "Load Balancers",
+		cmd = "GcloudUrlMaps",
+		prompt_title = "Load Balancer Url Maps",
 		list_cmd = "gcloud compute url-maps list --format=value(name)",
 		show_cmd = "gcloud compute url-maps describe %s --global",
 	},
@@ -191,10 +224,28 @@ local gcloud_mappings = {
 		region_replace_str = "SUBNET_REGION",
 	},
 	{
-		cmd = "GcloudForwardingRules",
-		prompt_title = "Load Balancer Forwarding Rules",
-		list_cmd = "gcloud compute forwarding-rules list --format=value(name)",
-		show_cmd = "gcloud compute forwarding-rules describe %s --global",
+		cmd = "GcloudAddresses",
+		prompt_title = "Compute Addresses",
+		list_cmd = "gcloud compute addresses list --format=value(name)",
+		show_cmd = "gcloud compute addresses describe %s --global",
+	},
+	{
+		cmd = "GcloudTargetHttpProxies",
+		prompt_title = "Target HTTP Proxies",
+		list_cmd = "gcloud compute target-http-proxies list --format=value(name)",
+		show_cmd = "gcloud compute target-http-proxies describe %s --global",
+	},
+	{
+		cmd = "GcloudTargetHttpsProxies",
+		prompt_title = "Target HTTPS Proxies",
+		list_cmd = "gcloud compute target-https-proxies list --format=value(name)",
+		show_cmd = "gcloud compute target-https-proxies describe %s --global",
+	},
+	{
+		cmd = "GcloudTargetGrpcProxies",
+		prompt_title = "Target gRPC Proxies",
+		list_cmd = "gcloud compute target-grpc-proxies list --format=value(name)",
+		show_cmd = "gcloud compute target-grpc-proxies describe %s --global",
 	},
 	{
 		cmd = "GcloudDnsZones",
@@ -205,7 +256,9 @@ local gcloud_mappings = {
 		preview_format = "yaml",
 	},
 
-	-- service extensions
+	-- ============================================================================
+	-- Service Extensions
+	-- ============================================================================
 	{
 		cmd = "GcloudTrafficCalloutExtensions",
 		prompt_title = "Traffic callout extensions",
@@ -250,7 +303,7 @@ local gcloud_mappings = {
 	{
 		cmd = "GcloudPubsubSubscriptions",
 		prompt_title = "Pubsub Subscriptions",
-		list_cmd = "gcloud pubsub subscriptions list --format=value(name)",
+		list_cmd = "gcloud pubsub subscriptions list --format=value(name.basename())",
 		show_cmd = "gcloud pubsub subscriptions describe %s",
 	},
 
