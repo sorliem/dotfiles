@@ -4,7 +4,7 @@ return {
 			"ellisonleao/gruvbox.nvim",
 			priority = 1000,
 			lazy = false,
-			cond = true,
+			cond = false,
 			config = function()
 				require("gruvbox").setup({
 					undercurl = true,
@@ -48,7 +48,7 @@ return {
 			config = function()
 				require("catppuccin").setup({
 					-- latte, frappe, macchiato, mocha
-					flavour = "frappe",
+					flavour = "mocha",
 					transparent_mode = false,
 				})
 				vim.cmd([[set background=light]])
@@ -62,10 +62,10 @@ return {
 			lazy = false,
 			cond = false,
 			config = function()
-				require("kanagawa").setup({
-					-- theme = "",
-				})
-				vim.cmd("colorscheme kanagawa")
+				-- require("kanagawa").setup({
+				-- 	theme = "dragon",
+				-- })
+				vim.cmd("colorscheme kanagawa-wave")
 			end,
 		},
 		{
@@ -91,7 +91,7 @@ return {
 					},
 				})
 
-				vim.cmd.colorscheme("github_dark")
+				vim.cmd.colorscheme("github_dark_default")
 			end,
 		},
 		{
@@ -109,7 +109,7 @@ return {
 			"folke/tokyonight.nvim",
 			priority = 1000,
 			lazy = false,
-			cond = false,
+			cond = true,
 			config = function()
 				vim.opt.background = "dark"
 				-- vim.g.tokyonight_italic_functions = 1

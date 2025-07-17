@@ -127,7 +127,7 @@ map("n", "<leader>d", '"_d', "[D]elete to void register")
 map("v", "<leader>d", '"_d', "[D]elete to void register")
 
 -- copy to clipboard
-map("v", "<leader>c", '"+y<CR>', "[C]opy to system clipboard")
+map("v", "<leader>cp", '"+y<CR>', "[C]opy to system clipboard")
 
 -- paste from clipboard
 map("n", "<leader>P", '"+p<CR>', "[P]aste from clipboard")
@@ -141,8 +141,17 @@ map("n", "<leader>bd", "<cmd>bdelete<CR>", "[B]uffer [D]elete")
 -- reload all buffers from disk
 map("n", "<leader>br", "<cmd>bufdo e!<CR>", "[B]uffer [R]eload")
 
--- Grab last commit messge
-map("n", "<leader>gl1", "<cmd>read !git log -n 1<CR>?commit<CR>d3j", "Read prev (1-back) [G]it [L]og commit message")
+-- Grab last commit messge. This is probably too complicated and could be solved with a --format flag but where's the fun in that
+map(
+	"n",
+	"<leader>gl1",
+	"<cmd>read !git log -n 1<CR>" -- read last commit message
+		.. "?commit<CR>" -- search backwards for commit
+		.. "kdd" -- go up one and delete blank line
+		.. "d3j" -- delete	the next 3 lines (the commit hash, date, and author)
+		.. "dw", -- delete 4 spaces at the beginning of the line
+	"Read prev (1-back) [G]it [L]og commit message"
+)
 
 map("n", "<Leader>ts", "<cmd>%s/\\s\\+$//e<CR>", "[T]rim trailing [S]paces")
 
@@ -153,21 +162,22 @@ map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-se
 
 -- run test file
 -- map("n", "<Leader>rt", ":call RunElixirTest()<CR>")
-map("n", "<Leader>rst", function()
-	local file_plus_linenum = vim.fn.expand("%:") .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
-	local cmd = "tmux send-keys -t {left} 'dtest " .. file_plus_linenum .. "' C-m"
-	print("👈👈👈 Running ONE test: " .. file_plus_linenum)
 
-	vim.call("system", cmd)
-end, "[R]un [S]ingle [T]est - only Elixir")
+-- map("n", "<Leader>rst", function()
+-- 	local file_plus_linenum = vim.fn.expand("%:") .. ":" .. vim.api.nvim_win_get_cursor(0)[1]
+-- 	local cmd = "tmux send-keys -t {left} 'dtest " .. file_plus_linenum .. "' C-m"
+-- 	print("👈👈👈 Running ONE test: " .. file_plus_linenum)
+--
+-- 	vim.call("system", cmd)
+-- end, "[R]un [S]ingle [T]est - only Elixir")
 
-map("n", "<Leader>rt", function()
-	local file = vim.fn.expand("%:")
-	print("👈👈👈 Running all tests: " .. file)
-	local cmd = "tmux send-keys -t {left} 'dtest " .. file .. "' C-m"
-
-	vim.call("system", cmd)
-end, "[R]un all [T]ests - only Elixir")
+-- map("n", "<Leader>rt", function()
+-- 	local file = vim.fn.expand("%:")
+-- 	print("👈👈👈 Running all tests: " .. file)
+-- 	local cmd = "tmux send-keys -t {left} 'dtest " .. file .. "' C-m"
+--
+-- 	vim.call("system", cmd)
+-- end, "[R]un all [T]ests - only Elixir")
 
 map("n", "<leader>td", function()
 	local baseurl = "https://registry.terraform.io/?q=%s"

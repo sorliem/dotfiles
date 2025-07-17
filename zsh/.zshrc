@@ -149,6 +149,7 @@ function tfupgrade () {
 function tfinit () {
   echo "removing .terraform dir"
   rm -rf .terraform*
+  echo "tofu init --upgrade"
   tofu init --upgrade
 }
 function tfproviders () {
