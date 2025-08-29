@@ -8,6 +8,30 @@ local utils = require("telescope.utils")
 local work_functions = require("miles.work-commands")
 local telescope_functions = require("miles.telescope-functions")
 
+local function get_console_url(template, entry_value, project, opts)
+	local url = template
+
+	-- Handle entries with multiple values (tab-separated)
+	local parts = vim.split(entry_value, "\t")
+	local name = parts[1]
+	local location = parts[2]
+
+	-- Replace placeholders
+	url = string.gsub(url, "{name}", name or entry_value)
+	url = string.gsub(url, "{project}", project)
+	url = string.gsub(url, "{location}", location or "")
+	url = string.gsub(url, "{region}", location or "")
+
+	-- Allow custom replacements if needed
+	if opts.url_replacements then
+		for placeholder, value in pairs(opts.url_replacements) do
+			url = string.gsub(url, placeholder, value)
+		end
+	end
+
+	return url
+end
+
 local gcloud_explore = function(opts)
 	local show_value = opts.show_value
 	local fmt_cmd = vim.split(string.format("%s --project=%s", opts.list_cmd, opts.project), " ")
@@ -81,6 +105,19 @@ local gcloud_explore = function(opts)
 					current_picker:refresh_previewer()
 				end)
 
+				-- Add the C-o mapping if console_url is defined
+				if opts.console_url then
+					map("i", "<C-o>", function()
+						local selection = action_state.get_selected_entry()
+						if selection then
+							local url = get_console_url(opts.console_url, selection.value, opts.project, opts)
+							-- Use the appropriate command for your OS
+							local open_cmd = vim.fn.has("mac") == 1 and "open" or "xdg-open"
+							vim.fn.system(string.format("%s '%s'", open_cmd, url))
+						end
+					end)
+				end
+
 				actions.select_default:replace(telescope_functions.copy_to_default_register(prompt_bufnr))
 				return true
 			end,
@@ -98,6 +135,7 @@ local gcloud_mappings = {
 		list_cmd = "gcloud compute instances list --format=value(name)",
 		show_cmd = "gcloud compute instances describe %s",
 		gcloud_display_format = "",
+		console_url = "https://console.cloud.google.com/compute/instancesDetail/zones/{location}/instances/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudGkeClusters",
@@ -106,18 +144,21 @@ local gcloud_mappings = {
 		show_cmd = "gcloud container clusters describe CLUSTER_NAME --location=CLUSTER_REGION",
 		replace_str = "CLUSTER_NAME",
 		region_replace_str = "CLUSTER_REGION",
+		console_url = "https://console.cloud.google.com/kubernetes/clusters/details/{location}/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudRunJobs",
 		prompt_title = "Cloud Run Jobs in us-central1",
 		list_cmd = "gcloud run jobs list --format=value(name)",
 		show_cmd = "gcloud run jobs describe %s --region=us-central1",
+		console_url = "https://console.cloud.google.com/run/jobs/details/us-central1/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudCloudFunctions",
 		prompt_title = "Cloud Functions",
 		list_cmd = "gcloud functions list --format=value(name)",
 		show_cmd = "gcloud functions describe %s",
+		console_url = "https://console.cloud.google.com/functions/details/{location}/{name}?project={project}",
 	},
 
 	-- ============================================================================
@@ -128,12 +169,14 @@ local gcloud_mappings = {
 		prompt_title = "Cloud Storage Buckets",
 		list_cmd = "gcloud storage buckets list --format=value(name)",
 		show_cmd = "gcloud storage buckets describe gs://%s",
+		console_url = "https://console.cloud.google.com/storage/browser/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudSqlInstances",
 		prompt_title = "Sql Instances",
 		list_cmd = "gcloud sql instances list --format=value(name)",
 		show_cmd = "gcloud sql instances describe %s",
+		console_url = "https://console.cloud.google.com/sql/instances/{name}/overview?project={project}",
 	},
 	{
 		cmd = "GcloudSqlUsers",
@@ -141,24 +184,28 @@ local gcloud_mappings = {
 		list_cmd = "gcloud sql instances list --format=value(name)",
 		show_cmd = "gcloud sql users list --instance=%s",
 		gcloud_display_format = "[box]",
+		console_url = "https://console.cloud.google.com/sql/instances/{name}/users?project={project}",
 	},
 	{
 		cmd = "GcloudMemorystoreInstances",
 		prompt_title = "Memorystore Redis Instances",
 		list_cmd = "gcloud redis instances list --region=us-central1 --format=value(name.basename())",
 		show_cmd = "gcloud redis instances describe %s --region=us-central1",
+		console_url = "https://console.cloud.google.com/memorystore/redis/instances/us-central1/{name}/details?project={project}",
 	},
 	{
 		cmd = "GcloudSpannerInstances",
 		prompt_title = "Cloud Spanner Instances",
 		list_cmd = "gcloud spanner instances list --format=value(name.basename())",
 		show_cmd = "gcloud spanner instances describe %s",
+		console_url = "https://console.cloud.google.com/spanner/instances/{name}/details/databases?project={project}",
 	},
 	{
 		cmd = "GcloudBigTableInstances",
 		prompt_title = "Bigtable Instances",
 		list_cmd = "gcloud bigtable instances list --format=value(name.basename())",
 		show_cmd = "gcloud bigtable instances describe %s",
+		console_url = "https://console.cloud.google.com/bigtable/instances/{name}/overview?project={project}",
 	},
 
 	-- ============================================================================
@@ -169,30 +216,35 @@ local gcloud_mappings = {
 		prompt_title = "Load Balancer Backend Services",
 		list_cmd = "gcloud compute backend-services list --format=value(name)",
 		show_cmd = "gcloud compute backend-services describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/backends/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudHealthChecks",
 		prompt_title = "Load Balancer Health Checks",
 		list_cmd = "gcloud compute health-checks list --format=value(name)",
 		show_cmd = "gcloud compute health-checks describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/healthchecks/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudSecurityPolicies",
 		prompt_title = "Cloud Armor Security Policies",
 		list_cmd = "gcloud compute security-policies list --format=value(name)",
 		show_cmd = "gcloud compute security-policies describe %s",
+		console_url = "https://console.cloud.google.com/networking/securitypolicies/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudBackendBuckets",
 		prompt_title = "Load Balancer Backend Buckets",
 		list_cmd = "gcloud compute backend-buckets list --format=value(name)",
 		show_cmd = "gcloud compute backend-buckets describe %s",
+		console_url = "https://console.cloud.google.com/networking/backends/buckets/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudForwardingRules",
 		prompt_title = "Load Balancer Forwarding Rules",
 		list_cmd = "gcloud compute forwarding-rules list --format=value(name)",
 		show_cmd = "gcloud compute forwarding-rules describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/loadbalancing/frontendDetails/global/{name}?project={project}",
 	},
 	-- ============================================================================
 	-- NETWORKING
@@ -202,18 +254,21 @@ local gcloud_mappings = {
 		prompt_title = "Load Balancer Url Maps",
 		list_cmd = "gcloud compute url-maps list --format=value(name)",
 		show_cmd = "gcloud compute url-maps describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/loadbalancing/loadBalancers/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudFirewallRules",
 		prompt_title = "Firewall Rules",
 		list_cmd = "gcloud compute firewall-rules list --format=value(name)",
 		show_cmd = "gcloud compute firewall-rules describe %s",
+		console_url = "https://console.cloud.google.com/networking/firewalls/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudVpcNetworks",
 		prompt_title = "VPC Networks",
 		list_cmd = "gcloud compute networks list --format=value(name)",
 		show_cmd = "gcloud compute networks describe %s",
+		console_url = "https://console.cloud.google.com/networking/networks/details/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudVpcSubnets",
@@ -222,30 +277,35 @@ local gcloud_mappings = {
 		show_cmd = "gcloud compute networks subnets describe SUBNET_NAME --region=SUBNET_REGION",
 		replace_str = "SUBNET_NAME",
 		region_replace_str = "SUBNET_REGION",
+		console_url = "https://console.cloud.google.com/networking/subnetworks/details/{region}/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudAddresses",
 		prompt_title = "Compute Addresses",
 		list_cmd = "gcloud compute addresses list --format=value(name)",
 		show_cmd = "gcloud compute addresses describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/addresses/list?project={project}",
 	},
 	{
 		cmd = "GcloudTargetHttpProxies",
 		prompt_title = "Target HTTP Proxies",
 		list_cmd = "gcloud compute target-http-proxies list --format=value(name)",
 		show_cmd = "gcloud compute target-http-proxies describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/loadbalancing/details/http/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudTargetHttpsProxies",
 		prompt_title = "Target HTTPS Proxies",
 		list_cmd = "gcloud compute target-https-proxies list --format=value(name)",
 		show_cmd = "gcloud compute target-https-proxies describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/loadbalancing/details/https/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudTargetGrpcProxies",
 		prompt_title = "Target gRPC Proxies",
 		list_cmd = "gcloud compute target-grpc-proxies list --format=value(name)",
 		show_cmd = "gcloud compute target-grpc-proxies describe %s --global",
+		console_url = "https://console.cloud.google.com/networking/loadbalancing/details/grpc/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudDnsZones",
@@ -254,6 +314,7 @@ local gcloud_mappings = {
 		show_cmd = "gcloud dns record-sets list --zone=%s",
 		gcloud_display_format = "yaml(name,type,ttl,rrdatas)",
 		preview_format = "yaml",
+		console_url = "https://console.cloud.google.com/net-services/dns/zones/{name}/details?project={project}",
 	},
 
 	-- ============================================================================
@@ -264,6 +325,7 @@ local gcloud_mappings = {
 		prompt_title = "Traffic callout extensions",
 		list_cmd = "gcloud beta service-extensions lb-traffic-extensions list --location=global --format=value(name)",
 		show_cmd = "gcloud beta service-extensions lb-traffic-extensions describe %s --location=global",
+		console_url = "https://console.cloud.google.com/net-services/service-extensions/traffic-extensions/details/global/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudRouteCalloutExtensions",
@@ -272,7 +334,7 @@ local gcloud_mappings = {
 		show_cmd = "gcloud beta service-extensions lb-route-extensions describe %s --location=global",
 	},
 	{
-		cmd = "GcloudAuthCalloutExtensions",
+		cmd = "GcloudAuthzCalloutExtensions",
 		prompt_title = "Auth callout extensions",
 		list_cmd = "gcloud beta service-extensions authz-extensions list --location=global --format=value(name)",
 		show_cmd = "gcloud beta service-extensions authz-extensions describe %s --location=global",
@@ -299,12 +361,14 @@ local gcloud_mappings = {
 		prompt_title = "Pubsub Topics & Attached Subscriptions",
 		list_cmd = "gcloud pubsub topics list --format=value(name.basename())",
 		show_cmd = "gcloud pubsub topics list-subscriptions %s",
+		console_url = "https://console.cloud.google.com/cloudpubsub/topic/detail/{name}?project={project}",
 	},
 	{
 		cmd = "GcloudPubsubSubscriptions",
 		prompt_title = "Pubsub Subscriptions",
 		list_cmd = "gcloud pubsub subscriptions list --format=value(name.basename())",
 		show_cmd = "gcloud pubsub subscriptions describe %s",
+		console_url = "https://console.cloud.google.com/cloudpubsub/subscription/detail/{name}?project={project}",
 	},
 
 	-- ============================================================================
@@ -315,6 +379,7 @@ local gcloud_mappings = {
 		prompt_title = "IAM Roles (Predefined)",
 		list_cmd = "gcloud iam roles list --format=value(name.basename())",
 		show_cmd = "gcloud iam roles describe %s",
+		console_url = "https://console.cloud.google.com/iam-admin/roles/details/roles%3C{name}?project={project}",
 	},
 	{
 		cmd = "GcloudManagedSecrets",
@@ -323,12 +388,14 @@ local gcloud_mappings = {
 		show_cmd = "gcloud secrets versions access latest --secret=%s",
 		gcloud_display_format = "", -- empty string reveals secret
 		show_value = false, -- don't show actual secret value by default
+		console_url = "https://console.cloud.google.com/security/secret-manager/secret/{name}/versions?project={project}",
 	},
 	{
 		cmd = "GcloudServiceAccountRoles",
 		prompt_title = "Service Accounts & Their Roles",
 		list_cmd = "gcloud iam service-accounts list --format=value(email)",
 		show_cmd = "gcloud projects get-iam-policy PROJECT --flatten=bindings[].members --filter=bindings.members:%s --format=table(bindings.role)",
+		console_url = "https://console.cloud.google.com/iam-admin/serviceaccounts/details/{name}?project={project}",
 	},
 
 	-- ============================================================================
@@ -345,6 +412,7 @@ local gcloud_mappings = {
 		prompt_title = "Enabled APIs & Services",
 		list_cmd = "gcloud services list --enabled --format=value(name.basename())",
 		show_cmd = "gcloud services describe %s", -- doesn't work, no describe command
+		console_url = "https://console.cloud.google.com/apis/library/{name}?project={project}",
 	},
 }
 
@@ -371,6 +439,7 @@ vim.schedule(function()
 				project = utils.get_os_command_output({ "gcloud", "config", "get", "project" })[1]
 			end
 			gcloud_explore({
+				cmd_name = value.cmd,
 				prompt_title = value.prompt_title,
 				list_cmd = value.list_cmd,
 				show_cmd = value.show_cmd,
@@ -380,6 +449,8 @@ vim.schedule(function()
 				gcloud_display_format = gcloud_display_format,
 				preview_format = value.preview_format or "yaml",
 				project = project,
+				console_url = value.console_url, -- Add this line
+				url_replacements = value.url_replacements, -- Add this line for custom replacements
 			})
 		end, {
 			nargs = "?",
@@ -388,5 +459,7 @@ vim.schedule(function()
 				return work_functions.gcloud_projects()
 			end,
 		})
+
+		vim.keymap.set("n", "<leader>mc", ":GcloudManagedSecrets", { desc = "list gcloud managed secrets" })
 	end
 end)

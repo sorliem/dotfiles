@@ -94,6 +94,7 @@ function delete-branches() {
 #################################
 #           TERRAFORM           #
 #################################
+alias terraform='terraform'
 alias tf='tofu'
 alias tfws="tofu workspace select"
 alias tfproviders="tofu providers"

@@ -54,7 +54,7 @@ return {
 					)
 
 					tmux_command(string.format("send-keys -t=%s:%s.1 '%s' C-m", repo, repo, vim_cmd))
-					tmux_command("switch-client -t=" .. repo)
+					tmux_command(string.format("switch-client -t=%s", repo))
 				end
 			end
 		end

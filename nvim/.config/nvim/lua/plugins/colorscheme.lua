@@ -83,7 +83,7 @@ return {
 			"projekt0n/github-nvim-theme",
 			priority = 1000,
 			lazy = false,
-			cond = false,
+			cond = true,
 			config = function()
 				require("github-theme").setup({
 					options = {
@@ -109,7 +109,7 @@ return {
 			"folke/tokyonight.nvim",
 			priority = 1000,
 			lazy = false,
-			cond = true,
+			cond = false,
 			config = function()
 				vim.opt.background = "dark"
 				-- vim.g.tokyonight_italic_functions = 1

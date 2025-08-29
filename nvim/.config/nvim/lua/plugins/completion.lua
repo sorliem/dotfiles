@@ -38,7 +38,7 @@ return {
 						}),
 						{ "i", "c" }
 					),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					-- ["<CR>"] = cmp.mapping.confirm({ select = false }),
 				},
 				window = {
 					-- completion = cmp.config.window.bordered(),
@@ -71,7 +71,7 @@ return {
 					{ name = "git" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lua" },
-					{ name = "copilot" },
+					-- { name = "copilot" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip", max_item_count = 10 },
 					{

@@ -1,12 +1,13 @@
 local HOME = os.getenv("HOME")
 
-vim.cmd([[set path+=**]])
+vim.opt.path:append("**")
 vim.opt.errorbells = false
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 -- vim.opt.expandtab = true
 vim.opt.autoindent = true
+vim.opt.smartindent = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
@@ -39,6 +40,7 @@ vim.opt.termguicolors = true
 vim.opt.showcmd = true
 vim.opt.wildmenu = true
 vim.opt.wildmode = "list:longest,list:full" -- for : stuff
+-- vim.opt.winborder = "single"
 vim.opt.showmatch = true
 vim.opt.ttimeoutlen = 50
 vim.opt.foldenable = false
@@ -69,17 +71,16 @@ vim.opt.conceallevel = 0
 -- 	"sm:block-blinkwait175-blinkoff150-blinkon175",
 -- }
 
-vim.cmd([[
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
-]])
+-- vim.cmd([[
+-- if exists('+termguicolors')
+--     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+--     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+--     set termguicolors
+-- endif
+-- ]])
 
 vim.g.editorconfig = true
 
-vim.g.netrw_browse_split = 2
 vim.g.netrw_banner = 0 -- disable annoying banner
 vim.g.netrw_browse_split = 4 -- open in prior window
 vim.g.netrw_altv = 1 -- open splits to the right

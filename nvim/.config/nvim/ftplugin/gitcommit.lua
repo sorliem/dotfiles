@@ -4,7 +4,8 @@
 -- vim.opt_local.signcolumn = "no"
 
 vim.opt_local.textwidth = 72
-vim.opt_local.colorcolumn = { 73, 51 }
+-- vim.opt_local.colorcolumn = { 73, 51 }
+vim.opt_local.colorcolumn = "73,51"
 
 -- Autoformatting
 -- Enable formatting everywhere, not just comments
