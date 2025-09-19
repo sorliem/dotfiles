@@ -47,7 +47,7 @@ ls ~/gitroot/onxmaps | xargs -P12 -I {} bash -c 'update_repo "$@"' _ {} | tee /t
 
 osascript -e 'display notification "Done running dl-repos.bash" with title "All done"'
 
-cat /tmp/dl-repos.bash.log | grep skip > /tmp/dl-repos-skipped.log
+cat /tmp/dl-repos.bash.log | grep 'skipping pull' > /tmp/dl-repos-skipped.log
 cat /tmp/dl-repos.bash.log | grep 'CLONING NEW REPO' > /tmp/dl-repos-new.log
 
 SKIPNUM=$(wc -l /tmp/dl-repos-skipped.log)

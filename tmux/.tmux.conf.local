@@ -183,7 +183,8 @@ tmux_conf_theme_right_separator_sub='|'
 tmux_conf_theme_status_left=' #S '
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} #(curl -m 2 wttr.in/Manhattan?format=3 2>/dev/null; sleep 900) , %R , %d %b %y '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} %R , %d %b %y '
+# tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} %R , %d %b %y '
+tmux_conf_theme_status_right=' %d'
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
@@ -325,8 +326,8 @@ bind-key -T copy-mode-vi 'C-\' select-pane -l
 # unbind C-a
 # unbind C-b
 # set -g prefix C-a
-bind C-a send-prefix
-bind-key C-a send-key C-a
+# bind C-a send-prefix
+# bind-key C-a send-key C-a
 
 
 # move status line to top

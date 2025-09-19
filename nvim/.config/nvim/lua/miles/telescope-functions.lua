@@ -28,7 +28,7 @@ _M.copy_to_default_register = function(prompt_bufnr)
 	end
 end
 
-_M.onx_live_grep = function(_)
+_M.onx_live_grep = function(args)
 	local ft = vim.fn.input("File type(s) to search onx files for (comma-delimited): ")
 	local delimiter = ","
 

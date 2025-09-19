@@ -4,8 +4,8 @@ live_config_reload = true
 
 import = [
   # COLORSCHEME
-  # "~/.config/alacritty/colorschemes/falcon.toml",
-  "~/.config/alacritty/colorschemes/gruvbox-dark.toml",
+  "~/.config/alacritty/colorschemes/falcon.toml",
+  # "~/.config/alacritty/colorschemes/gruvbox-dark.toml",
   # "~/.config/alacritty/colorschemes/gruvbox-light.toml",
   # "~/.config/alacritty/colorschemes/catpuccin-latte.toml",
   # "~/.config/alacritty/colorschemes/catpuccin-mocha.toml",

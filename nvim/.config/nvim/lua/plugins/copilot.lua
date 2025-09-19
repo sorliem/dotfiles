@@ -1,15 +1,18 @@
 return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
+		event = "VeryLazy",
 		dependencies = {
 			{
 				"zbirenbaum/copilot.lua",
+				event = "VeryLazy",
 				config = function()
 					require("copilot").setup({})
 				end,
 			},
 			{
 				"zbirenbaum/copilot-cmp",
+				event = "VeryLazy",
 				config = function()
 					require("copilot_cmp").setup()
 				end,

@@ -317,6 +317,10 @@ return {
 			require("miles.telescope-functions").onx_live_grep({})
 		end, { desc = "[O]nx [F]ile Live Grep [S]earch by file type" })
 
+		-- vim.keymap.set("n", "<leader>ofv", function()
+		-- 	require("miles.telescope-functions").onx_live_grep({ inverse = true })
+		-- end, { desc = "[O]nx [F]ile In[v]erse search (pattern  filename)" })
+
 		vim.keymap.set("n", "<leader>mg", function()
 			require("miles.telescope-functions").live_multigrep({})
 		end, { desc = "Telescope Live [M]ulti [G]grep" })

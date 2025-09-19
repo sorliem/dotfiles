@@ -149,7 +149,8 @@ map(
 		.. "?commit<CR>" -- search backwards for commit
 		.. "kdd" -- go up one and delete blank line
 		.. "d3j" -- delete	the next 3 lines (the commit hash, date, and author)
-		.. "dw", -- delete 4 spaces at the beginning of the line
+		.. "dw" -- delete 4 spaces at the beginning of the line
+		.. "f w", -- jump to first space and go to next word (ready for a `Cnew description`)
 	"Read prev (1-back) [G]it [L]og commit message"
 )
 

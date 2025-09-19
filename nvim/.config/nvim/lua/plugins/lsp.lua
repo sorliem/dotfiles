@@ -262,13 +262,21 @@ return {
 
 			local path_to_elixirls = vim.fn.expand("~/gitroot/src/elixir-ls/release/language_server.sh")
 
-			require("lspconfig").elixirls.setup(config({
-				on_attach = on_attach,
-				cmd = { path_to_elixirls },
-				flags = {
-					debounce_text_changes = 150,
-				},
-			}))
+			-- require("lspconfig").elixirls.setup(config({
+			-- 	on_attach = on_attach,
+			-- 	cmd = { path_to_elixirls },
+			-- 	flags = {
+			-- 		debounce_text_changes = 150,
+			-- 	},
+			-- }))
+			--
+			vim.lsp.config("expert", {
+				cmd = { "expert" },
+				root_markers = { "mix.exs", ".git" },
+				filetypes = { "elixir", "eelixir", "heex" },
+			})
+
+			vim.lsp.enable("expert")
 
 			require("lspconfig").gopls.setup(config({
 				cmd = { "gopls", "serve" },
