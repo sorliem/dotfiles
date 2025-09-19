@@ -96,9 +96,19 @@ function delete-branches() {
 #################################
 alias terraform='terraform'
 alias tf='tofu'
-alias tfws="tofu workspace select"
+# alias tfws="tofu workspace select"
+# alias tfws="ls -alh --color=never | grep tfvars | awk '{print \$NF}' | sed 's/\.tfvars//' | fzf | xargs -n 1 -I {} tofu workspace select {}"
 alias tfproviders="tofu providers"
 alias tfwl="tofu workspace list"
+
+function tfws() {
+  workspace="$1"
+  if [ -n "$workspace" ]; then 
+    tofu workspace select $workspace
+  else
+    ls -alh --color=never | grep tfvars | awk '{print $NF}' | sed 's/\.tfvars//' | fzf | xargs -n 1 -I {} tofu workspace select {}
+  fi
+}
 
 function tfdocs () {
   if [ ! -d modules/ ]; then
@@ -222,10 +232,11 @@ alias redisbox="kubectl run --rm msorlie-tmp-redis --image=redis:7 -i --tty -- /
 alias utilbox="kubectl run msorlie-tmp-utilbox-$(head -c 5 /dev/urandom | base64 | tr -d '=/+' | tr '[:upper:]' '[:lower:]') --rm -i --tty --image nicolaka/netshoot -- /bin/bash"
 # alias kubetail="kubectl logs -f"
 alias kconfigyaml="kubectl get configmaps | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get configmap {} -o yaml"
-alias ksecretyaml="kubectl get secrets | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get secrets {} -o yaml"
+alias ksecretyaml="kubectl get secrets -A | grep -v NAME | cut -f1 -d' ' | fzf | xargs -I {} kubectl get secrets {} -o yaml"
 alias kevents="kubectl get events --sort-by=.metadata.creationTimestamp"
 alias ksniff="kubectl sniff -n default"
 alias k='kubectl'
+alias restartingpods="kubectl get pods -A --sort-by='.status.containerStatuses[0].restartCount' | grep -v 'kube-system' | awk '\$5 > 0'"
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
