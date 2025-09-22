@@ -1,6 +1,7 @@
 -- someday i'll convert these to lua
 
-vim.cmd([[
+vim.schedule(function()
+	vim.cmd([[
 " vim & tmux navigation
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -32,7 +33,7 @@ else
 endif
 ]])
 
-vim.cmd([[
+	vim.cmd([[
 if has("persistent_undo")
     " set undodir=$HOME."/.undodir"
     let &undodir=$HOME."/.undodir"
@@ -40,12 +41,12 @@ if has("persistent_undo")
 endif
 ]])
 
--- Jump to last edit position on opening file
-vim.cmd([[
+	-- Jump to last edit position on opening file
+	vim.cmd([[
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]])
 
-vim.cmd([[
+	vim.cmd([[
 function! SaveAndExec()
   if &filetype == 'vim'
     :silent! write
@@ -59,7 +60,7 @@ function! SaveAndExec()
 endfunction
 ]])
 
-vim.cmd([[
+	vim.cmd([[
 command! -nargs=1 -complete=file SaveQf call s:SaveQf(<f-args>)
 command! -nargs=1 -complete=file LoadQf call s:LoadQf(<f-args>)
 
@@ -90,3 +91,4 @@ function! s:LoadQf(filename) abort
   copen
 endfunction
 ]])
+end)

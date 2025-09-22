@@ -1,6 +1,10 @@
 local _M = {}
 
-local telescope_functions = require("miles.telescope-functions")
+local telescope_functions = nil
+vim.schedule(function()
+	telescope_functions = require("miles.telescope-functions")
+end)
+-- local telescope_functions = require("miles.telescope-functions")
 
 _M.git_sha = function(_, _, user_arg)
 	local diff_direction
