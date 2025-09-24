@@ -71,6 +71,20 @@ local lsp_configs = {
 			},
 		},
 	},
+	gopls = {
+		cmd = { "gopls", "serve" },
+		on_attach = on_attach,
+		filetypes = { "go", "gomod", "gowork", "gotmpl" },
+		root_markers = { "go.mod", "go.work", ".git" },
+		settings = {
+			gopls = {
+				analyses = {
+					unusedparams = true,
+				},
+				staticcheck = true,
+			},
+		},
+	},
 	yamlls = {
 		on_attach = on_attach,
 		settings = {
@@ -111,7 +125,19 @@ local lsp_configs = {
 
 	-- vue_ls = { on_attach = on_attach },
 	-- ts_ls = { on_attach = on_attach },
-	pylsp = { on_attach = on_attach },
+	pylsp = {
+		on_attach = on_attach,
+		cmd = { "pylsp" },
+		filetypes = { "python" },
+		root_markers = {
+			"pyproject.toml",
+			"setup.py",
+			"setup.cfg",
+			"requirements.txt",
+			"Pipfile",
+			".git",
+		},
+	},
 	dockerls = { on_attach = on_attach },
 	tailwindcss = { on_attach = on_attach },
 	terraformls = {
@@ -124,18 +150,6 @@ local lsp_configs = {
 		cmd = { "expert" },
 		root_markers = { "mix.exs", ".git" },
 		filetypes = { "elixir", "eelixir", "heex" },
-	},
-	gopls = {
-		cmd = { "gopls", "serve" },
-		on_attach = on_attach,
-		settings = {
-			gopls = {
-				analyses = {
-					unusedparams = true,
-				},
-				staticcheck = true,
-			},
-		},
 	},
 }
 
