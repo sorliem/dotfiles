@@ -61,9 +61,6 @@ endfunction
 ]])
 
 	vim.cmd([[
-command! -nargs=1 -complete=file SaveQf call s:SaveQf(<f-args>)
-command! -nargs=1 -complete=file LoadQf call s:LoadQf(<f-args>)
-
 function! s:SaveQf(filename) abort
   let list = getqflist()
 
@@ -90,5 +87,8 @@ function! s:LoadQf(filename) abort
   call setqflist(quickfix_entries)
   copen
 endfunction
+
+command! -nargs=1 -complete=file SaveQf call s:SaveQf(<f-args>)
+command! -nargs=1 -complete=file LoadQf call s:LoadQf(<f-args>)
 ]])
 end)

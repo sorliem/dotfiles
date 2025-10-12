@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set PATH for cron environment to know where `gh` tool is
+PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+
 osascript -e "display notification \"\" with title \">> RUNNING dl-repos.bash <<\""
 
 clone_repo() {

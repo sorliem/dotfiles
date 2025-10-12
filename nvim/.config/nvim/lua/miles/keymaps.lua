@@ -43,7 +43,7 @@ vim.cmd([[ tnoremap <Esc> <C-\><C-n> ]])
 
 -- C-a goes beginning of line in command line mode
 vim.cmd([[ cnoremap <C-A> <Home> ]])
-map("n", "<leader>tm", "<cmd>vert term<CR>", "Open neovim [t]er[m]inal in a vertical split")
+map("n", "<leader>tm", "<cmd>vert term<CR>i", "Open neovim [t]er[m]inal in a vertical split and go into insert mode")
 
 -- for some reason on mac alt file doesn't work
 map("n", "<C-6>", "<C-^>")

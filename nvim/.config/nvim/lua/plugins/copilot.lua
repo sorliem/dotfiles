@@ -2,6 +2,7 @@ return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		event = "VeryLazy",
+		cond = false,
 		dependencies = {
 			{
 				"zbirenbaum/copilot.lua",

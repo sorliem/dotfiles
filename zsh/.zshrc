@@ -1,4 +1,8 @@
 # export ZSH="$HOME/.oh-my-zsih"
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 #
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -12,8 +16,8 @@ autoload -Uz _zinit
 zinit ice lucid wait'0'
 zinit light joshskidmore/zsh-fzf-history-search
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit 
+compinit -C
 
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -75,7 +79,7 @@ alias lg=lazygit
 alias dc='docker compose'
 
 # [g]it[h]ub [o]pen
-alias gho='basename $(pwd) | xargs -I {} open https://github.com/onXmaps/{}'
+alias gho='open $(git remote get-url origin | sed "s/\.git$//" | sed "s/git@github\.com:/https:\/\/github.com\//")'
 
 
 function delete-branches() {
@@ -220,6 +224,18 @@ function tfapplyall () {
       extra=""
     fi
     tofu apply $extra
+    if [ $? -ne 0 ]; then
+      while true; do
+        entry=""
+        read "entry?Failed or cancelled workspace ${workspace}. What action to take? Enter q to quit or c to continue: "
+        case $entry in
+          [Cc]* ) continue 2;;
+          [Qq]* ) break 2;;
+          * ) entry="" && read "entry?Invalid entry. q to quit or c to continue: "
+        esac
+      done
+      break
+    fi
   done
 }
 
@@ -320,8 +336,10 @@ export LD_LIBRARY_PATH=/usr/local/lib
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 # export ERL_COMPILER_OPTIONS=bin_opt_info
-# export KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac -with-ssl=/usr/local/ssl"
-export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
+# export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
+# export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=/opt/homebrew/opt/openssl@1.1"
+# export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=$(brew --prefix openssl)"
+export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=/opt/homebrew/opt/openssl@3"
 export KERL_BUILD_DOCS="yes"
 
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
@@ -338,7 +356,6 @@ export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
-export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=$(brew --prefix openssl)"
 
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
     source $HOME/.asdf/asdf.sh
@@ -466,9 +483,6 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # The next line enables shell command completion for gcloud.
 export PATH="/opt/homebrew/opt/lua@5.3/bin:$PATH"
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

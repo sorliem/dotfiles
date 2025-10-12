@@ -48,6 +48,7 @@ vim.lsp.config("*", {
 local lsp_configs = {
 	lua_ls = {
 		on_attach = on_attach,
+		filetypes = { "lua" },
 		settings = {
 			Lua = {
 				runtime = {
@@ -137,11 +138,31 @@ local lsp_configs = {
 			"Pipfile",
 			".git",
 		},
+		-- settings = {
+		-- 	pylsp = {
+		-- 		plugins = {
+		-- 			rope_autoimport = {
+		-- 				enabled = false,
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
 	},
 	dockerls = { on_attach = on_attach },
 	tailwindcss = { on_attach = on_attach },
-	terraformls = {
+	rust_analyzer = {
 		on_attach = on_attach,
+		root_markers = { "Cargo.toml", "Cargo.lock" },
+		filetypes = { "rust" },
+	},
+	terraformls = {
+		on_attach = function(client, bufnr)
+			-- if vim.fn.expand("%:e") == "tf" then
+			on_attach(client, bufnr)
+			-- else
+			-- 	vim.lsp.buf_detach_client(bufnr, client.id)
+			-- end
+		end,
 		cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
 		filetypes = { "terraform" },
 	},
@@ -173,5 +194,15 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*.tf", "*.tfvars" },
 	callback = function()
 		vim.lsp.buf.format()
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*.txt" },
+	callback = function()
+		local clients = vim.lsp.get_clients({ bufnr = 0 })
+		for _, client in pairs(clients) do
+			vim.lsp.stop_client(client.id)
+		end
 	end,
 })

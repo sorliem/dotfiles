@@ -180,11 +180,11 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{username}
 #     - #{username_ssh}
 # tmux_conf_theme_status_left=' #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_left=' #S '
+tmux_conf_theme_status_left=''
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} #(curl -m 2 wttr.in/Manhattan?format=3 2>/dev/null; sleep 900) , %R , %d %b %y '
 # tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{battery_percentage} %R , %d %b %y '
-tmux_conf_theme_status_right=' %d'
+tmux_conf_theme_status_right=''
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
@@ -368,26 +368,36 @@ bind-key -r f run-shell "tmux neww ~/.local/bin/tmux-sessionizer"
 bind-key -r C-j run-shell "tmux neww ~/.local/bin/tmux-switch-session"
 bind-key -r Space run-shell "tmux neww ~/.local/bin/tmux-switch-session"
 
-# List of plugins
+set -g monitor-activity off
+
+#####################
+# Tmux plugin manager
+#####################
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# Other examples:
-# set -g @plugin 'github_username/plugin_name'
-# set -g @plugin 'github_username/plugin_name#branch'
-# set -g @plugin 'git@github.com:user/plugin'
-# set -g @plugin 'git@bitbucket.com:user/plugin'
-set -g @plugin 'egel/tmux-gruvbox'
-set -g @plugin 'fabioluciano/tmux-tokyo-night'
+### Plugins
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 
 ### Tokyo Night Theme configuration
-set -g @theme_variation 'day'
-set -g @theme_left_separator ''
-set -g @theme_right_separator ''
+# set -g @plugin 'fabioluciano/tmux-tokyo-night'
+# set -g @theme_variation 'day'
+# set -g @theme_left_separator ''
+# set -g @theme_left_separator ''
+# set -g @theme_right_separator ''
+# set -g @theme_right_separator ''
+# set -g @theme_plugins 'datetime'
 
+### Gruvbox theme config
+# set -g @plugin 'egel/tmux-gruvbox'
 # set -g @tmux-gruvbox 'dark'
+
+### Rosepine theme config
+set -g @plugin 'rose-pine/tmux'
+set -g @rose_pine_variant 'moon'
+set -g @rose_pine_only_windows 'off'
+set -g @rose_pine_disable_active_window_menu 'on'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
