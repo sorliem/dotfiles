@@ -13,7 +13,7 @@ return {
 					-- Conform will run the first available formatter
 					javascript = { "prettierd", "prettier", stop_after_first = true },
 					elixir = { "mix" },
-					yaml = { "yamlfmt", "prettier", stop_after_first = true },
+					-- yaml = { "prettier", stop_after_first = true },
 					json = { "prettier", stop_after_first = true },
 					["*.json.tftpl"] = { "prettier" },
 				},

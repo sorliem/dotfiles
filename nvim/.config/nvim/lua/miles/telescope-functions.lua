@@ -101,6 +101,8 @@ _M.live_multigrep = function(opts)
 					"--line-number",
 					"--column",
 					"--smart-case",
+					"--glob",
+					"!.git/",
 				},
 			})
 				:flatten()

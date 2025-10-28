@@ -251,7 +251,9 @@ return {
 		vim.keymap.set("n", "z=", require("telescope.builtin").spell_suggest, { desc = "Spell Suggest w/ Telescope" })
 
 		vim.keymap.set("n", "<leader>fw", function()
-			require("telescope.builtin").grep_string({ additional_args = { "--hidden", "--glob", "!README.md" } })
+			require("telescope.builtin").grep_string({
+				additional_args = { "--hidden", "--glob", "!README.md", "--glob", "!.git/" },
+			})
 		end, { desc = "[F]ind [W]ord (telescope)" })
 
 		vim.keymap.set("n", "<leader>ofw", function()

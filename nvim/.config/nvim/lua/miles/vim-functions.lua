@@ -18,8 +18,8 @@ if exists('$TMUX')
   let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 
   nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
-  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
-  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+  "nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+  "nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
   nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
 else
   map <C-h> <C-w>h

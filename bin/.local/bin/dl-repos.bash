@@ -41,8 +41,8 @@ gh \
   onXmaps \
   --limit=3000 \
   --no-archived \
-  --json name \
-  --jq '.[].name' \
+  --json name,isEmpty \
+  --jq '.[] | select(.isEmpty == false) | .name' \
   | xargs -P12 -I {} bash -c 'clone_repo "$@"' _ {}
 
 # update all repos

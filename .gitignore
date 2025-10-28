@@ -2,6 +2,7 @@ nvim/.config/nvim/after/plugin/work-*.lua
 nvim/.config/nvim/lua/miles/dadbod_connection_helpers.lua
 nvim/.config/nvim/lua/miles/work-commands.lua
 nvim/.config/nvim/.luarc.json
+nvim/.config/nvim/spell/en.utf-8.add
 zsh/.oh-my-zsh/custom/
 bin/.local/bin/create_xgps_account
 bin/.local/bin/start-all-cloudsql-proxies
