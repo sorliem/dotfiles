@@ -24,11 +24,19 @@ local on_attach = function(_, bufnr)
 		vim.lsp.buf.definition()
 	end, "[G]oto [D]efinition")
 
-	map("n", "<space>q", function()
+	map("n", "grr", function()
+		require("telescope.builtin").lsp_references()
+	end, "LSP References for word under cursor")
+
+	map("n", "<leader>q", function()
 		vim.diagnostic.setloclist()
 	end, "Open diagnostics list")
 
-	map("n", "<space>e", function()
+	map("n", "gO", function()
+		require("telescope.builtin").lsp_document_symbols()
+	end, "Open diagnostics list")
+
+	map("n", "<leader>e", function()
 		vim.diagnostic.open_float()
 	end, "Open floating diagnostic message")
 
@@ -92,6 +100,7 @@ local lsp_configs = {
 			yaml = {
 				schemas = {
 					kubernetes = "*.yaml", -- treat everything as k8s manifests and override for specific files below
+					["http://json.schemastore.org/cloudbuild"] = "cloudbuild.{yml,yaml}",
 					["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
 					["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
 					["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
@@ -151,6 +160,7 @@ local lsp_configs = {
 	dockerls = { on_attach = on_attach },
 	tailwindcss = { on_attach = on_attach },
 	rust_analyzer = {
+		cmd = { "rust-analyzer" },
 		on_attach = on_attach,
 		root_markers = { "Cargo.toml", "Cargo.lock" },
 		filetypes = { "rust" },
