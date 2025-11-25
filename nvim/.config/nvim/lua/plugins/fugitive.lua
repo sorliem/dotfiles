@@ -13,7 +13,7 @@ return {
 			-- Fugitive blame
 			vim.keymap.set("n", "<Leader>bl", ":Git blame<CR>", { desc = "Git [B][l]ame" })
 
-			vim.keymap.set("n", "<Leader>gp", ":Git pull<CR>", { desc = "[G]it [P]ull" })
+			-- vim.keymap.set("n", "<Leader>gp", ":Git pull<CR>", { desc = "[G]it [P]ull" })
 
 			-- Fugitive diff master
 			vim.keymap.set(
