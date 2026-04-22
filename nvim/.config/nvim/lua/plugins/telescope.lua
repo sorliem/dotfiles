@@ -188,7 +188,7 @@ return {
 
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("ui-select")
-		require("telescope").load_extension("git_worktree")
+		-- require("telescope").load_extension("git_worktree")
 		require("telescope").load_extension("advanced_git_search")
 		require("telescope").load_extension("emoji")
 		-- require("telescope").load_extension("yank_history")
@@ -293,14 +293,14 @@ return {
 			{ desc = "Telescope [Bb]uffer Commits, not a great mnemonic" }
 		)
 
-		vim.keymap.set("n", "<leader>gw", function()
-			require("telescope").extensions.git_worktree.git_worktrees()
-		end, { desc = "[G]it [W]orktrees" })
-
-		vim.keymap.set("n", "<leader>gaw", function()
-			require("telescope").extensions.git_worktree.create_git_worktree()
-		end, { desc = "[G]it [A]dd [W]orktree" })
-
+		-- vim.keymap.set("n", "<leader>gw", function()
+		-- 	require("telescope").extensions.git_worktree.git_worktrees()
+		-- end, { desc = "[G]it [W]orktrees" })
+		--
+		-- vim.keymap.set("n", "<leader>gaw", function()
+		-- 	require("telescope").extensions.git_worktree.create_git_worktree()
+		-- end, { desc = "[G]it [A]dd [W]orktree" })
+		--
 		vim.keymap.set("n", "<leader>ps", function()
 			local additional_args = {}
 			vim.list_extend(additional_args, { "--hidden", "--ignore-case" })

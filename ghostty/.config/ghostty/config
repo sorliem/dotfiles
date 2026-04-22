@@ -1,0 +1,67 @@
+# Font
+font-family = CaskaydiaCove Nerd Font Mono
+font-size = 16
+
+# Window
+window-opacity = 0.95
+window-padding-x = 2
+window-padding-y = 2
+
+# Terminal
+term = xterm-256color
+scrollback-limit = 10000
+
+# Falcon colorscheme
+background = 020221
+foreground = b4b4b9
+cursor-color = ffe8c0
+cursor-text = 020221
+
+palette = 0=#000004
+palette = 1=#ff3600
+palette = 2=#859933
+palette = 3=#ffc552
+palette = 4=#635196
+palette = 5=#ff761a
+palette = 6=#34bfa4
+palette = 7=#b4b4b9
+palette = 8=#020221
+palette = 9=#ff8e78
+palette = 10=#b2bc55
+palette = 11=#ffd392
+palette = 12=#99a4bc
+palette = 13=#ffb07b
+palette = 14=#8bccbf
+palette = 15=#f8f8ff
+
+# Unbind Ghostty default tab keybindings
+keybind = cmd+0=unbind
+keybind = cmd+1=unbind
+keybind = cmd+2=unbind
+keybind = cmd+3=unbind
+keybind = cmd+4=unbind
+keybind = cmd+5=unbind
+keybind = cmd+6=unbind
+keybind = cmd+7=unbind
+keybind = cmd+8=unbind
+keybind = cmd+9=unbind
+
+# Tmux window navigation (cmd+1-9)
+keybind = cmd+1=text:\x021
+keybind = cmd+2=text:\x022
+keybind = cmd+3=text:\x023
+keybind = cmd+4=text:\x024
+keybind = cmd+5=text:\x025
+keybind = cmd+6=text:\x026
+keybind = cmd+7=text:\x027
+keybind = cmd+8=text:\x028
+keybind = cmd+9=text:\x029
+
+# Tmux last session toggle (cmd+0)
+keybind = cmd+0=text:\x02^
+
+# Tmux session switcher popup (cmd+t sends prefix+space)
+keybind = cmd+t=text:\x02\x20
+
+# Vim alternate file (ctrl+6)
+keybind = ctrl+6=text:\x1e

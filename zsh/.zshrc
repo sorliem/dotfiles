@@ -52,6 +52,8 @@ alias b='popd'
 alias lua='lua5.3'
 alias ll='ls -alh --color=never'
 
+alias cc="claude"
+
 #################################
 #             GIT               #
 #################################
@@ -62,7 +64,6 @@ alias ga='git add'
 alias gc='git commit -m'
 alias gpu='git push --set-upstream origin HEAD'
 alias gp='git pull'
-alias gco='git checkout'
 alias gcom='git checkout master'
 alias gst='git status -sb'
 alias gs='git status -sb'
@@ -75,6 +76,14 @@ alias gl1='git log -n 1'
 alias gw='git worktree'
 alias shortsha='git rev-parse --short=7 HEAD'
 alias lg=lazygit
+
+function gco() {
+  if [ $# -eq 0 ]; then
+    git branch --all --sort=-committerdate | grep -v remote | fzf --height=40% --reverse | xargs -n 1 -I {} git checkout {}
+  else
+    git checkout "$@"
+  fi
+}
 
 alias dc='docker compose'
 
@@ -254,6 +263,29 @@ alias ksniff="kubectl sniff -n default"
 alias k='kubectl'
 alias restartingpods="kubectl get pods -A --sort-by='.status.containerStatuses[0].restartCount' | grep -v 'kube-system' | awk '\$5 > 0'"
 
+# switch contexts
+alias kswitch='kubectl config get-contexts --no-headers --output=name | fzf | xargs -I {} -n 1 kubectl config use-context {}'
+alias ksw=kswitch
+
+function kgetcredentials() {
+  # read project from first argument. if not present, use gcloud too list projects and pick
+  if [ -n "$1" ]; then
+    project="$1"
+  else
+    project=$(gcloud projects list | grep ^onx | awk '{ print $1 }' | fzf --header='select project k8s cluster is in')
+  fi
+
+  # use the kswitch alias above for how to choose cluster from get-contexts
+  cluster=$(kubectl config get-contexts --no-headers --output=name | fzf --header='select k8s cluster')
+
+  # use the suffix on the cluster name to determine the region. foor example daily-west1 is region us-west1
+  suffix=$(echo $cluster | sed 's/.*-\([a-z]*[0-9]\)$/\1/')
+  region="us-${suffix}"
+
+  echo "gcloud container clusters get-credentials $cluster --dns-endpoint --project $project --region $region"
+  gcloud container clusters get-credentials $cluster --dns-endpoint --project $project --region $region
+}
+
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 
@@ -265,8 +297,9 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc'; fi
 if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
-export CLOUDSDK_PYTHON=$(which python3.11)
-export CLOUDSDK_PYTHON="/usr/bin/python3"
+# export CLOUDSDK_PYTHON=$(which python3.11)
+# export CLOUDSDK_PYTHON="/usr/bin/python3"
+CLOUDSDK_PYTHON=$(which python3)
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 alias gswitch="gcloud projects list | grep ^onx | awk '{ print \$1 }' | fzf | xargs -n1 -I {} gcloud config set project {}"
@@ -412,6 +445,9 @@ export DB_HOSTNAME=localhost
 export PATH="$HOME/bin:$PATH"
 export DOTFILES=$HOME/dotfiles
 
+alias renovatedebug="RENOVATE_CONFIG_FILE=renovate.json LOG_LEVEL=debug npx renovate --platform=local --repository-cache=reset"
+alias renovate-validate="npx --yes --package renovate -- renovate-config-validator"
+
 export PATH="$HOME/.tools/lua-language-server/bin/Linux:$PATH"
 
 export PATH="$HOME/.tfenv/bin:$PATH"
@@ -491,3 +527,4 @@ export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 
 # make nvim the man pager
 # export MANPAGER='nvim +Man!'
+

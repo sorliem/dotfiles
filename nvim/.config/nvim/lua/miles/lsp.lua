@@ -121,14 +121,23 @@ local lsp_configs = {
 	-- JSON
 	jsonls = {
 		on_attach = on_attach,
+		-- lazy-load schemastore when needed
+		before_init = function(_, config)
+			print("config = " .. vim.inspect(config))
+			config.settings.json.schemas = config.settings.json.schemas or {}
+			vim.list_extend(config.settings.json.schemas, require("schemastore").json.schemas())
+		end,
 		flags = {
 			debounce_text_changes = 150,
 		},
 		settings = {
 			json = {
-				schemas = {
-					["https://docs.renovatebot.com/renovate-schema.json"] = "global-config.json5*",
-				},
+				schemas = require("schemastore").json.schemas(),
+				validate = { enable = true },
+				-- schemas = {
+				-- 	["http://json.schemastore.org/claude-code"] = "settings.json",
+				-- 	["https://docs.renovatebot.com/renovate-schema.json"] = "global-config.json5*",
+				-- },
 			},
 		},
 	},
@@ -165,16 +174,26 @@ local lsp_configs = {
 		root_markers = { "Cargo.toml", "Cargo.lock" },
 		filetypes = { "rust" },
 	},
-	terraformls = {
+	-- terraformls = {
+	-- 	on_attach = function(client, bufnr)
+	-- 		-- if vim.fn.expand("%:e") == "tf" then
+	-- 		on_attach(client, bufnr)
+	-- 		-- else
+	-- 		-- 	vim.lsp.buf_detach_client(bufnr, client.id)
+	-- 		-- end
+	-- 	end,
+	-- 	cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
+	-- 	filetypes = { "terraform" },
+	-- },
+	tofu_ls = {
+		cmd = { "tofu-ls", "serve" },
+		-- Base filetypes
+		filetypes = { "terraform", "terraform-vars" },
+		root_markers = { ".terraform", ".git" },
 		on_attach = function(client, bufnr)
-			-- if vim.fn.expand("%:e") == "tf" then
-			on_attach(client, bufnr)
-			-- else
-			-- 	vim.lsp.buf_detach_client(bufnr, client.id)
-			-- end
+			-- local clients = vim.lsp.get_clients({ bufnr = 0 })
+			client.server_capabilities.semanticTokensProvider = nil
 		end,
-		cmd = { "terraform-ls", "serve", "--log-file", "/tmp/terraform-lsp.log" },
-		filetypes = { "terraform" },
 	},
 	tflint = { on_attach = on_attach },
 	expert = {
@@ -200,10 +219,26 @@ vim.lsp.enable(getTableKeys(lsp_configs))
 
 vim.diagnostic.config({ virtual_text = { current_line = true } })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*.tf", "*.tfvars" },
-	callback = function()
-		vim.lsp.buf.format()
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+-- 	pattern = { "*.tf", "*.tfvars" },
+-- 	callback = function()
+-- 		vim.lsp.buf.format()
+-- 	end,
+-- })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+		-- Auto-format on save
+		if client:supports_method("textDocument/formatting") then
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = vim.api.nvim_create_augroup("tofu-ls", { clear = false }),
+				buffer = args.buf,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
+				end,
+			})
+		end
 	end,
 })
 

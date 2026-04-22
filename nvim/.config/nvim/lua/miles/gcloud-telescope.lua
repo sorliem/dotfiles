@@ -233,7 +233,7 @@ local gcloud_mappings = {
 		console_url = "https://console.cloud.google.com/networking/securitypolicies/details/{name}?project={project}",
 	},
 	{
-		cmd = "GcloudBackendBuckets",
+		cmd = "GcloudLoadBalancerBackendBuckets",
 		prompt_title = "Load Balancer Backend Buckets",
 		list_cmd = "gcloud compute backend-buckets list --format=value(name)",
 		show_cmd = "gcloud compute backend-buckets describe %s",
@@ -414,6 +414,17 @@ local gcloud_mappings = {
 		show_cmd = "gcloud services describe %s", -- doesn't work, no describe command
 		console_url = "https://console.cloud.google.com/apis/library/{name}?project={project}",
 	},
+
+	-- ============================================================================
+	-- alerting
+	-- ============================================================================
+	{
+		cmd = "GcloudMonitoringPolicies",
+		prompt_title = "Monitoring Alert Policies",
+		list_cmd = "gcloud alpha monitoring policies list --format=value(name.basename(),displayName)",
+		show_cmd = "gcloud alpha monitoring policies describe POLICY_ID",
+		replace_str = "POLICY_ID",
+	},
 }
 
 vim.schedule(function()
@@ -456,6 +467,7 @@ vim.schedule(function()
 			nargs = "?",
 			desc = "Explore " .. value.prompt_title,
 			complete = function()
+				-- See ./work-commands.lua
 				return work_functions.gcloud_projects()
 			end,
 		})

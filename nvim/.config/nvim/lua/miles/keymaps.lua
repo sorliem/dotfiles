@@ -158,6 +158,15 @@ map("n", "<Leader>ts", "<cmd>%s/\\s\\+$//e<CR>", "[T]rim trailing [S]paces")
 
 map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Launch tmux-sessionizer")
 
+vim.keymap.set("n", "<leader>tfl", function()
+	vim.cmd('normal! 0f/;l"myiw')
+	vim.cmd("normal yyp")
+	vim.cmd("normal gcj")
+	vim.cmd("normal k")
+	vim.cmd('normal ci"/Users/milessorlie/gitroot/onxmaps/terraform-modules//')
+	vim.cmd('normal "mp')
+end, { desc = "Switch to local module" })
+
 -- save and exec file
 -- map("n", "<Leader>x", ":call SaveAndExec()<CR>", "Save and e[x]ec")
 

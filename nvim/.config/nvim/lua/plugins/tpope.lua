@@ -20,6 +20,7 @@ return {
 					Abolish funciton function
 					Abolish arcvhies archives
 					Abolish udpate update
+					Abolish {M,m}aintenence {M,m}aintenance
 
 					Abolish {is,was,do,does,did,would,could,should,wo,ca}nt {}n't
 					Abolish {he,here,she,that,there,where}s {}'s

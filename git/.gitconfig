@@ -33,3 +33,5 @@
 
 [push]
   autoSetupRemote = true
+[core]
+	hooksPath = /Users/milessorlie/.git-hooks

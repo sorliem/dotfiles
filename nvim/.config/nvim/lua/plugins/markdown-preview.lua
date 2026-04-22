@@ -7,6 +7,11 @@ return {
 		init = function()
 			vim.g.mkdp_filetypes = { "markdown" }
 		end,
+		config = function()
+			vim.keymap.set("n", "<leader>mdp", function()
+				vim.cmd("MarkdownPreviewToggle")
+			end, { desc = "Toggle markdown preview" })
+		end,
 		ft = { "markdown" },
 	},
 	{
