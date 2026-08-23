@@ -64,7 +64,7 @@ alias ga='git add'
 alias gc='git commit -m'
 alias gpu='git push --set-upstream origin HEAD'
 alias gp='git pull'
-alias gcom='git checkout master'
+alias gcom='git checkout main'
 alias gst='git status -sb'
 alias gs='git status -sb'
 alias gbr='git branch --sort=-committerdate'
@@ -84,6 +84,7 @@ function gco() {
     git checkout "$@"
   fi
 }
+compdef _git gco=git-checkout
 
 alias dc='docker compose'
 
@@ -113,6 +114,7 @@ alias tf='tofu'
 # alias tfws="ls -alh --color=never | grep tfvars | awk '{print \$NF}' | sed 's/\.tfvars//' | fzf | xargs -n 1 -I {} tofu workspace select {}"
 alias tfproviders="tofu providers"
 alias tfwl="tofu workspace list"
+export TENV_AUTO_INSTALL=true
 
 function tfws() {
   workspace="$1"
@@ -136,7 +138,7 @@ function tfshow () {
   tf state list |\
   fzf --height=70% --header "[TF-WORKSPACE: $(tofu workspace show)] [REPO: $(basename $(pwd))]" |\
   sed 's/"/\\"/g' |\
-  xargs -P 12 -n 1 -I {} tofu state show {}
+  xargs -P 12 -n 1 -I {} tofu state show -var-file=$(tofu workspace show).tfvars {}
 }
 
 
@@ -167,14 +169,25 @@ function tfapply () {
   fi
   tofu apply $extra "$@"
 }
+
+function tfapplyyes () {
+  if fd -q '.*tfvars' .; then
+    extra="-var-file=$(tofu workspace show).tfvars -auto-approve"
+  else
+    extra="-auto-approve"
+  fi
+  tofu apply $extra "$@"
+}
+
 function tfupgrade () {
   tofu init --upgrade
 }
 function tfinit () {
+  var_file=$(fd -1 '.*\.tfvars$' .)
   echo "removing .terraform dir"
   rm -rf .terraform*
-  echo "tofu init --upgrade"
-  tofu init --upgrade
+  echo "tofu init --upgrade --var-file=$var_file (<- first var file found in dir, needed for init)"
+  tofu init --upgrade --var-file="$var_file"
 }
 function tfproviders () {
   tofu providers
@@ -247,6 +260,35 @@ function tfapplyall () {
     fi
   done
 }
+function tfapplysome () {
+  local workspaces
+  workspaces=(${(f)"$(tofu workspace list | awk '{print $NF}' | grep -v '^default$' | fzf --multi --height=70% --header "select workspaces to apply [REPO: $(basename $(pwd))]")"})
+  if [ ${#workspaces[@]} -eq 0 ]; then
+    echo "no workspaces selected"
+    return 1
+  fi
+  for workspace in $workspaces; do
+    tofu workspace select "${workspace}" || break
+    if fd -q '.*tfvars' .; then
+      extra="-var-file=${workspace}.tfvars"
+    else
+      extra=""
+    fi
+    tofu apply $extra
+    if [ $? -ne 0 ]; then
+      while true; do
+        entry=""
+        read "entry?Failed or cancelled workspace ${workspace}. What action to take? Enter q to quit or c to continue: "
+        case $entry in
+          [Cc]* ) continue 2;;
+          [Qq]* ) break 2;;
+          * ) entry="" && read "entry?Invalid entry. q to quit or c to continue: "
+        esac
+      done
+      break
+    fi
+  done
+}
 
 #################################
 #           KUBECTL             #
@@ -293,9 +335,6 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 #           GCLOUD              #
 #################################
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/miles.sorlie/.local/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="$PATH:/Users/milessorlie/google-cloud-sdk/bin"
 # export CLOUDSDK_PYTHON=$(which python3.11)
 # export CLOUDSDK_PYTHON="/usr/bin/python3"
@@ -434,8 +473,24 @@ export GPG_TTY=$(tty)
 #     NODE VERSION MANAGER      #
 #################################
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Lazy-load nvm: defer the ~600ms source until first use.
+_nvm_lazy_load() {
+  unset -f nvm node npm npx pnpm yarn corepack 2>/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+for _cmd in nvm node npm npx pnpm yarn corepack; do
+  eval "${_cmd}() { _nvm_lazy_load; ${_cmd} \"\$@\"; }"
+done
+unset _cmd
+# Make `node` available on PATH without loading nvm (points at the default alias if set).
+if [ -s "$NVM_DIR/alias/default" ]; then
+  _nvm_default="$(command cat "$NVM_DIR/alias/default" 2>/dev/null)"
+  if [ -d "$NVM_DIR/versions/node/v${_nvm_default#v}/bin" ]; then
+    export PATH="$NVM_DIR/versions/node/v${_nvm_default#v}/bin:$PATH"
+  fi
+  unset _nvm_default
+fi
 
 #################################
 #           MISC                #
@@ -450,11 +505,7 @@ alias renovate-validate="npx --yes --package renovate -- renovate-config-validat
 
 export PATH="$HOME/.tools/lua-language-server/bin/Linux:$PATH"
 
-export PATH="$HOME/.tfenv/bin:$PATH"
 export PATH="$PATH:/opt/homebrew/Cellar/bash/5.2.32/bin"
-
-# kubectl package manager
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # add wireshark executable to path
 export PATH="$PATH:/Applications/Wireshark.app/Contents/MacOS"
@@ -501,6 +552,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
+setopt interactivecomments
+
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.work_zshrc
@@ -512,16 +565,10 @@ source ~/.work_zshrc
 # source ~/gitroot/src/powerlevel10k/config/p10k-classic.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k_work.zsh ]] || source ~/.p10k_work.zsh
-
-
-# The next line enables shell command completion for gcloud.
-export PATH="/opt/homebrew/opt/lua@5.3/bin:$PATH"
-
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="/opt/homebrew/opt/lua@5.3/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client@8.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
 

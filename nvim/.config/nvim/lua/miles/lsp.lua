@@ -2,6 +2,28 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
+-- Neovim 0.11.6 changed built-in detection so *.tf maps to filetype "tf"
+-- instead of "terraform", which breaks vim-terraform's lazy ft trigger and the
+-- terraform LSP filetypes. Force it back to "terraform".
+vim.filetype.add({
+	extension = {
+		tf = "terraform",
+	},
+})
+
+-- hashivim/vim-terraform's ftdetect forces *.tfvars to filetype=terraform,
+-- which makes tofu-ls parse them as .tf files (every assignment becomes an
+-- "Unexpected attribute"). Restore the correct terraform-vars filetype after
+-- the plugin's ftdetect has run.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "terraform",
+	callback = function(args)
+		if vim.api.nvim_buf_get_name(args.buf):match("%.tfvars$") then
+			vim.bo[args.buf].filetype = "terraform-vars"
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		vim.bo[args.buf].formatexpr = nil
@@ -193,9 +215,27 @@ local lsp_configs = {
 		on_attach = function(client, bufnr)
 			-- local clients = vim.lsp.get_clients({ bufnr = 0 })
 			client.server_capabilities.semanticTokensProvider = nil
+			-- tofu-ls only links terraform.tfvars / *.auto.tfvars to a module's
+			-- variable decls. Custom-named files (WORKSPACE.tfvars used via
+			-- -var-file) get false "Unexpected attribute" diagnostics, so hide
+			-- diagnostics on .tfvars buffers (keeps fmt/completion).
+			-- if vim.api.nvim_buf_get_name(bufnr):match("%.tfvars$") then
+			-- 	vim.diagnostic.enable(false, { bufnr = bufnr })
+			-- end
 		end,
 	},
-	tflint = { on_attach = on_attach },
+	tflint = {
+		cmd = { "tflint", "--langserver" },
+		on_attach = on_attach,
+		root_markers = { ".tflint.hcl", ".terraform", ".git" },
+		filetypes = { "terraform", "terraform-vars" },
+	},
+	marksman = {
+		cmd = { "marksman", "server" },
+		on_attach = on_attach,
+		root_markers = { ".marksman.toml", ".git" },
+		filetypes = { "markdown" },
+	},
 	expert = {
 		cmd = { "expert" },
 		root_markers = { "mix.exs", ".git" },

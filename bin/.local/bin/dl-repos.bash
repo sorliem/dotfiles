@@ -21,7 +21,7 @@ update_repo() {
       echo "pulling "$@
       git pull > /dev/null 2>&1
     else
-      echo "[x] $@ [x] skipping pull - not on master/main/develop";
+      echo "[x] $@ [x] skipping pull - not on main/main/develop";
     fi
   else
     echo "[x] $@ [x] skipping pull - repo is dirty";

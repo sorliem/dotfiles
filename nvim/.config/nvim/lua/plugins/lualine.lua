@@ -18,7 +18,7 @@ return {
 				},
 				sections = {
 					lualine_a = { "searchcount" },
-					lualine_b = {},
+					lualine_b = { "progress" },
 					lualine_c = {
 						{
 							"filename",
@@ -57,11 +57,11 @@ return {
 						-- 	return "PRs open ❌"
 						-- end
 						-- end,
-						-- { "diagnostics", sources = { "nvim_diagnostic" } },
+						{ "diagnostics", sources = { "nvim_diagnostic" } },
 					},
 					lualine_y = { "filetype" },
 					lualine_z = {
-						"progress",
+						-- "progress",
 						-- function()
 						-- 	return "DB:" .. vim.g.db_name
 						-- end,

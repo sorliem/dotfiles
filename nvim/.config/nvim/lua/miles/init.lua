@@ -1,3 +1,4 @@
+require("miles.error_log")
 require("miles.set")
 require("miles.lazy")
 require("miles.vim-functions")

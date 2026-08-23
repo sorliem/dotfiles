@@ -16,9 +16,16 @@ if ! tmux has-session -t "$SESSION" 2>/dev/null; then
     exit 1
 fi
 
-tmux list-windows -t $SESSION -F "#{window_index}" | while read win; do
-    echo "sending to $SESSION:$win"
-    tmux send-keys -t $SESSION:$win "$COMMAND" C-m
+# Use window IDs (e.g. @5) not indices: IDs are stable and never renumbered,
+# so closing an earlier window won't shift the targets out from under us.
+tmux list-windows -t "$SESSION" -F "#{window_id}" | while read -r win; do
+    # Skip windows that have since been closed.
+    if ! tmux list-windows -t "$SESSION" -F "#{window_id}" | grep -qx "$win"; then
+        echo "skipping $win (no longer exists)"
+        continue
+    fi
+    echo "sending to $win"
+    tmux send-keys -t "$win" "$COMMAND" C-m
     echo "sleeping $SLEEP_SEC"
-    sleep $SLEEP_SEC
+    sleep "$SLEEP_SEC"
 done

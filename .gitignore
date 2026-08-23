@@ -19,3 +19,4 @@ bin/.local/bin/dl-atlantis-repos.bash
 bin/.local/bin/update-atlantis-repos.bash
 bin/.local/bin/tfdocs2.sh
 k9s/.config/k9s/clusters/*
+claude/

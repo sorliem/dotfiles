@@ -2,7 +2,7 @@
 return {
 	"christoomey/vim-tmux-navigator",
 
-	{ "hashivim/vim-terraform", ft = "terraform" },
+	-- { "hashivim/vim-terraform", ft = "terraform" },
 	{ "dstein64/vim-startuptime", cmd = "StartupTime" },
 	{ "cespare/vim-toml", ft = "toml" },
 	{ "elixir-editors/vim-elixir", ft = { "elixir", "eelixir" } },

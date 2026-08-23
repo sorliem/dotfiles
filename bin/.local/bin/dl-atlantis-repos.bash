@@ -15,7 +15,7 @@ clone_repo() {
     echo "==> CLONING NEW REPO: $repo"
     mkdir -p "$wrapper"
     git clone --bare "git@github.com:onXmaps/$repo.git" "$bare"
-    git -C "$bare" worktree add "$wrapper/master" master
+    git -C "$bare" worktree add "$wrapper/main" main
   fi
 }
 
@@ -25,8 +25,8 @@ update_repo() {
   local bare="$wrapper/$repo.git"
   echo "fetching $repo"
   git -C "$bare" fetch --all --prune > /dev/null 2>&1
-  if [ ! -d "$wrapper/master" ]; then
-    git -C "$bare" worktree add "$wrapper/master" master
+  if [ ! -d "$wrapper/main" ]; then
+    git -C "$bare" worktree add "$wrapper/main" main
   fi
 }
 

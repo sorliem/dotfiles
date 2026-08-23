@@ -47,6 +47,9 @@ bindings = [
   { key = "Key8", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "8"] } },
   { key = "Key9", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["select-window", "-t", "9"] } },
 
+  { key = "Left", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["previous-window"] } },
+  { key = "Right", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["next-window"] } },
+
   { key = "Y", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "terraform-modules"] } },
   { key = "U", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "dotfiles"] } },
   { key = "I", mods = "Command", command = { program = "/opt/homebrew/bin/tmux", args = ["switch-client", "-t", "terraform-modules"] } },

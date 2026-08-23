@@ -17,11 +17,13 @@ return {
 					json = { "prettier", stop_after_first = true },
 					["*.json.tftpl"] = { "prettier" },
 				},
-				format_on_save = {
+				format_on_save = function(bufnr)
+					if vim.bo[bufnr].filetype == "rust" then
+						return
+					end
 					-- These options will be passed to conform.format()
-					timeout_ms = 2500,
-					lsp_format = "fallback",
-				},
+					return { timeout_ms = 2500, lsp_format = "fallback" }
+				end,
 			})
 		end,
 	},

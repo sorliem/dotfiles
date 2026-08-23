@@ -16,12 +16,7 @@ return {
 			-- vim.keymap.set("n", "<Leader>gp", ":Git pull<CR>", { desc = "[G]it [P]ull" })
 
 			-- Fugitive diff master
-			vim.keymap.set(
-				"n",
-				"<Leader>gd",
-				":Git diff master..HEAD<CR>:only<CR>",
-				{ desc = "[G]it [D]iff master..HEAD" }
-			)
+			vim.keymap.set("n", "<Leader>gd", ":Git diff main..HEAD<CR>:only<CR>", { desc = "[G]it [D]iff main..HEAD" })
 
 			vim.keymap.set("n", "<leader>gho", function()
 				vim.cmd("GBrowse")

@@ -263,6 +263,7 @@ return {
 
 			local mappings = {
 				terraform = "tf",
+				["terraform-vars"] = "tf",
 				dockerfile = "docker",
 				eelixir = "elixir",
 				nginx = "config",

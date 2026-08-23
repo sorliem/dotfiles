@@ -190,7 +190,7 @@ end, { desc = "Switch to local module" })
 -- end, "[R]un all [T]ests - only Elixir")
 
 map("n", "<leader>td", function()
-	local baseurl = "https://registry.terraform.io/?q=%s"
+	local baseurl = "https://www.google.com/search?q=%s terraform"
 	local word = vim.fn.expand("<cword>")
 	local url = string.format(baseurl, word)
 	vim.ui.open(url)

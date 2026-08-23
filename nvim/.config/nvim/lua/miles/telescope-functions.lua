@@ -241,17 +241,17 @@ _M.github_pull_requests = function(opts)
 end
 
 _M.tf_state_show = function()
-	local workspace = vim.fn.system("terraform workspace show"):gsub("\n", "")
+	local workspace = vim.fn.system("tofu workspace show"):gsub("\n", "")
 	pickers
 		.new({
 			prompt_title = "Terraform state show",
 			results_title = string.format("Resources (%s)", workspace),
-			finder = finders.new_oneshot_job({ "terraform", "state", "list" }, { cwd = vim.uv.cwd() }),
+			finder = finders.new_oneshot_job({ "tofu", "state", "list" }, { cwd = vim.uv.cwd() }),
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.new_buffer_previewer({
 				define_preview = function(self, entry, status)
 					return require("telescope.previewers.utils").job_maker(
-						{ "terraform", "state", "show", entry.value, "-no-color" },
+						{ "tofu", "state", "show", entry.value, "-no-color" },
 						self.state.bufnr,
 						{
 							callback = function(bufnr, content)
