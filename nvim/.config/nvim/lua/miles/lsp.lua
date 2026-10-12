@@ -30,8 +30,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(_, bufnr)
 	local map = function(mode, keys, func, desc)
@@ -62,17 +60,34 @@ local on_attach = function(_, bufnr)
 		vim.diagnostic.open_float()
 	end, "Open floating diagnostic message")
 
+	-- 0.12 deprecated the "float" key in vim.diagnostic.JumpOpts; use on_jump
+	local function jump_diagnostic(count)
+		vim.diagnostic.jump({
+			count = count,
+			on_jump = function(_, bufnr)
+				vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor" })
+			end,
+		})
+	end
+
 	map("n", "]d", function()
-		vim.diagnostic.jump({ count = 1, float = true })
+		jump_diagnostic(1)
 	end, "Next diagnostic")
 
 	map("n", "[d", function()
-		vim.diagnostic.jump({ count = -1, float = true })
+		jump_diagnostic(-1)
 	end, "Previous diagnostic")
 end
 
+-- completion capabilities come from blink.cmp; fall back to the built-in set on
+-- a fresh install where the plugin is not on the runtimepath yet
+local ok_blink, blink = pcall(require, "blink.cmp")
+local capabilities = ok_blink and blink.get_lsp_capabilities(nil, true)
+	or vim.lsp.protocol.make_client_capabilities()
+
 vim.lsp.config("*", {
 	root_markers = { ".git" },
+	capabilities = capabilities,
 })
 
 local lsp_configs = {
@@ -145,7 +160,6 @@ local lsp_configs = {
 		on_attach = on_attach,
 		-- lazy-load schemastore when needed
 		before_init = function(_, config)
-			print("config = " .. vim.inspect(config))
 			config.settings.json.schemas = config.settings.json.schemas or {}
 			vim.list_extend(config.settings.json.schemas, require("schemastore").json.schemas())
 		end,

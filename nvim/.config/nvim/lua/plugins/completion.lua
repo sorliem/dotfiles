@@ -1,141 +1,116 @@
+-- blink.cmp replaces nvim-cmp (upstream unmaintained). Source parity with the
+-- old cmp setup: lsp / path / buffer / luasnip / signature-help / nvim_lua
+-- (via lazydev) / git / emoji, plus cmdline completion.
 return {
 	{
-		"hrsh7th/nvim-cmp",
-		-- event = "VeryLazy",
+		"saghen/blink.cmp",
+		version = "1.*",
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
-			"onsails/lspkind.nvim",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"hrsh7th/cmp-emoji",
-			"petertriho/cmp-git",
+			"L3MON4D3/LuaSnip",
+			"folke/lazydev.nvim",
+			"Kaiser-Yang/blink-cmp-git",
+			"moyiz/blink-emoji.nvim",
 		},
-		config = function()
-			local cmp = require("cmp")
-			local cmp_buffer = require("cmp_buffer")
+		opts = {
+			snippets = { preset = "luasnip" },
 
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
+			-- keys match the previous nvim-cmp bindings
+			keymap = {
+				preset = "none",
+				["<C-y>"] = { "select_and_accept" },
+				["<C-e>"] = { "hide", "fallback" },
+				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+				-- `fallback` keeps luasnip's <C-n>/<C-p> choice-node cycling working
+				-- when the menu is closed (see lua/plugins/snippets.lua)
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback" },
+				["<C-u>"] = { "scroll_documentation_up", "fallback" },
+				["<C-d>"] = { "scroll_documentation_down", "fallback" },
+			},
+
+			appearance = {
+				nerd_font_variant = "mono",
+			},
+
+			completion = {
+				list = {
+					-- mimics cmp's noselect + SelectBehavior.Insert
+					selection = { preselect = false, auto_insert = true },
 				},
-				mapping = {
-					["<C-u>"] = cmp.mapping.scroll_docs(-4),
-					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-					-- ["<C-n>"] = cmp.mapping.select_next_item(),
-					-- ["<C-p>"] = cmp.mapping.select_prev_item(),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.close(),
-					["<C-y>"] = cmp.mapping(
-						cmp.mapping.confirm({
-							behavior = cmp.ConfirmBehavior.Insert,
-							select = true,
-						}),
-						{ "i", "c" }
-					),
-					-- ["<CR>"] = cmp.mapping.confirm({ select = false }),
-				},
-				window = {
-					-- completion = cmp.config.window.bordered(),
-					-- documentation = cmp.config.window.bordered(),
-				},
-				formatting = {
-					expandable_indicator = true,
-					format = require("lspkind").cmp_format({
-						mode = "symbol_text",
-						maxwidth = function()
-							return math.floor(0.45 * vim.o.columns)
-						end,
-						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-						with_text = true,
-						menu = {
-							buffer = "[buf]",
-							nvim_lsp = "[LSP]",
-							nvim_lua = "[lua]",
-							luasnip = "[snip]",
-							cmp_tabnine = "[TN]",
-							path = "[path]",
-							copilot = "",
-							["vim-dadbod-completion"] = "[DB]",
+				menu = {
+					max_height = 15,
+					draw = {
+						columns = {
+							{ "kind_icon" },
+							{ "label", "label_description", gap = 1 },
+							{ "source_name" },
 						},
-					}),
+					},
 				},
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+				},
+			},
 
-				sources = {
-					{ name = "git" },
-					{ name = "nvim_lsp" },
-					{ name = "nvim_lua" },
-					-- { name = "copilot" },
-					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip", max_item_count = 10 },
-					{
-						name = "buffer",
-						keyword_length = 3,
-						max_item_count = 7,
-						option = {
+			-- replaces cmp-nvim-lsp-signature-help
+			signature = { enabled = true },
+
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "lazydev", "git", "emoji" },
+				providers = {
+					-- replaces cmp-nvim-lua
+					lazydev = {
+						name = "lazydev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
+					},
+					-- replaces cmp-git
+					git = {
+						name = "git",
+						module = "blink-cmp-git",
+						enabled = function()
+							return vim.tbl_contains({ "gitcommit", "markdown", "octo" }, vim.bo.filetype)
+						end,
+						opts = {},
+					},
+					-- replaces cmp-emoji
+					emoji = {
+						name = "emoji",
+						module = "blink-emoji",
+						score_offset = 15,
+						opts = { insert = true },
+					},
+					buffer = {
+						min_keyword_length = 3,
+						max_items = 7,
+						opts = {
 							get_bufnrs = function()
 								return vim.api.nvim_list_bufs()
 							end,
 						},
 					},
-					{ name = "emoji" },
-					{ name = "path" },
+					snippets = { max_items = 10 },
 				},
-				sorting = {
-					priority_weight = 1,
-					-- comparators = {
-					-- 	function(...)
-					-- 		-- sort completion results based on the distance of the word from the cursor line
-					-- 		return cmp_buffer:compare_locality(...)
-					-- 	end,
-					-- },
-					comparators = {
-						cmp.config.compare.offset,
-						cmp.config.compare.exact,
-						cmp.config.compare.recently_used,
-						-- require("copilot_cmp.comparators").prioritize,
-						cmp.config.compare.score,
-						cmp.config.compare.kind,
-						cmp.config.compare.sort_text,
-						cmp.config.compare.length,
-						cmp.config.compare.order,
-					},
-				},
-				experimental = {
-					native_menu = false,
-					ghost_text = false,
-				},
-			})
+			},
 
-			require("cmp_git").setup()
-
-			cmp.setup.cmdline("/", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
-					{ name = "buffer" },
+			cmdline = {
+				keymap = {
+					preset = "cmdline",
+					["<C-y>"] = { "select_and_accept" },
+					["<C-n>"] = { "select_next", "fallback" },
+					["<C-p>"] = { "select_prev", "fallback" },
+					["<C-e>"] = { "hide", "fallback" },
 				},
-			})
+				completion = {
+					menu = { auto_show = true },
+					list = { selection = { preselect = false, auto_insert = true } },
+				},
+			},
 
-			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({
-					{ name = "path" },
-				}, {
-					{
-						name = "cmdline",
-						option = {
-							ignore_cmds = { "Man", "!", "write", "quit", "global" },
-						},
-					},
-				}),
-			})
-		end,
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 }

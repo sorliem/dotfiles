@@ -13,7 +13,7 @@ return {
 					vim.cmd([[
 						augroup DadbodSql
 							au!
-							autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion' } } }
+							" cond = false; on blink.cmp this needs saghen/blink.compat to expose vim-dadbod-completion
 						augroup END
 					]])
 				end,

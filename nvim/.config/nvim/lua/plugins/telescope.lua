@@ -20,7 +20,6 @@ return {
 		end
 
 		local open_file_in_tmux_session = function(prompt_bufnr)
-			local current_picker = action_state.get_current_picker(prompt_bufnr) -- picker state
 			local entry = action_state.get_selected_entry()
 
 			if not entry then

@@ -3,18 +3,13 @@ return {
 	"christoomey/vim-tmux-navigator",
 
 	-- { "hashivim/vim-terraform", ft = "terraform" },
-	{ "dstein64/vim-startuptime", cmd = "StartupTime" },
-	{ "cespare/vim-toml", ft = "toml" },
+	{ "dstein64/vim-startuptime",  cmd = "StartupTime" },
+	{ "cespare/vim-toml",          ft = "toml" },
 	{ "elixir-editors/vim-elixir", ft = { "elixir", "eelixir" } },
-	{ "udalov/kotlin-vim", ft = "kotlin" },
-	{
-		"jparise/vim-graphql",
-		ft = "graphql",
-		cond = false,
-	},
-	{ "chr4/nginx.vim", ft = "template" },
-	{ "lepture/vim-jinja", ft = "template" },
-	{ "ThePrimeagen/vim-be-good", cmd = "VimBeGood" },
+	{ "udalov/kotlin-vim",         ft = "kotlin" },
+	{ "chr4/nginx.vim",            ft = "template" },
+	{ "lepture/vim-jinja",         ft = "template" },
+	{ "ThePrimeagen/vim-be-good",  cmd = "VimBeGood" },
 	{
 		"nvim-lua/popup.nvim",
 		dependencies = {
@@ -23,12 +18,13 @@ return {
 	},
 
 	{
-		"norcalli/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
 		end,
 	},
 
+	-- preview jumping to line with :{number}
 	{
 		"nacro90/numb.nvim",
 		config = function()
@@ -47,16 +43,4 @@ return {
 			]])
 		end,
 	},
-	{
-		"maxandron/goplements.nvim",
-		ft = "go",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
-	},
-
-	-- Interesting plugins
-	-- https://github.com/metakirby5/codi.vim
 }

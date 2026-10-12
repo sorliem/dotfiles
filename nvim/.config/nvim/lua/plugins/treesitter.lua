@@ -1,9 +1,45 @@
+-- nvim-treesitter `main` branch (required for Neovim 0.12; `master` is EOL and
+-- explicitly unsupported). `main` has no `nvim-treesitter.configs` module:
+-- highlighting, indentation and parser installs are wired up by hand below.
+local parsers = {
+	"bash",
+	"diff",
+	"eex",
+	"elixir",
+	"git_rebase",
+	"gitcommit",
+	"go",
+	"gomod",
+	"gowork",
+	"gotmpl",
+	"hcl",
+	"heex",
+	"html",
+	"json",
+	"json5",
+	"lua",
+	"luadoc",
+	"markdown",
+	"markdown_inline",
+	"python",
+	"query",
+	"rust",
+	"sql",
+	"terraform",
+	"toml",
+	"vim",
+	"vimdoc",
+	"yaml",
+}
+
+local max_filesize = 2000 * 1024 -- 2Mb
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
-		cond = true,
-		-- event = { "BufRead" },
 		dependencies = {
 			{
 				"nvim-treesitter/nvim-treesitter-context",
@@ -16,87 +52,41 @@ return {
 			},
 		},
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"diff",
-					"elixir",
-					"git_rebase",
-					"gitcommit",
-					"go",
-					"lua",
-					"query",
-					"rust",
-					"terraform",
-					"vimdoc",
-				},
-				auto_install = true,
-				indent = { enable = true },
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-					disable = function(_, buf)
-						local max_filesize = 2000 * 1024 -- 2Mb
-						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-						if ok and stats and stats.size > max_filesize then
-							return true
-						end
-					end,
-				},
-				query_linter = {
-					enable = true,
-					use_virtual_text = true,
-					lint_events = { "BufWrite", "CursorHold" },
-				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<c-space>",
-						node_incremental = "<c-space>",
-						scope_incremental = "<c-s>",
-						node_decremental = "<M-space>",
-					},
-				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-						keymaps = {
-							-- You can use the capture groups defined in textobjects.scm
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-						},
-					},
-				},
+			local ts = require("nvim-treesitter")
+
+			ts.setup({
+				install_dir = vim.fn.stdpath("data") .. "/site",
 			})
-		end,
-	},
-	{
-		"nvim-treesitter/playground",
-		cmd = "TSPlaygroundToggle",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				playground = {
-					enable = true,
-					disable = {},
-					updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-					persist_queries = false, -- Whether the query persists across vim sessions
-					keybindings = {
-						toggle_query_editor = "o",
-						toggle_hl_groups = "i",
-						toggle_injected_languages = "t",
-						toggle_anonymous_nodes = "a",
-						toggle_language_display = "I",
-						focus_language = "f",
-						unfocus_language = "F",
-						update = "R",
-						goto_node = "<cr>",
-						show_help = "?",
-					},
-				},
+
+			-- replaces `ensure_installed`; async, no-op for already-installed parsers
+			ts.install(parsers)
+
+			local wanted = {}
+			for _, lang in ipairs(parsers) do
+				wanted[lang] = true
+			end
+
+			-- replaces `highlight.enable` + `indent.enable`
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("miles-treesitter", { clear = true }),
+				callback = function(args)
+					local ft = vim.bo[args.buf].filetype
+					local lang = vim.treesitter.language.get_lang(ft) or ft
+					if not wanted[lang] then
+						return
+					end
+
+					local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+					if ok and stats and stats.size > max_filesize then
+						return
+					end
+
+					if not pcall(vim.treesitter.start, args.buf, lang) then
+						return
+					end
+
+					vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
 			})
 		end,
 	},

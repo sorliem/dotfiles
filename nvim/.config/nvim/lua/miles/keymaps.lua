@@ -4,7 +4,7 @@ end
 
 local function is_quickfix_open()
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype") == "quickfix" then
+		if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "quickfix" then
 			return true
 		end
 	end
