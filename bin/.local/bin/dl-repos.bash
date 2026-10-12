@@ -14,8 +14,8 @@ clone_repo() {
 
 update_repo() {
   pushd /Users/milessorlie/gitroot/onxmaps/$@ > /dev/null 2>&1
-  if [ -z "$(git status --porcelain)" ]; then
-    # Working directory clean
+  if [ -z "$(git status --porcelain --untracked-files=no)" ]; then
+    # No modified tracked files (untracked files ok)
     BRANCH="$(git rev-parse --abbrev-ref HEAD)"
     if [[ "$BRANCH" == "master" ]] || [[ "$BRANCH" == "main" ]] || [[ "$BRANCH" == "develop" ]] || [[ "$BRANCH" == "onx-master" ]] || [[ "$BRANCH" == "v2-master" ]]; then
       echo "pulling "$@

@@ -20,7 +20,7 @@ vim.opt.listchars = {
 	lead = "·",
 	space = "·",
 	trail = "·",
-	eol = "↵",
+	-- eol = "↵",
 	extends = "›",
 	precedes = "‹",
 	nbsp = "␣",
@@ -81,9 +81,9 @@ vim.opt.conceallevel = 0
 
 vim.g.editorconfig = true
 
-vim.g.netrw_banner = 0 -- disable annoying banner
+vim.g.netrw_banner = 0       -- disable annoying banner
 vim.g.netrw_browse_split = 4 -- open in prior window
-vim.g.netrw_altv = 1 -- open splits to the right
+vim.g.netrw_altv = 1         -- open splits to the right
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
